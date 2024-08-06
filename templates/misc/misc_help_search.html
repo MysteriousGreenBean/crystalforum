@@ -1,0 +1,20 @@
+<div class="legend mt-4 mb-4">{$lang->search}</div>
+<div class="ps-3 pe-3">
+<form action="misc.php" method="post">
+<input type="text" name="keywords" value="{$lang->enter_keywords}" onfocus="if(this.value == '{$lang->enter_keywords}') { this.value = ''; }" onblur="if(this.value=='') { this.value='{$lang->enter_keywords}'; }" class="form-control border" size="25" />
+	
+	<div class="form-check form-check-inline mt-1">
+  <input name="name" class="form-check-input" checked="checked" value="1" type="checkbox">
+  <label class="form-check-label" for="inlineCheckbox1">{$lang->search_by_name}</label>
+</div>
+<div class="form-check form-check-inline mt-1">
+  <input name="document" class="form-check-input" checked="checked" value="1" type="checkbox">
+  <label class="form-check-label" for="inlineCheckbox2">{$lang->search_by_document}</label>
+</div>
+	
+	<div class="text-end mt-3">
+<input type="hidden" name="action" value="do_helpsearch" />
+<input type="submit" class="btn btn-primary" name="submit" value="{$lang->search_help_documents}" />
+</div>
+</form>
+</div>

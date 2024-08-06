@@ -1,0 +1,29 @@
+<div class="mb-2">
+{$lang->image_verification}
+<br />
+	<span class="text-muted">{$lang->verification_note}</span>
+</div>
+<div class="row">
+	<div class="col-auto">
+<script type="text/javascript">
+<!--
+	lang.captcha_fetch_failure = "{$lang->captcha_fetch_failure}";
+// -->
+</script>
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/captcha.js?ver=1821"></script>
+
+	<img src="{$mybb->settings['bburl']}/captcha.php?imagehash={$imagehash}" alt="{$lang->image_verification}" title="{$lang->image_verification}" id="captcha_img" /><br /><span class="smalltext text-danger">{$lang->verification_subnote}</span>
+</div>
+<div class="col text-end">
+
+		<input type="text" class="form-control border p-2 ps-3 border-0" style="background: #f4f5f8" name="imagestring" style="width:100px" value="" id="imagestring" size="16" /><input type="hidden" name="imagehash" value="{$imagehash}" class="text-center" id="imagehash" />
+		<script type="text/javascript">
+		<!--
+			if(use_xmlhttprequest == "1")
+			{
+				document.write('<input type="button" class="btn btn-primary mt-1" name="refresh" value="{$lang->refresh}" onclick="return captcha.refresh();" \/>');
+			}
+		// -->
+		</script>
+</div>
+</div>

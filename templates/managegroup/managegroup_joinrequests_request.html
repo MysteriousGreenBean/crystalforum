@@ -1,0 +1,23 @@
+<div class="ps-3 pe-3 text-muted">
+	{$user['profilelink']} <br />
+	<i class="bi bi-arrow-return-right"></i> {$user['reason']}
+	
+	<div class="mt-3">
+		
+		<div class="form-check form-check-inline">
+  <input type="radio" class="form-check-input" name="request[{$user['uid']}]" value="accept" />
+  <label class="form-check-label" for="inlineRadio1">{$lang->accept}</label>
+</div>
+		
+		<div class="form-check form-check-inline">
+  <input type="radio" class="form-check-input" name="request[{$user['uid']}]" value="ignore" checked="checked" />
+  <label class="form-check-label" for="inlineRadio1">{$lang->ignore}</label>
+</div>
+		
+		<div class="form-check form-check-inline">
+  <input type="radio" class="form-check-input" name="request[{$user['uid']}]" value="decline" />
+  <label class="form-check-label" for="inlineRadio1">{$lang->decline}</label>
+</div>
+		
+	</div>
+</div>

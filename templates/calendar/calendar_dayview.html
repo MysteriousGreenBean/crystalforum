@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->calendar}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+	<div class="container">
+	<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+{$birthdays}
+{$events}
+
+<form action="calendar.php" method="post">
+	<div class="row mt-4">
+		<div class="col-6">
+			&nbsp;
+		</div>
+		<div class="col-6">
+			
+			<div class="row">
+				<div class="col align-self-center">
+					
+						<select name="month" class="form-select border">
+							<option value="{$month}">{$monthnames[$month]}</option>
+							<option value="{$month}">----------</option>
+							<option value="1">{$lang->alt_month_1}</option>
+							<option value="2">{$lang->alt_month_2}</option>
+							<option value="3">{$lang->alt_month_3}</option>
+							<option value="4">{$lang->alt_month_4}</option>
+							<option value="5">{$lang->alt_month_5}</option>
+							<option value="6">{$lang->alt_month_6}</option>
+							<option value="7">{$lang->alt_month_7}</option>
+							<option value="8">{$lang->alt_month_8}</option>
+							<option value="9">{$lang->alt_month_9}</option>
+							<option value="10">{$lang->alt_month_10}</option>
+							<option value="11">{$lang->alt_month_11}</option>
+							<option value="12">{$lang->alt_month_12}</option>
+						</select>
+				</div>
+				<div class="col align-self-center">
+						<select name="year" class="form-select border">
+							<option value="{$year}">{$year}</option>
+							<option value="{$year}">----------</option>
+							{$yearsel}
+						</select>
+				</div>
+				<div class="col-auto align-self-center">
+						{$gobutton}
+				</div></div>
+		</div>
+	</div>
+		
+</form>
+		</div></div></div>
+{$footer}
+</body>
+</html>

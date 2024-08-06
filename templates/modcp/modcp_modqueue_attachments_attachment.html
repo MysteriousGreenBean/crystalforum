@@ -1,0 +1,24 @@
+<div class="border border-5 p-3 rounded bg-light mb-2">
+<div class="row m-0">
+	<div class="col align-self-center">
+		<a href="attachment.php?aid={$attachment['aid']}" target="_blank">{$attachment['filename']}</a> ({$attachment['filesize']}) 
+	</div>
+	<div class="col-12 col-sm-12 col-md-12 col-lg col-xl col-xxl align-self-center mt-3 mt-sm-3 mt-md-3 mt-lg-0 mt-xl-0 mt-xxl-0 text-start text-sm-start text-md-start text-lg-end text-xl-end text-xxl-end">
+
+<input type="radio" class="form-check-input radio_ignore" name="attachments[{$attachment['aid']}]" value="ignore" checked="checked" /> {$lang->ignore}
+	&nbsp;&nbsp;	
+<input type="radio" class="form-check-input radio_delete" name="attachments[{$attachment['aid']}]" value="delete" /> {$lang->delete}
+		&nbsp;&nbsp;
+<input type="radio" class="form-check-input radio_approve" name="attachments[{$attachment['aid']}]" value="approve" /> {$lang->approve}
+
+	</div>
+</div>
+<div class="row m-0 mt-3">
+	<div class="col align-self-center">
+		{$lang->post} <a href="{$link}">{$attachment['postsubject']}</a>
+		<div class="mt-3 text-muted">
+			{$attachdate}
+		</div>
+	</div>
+</div>
+</div>

@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>{$thread['subject']} - {$lang->who_posted}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<br />
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td colspan="2" class="thead"><strong>{$lang->total_posts} {$numposts}</strong></td>
+</tr>
+<tr>
+<td class="tcat"><span class="smalltext"><strong><a href="{$mybb->settings['bburl']}/misc.php?action=whoposted&tid={$thread['tid']}&sort=username">{$lang->user}</a></strong></span></td>
+<td class="tcat"><span class="smalltext"><strong><a href="{$mybb->settings['bburl']}/misc.php?action=whoposted&tid={$thread['tid']}">{$lang->num_posts}</a></strong></span></td>
+</tr>
+{$whoposted}
+</table>
+{$footer}
+</body>
+</html>

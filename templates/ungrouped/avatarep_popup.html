@@ -1,0 +1,34 @@
+<div class="modal">
+	<div class="thead">
+	<span class="avatarep_tavatar">
+			{$memprofile['avatar']}
+	</span>
+	<span class="avatarep_usern">
+			<a href="member.php?action=profile&amp;uid={$uid}">
+				<span class="avatarep_uname">{$formattedname}</span>
+			</a>
+			<span class="avatarep_usert">
+				{$usertitle}
+			</span>
+	</span>
+	</div>
+	<div class="trow2 avatarep_divisor">
+		<div class="avatarep_uprofile">
+			<span class="avatarep_memprofile">
+				<a href="member.php?action=profile&amp;uid={$uid}">{$lang->avatarep_user_profile}</a>
+				<a href="private.php?action=send&amp;uid={$memprofile['uid']}">{$lang->avatarep_user_sendpm}</a>
+				<a href="search.php?action=finduserthreads&amp;uid={$uid}">{$lang->find_threads}</a>
+				<a href="search.php?action=finduser&amp;uid={$uid}">{$lang->find_posts}</a>
+			</span>
+			<span class="avatarep_data">
+				<span class="avatarep_data_item">{$lang->registration_date} {$memregdate}</span>
+				<span class="avatarep_data_item">{$lang->reputation} {$memprofile['reputation']}</span>
+				<span class="avatarep_data_item">{$lang->total_threads} {$memprofile['threadnum']}</span>
+				<span class="avatarep_data_item">{$lang->total_posts} {$memprofile['postnum']}</span>
+				<span class="avatarep_data_item">{$lang->lastvisit} {$memlastvisitdate} {$memlastvisittime}</span>
+				<span class="avatarep_data_item">{$lang->warning_level} <a href="{$warning_link}">{$warning_level} %</a></span>
+				<span style="float:right;">{$lang->postbit_status} {$online_status}</span>	
+			</span>
+		</div>
+	</div>
+</div>

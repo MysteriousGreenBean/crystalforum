@@ -1,0 +1,1 @@
+<option value="{$key}"{$selected}>&nbsp;&nbsp;&nbsp;{$language}</option>

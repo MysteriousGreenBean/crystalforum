@@ -1,0 +1,18 @@
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+<thead>
+<tr>
+	<td class="thead{$collapsedthead['threadnotes']}">
+		<div class="expcolimage"><img src="{$theme['imgdir']}/collapse{$collapsedimg['threadnotes']}.png" id="threadnotes_img" class="expander" alt="{$expaltext}" title="{$expaltext}" /></div>
+		<div><span class="smalltext"><strong>{$lang->view_thread_notes}</strong></span></div>
+	</td>
+</tr>
+</thead>
+<tbody style="{$collapsed['threadnotes_e']}" id="threadnotes_e">
+<tr>
+	<td class="trow1">
+		{$thread['notes']}
+	</td>
+</tr>
+</tbody>
+</table>
+<br />

@@ -1,0 +1,16 @@
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder" style="width: 180px;">
+	<thead>
+		<tr>
+			<td class="thead" colspan="8">
+				<strong><a href="{$month_link}">{$monthnames[$month]} {$year}</a></strong>
+			</td>
+		</tr>
+		<tr>
+			<td class="tcat">&nbsp;</td>
+		{$weekday_headers}
+		</tr>
+	</thead>
+	<tbody>
+	{$calendar_rows}
+	</tbody>
+</table>

@@ -1,0 +1,33 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row mb-4 ps-3 pe-3">
+	<div class="col-4 align-self-center">
+		<strong>{$usergroup['title']}</strong>
+		<span class="text-muted">{$description}</span>
+	</div>
+	<div class="col-4 align-self-center text-center">
+		{$conditions}<br />
+		{$usergroupleaders}
+	</div>
+	<div class="col-4 align-self-center text-center">
+		{$joinlink}
+	</div>
+</div>
+</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none ps-3 pe-3 mb-4">
+	<div class="row">
+		<div class="col align-self-top">
+			<strong>{$usergroup['title']}</strong>
+			
+			<span class="text-muted">{$description}</span>
+		</div>
+		<div class="col align-self-top">
+			{$conditions}<br />
+		{$usergroupleaders}
+		</div>
+	</div>
+	
+	<div class="mt-3 text-end">
+		{$joinlink}
+	</div>
+</div>

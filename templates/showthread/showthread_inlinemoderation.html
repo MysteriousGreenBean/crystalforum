@@ -1,0 +1,68 @@
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/inline_moderation.js?ver=1821"></script>
+<form action="moderation.php" method="post" style="margin-top: 0; margin-bottom: 0;" id="inlinemoderation_options">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="tid" value="{$tid}" />
+<input type="hidden" name="modtype" value="inlinepost" />
+	{$lang->inline_post_moderation}
+<select name="action" id="inlinemoderation_options_selector" class="form-select border text-start">
+{$standardposttools}
+{$customposttools}
+</select>
+		
+<input type="submit" class="btn btn-primary mt-1" name="go" value="{$lang->go} ({$inlinecount})" id="inline_go" />
+<input type="button" class="btn btn-primary mt-1" onclick="inlineModeration.clearChecked();" value="{$lang->clear}" />
+</form>
+<script type="text/javascript">
+<!--
+	var go_text = "{$lang->inline_go}";
+	var all_text = "{$threadcount}";
+	var inlineType = "thread";
+	var inlineId = {$tid};
+
+	$("#inlinemoderation_options_selector").on('change', function() {
+		$("#inlinemoderation_options").trigger('submit');
+	})
+// -->
+	</script>
+</div>
+
+
+
+	<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+	
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/inline_moderation.js?ver=1821"></script>
+<form action="moderation.php" method="post" style="margin-top: 0; margin-bottom: 0;" id="inlinemoderation_options">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="tid" value="{$tid}" />
+<input type="hidden" name="modtype" value="inlinepost" />
+	{$lang->inline_post_moderation}
+	<div class="row">
+		<div class="col align-self-center">
+<select name="action" id="inlinemoderation_options_selector" class="form-select border text-start">
+{$standardposttools}
+{$customposttools}
+</select>
+		</div>
+		<div class="col-auto align-self-center">
+<input type="submit" class="btn btn-primary" name="go" value="{$lang->go} ({$inlinecount})" id="inline_go" />
+		</div>
+		<div class="col-auto align-self-center">
+<input type="button" class="btn btn-primary" onclick="inlineModeration.clearChecked();" value="{$lang->clear}" />
+		</div>
+	</div>
+</form>
+<script type="text/javascript">
+<!--
+	var go_text = "{$lang->inline_go}";
+	var all_text = "{$threadcount}";
+	var inlineType = "thread";
+	var inlineId = {$tid};
+
+	$("#inlinemoderation_options_selector").on('change', function() {
+		$("#inlinemoderation_options").trigger('submit');
+	})
+// -->
+	</script>
+	
+</div>

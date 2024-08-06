@@ -1,0 +1,29 @@
+<div class="legend mt-4 mb-4">{$lang->custom_usertitle}</div>
+
+<div class="row p-3 mb-2">
+	<div class="col text-muted">
+		
+		{$lang->custom_usertitle_note}
+		
+	</div>
+</div>
+
+<div class="row p-3 mb-2">
+	<div class="col-6">
+		
+		{$lang->default_usertitle} <strong>{$defaulttitle}</strong>
+		
+	</div>
+	<div class="col-6">
+		
+		{$currentcustom}
+		
+	</div>
+</div>
+
+<div class="form-group ps-3 pe-3">
+	<label for="newtitle">{$lang->new_custom_usertitle}</label>
+	<input type="text" class="form-control border border" name="usertitle" maxlength="{$mybb->settings['customtitlemaxlength']}" value="{$newtitle}" />
+	
+	{$reverttitle}
+</div>

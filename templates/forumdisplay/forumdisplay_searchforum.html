@@ -1,0 +1,13 @@
+<div class="row">
+<div class="col align-self-center">
+<form action="search.php">
+<input type="text" name="keywords" class="form-control border border" size="50"  />
+	</div>
+	<div class="col-auto align-self-center">
+			<button type="submit" class="btn btn-primary" value="Go!">{$lang->search_button}</button>
+	<input type="hidden" name="action" value="do_search" />
+	<input type="hidden" name="forums[]" value="{$fid}" />
+	<input type="hidden" name="postthread" value="1" />
+	</form>
+</div>
+</div>

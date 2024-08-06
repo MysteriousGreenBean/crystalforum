@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']}</title>
+<link rel="alternate" type="application/rss+xml" title="{$lang->latest_announcements} (RSS 2.0)" href="{$mybb->settings['bburl']}/syndication.php?portal=1" />
+<link rel="alternate" type="application/atom+xml" title="{$lang->latest_announcements} (Atom 1.0)" href="{$mybb->settings['bburl']}/syndication.php?portal=1&type=atom1.0" />
+{$headerinclude}
+</head>
+<body>
+{$header}
+	
+<div class="container-md">
+    <div class="row">
+       
+        <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3">
+            {$welcome}
+			{$pms}
+			{$search}
+			{$stats}
+			{$whosonline}
+			{$latestthreads}
+        </div>
+		 <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 col-xxl-9">
+
+			  {$announcements}
+				{$multipage}
+        </div>
+    </div>
+	</div>
+{$footer}
+</body>
+</html>

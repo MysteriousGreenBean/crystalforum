@@ -1,0 +1,47 @@
+	<div class="mt-4"><a class="btn btn-multipage" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-smod" role="button">{$lang->mod_tab}</a>
+    <div id="collapse-smod" class="collapse mt-3">
+
+
+<div class="row">
+	<div class="col">
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/inline_moderation.js?ver=1821"></script>
+<form action="moderation.php" method="post" style="margin-top: 0; margin-bottom: 0;">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="tid" value="0" />
+<input type="hidden" name="searchid" value="{$sid}" />
+<input type="hidden" name="modtype" value="inlinepost" />
+<select name="action" class="form-select border">
+<optgroup label="{$lang->standard_mod_tools}">
+	<option value="multisoftdeleteposts">{$lang->inline_soft_delete_posts}</option>
+	<option value="multirestoreposts">{$lang->inline_restore_posts}</option>
+	<option value="multideleteposts">{$lang->inline_delete_posts}</option>
+	<option value="multimergeposts">{$lang->inline_merge_posts}</option>
+	<option value="multisplitposts">{$lang->inline_split_posts}</option>
+	<option value="multimoveposts">{$lang->inline_move_posts}</option>
+	<option value="multiapproveposts">{$lang->inline_approve_posts}</option>
+	<option value="multiunapproveposts">{$lang->inline_unapprove_posts}</option>
+</optgroup>
+{$customposttools}
+</select>
+		</div>
+		<div class="col-auto">
+<input type="submit" class="btn btn-primary" name="go" value="{$lang->go} ({$inlinecount})" id="inline_go" />
+			</div>
+		<div class="col-auto">
+<input type="button" class="btn btn-primary" onclick="inlineModeration.clearChecked();" value="{$lang->clear}" />
+<input type="hidden" name="url" value="{$return_url}" />
+<input type="hidden" name="inlinetype" value="search" />
+</form>
+<script type="text/javascript">
+<!--
+	var go_text = "{$lang->inline_go}";
+	var all_text = "{$postcount}";
+	var inlineType = "search";
+	var inlineId = "{$sid}";
+// -->
+</script>
+			</div>
+</div>
+		
+		   </div>
+</div>
