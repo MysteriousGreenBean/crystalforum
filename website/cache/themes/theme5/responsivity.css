@@ -1,0 +1,7 @@
+@media (max-width: 768px) {
+tr td.trow1:first-child, tr td.trow2:first-child, tr td.trow_shaded:first-child {
+	display:none;	
+}
+}
+		
+		

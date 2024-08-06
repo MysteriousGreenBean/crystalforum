@@ -1,0 +1,108 @@
+.star_rating_container {
+   display:inline-block;
+   vertical-align:middle;
+   margin-right:6px;
+   margin-top:6px;
+ }
+
+.star_rating {
+     unicode-bidi: bidi-override;
+     direction: rtl;
+     list-style:none outside none;
+     margin:0;
+     padding:0;
+}
+
+.star_rating,
+.star_rating li a:hover,
+.star_rating .current_rating {
+  vertical-align: middle;       
+ }
+
+td .star_rating {
+  margin-left: 0 auto;
+  width:120px;
+  position:relative;
+ 
+}
+
+.star_rating li {
+  margin-left:5px;
+  float:right;
+  unicode-bidi: bidi-override;
+ }
+
+.star_rating li a {
+  color:#97adb9;
+  text-decoration:none;
+}
+
+.star_rating li a {
+  font-size:0px;
+}
+
+.star_rating li a:before {
+	font-family: 'Font Awesome 5 Free';
+  content: "\f005";
+  font-size:14px;
+	font-weight: 900;
+} 
+
+/*Firefox hack*/
+@-moz-document url-prefix() {
+.star_rating li a:before {
+  font-size:18px;
+  position:relative;
+  top:-5px;
+} 
+}
+ 
+.star_rating_notrated li:hover a,
+.star_rating_notrated li:hover ~ li a {
+  color:#e6e600 !important;
+  cursor:pointer;
+ }
+
+
+li.current_rating[style*="20"] ~ li a.one_star,
+li.current_rating[style*="40"] ~ li:nth-child(n+5) a,
+li.current_rating[style*="60"] ~ li:nth-child(n+4) a,
+li.current_rating[style*="80"] ~ li:nth-child(n+3) a,
+li[style*="100"]~ li:nth-child(n+2) a  {
+  color:#eab71f;
+}
+
+.star_rating .current_rating {
+  unicode-bidi: bidi-override;
+  direction: ltr;
+  display:none;
+  float:left;
+  text-align:right;
+  position:relative;
+  top:1px;
+  right:3px;
+}
+
+
+.inline_rating {
+  float: left;
+  vertical-align: middle;
+  padding-right: 5px;
+}
+
+ .star_rating_success, .success_message {
+  color: #00b200;
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 10px;
+ }
+
+ td[id*="rating_table"] {
+ text-align:center;
+ margin:0 auto;
+}
+
+		
+		
+		
+		
