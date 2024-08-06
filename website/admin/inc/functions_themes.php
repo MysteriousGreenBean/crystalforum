@@ -393,7 +393,7 @@ function cache_stylesheet($tid, $filename, $stylesheet)
 	// Does our theme directory exist? Try and create it.
 	elseif(!is_dir(MYBB_ROOT . $theme_directory))
 	{
-		if(!@mkdir(MYBB_ROOT . $theme_directory))
+		if(!@mkdir(MYBB_ROOT . $theme_directory, 0755, true))
 		{
 			$theme_directory = "cache/themes";
 			$filename        = $tid."_".$filename;
