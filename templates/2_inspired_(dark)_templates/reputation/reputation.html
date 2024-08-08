@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->reputation_report}</title>
+{$headerinclude}
+<script type="text/javascript">
+<!--
+	var delete_reputation_confirm = "{$lang->delete_reputation_confirm}";
+// -->
+</script>
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/report.js?ver=1820"></script>
+</head>
+<body>
+{$header}
+	<div class="container-md">
+<div class="card shadow-sm border-0 align-center">
+<div class="card-body p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 border-0 text-start">
+
+		<div class="legend mb-4">
+			<div class="row">
+				<div class="col align-self-center">
+					{$lang->reputation_report}
+				</div>
+				<div class="col-auto align-self-center text-end">
+					{$add_reputation}
+				</div>
+			</div>
+	</div>
+		
+		
+	
+	
+	<div class="mt-4 mb-4">
+		
+		
+		<div class="row p-3 text-center border-bottom m-0">
+			<div class="col align-self-center">
+				&nbsp;
+			</div>
+			<div class="col align-self-center fw-bold">
+				{$lang->positive_count}
+			</div>
+			<div class="col align-self-center fw-bold">
+				{$lang->neutral_count}
+			</div>
+			<div class="col align-self-center fw-bold">
+				{$lang->negative_count}
+			</div>
+		</div>
+		
+		<div class="row p-3 border-bottom m-0 text-center">
+			<div class="col align-self-center">
+				{$lang->last_week}
+			</div>
+			<div class="col align-self-center">
+				{$f_positive_week}
+			</div>
+			<div class="col align-self-center">
+				{$f_neutral_week}
+			</div>
+			<div class="col align-self-center">
+				{$f_negative_week}
+			</div>
+		</div>
+		
+		<div class="row p-3 border-bottom m-0 text-center">
+			<div class="col align-self-center">
+				{$lang->last_month}
+			</div>
+			<div class="col align-self-center">
+				{$f_positive_month}
+			</div>
+			<div class="col align-self-center">
+				{$f_neutral_month}
+			</div>
+			<div class="col align-self-center">
+				{$f_negative_month}
+			</div>
+		</div>
+		
+		<div class="row p-3 border-bottom m-0 text-center">
+			<div class="col align-self-center">
+				{$lang->last_6months}
+			</div>
+			<div class="col align-self-center">
+				{$f_positive_6months}
+			</div>
+			<div class="col align-self-center">
+				{$f_neutral_6months}
+			</div>
+			<div class="col align-self-center">
+				{$f_negative_6months}
+			</div>
+		</div>
+		
+		<div class="row p-3 border-bottom m-0 text-center">
+			<div class="col align-self-center">
+				{$lang->all_time}
+			</div>
+			<div class="col align-self-center">
+				{$f_positive_count}
+			</div>
+			<div class="col align-self-center">
+				{$f_neutral_count}
+			</div>
+			<div class="col align-self-center">
+				{$f_negative_count}
+			</div>
+		</div>
+	</div>
+	
+	<div class="row p-3 text-center alert-info rounded m-0" style="font-weight: 500">
+		<div class="col-12 col-sm-12 col-md-12 col-lg col-xl col-xxl align-self-center">
+		<span class="text-muted">{$lang->total_reputation}</span> {$rep_total}
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg col-xl col-xxl align-self-center">
+		<span class="text-muted">{$lang->reputation_members}</span> {$rep_members}
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg col-xl col-xxl align-self-center">
+			<span class="text-muted">{$lang->reputation_posts}</span> {$rep_posts}
+		</div>
+	</div>
+
+				
+
+	
+	<div class="legend mt-4 mb-4">{$lang->comments}</div>
+
+{$reputation_votes}
+
+	<div class="mt-4">
+		<div class="row">
+			<div class="col-12 col-sm-12 col-md-12 col-lg col-xl col-xxl">
+	<form action="reputation.php" method="get">
+		<input type="hidden" name="uid" value="{$user['uid']}" />
+		<select name="show" class="form-select border">
+			<option value="all" {$show_selected['all']}>{$lang->show_all}</option>
+			<option value="positive" {$show_selected['positive']}>{$lang->show_positive}</option>
+			<option value="neutral" {$show_selected['neutral']}>{$lang->show_neutral}</option>
+			<option value="negative" {$show_selected['negative']}>{$lang->show_negative}</option>
+		</select>
+		</div>
+				<div class="col-12 col-sm-12 col-md-12 col-lg col-xl col-xxl mt-2 mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0 mt-xxl-0">
+		<select name="sort" class="form-select border">
+			<option value="dateline" {$sort_selected['last_updated']}>{$lang->sort_updated}</option>
+			<option value="username" {$sort_selected['username']}>{$lang->sort_username}</option>
+		</select>
+				</div>
+				<div class="col-auto mt-2 mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0 mt-xxl-0">
+		{$gobutton}
+				</div>
+			</div>
+	</form>
+	</div>
+	
+	
+	</div></div></div>
+{$multipage}
+
+	
+{$footer}
+</body>
+</html>

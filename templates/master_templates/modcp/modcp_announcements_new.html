@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->add_announcement}</title>
+{$headerinclude}
+</head>
+<body>
+	{$header}
+	<form action="modcp.php" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="action" value="do_new_announcement" />
+	<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+	<input type="hidden" name="fid" value="{$announcement_fid}" />
+		<table width="100%" border="0" align="center">
+			<tr>
+				{$modcp_nav}
+				<td valign="top">
+					{$errors}
+					{$preview}
+					<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+						<tr>
+							<td class="thead" colspan="6"><strong>{$lang->add_announcement}</strong></td>
+						</tr>
+						<tr>
+							<td class="trow1" valign="top" width="25%"><strong>{$lang->title}</strong></td>
+							<td class="trow1" valign="top" width="75%"><input type="text" class="textbox" name="title" size="40" value="{$title}" /></td>
+						</tr>
+						<tr>
+							<td class="trow1" colspan="1" valign="top" width="25%"><strong>{$lang->start_date}</strong></td>
+							<td class="trow1" valign="top"  width="75%">
+								<select name="starttime_day">
+								{$startdateday}
+								</select>
+								&nbsp;
+								<select name="starttime_month">
+								{$startdatemonth}
+								</select>
+								&nbsp;
+								<input type="text" name="starttime_year" value="{$startdateyear}" size="4" maxlength="4" class="textbox" />
+								 - {$lang->time} <input type="text" name="starttime_time" value="{$starttime_time}" size="10" class="textbox" />
+							</td>
+						</tr>
+						<tr>
+							<td class="trow1" colspan="1" valign="top" width="25%"><strong>{$lang->end_date}</strong></td>
+							<td class="trow1" valign="top"  width="75%">
+								<input type="radio" name="endtime_type" value="1"{$end_type_sel['finite']} />
+								<select name="endtime_day">
+								{$enddateday}
+								</select>
+								&nbsp;
+								<select name="endtime_month">
+								{$enddatemonth}
+								</select>
+								&nbsp;
+								<input type="text" name="endtime_year" value="{$enddateyear}" size="4" maxlength="4" class="textbox" />
+								 - {$lang->time} <input type="text" name="endtime_time" value="{$endtime_time}" size="10" class="textbox" />
+								<br /><input type="radio" name="endtime_type" value="2"{$end_type_sel['infinite']} /> {$lang->never}
+							</td>
+						</tr>
+						<tr>
+							<td class="trow1" valign="top" width="25%"><strong>{$lang->announcement}</strong><br />{$smilieinserter}</td>
+							<td class="trow1" valign="top" width="75%"><textarea id="message" name="message" rows="20" cols="70">{$message}</textarea>{$codebuttons}</td>
+						</tr>
+						{$allow_html}
+						<tr>
+							<td class="trow1" valign="top" width="25%"><strong>{$lang->allow_mycode}</strong></td>
+							<td class="trow1" valign="top" width="75%"><label><input type="radio" name="allowmycode" value="1"{$mycode_sel['yes']} />&nbsp;{$lang->yes}</label> &nbsp;&nbsp;<label><input type="radio" name="allowmycode" value="0"{$mycode_sel['no']} />&nbsp;{$lang->no}</label></td>
+						</tr>
+						<tr>
+							<td class="trow1" valign="top" width="25%"><strong>{$lang->allow_smilies}</strong></td>
+							<td class="trow1" valign="top" width="75%"><label><input type="radio" name="allowsmilies" value="1"{$smilies_sel['yes']} />&nbsp;{$lang->yes}</label> &nbsp;&nbsp;<label><input type="radio" name="allowsmilies" value="0"{$smilies_sel['no']} />&nbsp;{$lang->no}</label></td>
+						</tr>
+					</table>
+					<br />
+					<div align="center">
+						<input type="submit" class="button" value="{$lang->add_announcement}" />&nbsp;&nbsp;
+						<input type="submit" class="button" name="preview" value="{$lang->preview}" />
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	{$footer}
+</body>
+</html>

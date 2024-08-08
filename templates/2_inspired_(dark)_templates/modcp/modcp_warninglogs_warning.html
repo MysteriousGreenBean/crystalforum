@@ -1,0 +1,42 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row p-3 m-0 border-bottom">
+	<div class="col align-self-center">
+		{$username_link}
+	</div>
+	<div class="col align-self-center">
+		{$title} ({$points})
+	</div>
+	<div class="col align-self-center">
+		{$lang->date_issued} <br /><span class="text-muted">{$issued_date}</span>
+	</div>
+	<div class="col align-self-center">
+		<span class="text-muted">{$expire_date}</span> {$revoked_text}
+	</div>
+	<div class="col align-self-center">
+		{$mod_username_link}
+	</div>
+	<div class="col-auto align-self-center">
+		<a href="warnings.php?action=view&amp;wid={$row['wid']}">{$lang->view}</a>
+	</div>
+</div>
+</div>
+
+	<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+		
+		
+		<div class="card m-0 border-0 p-0">
+    <div class="card-body border-bottom p-3">
+        <h5 class="card-title fs-5">{$username_link}</h5>
+        <h6 class="text-muted card-subtitle mb-2">{$title} ({$points})<br /><br />{$lang->date_issued} <br /><span class="text-muted">{$issued_date}</h6>
+        <div class="row pt-3 pb-3 mt-3 m-0 bg-light rounded">
+            <div class="col align-self-center"><span class="text-muted">{$expire_date}</span> {$revoked_text}<br />
+				{$mod_username_link}</div>
+				<div class="col-auto align-self-center">
+					<a href="warnings.php?action=view&amp;wid={$row['wid']}">{$lang->view}</a>
+				</div>
+        </div>
+    </div>
+			
+</div>
+		
+	</div>

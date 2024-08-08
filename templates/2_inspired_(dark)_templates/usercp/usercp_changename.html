@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->change_username}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="usercp.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<div class="container-md">
+<div class="row">
+<div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+{$usercpnav}
+				
+</div>
+<div class="col">
+				{$errors}
+	<!-- offcanvas -->
+				<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+				<button class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="bi bi-list"></i> &nbsp;{$lang->ucpmenu}
+</button>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header catmod">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{$lang->ucp_nav_menu}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body catmod">
+    <div>
+     {$usercpnav}
+    </div>
+  </div>
+</div>
+				</div>
+				<!-- /offcanvas -->
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+
+	<div class="legend mb-4">{$lang->change_username}</div>
+	
+	<div class="ps-3 pe-3">
+		<label>{$lang->password_confirmation}</label>
+		<input type="password" class="form-control border border" name="password" />
+	
+			
+		
+	<div class="form-group mt-4">
+		<label>{$lang->new_username}</label>
+		<input type="text" class="form-control border border" name="username" maxlength="{$mybb->settings['maxnamelength']}" value="{$username}" />
+	</div>
+	
+	
+
+<div class="text-end pt-0 mt-3">
+<input type="hidden" name="action" value="do_changename" />
+<input type="submit" class="btn btn-primary" name="submit" value="{$lang->update_username}" />
+</div>
+
+</form>
+	</div>
+	</div></div>
+	</div></div>
+{$footer}
+</body>
+</html>

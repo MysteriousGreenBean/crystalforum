@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->reputation_report}</title>
+{$headerinclude}
+<script type="text/javascript">
+<!--
+	var delete_reputation_confirm = "{$lang->delete_reputation_confirm}";
+// -->
+</script>
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/report.js?ver=1820"></script>
+</head>
+<body>
+{$header}
+{$add_reputation}
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed clear">
+<tr>
+	<td class="thead"><strong>{$lang->reputation_report}</strong></td>
+</tr>
+<tr>
+	<td class="tcat"><strong>{$lang->summary}</strong></td>
+</tr>
+<tr>
+	<td class="trow1">
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td>
+				<span class="largetext"><strong>{$username}</strong></span><br />
+				<span class="smalltext">
+					({$usertitle})<br />
+					<br />
+					<strong>{$lang->total_reputation}:</strong> <span class="repbox {$total_class}">{$rep_total}</span><br /><br />
+					<strong>{$lang->reputation_members} {$rep_members}</strong><br />
+					<strong>{$lang->reputation_posts} {$rep_posts}</strong>
+				</span>
+			</td>
+			<td align="right" style="width: 300px;">
+					<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder trow2">
+						<tr>
+							<td>&nbsp;</td>
+							<td><span class="smalltext reputation_positive">{$lang->positive_count}</span></td>
+							<td><span class="smalltext reputation_neutral">{$lang->neutral_count}</span></td>
+							<td><span class="smalltext reputation_negative">{$lang->negative_count}</span></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><span class="smalltext">{$lang->last_week}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_positive_week}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_neutral_week}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_negative_week}</span></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><span class="smalltext">{$lang->last_month}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_positive_month}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_neutral_month}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_negative_month}</span></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><span class="smalltext">{$lang->last_6months}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_positive_6months}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_neutral_6months}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_negative_6months}</span></td>
+						</tr>
+						<tr>
+							<td style="text-align: right;"><span class="smalltext">{$lang->all_time}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_positive_count}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_neutral_count}</span></td>
+							<td style="text-align: center;"><span class="smalltext">{$f_negative_count}</span></td>
+						</tr>
+					</table>
+			</td>
+		</tr>
+	</table>
+	</td>
+</tr>
+<tr>
+	<td class="tcat"><strong>{$lang->comments}</strong></td>
+</tr>
+{$reputation_votes}
+<tr>
+	<td class="tfoot" align="right">
+	<form action="reputation.php" method="get">
+		<input type="hidden" name="uid" value="{$user['uid']}" />
+		<select name="show">
+			<option value="all" {$show_selected['all']}>{$lang->show_all}</option>
+			<option value="positive" {$show_selected['positive']}>{$lang->show_positive}</option>
+			<option value="neutral" {$show_selected['neutral']}>{$lang->show_neutral}</option>
+			<option value="negative" {$show_selected['negative']}>{$lang->show_negative}</option>
+		</select>
+		<select name="sort">
+			<option value="dateline" {$sort_selected['last_updated']}>{$lang->sort_updated}</option>
+			<option value="username" {$sort_selected['username']}>{$lang->sort_username}</option>
+		</select>
+		{$gobutton}
+	</form>
+	</td>
+</tr>
+</table>
+{$multipage}
+{$footer}
+</body>
+</html>

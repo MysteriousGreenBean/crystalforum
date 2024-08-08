@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->poll_results}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+	<div class="container-md">
+<div class="card shadow-sm mt-3 border-0">
+					
+				
+				<div class="card-body p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 border-0" style="border-top: 0px">
+					<div class="legend mb-4">{$lang->poll} {$poll['question']}</div>
+
+{$polloptions}
+					
+					<div class="row mt-3">
+						<div class="col-3">
+							&nbsp;
+						</div>
+						<div class="col text-end">
+							{$lang->poll_total} {$poll['numvotes']} {$lang->poll_votes} {$totpercent}
+						</div>
+					</div>
+
+	</div></div>
+	
+{$footer}
+</body>
+</html>

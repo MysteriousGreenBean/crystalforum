@@ -1,0 +1,28 @@
+					<dt><label style="display: block;"><input type="radio" name="type" value="custom" {$type_checked['custom']} class="types_check" onclick="checkType();" style="vertical-align: middle;" /> <strong>{$lang->custom}</strong></label></dt>
+					<dd style="margin-top: 4px;" id="type_custom" class="types">
+						<table>
+						<tr>
+							<td class="smalltext">{$lang->reason}</td>
+							<td class="smalltext">{$lang->points}</td>
+						</tr>
+						<tr>
+							<td><input type="text" class="textbox" name="custom_reason" size="50" maxlength="120" value="{$custom_reason}" /></td>
+							<td><input type="text" class="textbox" name="custom_points" size="2" value="{$custom_points}" /></td>
+						</tr>
+						<tr>
+							<td class="smalltext" colspan="2" style="padding-top: 4px;">{$lang->expires}</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="text" class="textbox" name="expires" size="2" value="{$expires}" />
+								<select name="expires_period">
+									<option value="hours" {$expires_period['hours']}>{$lang->hour_or_hours}</option>
+									<option value="days" {$expires_period['days']}>{$lang->day_or_days}</option>
+									<option value="weeks" {$expires_period['weeks']}>{$lang->week_or_weeks}</option>
+									<option value="months" {$expires_period['months']}>{$lang->month_or_months}</option>
+									<option value="never" {$expires_period['never']}>{$lang->never}</option>
+								</select>
+							</td>
+						</tr>
+						</table>
+					</dd>

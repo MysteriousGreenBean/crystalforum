@@ -1,0 +1,23 @@
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 50%" />
+<col style="width: 7%" />
+</colgroup>
+<tr>
+<td class="thead" colspan="4" style="text-align: center;"><strong>{$lang->poll} {$poll['question']}</strong><br /><span class="smalltext">{$pollstatus}{$undovote}</span></td>
+</tr>
+{$polloptions}
+<tr>
+<td class="tfoot" colspan="2" style="text-align: right;"><strong>{$lang->total}</strong></td>
+<td class="tfoot" style="text-align: center;"><strong>{$lang->total_votes}</strong></td>
+<td class="tfoot" style="text-align: center;"><strong>{$totpercent}</strong></td>
+</tr>
+</table>
+<table cellspacing="0" cellpadding="2" border="0" style="width: 100%; text-align: center;">
+<tr>
+<td style="text-align: left;"><span class="smalltext">{$lang->you_voted}</span></td>
+<td style="text-align: right;"><span class="smalltext">[<a href="polls.php?action=showresults&amp;pid={$poll['pid']}">{$lang->show_results}</a>{$edit_poll}]</span></td>
+</tr>
+</table>
+<br />

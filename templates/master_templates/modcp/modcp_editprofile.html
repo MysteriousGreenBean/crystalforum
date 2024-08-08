@@ -1,0 +1,269 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->edit_profile}</title>
+{$headerinclude}
+<script type="text/javascript">
+<!--
+	var mod_posts = '{$modpost_check}';
+	var susp_posts = '{$suspost_check}';
+// -->
+</script>
+</head>
+<body>
+	{$header}
+	<form action="modcp.php" method="post">
+		<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+		<table width="100%" border="0" align="center">
+			<tr>
+				{$modcp_nav}
+				<td valign="top">
+					{$errors}
+					<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+						<tr>
+							<td class="thead" colspan="2"><strong>{$lang->edit_profile}</strong></td>
+						</tr>
+						<tr>
+							<td width="50%" class="trow1" valign="top">
+								<fieldset class="trow2">
+									<legend><strong>{$lang->profile_required}</strong></legend>
+									<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+										<tr>
+											<td><span class="smalltext">{$lang->current_username}</span></td>
+										</tr>
+										<tr>
+											<td><strong>{$profile_link}</strong></td>
+										</tr>
+										{$requiredfields}
+									</table>
+								</fieldset>
+								<br />
+								<fieldset class="trow2">
+									<legend><strong>{$lang->profile_optional}</strong></legend>
+									<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+										<tr>
+											<td colspan="3"><span class="smalltext"><label><input type="checkbox" class="checkbox" name="remove_avatar" value="1" /> {$lang->remove_avatar}</label></span></td>
+										</tr>
+
+										<tr>
+											<td colspan="3"><span class="smalltext">{$lang->birthday}</span></td>
+										</tr>
+										<tr>
+											<td>
+												<select name="birthday_day">
+													<option value="">&nbsp;</option>
+													{$bdaydaysel}
+												</select>
+											</td>
+											<td>
+												<select name="birthday_month">
+													<option value="">&nbsp;</option>
+													<option value="1" {$bdaymonthsel['1']}>{$lang->month_1}</option>
+													<option value="2" {$bdaymonthsel['2']}>{$lang->month_2}</option>
+													<option value="3" {$bdaymonthsel['3']}>{$lang->month_3}</option>
+													<option value="4" {$bdaymonthsel['4']}>{$lang->month_4}</option>
+													<option value="5" {$bdaymonthsel['5']}>{$lang->month_5}</option>
+													<option value="6" {$bdaymonthsel['6']}>{$lang->month_6}</option>
+													<option value="7" {$bdaymonthsel['7']}>{$lang->month_7}</option>
+													<option value="8" {$bdaymonthsel['8']}>{$lang->month_8}</option>
+													<option value="9" {$bdaymonthsel['9']}>{$lang->month_9}</option>
+													<option value="10" {$bdaymonthsel['10']}>{$lang->month_10}</option>
+													<option value="11" {$bdaymonthsel['11']}>{$lang->month_11}</option>
+													<option value="12" {$bdaymonthsel['12']}>{$lang->month_12}</option>
+												</select>
+											</td>
+											<td>
+												<input type="text" class="textbox" size="4" maxlength="4" name="birthday_year" value="{$birthday_year}" />
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><span class="smalltext">{$lang->website_url}</span></td>
+										</tr>
+										<tr>
+											<td colspan="3"><input type="text" class="textbox" name="website" size="25" maxlength="75" value="{$user_website}" /></td>
+										</tr>
+									</table>
+								</fieldset>
+								{$customfields}
+							</td>
+							<td width="50%" class="trow1" valign="top">
+								<fieldset class="trow2">
+									<legend><strong>{$lang->custom_usertitle}</strong></legend>
+									<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+										<tr>
+											<td><span class="smalltext">{$lang->custom_usertitle_note}</span></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext">{$lang->default_usertitle}</span></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext"><strong>{$defaulttitle}</strong></span></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext">{$lang->current_custom_usertitle}</span></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext"><strong>{$user['usertitle']}</strong></span></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext">{$lang->new_custom_usertitle}</span></td>
+										</tr>
+										<tr>
+											<td><input type="text" class="textbox" name="usertitle" size="25" maxlength="{$mybb->settings['customtitlemaxlength']}" value="{$newtitle}" /></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext"><input type="checkbox" name="reverttitle" id="reverttitle" class="checkbox" /> {$lang->revert_usertitle}</span></td>
+										</tr>
+									</table>
+								</fieldset>
+								<br />
+								<fieldset class="trow2">
+									<legend><strong>{$lang->additional_contact_details}</strong></legend>
+									<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+										<tr>
+											<td><span class="smalltext">{$lang->icq_number}</span></td>
+										</tr>
+										<tr>
+											<td><input type="text" class="textbox" name="icq" size="25" value="{$user_icq}" /></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext">{$lang->skype_id}</span></td>
+										</tr>
+										<tr>
+											<td><input type="text" class="textbox" name="skype" size="25" value="{$user_skype}" /></td>
+										</tr>
+										<tr>
+											<td><span class="smalltext">{$lang->google_id}</span></td>
+										</tr>
+										<tr>
+											<td><input type="text" class="textbox" name="google" size="25" value="{$user_google}" /></td>
+										</tr>
+									</table>
+								</fieldset>
+								<br />
+								<fieldset class="trow2">
+									<legend><strong>{$lang->moderation}</strong></legend>
+									<table cellspacing="0" cellpadding="{$theme['tablespace']}" width="100%">
+										<tr>
+											<td>
+<dl style="margin-top: 0; margin-bottom: 0;">
+<dt><label><input type="checkbox" name="moderateposting" value="1" {$modpost_checked} class="checkbox" onclick="toggleSuspend('modposts');" id="modpost" /> {$lang->moderate_posts}</label></dt>
+<dd style="margin-top: 4px;" id="modposts_action">
+<table cellpadding="4">
+{$moderateposts_info}
+	<tr>
+		<td width="35%">{$lang->modpost_length}</td>
+		<td><input type="text" name="modpost_time" value="{$modpost_time}" class="textbox" style="width: 2em;" /> {$modpost_options}</td>
+	</tr>
+</table>
+</dd>
+</dl>
+											</td>
+										</tr>
+										<tr>
+											<td>
+<dl style="margin-top: 0; margin-bottom: 0;">
+<dt><label><input type="checkbox" name="suspendposting" value="1" {$suspost_checked} class="checkbox" onclick="toggleSuspend('susposts');" id="suspost" /> {$lang->suspend_posts}</label></dt>
+<dd style="margin-top: 4px;" id="susposts_action">
+<table cellpadding="4">
+{$suspendposting_info}
+	<tr>
+		<td width="35%">{$lang->suspost_length}</td>
+		<td><input type="text" name="suspost_time" value="{$suspost_time}" class="textbox" style="width: 2em;" /> {$suspost_options}</td>
+	</tr>
+</table>
+</dd>
+</dl></td>
+										</tr>
+									</table>
+								</fieldset>
+								{$awaysection}
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="trow1" valign="top">
+								<fieldset class="trow1">
+									<legend><strong>{$lang->signature}</strong></legend>
+									<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+<tr>
+<td class="trow1" width="80%">
+<textarea rows="15" cols="70" id="signature" name="signature">{$user['signature']}</textarea>
+{$codebuttons}
+</td>
+</tr>
+{$suspend_signature}
+									</table>
+								</fieldset>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="trow1" valign="top">
+								<fieldset class="trow2">
+									<legend><strong>{$lang->mod_notes}</strong></legend>
+									<textarea name="usernotes" id="usernotes" rows="10" cols="70">{$user['usernotes']}</textarea>
+								</fieldset>
+							</td>
+						</tr>
+					</table>
+					<br />
+					<div align="center">
+						<input type="hidden" name="action" value="do_editprofile" />
+						<input type="hidden" name="uid" value="{$user['uid']}" />
+						<input type="submit" class="button" value="{$lang->update_profile}" />
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	{$footer}
+<script type="text/javascript">
+<!--
+	if(mod_posts == 0)
+	{
+		$("#modposts_action").hide();
+	}
+
+	if(susp_posts == 0)
+	{
+		$("#susposts_action").hide();
+	}
+
+	function toggleSuspend(action)
+	{
+		if(action == "modposts")
+		{
+			$("#susposts_action").hide();
+			$("#suspost").attr("checked", false);
+
+			if($("#modpost").prop("checked") == false)
+			{
+				$("#modpost").attr("checked", false);
+				$("#modposts_action").hide();
+			}
+			else
+			{
+				$("#modpost").attr("checked", true);
+				$("#modposts_action").show();
+			}
+		}
+
+		if(action == "susposts")
+		{
+			$("#modposts_action").hide();
+			$("#modpost").attr("checked", false);
+
+			if($("#suspost").prop("checked") == false)
+			{
+				$("#suspost").attr("checked", false);
+				$("#susposts_action").hide();
+			}
+			else
+			{
+				$("#suspost").attr("checked", true);
+				$("#susposts_action").show();
+			}
+		}
+	}
+// -->
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<tr>
+<td class="trow1" valign="top">
+<script type="text/javascript">
+<!--
+	var sig_checked = "{$checked}";
+
+	function toggleAction()
+	{
+		if($("#suspend_action").is(":visible") == true)
+		{
+			$("#suspend_action").hide();
+		}
+		else
+		{
+			$("#suspend_action").show();
+		}
+	}
+// -->
+</script>
+<dl style="margin-top: 0; margin-bottom: 0; width: 100%;">
+<dt><label><input type="checkbox" name="suspendsignature" value="1" class="checkbox" {$checked_item} onclick="toggleAction();" /> {$lang->suspend_signature}</label></dt>
+<dd style="margin-top: 4px;" id="suspend_action">
+<table cellpadding="4">
+{$suspendsignature_info}
+	<tr>
+		<td width="30%">{$lang->suspend_length}</td>
+		<td><input type="text" name="action_time" value="{$action_time}" class="textbox" style="width: 2em;" /> {$action_options}</td>
+	</tr>
+</table>
+</dd>
+</dl>
+<script type="text/javascript">
+<!--
+	if(sig_checked == 0)
+	{
+		$("#suspend_action").hide();
+	}
+// -->
+</script>
+</td>
+</tr>

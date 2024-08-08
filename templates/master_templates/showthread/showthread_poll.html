@@ -1,0 +1,26 @@
+<form action="polls.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="action" value="vote" />
+<input type="hidden" name="pid" value="{$poll['pid']}" />
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+<colgroup>
+<col style="width: 3%;" />
+</colgroup>
+<tr>
+<td colspan="2" class="thead" style="text-align: center;"><strong>{$lang->poll} {$poll['question']}</strong></td>
+</tr>
+{$polloptions}
+</table>
+<table style="width: 100%; text-align: center;">
+<tr>
+<td style="text-align: left;"><input type="submit" class="button" value="{$lang->vote}" /></td>
+<td style="vertical-align: top; text-align: right;"><span class="smalltext">[<a href="polls.php?action=showresults&amp;pid={$poll['pid']}">{$lang->show_results}</a>{$edit_poll}]</span></td>
+</tr>
+<tr>
+<td colspan="2"><span class="smalltext">{$closeon}</span></td>
+</tr>
+<tr>
+<td colspan="2"><span class="smalltext">{$publicnote}</span></td>
+</tr>
+</table>
+</form>

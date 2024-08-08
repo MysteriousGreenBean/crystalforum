@@ -1,0 +1,65 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row pt-3 pb-3 mb-0">
+	<div class="col-auto align-self-center">
+		
+		<span class="thread_status {$folder}" title="{$folder_label}">&nbsp;</span>
+	
+	</div>
+	{$icon}
+		<div class="col align-self-center">
+			
+			<a href="{$thread['threadlink']}" style="font-size: 16px; font-weight: 400">{$thread['threadprefix']}{$thread['subject']}</a> <br />
+			<span class="text-muted">
+				<span class="lastpostbit">{$thread['profilelink']}</span>, {$thread['start_datetime']}
+			</span>
+			
+		</div>
+		
+		
+			
+			
+		<div class="col text-end align-self-center">
+			
+			<span class="text-muted">{$lang->replies}</span> {$thread['replies']}<br />
+			<span class="text-muted">{$lang->views}</span> {$thread['views']}
+			
+		</div>
+		<div class="col-auto text-center align-self-center">
+			
+			<avatarep_uid_[{$thread['lastposteruid']}]>
+				
+		</div>
+			<div class="col-2 text-start text-muted align-self-center">
+				
+				{$lastposterlink}<br />
+				{$lastpostdate}
+				
+			</div>
+			
+			{$modbit}	
+			
+			
+	</div></div>
+	
+	<!-- responsive -->
+	
+	<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+		
+		
+		<div class="card m-0 border-0 p-0">
+    <div class="card-body border-bottom p-3">
+        <h4 class="card-title" style="font-size: 16px; font-weight: 400"><span class="thread_status {$folder}" title="{$folder_label}">&nbsp;</span>&nbsp;&nbsp;<a href="{$thread['threadlink']}">{$thread['threadprefix']}{$thread['subject']}</a></h4>
+        <h6 class="text-muted card-subtitle mb-2" style="font-size: 13px; font-weight: 400">{$lang->by} <span class="lastpostbit">{$thread['profilelink']}</span></h6>
+        <div class="row pt-3 pb-3 mt-3 m-0 bg-light rounded">
+            <div class="col-auto align-self-center"><avatarep_uid_[{$thread['lastposteruid']}]></div>
+            <div class="col align-self-center">{$avbr}{$lastposterlink}<br />
+				{$lastpostdate}</div>
+				<div class="col-auto align-self-center">
+					{$modbit}
+				</div>
+        </div>
+    </div>
+			
+</div>
+		
+	</div>

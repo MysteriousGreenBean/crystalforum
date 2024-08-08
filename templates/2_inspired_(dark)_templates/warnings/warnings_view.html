@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>{$mybb->settings['bbname']} - {$lang->warning_log}</title>
+	{$headerinclude}
+</head>
+<body>
+	{$header}
+
+<div class="container-md">
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+	
+	
+				<div class="legend mb-4">
+					<div class="row">
+						<div class="col align-self-center">
+							{$lang->warning_details}
+						</div>
+						<div class="col-auto align-self-center">
+							{$status}
+						</div>
+					</div>
+	</div>
+
+	<div class="ps-3 pe-3">
+	
+	
+		<div class="border border-5 p-3 rounded mt-4 mb-4">
+			{$warning_info} <br />
+			{$lang->warning} <span class="text-muted">{$warning_type} {$points}</span><br />
+			{$lang->date_issued} <span class="text-muted">{$date_issued}</span> {$lang->by} {$issuedby}
+			
+			<br /><br />
+			{$lang->expiry_date} <span class="text-muted">{$expires} {$revoked_date}</span>
+		</div></div>
+			
+		<div class="legend mb-4">{$lang->details_warning_note}</div>
+		<div class="ps-3 pe-3">
+		
+		{$notes}
+		
+
+	{$revoke}
+	</div></div></div></div>
+{$footer}
+</body>
+</html>

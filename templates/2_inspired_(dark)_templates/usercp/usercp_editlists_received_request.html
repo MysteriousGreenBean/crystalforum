@@ -1,0 +1,20 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row ps-3 pe-3">
+	<div class="col-4 align-self-center">
+		{$request['username']}
+	</div>
+	<div class="col-4 align-self-center text-muted">
+		{$request['date']}
+	</div>
+	<div class="col-4 align-self-center text-muted text-end">
+		<a href="{$mybb->settings['bburl']}/usercp.php?action=acceptrequest&amp;id={$request['id']}&amp;my_post_key={$mybb->post_code}" class="btn btn-primary">{$lang->accept}</a>  <a href="{$mybb->settings['bburl']}/usercp.php?action=declinerequest&amp;id={$request['id']}&amp;my_post_key={$mybb->post_code}" class="btn btn-primary">{$lang->decline}</a>
+	</div>
+</div>
+</div>
+
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none p-3">
+	{$request['username']} - <span class="text-muted">{$request['date']}
+	
+	<div class="mt-2"><a href="{$mybb->settings['bburl']}/usercp.php?action=acceptrequest&amp;id={$request['id']}&amp;my_post_key={$mybb->post_code}" class="btn btn-primary">{$lang->accept}</a>  <a href="{$mybb->settings['bburl']}/usercp.php?action=declinerequest&amp;id={$request['id']}&amp;my_post_key={$mybb->post_code}" class="btn btn-primary">{$lang->decline}</a></div>
+	</div>

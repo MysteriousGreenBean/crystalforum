@@ -1,0 +1,20 @@
+<tr class="inline_row">
+	<td colspan="2" align="center" class="{$bgcolor}" width="4%"><span class="thread_status {$folder}" style="position:relative;left:7px"  title="{$folder_label}">&nbsp;</span></td>
+	<td class="{$bgcolor}">
+		{$attachment_count}
+		<div>
+			<span>{$prefix} {$gotounread}{$thread['threadprefix']}<a href="{$thread_link}{$highlight}" class="{$inline_edit_class} {$new_class}" id="tid_{$inline_edit_tid}">{$thread['subject']}</a>{$thread['multipage']}</span>
+			<div class="author smalltext">{$thread['profilelink']}</div>
+		</div>
+	</td>
+	<td class="{$bgcolor} hide_mobile">{$thread['forumlink']}</td>
+	<td align="center" class="{$bgcolor} hide_mobile"><a href="javascript:MyBB.whoPosted({$thread['tid']});">{$thread['replies']}</a></td>
+	<td align="center" class="{$bgcolor} hide_mobile">{$thread['views']}</td>
+	<td class="{$bgcolor} hide_mobile" style="white-space: nowrap">
+		<span class="smalltext">
+			{$lastpostdate}<br />
+			<a href="{$thread['lastpostlink']}">{$lang->lastpost}</a>: {$lastposterlink}
+		</span>
+	</td>
+	{$inline_mod_checkbox}
+</tr>

@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->thread_notes_editor}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="moderation.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<div class="container-md">
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+	<div class="legend mb-4">{$lang->thread_notes_editor}</div>
+<div class="ps-3 pe-3 mb-4">{$loginbox}</div>
+	
+	<div class="ps-3 pe-3">
+	<span class="text-muted">{$lang->below_notes}</span>
+<textarea name="threadnotes" class="form-control border" cols="80" rows="10" tabindex="1">{$thread['notes']}</textarea>
+
+<div class="mt-1 text-end"><input type="submit" class="btn btn-primary" name="submit" value="{$lang->update_notes}" tabindex="2" /></div>
+<input type="hidden" name="action" value="do_threadnotes" />
+<input type="hidden" name="tid" value="{$tid}" />
+	</div>
+</form>
+	<div class="legend mt-4 mb-4">{$lang->mod_logs}</div>
+	
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+	<div class="row pt-3 pb-3 m-0">
+		<div class="col align-self-center">
+			{$lang->mod_username}
+		</div>
+		<div class="col align-self-center">
+			{$lang->mod_date}
+		</div>
+		<div class="col align-self-center">
+			{$lang->mod_actions}
+		</div>
+		<div class="col align-self-center">
+			{$lang->mod_information}
+		</div>
+	</div>
+	</div>
+
+{$modactions}
+
+	<div class="legend mt-4 mb-4">{$lang->delayed_mod_queue}</div>
+	
+	<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+	<div class="row p-3">
+		<div class="col align-self-center">
+			{$lang->mod_username}
+		</div>
+		<div class="col align-self-center">
+			{$lang->time_to_perform_action}
+		</div>
+		<div class="col align-self-center">
+			{$lang->mod_actions}
+		</div>
+		<div class="col align-self-center">
+			{$lang->mod_information}
+		</div>
+	</div>
+	</div>
+
+{$delayedmods}
+
+	</div></div></div>
+{$footer}
+</body>
+</html>

@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->profile}</title>
+{$headerinclude}
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/report.js?ver=1820"></script>
+</head>
+<body>
+{$header}
+				
+<div class="container-md">
+	
+	<div class="row">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3">
+			<div class="card bg-white border-0 shadow-sm mb-4">
+                <div class="card-body text-center p-3 pt-5 pb-5">
+					
+					{$avatar}
+					
+					<div class="mt-3" style="font-size:20px; font-weight: 500; margin-bottom: 0px">{$formattedname}</div>
+			<span class="text-muted">{$usertitle}</span>
+					<br />
+					{$groupimage}
+					
+					<div class="mt-3 mb-3">
+					{$buddy_options}
+					
+						{$sendpm}</div>
+					
+			
+					
+				
+					
+				</div>
+			</div>
+			<div class="card bg-white border-0 shadow-sm mb-4">
+                <div class="card-body p-2 p-sm-2 p-md-2 p-lg-3 p-xl-3 p-xxl-3">
+					<div class="legend mb-4">{$lang->users_forum_info}</div>
+					<div class="p-3">
+							<span style="font-weight: 400;">{$lang->user_totals}</span><br />
+						<span class="text-muted">{$lang->total_threads}</span> {$memprofile['threadnum']}, <span class="text-muted">{$lang->total_posts}</span> {$memprofile['postnum']}
+						<div class="mt-3"></div>
+					<span style="font-weight: 400;">{$lang->registration_date}</span><br />
+					<span class="text-muted">{$memregdate}</span>
+					<div class="mt-3"></div>
+					<span style="font-weight: 400;">{$lang->lastvisit}</span> {$online_status}<br />
+					<span class="text-muted">{$memlastvisitdate}</span>
+						<div class="mt-3"></div>
+						{$referrals}
+						<div class="mt-3"></div>
+				{$reputation}
+						<div class="mt-3"></div>
+				{$warning_level}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col">
+<div class="card bg-white border-0 shadow-sm">
+                <div class="card-body text-start p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5">
+				 {$awaybit}{$bannedbit}
+					<div class="legend mb-4">
+						<div class="row">
+							<div class="col align-self-center">
+							{$lang->users_additional_info}
+							</div>
+							<div class="col-auto align-self-center">
+								{$userstars}
+							</div>
+						</div>
+							</div>
+							
+			<div class="row p-3">
+	<div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 align-self-top">
+<span style="font-weight: 400;">{$lang->date_of_birth}</span>
+	</div>
+	<div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10 align-self-top text-muted">
+    {$membday} {$membdayage}
+	</div>
+</div>
+
+					<p style="margin: 0px;margin-top: 0px;">{$profilefields}</p>
+       <p style="margin-bottom: 0px;">{$signature}</p>
+            	<p style="margin-bottom: 0px;">{$contact_details}</p>
+                    
+                    
+       
+             <div class="legend mt-4">
+			<div class="row">
+				<div class="col align-self-center">
+					{$ignore_options} {$report_options}
+				</div>
+				<div class="col-auto text-end align-self-center text-end">
+			 {$modoptions}
+				</div></div></div>
+
+	 			<!-- mod -->
+					<div class="collapse" id="collapseExample">
+<div class="card card-body border border-5 mt-4 mb-4">
+<div class="row text-start">
+<div class="col-6">
+{$ipaddress}
+</div>
+<div class="col-6 text-end">
+{$manageuser}
+</div>
+</div>
+<div class="mt-4"><i class="bi bi-quote"></i> {$memprofile['usernotes']}</div>
+{$editnotes}
+{$adminoptions}
+</div></div>
+					<!-- mod -->
+					
+				
+					
+				
+       
+    </div>
+</div>
+
+	 </div>
+	 </div>
+	</div>
+	</div></div>
+	
+
+{$footer}
+</body>
+</html>

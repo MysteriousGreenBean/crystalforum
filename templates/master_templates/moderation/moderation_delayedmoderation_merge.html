@@ -1,0 +1,8 @@
+<dt><input type="radio" name="type" value="merge" {$type_selected['merge']} id="type_merge" onclick="toggleType();" /> <label for="type_merge"><strong>{$lang->merge_threads}</strong></label></dt>
+<dd style="margin-top: 4px; width: 100%;" id="type_merge_expanded">
+	{$lang->new_subject}<br />
+	<input type="text" class="textbox" name="delayedmoderation[subject]" value="{$delayedmoderation_subject}" size="40" /><br />
+	{$lang->thread_to_merge_with}<br />
+	<input type="text" class="textbox" name="delayedmoderation[threadurl]" value="{$delayedmoderation_threadurl}" size="40" />
+	<br /><span class="smalltext">{$lang->merge_with_note}</span>
+</dd>

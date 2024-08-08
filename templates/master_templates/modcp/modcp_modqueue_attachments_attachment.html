@@ -1,0 +1,8 @@
+			<tr>
+				<td class="{$altbg}"><a href="attachment.php?aid={$attachment['aid']}" target="_blank">{$attachment['filename']}</a> ({$attachment['filesize']})<br /><small class="modqueue_meta">{$lang->post}: <a href="{$link}">{$attachment['postsubject']}</a></small></td>
+				<td class="{$altbg}" align="center">{$profile_link}</td>
+				<td align="center" class="{$altbg}">{$attachdate}</td>
+				<td class="{$altbg}" align="center"><label class="label_radio_ignore"><input type="radio" class="radio radio_ignore" name="attachments[{$attachment['aid']}]" value="ignore" checked="checked" /> {$lang->ignore}</label></td>
+				<td class="{$altbg}" align="center"><label class="label_radio_delete"><input type="radio" class="radio radio_delete" name="attachments[{$attachment['aid']}]" value="delete" /> {$lang->delete}</label></td>
+				<td class="{$altbg}" align="center"><label class="label_radio_approve"><input type="radio" class="radio radio_approve" name="attachments[{$attachment['aid']}]" value="approve" /> {$lang->approve}</label></td>
+			</tr>

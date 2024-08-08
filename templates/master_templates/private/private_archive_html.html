@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->private_messages_for}</title>
+<style type="text/css">{$css}
+* {text-align: left}</style>
+</head>
+<body>
+<br />
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="1"><span class="largetext"><strong>{$lang->private_messages_for}</strong></span></td>
+</tr>
+{$pmsdownload}
+</table>
+<br />
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="trow1" colspan="1">{$lang->exported_date}<br /><a href="{$mybb->settings['bburl']}">{$mybb->settings['bbname']}</a></td>
+</tr>
+</table>
+</body>

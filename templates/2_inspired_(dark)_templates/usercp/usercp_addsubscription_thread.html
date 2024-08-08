@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>{$lang->subscribe_to_thread}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="usercp.php" method="post" name="input">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="action" value="do_addsubscription" />
+<input type="hidden" name="tid" value="{$thread['tid']}" />
+<div class="container-md">
+<div class="row">
+<div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+{$usercpnav}
+				
+</div>
+<div class="col">	
+	<!-- offcanvas -->
+				<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+				<button class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="bi bi-list"></i> &nbsp;{$lang->ucpmenu}
+</button>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header catmod">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{$lang->ucp_nav_menu}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body catmod">
+    <div>
+     {$usercpnav}
+    </div>
+  </div>
+</div>
+				</div>
+				<!-- /offcanvas -->
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+	
+	<div class="legend mb-4">{$lang->subscribe_to_thread}</div>
+
+	<div class="ps-3 pe-3"><strong>{$lang->notification_method}</strong></div>
+
+	<div class="row ps-3 pe-3 mt-4">
+		<div class="col-auto align-self-top text-center">
+			
+			<input type="radio" name="notification" id="notification_none" class="form-check-input" value="0" {$notification_none_checked} />
+			
+		</div>
+		<div class="col align-self-center">
+		<strong>{$lang->no_notification}</strong><br /><span class="text-muted">{$lang->no_notification_desc}</span>
+		</div>
+	</div>
+	
+	<div class="row ps-3 pe-3 mt-2">
+		<div class="col-auto align-self-top text-center">
+			
+			<input type="radio" class="form-check-input" name="notification" id="notification_email" value="1" {$notification_email_checked} />
+			
+		</div>
+		<div class="col align-self-center">
+		<strong>{$lang->email_notification}</strong><br /><span class="text-muted">{$lang->email_notification_desc}</span>
+		</div>
+	</div>
+	
+	<div class="row ps-3 pe-3 mt-2">
+		<div class="col-auto align-self-top text-center">
+			
+			<input type="radio" class="form-check-input" name="notification" id="notification_pm" value="2" {$notification_pm_checked} />
+			
+		</div>
+		<div class="col align-self-center">
+		<strong>{$lang->pm_notification}</strong><br /><span class="text-muted">{$lang->pm_notification_desc}</span>
+		</div>
+	</div>
+
+<div class="mt-4 text-end ps-3 pe-3">
+	<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<input type="submit" class="btn btn-primary" name="submit" value="{$lang->do_subscribe}" tabindex="3" accesskey="s" />
+	</div>
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<input type="submit" class="btn btn-primary" style="width: 100%" name="submit" value="{$lang->do_subscribe}" tabindex="3" accesskey="s" />
+</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+</form>
+{$footer}
+</body>
+</html>

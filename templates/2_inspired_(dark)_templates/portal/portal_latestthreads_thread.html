@@ -1,0 +1,18 @@
+<div class="row ps-3 pe-3 pt-3">
+	<div class="col-auto align-self-center">
+		<avatarep_uid_[{$thread['lastposteruid']}]>
+			</div>
+		<div class="col align-self-center">
+			<a href="{$mybb->settings['bburl']}/{$thread['threadlink']}" title="{$thread['fullsubject']}">{$thread['subject']}</a>
+		</div>
+	</div>
+	
+	<div class="ps-3 pe-3 mt-2">{$lang->forum} <a href="{$thread['forumlink']}">{$thread['forumname']}</a>
+	<div class="mt-1"></div>
+	<span class="text-muted">{$lang->latest_threads_replies}</span> {$thread['replies']}, <span class="text-muted">{$lang->latest_threads_views}</span> {$thread['views']}
+	</div>
+	
+	<div class="mt-3 bg-light rounded p-3">
+		{$lastposterlink}
+		{$lastpostdate}
+	</div>

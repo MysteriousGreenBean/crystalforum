@@ -1,0 +1,18 @@
+<div class="popup_menu drop_go_page" style="display: none;">
+	<form action="{$jump_url}" method="post">
+		<label for="page">{$lang->multipage_jump}:</label> <input type="number" class="textbox" name="page" value="{$page}" size="4" min="1" max="{$pages}" />
+		<input type="submit" class="button" value="{$lang->go}" />
+	</form>
+</div>
+<a href="javascript:void(0)" class="go_page" title="{$lang->multipage_jump}"><img src="{$theme['imgdir']}/arrow_down.png" alt="{$lang->multipage_jump}" /></a>&nbsp;
+<script type="text/javascript">
+	var go_page = 'go_page_' + $(".go_page").length;
+	$(".go_page").last().attr('id', go_page);
+	$(".drop_go_page").last().attr('id', go_page + '_popup');
+	$('#' + go_page).popupMenu(false).on('click', function() {
+		var drop_go_page = $(this).prev('.drop_go_page');
+		if (drop_go_page.is(':visible')) {
+			drop_go_page.find('.textbox').trigger('focus');
+		}
+	});
+</script>

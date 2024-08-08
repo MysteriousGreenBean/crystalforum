@@ -1,0 +1,23 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row pt-3 pb-3 mb-0">
+<div class="col-auto align-self-center">
+		
+<span class="thread_status {$folder}" title="{$folder_label}">&nbsp;</span>
+	
+</div>
+<div class="col align-self-center text-muted">
+			
+<a style="font-size: 18px; font-weight: 500" href="{$announcement['announcementlink']}"{$new_class}>{$announcement['subject']}</a> <br />
+{$lang->by} {$announcement['profilelink']}
+</div><div class="col-3 text-end text-muted align-self-center me-5">
+{$postdate}
+</div>
+</div>
+</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<div class="p-3 mb-0">
+		<a style="font-size: 18px; font-weight: 500" href="{$announcement['announcementlink']}"{$new_class}>{$announcement['subject']}</a><br />
+		<span class="text-muted">{$lang->by} {$announcement['profilelink']}, {$postdate}</span>
+	</div>
+</div>

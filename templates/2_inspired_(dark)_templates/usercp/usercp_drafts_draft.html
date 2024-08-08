@@ -1,0 +1,22 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row mb-3 ps-3 pe-3">
+	<div class="col align-self-center">
+		<strong>{$draft['subject']}</strong><br /><span class="text-muted">{$detail}</span>
+	</div>
+	<div class="col text-muted align-self-center text-center">
+		{$savedate}
+	</div>
+	<div class="col text-muted align-self-center text-center">
+		<a href="{$editurl}">{$lang->edit_draft}</a>
+	</div>
+	<div class="col-auto text-muted align-self-center text-end">
+		<input type="checkbox" class="form-check-input" name="deletedraft[{$id}]" value="{$type}" />
+	</div>
+</div>
+</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none ps-3 pe-3">
+<strong>{$draft['subject']}</strong><br /><span class="text-muted">{$detail}</span>
+<br /><br />
+	<span class="text-muted">{$savedate}</span> - <a href="{$editurl}">{$lang->edit_draft}</a>	<span class="float-end"><input type="checkbox" class="form-check-input" name="deletedraft[{$id}]" value="{$type}" /></span>
+</div>

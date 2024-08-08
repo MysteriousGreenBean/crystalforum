@@ -1,0 +1,44 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<ul class="list-inline" style="margin-bottom: 0px">
+
+<li class="list-inline-item">
+	<a href="{$mybb->settings['bburl']}/member.php?action=register" class="btn btn-reply">{$lang->welcome_register}</a>
+</li>
+	
+
+	<li class="list-inline-item"><a href="{$mybb->settings['bburl']}/member.php?action=login" onclick="$('#quick_login').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== 'undefined' ? modal_zindex : 9999) }); return false;" class="btn btn-primary">{$lang->welcome_login}</a></li>
+
+</ul>
+				<div class="modal p-5 border-0 shadow-sm bg-white rounded" id="quick_login" style="display: none;">
+					<form method="post" action="{$mybb->settings['bburl']}/member.php">
+						<input name="action" type="hidden" value="do_login" />
+						<input name="url" type="hidden" value="" />
+						<input name="quick_login" type="hidden" value="1" />
+						<input name="my_post_key" type="hidden" value="{$mybb->post_code}" />
+						<table width="100%" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" border="0" class="tborder">
+							<div class="legend mb-4">{$lang->login}</div>
+							
+							{$loginform}
+						</table>
+					</form>
+				</div>
+				<script type="text/javascript">
+					$("#quick_login input[name='url']").val($(location).attr('href'));
+				</script>
+</div>
+
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<ul class="list-inline" style="margin-bottom: 0px">
+
+<li class="list-inline-item">
+	<a href="{$mybb->settings['bburl']}/member.php?action=register" class="btn btn-reply">{$lang->welcome_register}</a>
+</li>
+	
+
+	<li class="list-inline-item">
+	<a href="{$mybb->settings['bburl']}/member.php?action=login" class="btn btn-primary">{$lang->welcome_login}</a>
+	
+	</li>
+</ul>
+</div>

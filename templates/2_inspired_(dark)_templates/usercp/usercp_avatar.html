@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->change_avatar}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form enctype="multipart/form-data" action="usercp.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<div class="container-md">
+<div class="row">
+<div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+{$usercpnav}
+				
+</div>
+<div class="col">
+{$avatar_error}	
+	
+	<!-- offcanvas -->
+				<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+				<button class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="bi bi-list"></i> &nbsp;{$lang->ucpmenu}
+</button>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header catmod">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{$lang->ucp_nav_menu}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body catmod">
+    <div>
+     {$usercpnav}
+    </div>
+  </div>
+</div>
+				</div>
+				<!-- /offcanvas -->
+	
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+
+	<div class="legend mb-4">{$lang->change_avatar}</div>
+	
+	<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+	<div class="row mb-4">
+		<div class="col-3 text-center align-self-center">
+			{$currentavatar}
+		</div>
+		<div class="col">
+			<span class="text-muted">{$lang->avatar_note}</span>
+		</div>
+	</div>
+	</div>
+	
+	<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+		<div class="row mb-4">
+			<div class="col text-center text-muted">
+				{$currentavatar} <br /><br />
+				{$lang->avatar_note}
+			</div>
+		</div>
+	</div>
+						
+			{$avatarupload}
+			{$avatar_remote}
+		
+
+		<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+		<div class="mt-4 text-end p-0">
+			<input type="hidden" name="action" value="do_avatar" />
+			<input type="submit" class="btn btn-primary" name="submit" value="{$lang->change_avatar}" />
+			{$removeavatar}
+			</div>
+	</div>
+			
+			<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+					<div class="mt-4 text-center p-0">
+			<input type="hidden" name="action" value="do_avatar" />
+			<input type="submit" class="btn btn-primary mb-2" style="width: 100%" name="submit" value="{$lang->change_avatar}" />
+			{$removeavatar}
+			</div>
+			</div>
+			
+		</div>
+</form>
+	</div>
+	</div>
+</div></div>
+{$footer}
+</body>
+</html>

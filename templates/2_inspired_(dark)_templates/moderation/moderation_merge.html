@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->merge_threads}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="moderation.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<div class="container-md">
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+	<div class="legend mb-4">{$lang->merge_threads}</div>
+<div class="ps-3 pe-3">{$loginbox}</div>
+	<div class="ps-3 pe-3 mt-3">
+{$lang->new_subject}
+<input type="text" class="form-control border mb-3" name="subject" value="{$thread['subject']}" size="40" /></td>
+
+{$lang->thread_to_merge_with}<br /><span class="text-muted">{$lang->merge_with_note}</span>
+<input type="text" class="form-control border mb-3" name="threadurl" size="40" />
+
+<div class="text-end"><input type="submit" class="btn btn-primary" name="submit" value="{$lang->merge_threads}" /></div>
+<input type="hidden" name="action" value="do_merge" />
+<input type="hidden" name="tid" value="{$tid}" />
+	</div></div>
+	</div></div>
+</form>
+{$footer}
+</body>
+</html>

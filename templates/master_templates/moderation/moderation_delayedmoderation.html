@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->delayed_moderation}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+{$display_errors}
+<br />
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="5"><strong>{$lang->delayed_mod_queue}</strong></td>
+</tr>
+<tr>
+<td class="tcat" align="center"><strong>{$lang->mod_username}</strong></td>
+<td class="tcat" align="center"><strong>{$lang->time_to_perform_action}</strong></td>
+<td class="tcat" align="center"><strong>{$lang->mod_actions}</strong></td>
+<td class="tcat" align="center"><strong>{$lang->mod_information}</strong></td>
+<td class="tcat" align="center"><strong>{$lang->actions}</strong></td>
+</tr>
+{$delayedmods}
+</table>
+<br />
+<form action="moderation.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="action" value="do_delayedmoderation" />
+<input type="hidden" name="url" value="{$url}" />
+<input type="hidden" name="tid" value="{$tid}" />
+<input type="hidden" name="fid" value="{$fid}" />
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="2"><strong>{$lang->delayed_moderation}</strong></td>
+</tr>
+<tr>
+<td class="tcat" colspan="2"><strong>{$lang->delayed_moderation_desc}</strong></td>
+</tr>
+{$loginbox}
+<tr>
+<td class="trow1"><strong>{$lang->threads}</strong></td>
+<td class="trow2">{$threads}</td>
+</tr>
+<tr>
+<td class="trow1"><strong>{$lang->run_moderation_time}</strong></td>
+<td class="trow2">
+		<select name="date_day">
+				{$dateday}
+		</select>
+		&nbsp;
+		<select name="date_month">
+				{$datemonth}
+		</select>
+		&nbsp;
+		<input type="text" name="date_year" value="{$dateyear}" size="4" maxlength="4" class="textbox" />
+		 - {$lang->time} <input type="text" name="date_time" value="{$datetime}" size="10" class="textbox" />
+</td>
+</tr>
+<tr>
+<td class="trow1" style="vertical-align: top;"><strong>{$lang->moderation_action}</strong></td>
+<td class="trow2">
+<script type="text/javascript">
+<!--
+	function toggleType()
+	{
+		if($('#type_merge'))
+		{
+			if($('#type_movecopythread').prop('checked') == true)
+			{
+				$('#type_merge_expanded').hide();
+				$('#type_movecopythread_expanded').show();
+			}
+			else if($('#type_merge').prop('checked') == true)
+			{
+				$('#type_movecopythread_expanded').hide();
+				$('#type_merge_expanded').show();
+			}
+			else
+			{
+				$('#type_movecopythread_expanded').hide();
+				$('#type_merge_expanded').hide();
+			}
+		}
+		else
+		{
+			if($('#type_movecopythread').prop('checked') == true)
+			{
+				$('#type_movecopythread_expanded').show();
+			}
+			else
+			{
+				$('#type_movecopythread_expanded').hide();
+			}
+		}
+	}
+// -->
+</script>
+<dl style="margin-top: 0; margin-bottom: 0; width: 100%;">
+	{$openclosethread}
+	{$softdeleterestorethread}
+	{$deletethread}
+	{$stickunstickthread}
+	<dt><input type="radio" name="type" value="move" {$type_selected['move']} id="type_movecopythread" onclick="toggleType();" /> <label for="type_movecopythread"><strong>{$lang->move_copy_thread}</strong></label></dt>
+	<dd style="margin-top: 4px;" id="type_movecopythread_expanded">
+	{$lang->new_forum}<br />
+	{$forumselect}
+	{$moderation_delayedmoderation_move}
+	</dd>
+	{$moderation_delayedmoderation_merge}
+	<dt><input type="radio" name="type" value="removeredirects" {$type_selected['removeredirects']} id="type_removeredirects" onclick="toggleType();" /> <label for="type_removeredirects"><strong>{$lang->remove_redirects}</strong></label></dt>
+	<dt><input type="radio" name="type" value="removesubscriptions" {$type_selected['removesubscriptions']} id="type_removesubscriptions" onclick="toggleType();" /> <label for="type_removesubscriptions"><strong>{$lang->remove_subscriptions}</strong></label></dt>
+	{$approveunapprovethread}
+	{$customthreadtools}
+</dl>
+<script type="text/javascript">
+<!--
+	toggleType();
+// -->
+</script>
+</td>
+</tr>
+</table>
+<br />
+<div align="center"><input type="submit" class="button" value="{$lang->save_delayed_moderation}" /></div>
+</form>
+{$footer}
+</body>
+</html>

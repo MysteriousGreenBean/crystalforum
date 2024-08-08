@@ -1,0 +1,43 @@
+<tr>
+			<td width="20%" class="trow1" valign="top">
+              	<strong>{$lang->send_pm}</strong>
+			</td>
+			<td class="trow1">
+				<script type="text/javascript">
+				// <!--
+					function togglePM()
+					{
+						if($('#send_pm').prop('checked') == true)
+						{
+							$('#pm_input').show();
+							$('#pm_smilie_insert').show();
+						}
+						else
+						{
+							$('#pm_input').hide();
+						}
+					}
+				// -->
+				</script>
+				<label style="display: block;"><input type="checkbox" class="checkbox" value="1" name="send_pm" id="send_pm" onclick="togglePM();" style="vertical-align: middle;" {$send_pm_checked} /> {$lang->send_user_warning_pm}</label>
+				<table id="pm_input" cellpadding="{$theme['tablespace']}">
+					<tr>
+						<td><strong>{$lang->send_pm_subject}</strong></td>
+						<td><input type="text" class="textbox" name="pm_subject" size="40" maxlength="85" value="{$pm_subject}" /></td>
+					</tr>
+					<tr>
+						<td valign="top"><strong>{$lang->send_pm_message}</strong></td>
+						<td><textarea name="pm_message" id="message" rows="20" cols="70">{$message}</textarea>
+						{$codebuttons}</td>
+					</tr>
+					{$anonymous_pm}
+				</table>
+				<script type="text/javascript">
+				<!--
+				$(function() {
+					togglePM();
+				});
+				// -->
+				</script>
+			</td>
+		</tr>

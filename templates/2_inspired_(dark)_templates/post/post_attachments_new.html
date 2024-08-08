@@ -1,0 +1,22 @@
+<div class="row mb-2">
+	<div class="col-12">
+
+		<div id="upload_bar" style="background: #F08080; height: 5px; width: 0%;"></div>
+		<div id="dropzone" style="padding: 30px 0; background: #424549; cursor: pointer; border-radius: 5px; text-align: center; width:100%">
+			<img src="{$theme['imgdir']}/paperclip.png" alt="" />
+			<div style="pointer-events: none;"></div>
+			
+		</div>
+	</div>
+</div>
+<div class="row p-3 d-none">
+		<div class="col-3">
+		<strong>{$lang->new_attachment}</strong> 
+		</div>
+		<div class="col-3">
+			<input type="file" name="attachments[]" size="30" class="form-control" multiple="multiple" />
+		</div>
+		<div class="col-6 text-end">
+			{$attach_update_options} {$attach_add_options}
+		</div>
+	</div>

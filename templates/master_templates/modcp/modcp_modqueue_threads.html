@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->threads_awaiting_moderation}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="modcp.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="action" value="do_modqueue" />
+<table width="100%" border="0" align="center">
+<tr>
+{$modcp_nav}
+<td valign="top">
+	<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+		<tr>
+			<td class="thead" colspan="3">
+				<div class="float_right">
+					<strong>{$lang->threads}</strong>
+					{$post_link}
+					{$attachment_link}
+				</div>
+				<strong>{$lang->threads_awaiting_moderation}</strong>
+			</td>
+		</tr>
+		<tr>
+			<td class="tcat" width="50%"><span class="smalltext"><strong>{$lang->subject}</strong></span></td>
+			<td class="tcat" align="center" width="25%"><span class="smalltext"><strong>{$lang->author}</strong></span></td>
+			<td class="tcat" align="center" width="25%"><span class="smalltext"><strong>{$lang->date}</strong></span></td>
+		</tr>
+		{$threads}
+		</table>
+{$multipage}
+{$mass_controls}
+<br />
+<div align="center"><input type="submit" class="button" name="reportsubmit" value="{$lang->perform_actions}" /></div>
+</td>
+</tr>
+</table>
+</form>
+{$footer}
+</body>
+</html>

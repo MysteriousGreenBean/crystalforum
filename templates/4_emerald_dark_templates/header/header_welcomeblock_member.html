@@ -1,0 +1,12 @@
+<li><a href="member.php?action=profile&uid={$mybb->user['uid']}">{$mybb->user['username']} <img src="{$mybb->user['avatar']}" style="float:right;width:25px;height:25px;border-radius:100%;margin-left:10px;top: -2px;position: relative;"></a>
+	<ul>
+		<li><a href="private.php">Inbox</a></li>
+		<li><a href="usercp.php">User CP</a></li>
+		{$admincplink}
+		{$modcplink}
+		<li><a href="member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}">Logout</a></li>
+	</ul>
+</li>
+<script>
+	var connected = 1;
+</script>

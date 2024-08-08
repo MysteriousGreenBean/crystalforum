@@ -1,0 +1,102 @@
+<html>
+<head>
+	<title>{$mybb->settings['bbname']} - {$lang->find_users}</title>
+{$headerinclude}
+</head>
+<body>
+	{$header}
+	<table width="100%" border="0" align="center">
+		<tr>
+			{$modcp_nav}
+			<td valign="top">
+				<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+					<tr>
+						<td class="thead" colspan="5"><strong>{$lang->users}</strong></td>
+					</tr>
+					<tr>
+						<td class="tcat" width="30%"><span class="smalltext"><strong>{$lang->username}</strong></span></td>
+						<td class="tcat" align="center" width="15%"><span class="smalltext"><strong>{$lang->usergroup}</strong></span></td>
+						<td class="tcat" align="center" width="15%"><span class="smalltext"><strong>{$lang->regdate}</strong></span></td>
+						<td class="tcat" align="center" width="15%"><span class="smalltext"><strong>{$lang->lastvisit}</strong></span></td>
+						<td class="tcat" align="center" width="10%"><span class="smalltext"><strong>{$lang->postnum}</strong></span></td>
+					</tr>
+					{$users}
+				</table>
+				{$multipage}
+				<br />
+				<form action="modcp.php?action=finduser" method="post">
+					<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+						<tr>
+							<td class="thead" colspan="2"><strong>{$lang->find_users}</strong></td>
+						</tr>
+						<tr>
+							<td class="trow1" width="25%"><strong>{$lang->username_contains}</strong></td>
+							<td class="trow1" width="75%"><input type="text" name="username" id="username" value="{$username}" class="textbox" /></td>
+						</tr>
+						<tr>
+							<td class="trow1" width="25%"><strong>{$lang->sort_by}</strong></td>
+							<td class="trow1" width="75%">
+								<select name="sortby">
+									<option value="username"{$sortbysel['username']}>{$lang->username}</option>
+									<option value="regdate"{$sortbysel['regdate']}>{$lang->regdate}</option>
+									<option value="lastvisit"{$sortbysel['lastvisit']}>{$lang->lastvisit}</option>
+									<option value="postnum"{$sortbysel['postnum']}>{$lang->postnum}</option>
+								</select>
+								{$lang->in}
+								<select name="order">
+									<option value="asc"{$ordersel['asc']}>{$lang->asc}</option>
+									<option value="desc"{$ordersel['desc']}>{$lang->desc}</option>
+								</select>
+								{$lang->order}
+							</td>
+						</tr>
+					</table>
+					<br />
+					<div align="center">
+						<input type="submit" class="button" value="{$lang->find_users}" />
+					</div>
+				</form>
+			</td>
+		</tr>
+	</table>
+{$footer}
+<link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807" />
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+<script type="text/javascript">
+<!--
+if(use_xmlhttprequest == "1")
+{
+	MyBB.select2();
+	$("#username").select2({
+		placeholder: "{$lang->find_users}",
+		minimumInputLength: 2,
+		multiple: false,
+		allowClear: true,
+		ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+			url: "xmlhttp.php?action=get_users",
+			dataType: 'json',
+			data: function (term, page) {
+				return {
+					query: term, // search term
+				};
+			},
+			results: function (data, page) { // parse the results into the format expected by Select2.
+				// since we are using custom formatting functions we do not need to alter remote JSON data
+				return {results: data};
+			}
+		},
+		initSelection: function(element, callback) {
+			var value = $(element).val();
+			if (value !== "") {
+				callback({
+					id: value,
+					text: value
+				});
+			}
+		}
+	});
+}
+// -->
+</script>
+</body>
+</html>

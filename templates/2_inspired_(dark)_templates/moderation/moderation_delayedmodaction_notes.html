@@ -1,0 +1,24 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row m-0 border-bottom">
+    <div class="col align-self-center">{$delayedmod['profilelink']}</div>
+    <div class="col align-self-center">{$delayedmod['dateline']}</div>
+    <div class="col align-self-center">{$delayedmod['action']}</div>
+    <div class="col align-self-center">{$info}</div>
+    <div class="col-auto align-self-center text-end"><a href="moderation.php?action=cancel_delayedmoderation&amp;tid={$tid}&amp;fid={$fid}&amp;did={$delayedmod['did']}&amp;my_post_key={$mybb->post_code}">{$lang->cancel}</a></div>
+</div>
+</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+<div class="card m-0 border-0 p-0">
+<div class="card-body border-bottom p-3">
+<h5 class="card-title fs-5">{$delayedmod['profilelink']}</h5>
+<h6 class="text-muted card-subtitle mb-2">{$delayedmod['dateline']} <br /><br />{$delayedmod['action']}</h6>
+<div class="row pt-3 pb-3 mt-3 m-0 bg-light rounded">
+<div class="col align-self-center">{$info}</div>
+<div class="col-auto align-self-center">
+<a href="moderation.php?action=cancel_delayedmoderation&amp;tid={$tid}&amp;fid={$fid}&amp;did={$delayedmod['did']}&amp;my_post_key={$mybb->post_code}">{$lang->cancel}</a>
+</div>
+</div>
+</div>
+</div>
+</div>

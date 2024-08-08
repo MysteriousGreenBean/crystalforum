@@ -1,0 +1,7 @@
+<a href="private.php?action=read&amp;pmid={$message['pmid']}" id="private_message_{$message['pmid']}">{$lang->multiple_recipients}</a>
+		<div id="private_message_{$message['pmid']}_popup" class="popup_menu" style="display: none;"><div class="tcat"><strong>{$lang->to}</strong></div>{$to_users}{$bcc_users}</div>
+<script type="text/javascript">
+<!--
+	$("#private_message_{$message['pmid']}").popupMenu();
+// -->
+</script>

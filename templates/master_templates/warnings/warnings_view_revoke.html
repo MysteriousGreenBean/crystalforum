@@ -1,0 +1,22 @@
+<br />
+{$warn_errors}
+<form action="warnings.php" method="post" name="input">
+	<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+	<input type="hidden" name="action" value="do_revoke" />
+	<input type="hidden" name="wid" value="{$warning['wid']}" />
+
+	<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder clear">
+		<tr>
+			<td class="thead" colspan="2"><strong>{$lang->revoke_warning}</strong></td>
+		</tr>
+		<tr>
+			<td class="tcat" colspan="2"><span class="smalltext"><strong>{$lang->revoke_warning_desc}</strong></span></td>
+		</tr>
+		<tr>
+			<td class="trow1" style="width: 20%; vertical-align: top;"><strong>{$lang->reason}</strong></td>
+			<td class="trow1"><textarea name="reason" cols="60" rows="4"></textarea></td>
+		</tr>
+	</table>
+	<br />
+	<div style="text-align: center;"><input type="submit" class="button" value="{$lang->revoke_warning}" /></div>
+</form>

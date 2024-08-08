@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>{$lang->compose_pm}</title>
+{$headerinclude}
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/usercp.js?ver=1827"></script>
+</head>
+<body>
+{$header}
+<form action="private.php" method="post" name="input">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<div class="container-md">
+<div class="row">
+<div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+{$usercpnav}
+				
+</div>
+<div class="col">
+	<!-- offcanvas -->
+				<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+				<button class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="bi bi-list"></i> &nbsp;{$lang->ucpmenu}
+</button>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header catmod">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{$lang->ucp_nav_menu}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body catmod">
+    <div>
+     {$usercpnav}
+    </div>
+  </div>
+</div>
+				</div>
+				<!-- /offcanvas -->
+{$preview}
+{$send_errors}				
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+	
+	<div class="legend mb-4">
+		
+		<div class="row">
+			<div class="col align-self-center">
+		{$lang->compose_pm}
+			</div>
+			<div class="col-auto text-end align-self-center">
+				<div class="dropdown">
+				<button class="btn btn-multipage dropdown" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="bi bi-chevron-down"></i> &nbsp;{$lang->compose_options}</button>
+    <div class="dropdown-menu p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5" style="width:600px; font-weight: 500;">
+		{$posticons}
+		
+		<div class="form-check form-switch mb-1 mt-3">
+  <input type="checkbox" class="form-check-input" name="options[signature]" value="1" tabindex="5" {$optionschecked['signature']} />
+  <label class="form-check-label" for="flexSwitchCheckDefault">{$lang->options_sig}</label>
+</div>
+		<div class="form-check form-switch mb-1">
+  <input type="checkbox" class="form-check-input" name="options[disablesmilies]" value="1" tabindex="6" {$optionschecked['disablesmilies']} />
+  <label class="form-check-label" for="flexSwitchCheckDefault">{$lang->options_disable_smilies}</label>
+</div>
+		<div class="form-check form-switch mb-1">
+  <input type="checkbox" class="form-check-input" name="options[savecopy]" value="1" tabindex="7" {$optionschecked['savecopy']} />
+  <label class="form-check-label" for="flexSwitchCheckDefault">{$lang->options_save_copy}</label>
+</div>
+		{$private_send_tracking}
+				
+				</div>
+</div>
+			</div>
+		</div>
+			
+			
+			
+			</div>
+	
+	<div class="form-group mb-3">
+		<label>{$lang->compose_to}</label>
+        <input name="to" class="form-control border border" rows="2" value="{$to}" cols="38" tabindex="1"></input>
+	<span style="font-size: 12px" class="text-muted">{$lang->separate_names} {$max_recipients}</span>
+	</div>
+
+<div class="form-group mb-3">
+	<label>{$lang->compose_subject}</label>
+    <input type="text" class="form-control border border" name="subject" maxlength="85" value="{$subject}" tabindex="3" />
+	</div>
+
+<div class="form-group">
+	<label>{$lang->compose_message}</label>
+<textarea name="message" id="message" class="form-control border border" style="width: 100%; height: 300px" tabindex="4">{$message}</textarea>
+{$codebuttons}
+	</div>
+
+	
+	
+
+<input type="hidden" name="action" value="do_send" />
+<input type="hidden" name="pmid" value="{$pmid}" />
+<input type="hidden" name="do" value="{$do}" />
+<div class="mt-4 text-end p-0">
+	<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<input type="submit" class="btn btn-primary" name="submit" value="{$lang->send_message}" tabindex="9" accesskey="s" />
+<input type="submit" class="btn btn-primary" name="preview" value="{$lang->preview}" tabindex="11" />
+	<input type="submit" class="btn btn-reply" name="saveasdraft" value="{$lang->save_draft}" tabindex="10" />
+</div>
+	
+	<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<input type="submit" class="btn btn-primary" style="width: 100%" name="submit" value="{$lang->send_message}" tabindex="9" accesskey="s" />
+	</div></div>
+</form>
+</div></div>
+</div></div>
+</div>
+{$footer}
+<script type="text/javascript">
+<!--
+	if($("#bcc_area").length > 0 && $("#bcc").val() == "")
+	{
+		$("#bcc_area").css("display", "none");
+	}
+
+	function showBcc()
+	{
+		if($("#bcc_area").css("display") == 'none')
+		{
+			$("#bcc_area").css("display", "");
+		}
+		else
+		{
+			$("#bcc_area").css("display", "none");
+		}
+	}
+// -->
+</script>
+{$autocompletejs}
+</body>
+</html>

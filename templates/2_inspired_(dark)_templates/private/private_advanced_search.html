@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->advanced_private_message_search}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="private.php" method="post" name="pmForm">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="action" value="do_search" />
+<div class="container-md">
+<div class="row">
+<div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+{$usercpnav}
+				
+</div>
+<div class="col">
+	
+	<!-- offcanvas -->
+				<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+				<button class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="bi bi-list"></i> &nbsp;{$lang->ucpmenu}
+</button>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header catmod">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{$lang->ucp_nav_menu}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body catmod">
+    <div>
+     {$usercpnav}
+    </div>
+  </div>
+</div>
+				</div>
+				<!-- /offcanvas -->
+				
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+	
+	<div class="legend mb-4">{$lang->advanced_private_message_search}</div>
+	<div class="ps-3 pe-3">
+	<div class="form-group">
+	<label for="keywords">{$lang->keywords}</label>
+			<input type="text" class="form-control border border" name="keywords" id="keywords" maxlength="250" />
+	</div>
+	
+	<div class="form-check form-check-inline mt-1">
+  <input type="checkbox" class="form-check-input" name="subject" checked="checked" value="1" />
+  <label class="form-check-label" for="inlineCheckbox1">{$lang->search_in_subject}</label>
+</div>
+	<div class="form-check form-check-inline mt-1">
+  <input type="checkbox" class="form-check-input" name="message" checked="checked" value="1" />
+  <label class="form-check-label" for="inlineCheckbox1">{$lang->search_in_message}</label>
+</div>
+	
+	<div class="form-group mt-3">
+	<label for="keywords">{$lang->sender}</label>
+			<input type="text" class="form-control border border" name="sender" id="sender" maxlength="250" />
+	</div>
+	</div>
+	<div class="legend mb-4 mt-4">{$lang->message_status}</div>
+	<div class="ps-3 pe-3">
+			<div class="form-check form-check-inline">
+  <input type="checkbox" name="status[new]" class="form-check-input" checked="checked" value="1" />
+  <label class="form-check-label" for="defaultCheck1">
+    {$lang->message_status_new}
+  </label>
+</div>
+	<div class="form-check form-check-inline">
+  <input type="checkbox" class="form-check-input" name="status[replied]" checked="checked" value="1" />
+  <label class="form-check-label" for="defaultCheck1">
+    {$lang->message_status_replied_to}
+  </label>
+</div>
+	<div class="form-check form-check-inline">
+  <input type="checkbox" class="form-check-input" name="status[forwarded]" checked="checked" value="1" />
+  <label class="form-check-label" for="defaultCheck1">
+    {$lang->message_status_forwarded}
+  </label>
+</div>
+	<div class="form-check form-check-inline">
+  <input type="checkbox" class="form-check-input" name="status[read]" checked="checked" value="1" />
+  <label class="form-check-label" for="defaultCheck1">
+    {$lang->message_status_read}
+  </label>
+</div>
+	</div>
+	
+	<div class="legend mb-4 mt-4">{$lang->folder}</div>
+	
+	<div class="ps-3 pe-3">	{$foldersearch}</div>
+		
+	<div class="legend mb-4 mt-4">{$lang->search_options}</div>
+		<div class="ps-3 pe-3">
+	<div class="form-group">
+		<label>{$lang->sort_by}</label>
+		<select name="sort" id="sort" class="form-select border">
+				<option value="subject">{$lang->sort_by_subject}</option>
+				<option value="sender">{$lang->sort_by_sender}</option>
+				<option value="dateline" selected="selected">{$lang->sort_by_date}</option>
+			</select>
+	</div>
+	
+	<div class="form-check form-check-inline mt-1">
+  <input type="radio" class="form-check-input" name="sortordr" id="order_asc" value="asc" />
+  <label class="form-check-label" for="inlineRadio1">{$lang->ascending_order}</label>
+</div>
+	
+	<div class="form-check form-check-inline mt-1">
+  <input type="radio" class="form-check-input" name="sortordr" checked="checked" id="order_desc" value="desc" />
+  <label class="form-check-label" for="inlineRadio1">{$lang->descending_order}</label>
+</div>
+
+				
+<div class="text-end mt-4 p-0"><input type="submit" value="{$lang->search_private_messages}" class="btn btn-primary" /></div>
+	</div>
+</form>
+	</div></div>
+</div>
+</div>
+</div>
+{$footer}
+<link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807" />
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+<script type="text/javascript">
+<!--
+if(use_xmlhttprequest == "1")
+{
+	MyBB.select2();
+	$("#sender").select2({
+		placeholder: "{$lang->search_user}",
+		minimumInputLength: 2,
+		multiple: false,
+		allowClear: true,
+		ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+			url: "xmlhttp.php?action=get_users",
+			dataType: 'json',
+			data: function (term, page) {
+				return {
+					query: term, // search term
+				};
+			},
+			results: function (data, page) { // parse the results into the format expected by Select2.
+				// since we are using custom formatting functions we do not need to alter remote JSON data
+				return {results: data};
+			}
+		},
+		initSelection: function(element, callback) {
+			var value = $(element).val();
+			if (value !== "") {
+				callback({
+					id: value,
+					text: value
+				});
+			}
+		}
+	});
+}
+// -->
+</script>
+</body>
+</html>

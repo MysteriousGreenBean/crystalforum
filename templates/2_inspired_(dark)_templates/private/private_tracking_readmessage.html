@@ -1,0 +1,36 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+<div class="row p-3 m-0 mb-0 border-bottom">
+	<div class="col-auto align-self-center ps-0">
+		<img src="{$theme['imgdir']}/old_pm.png" alt="" />
+	</div>
+	<div class="col align-self-center">
+		{$readmessage['subject']}
+	</div>
+	<div class="col-1 align-self-center">
+		<avatarep_uid_[{$readmessage['toid']}]>
+	</div>
+	<div class="col-2 align-self-center">
+		<avatarep_uid_[{$readmessage['toid']}]>{$readmessage['profilelink']}
+		</div>
+	<div class="col-3 align-self-center text-muted">
+		{$readdate}
+		</div>
+		<div class="col-auto align-self-center pe-0">
+			<input type="checkbox" class="form-check-input" name="readcheck[{$readmessage['pmid']}]" value="1" />
+		</div>
+
+	</div></div>
+	
+	
+	<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<div class="card border-0">
+    <div class="card-body border-0">
+        <h4 class="card-title">{$readmessage['subject']}</h4>
+        <div class="row p-3 bg-light m-0 rounded">
+			<div class="col-auto align-self-center"><avatarep_uid_[{$readmessage['toid']}]></div>
+            <div class="col align-self-center"><avatarep_uid_[{$readmessage['toid']}]>{$readmessage['profilelink']}<br /><span class="text-muted">{$readdate}</span><span class="float-end"><input type="checkbox" class="form-check-input" name="readcheck[{$readmessage['pmid']}]" value="1" /></span></div>
+        </div>
+    </div>
+</div>
+			</div>
