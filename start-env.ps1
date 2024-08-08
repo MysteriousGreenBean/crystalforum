@@ -7,7 +7,7 @@ $backgroundScript = "./docker/monitor/monitor.ps1"
 Invoke-Expression $dockerComposeScript
 
 Write-Host "Waiting for database to start..."
-$checkUrl = "http://localhost/handlestylesheetsandtemplates.php?"
+$checkUrl = "http://localhost/handlestylesheetsandtemplates.php?rebuild=stylesheets"
 $response = Invoke-WebRequest -Uri $checkUrl
 while ($response.StatusCode -ne 200 -or ($response.Content -like "*Fatal error*")) {
     Start-Sleep -Seconds 1
