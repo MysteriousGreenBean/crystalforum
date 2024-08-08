@@ -19,6 +19,8 @@ services:
       - "80:80"
     volumes:
       - ./website:/var/www/html:rw
+      - ./stylesheets:/var/stylesheets:ro
+      - ./templates:/var/templates:ro
     networks:
       - mybb_network
     depends_on:
