@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->login}</title>
+{$headerinclude}
+</head>
+<body>
+
+{$header}
+<div class="container-md">
+{$inline_errors}
+{$member_loggedin_notice}
+
+	
+
+<form action="member.php" method="post">
+	
+<div class="card shadow-sm border-0 align-center">
+<div class="card-body p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 border-0 text-start">
+	
+	<div class="legend mb-4">{$lang->login}</div>
+					
+				
+			<div class="mb-3 ps-3 pe-3">
+  <label for="username" class="form-label">{$lang->username}</label>
+  <input class="form-control border border" name="username" type="text" id="username" value="{$username}"/>
+</div>
+			
+			<div class="mb-3 ps-3 pe-3">
+  <label for="password" class="form-label">{$lang->password}</label>
+  <input class="form-control border border" name="password"  type="password" id="password" value="{$password}"/>
+</div>
+            
+	<div class="ps-3">
+					<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="remember" value="yes" id="flexCheckDefault" checked>
+  <label class="form-check-label" for="flexCheckDefault">
+    {$lang->remember_me}
+  </label>
+</div>
+	</div>
+					
+						
+				
+   
+{$captcha}
+
+<div class="ps-3 text-start">
+	<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<input type="submit" class="btn btn-primary mt-3 ps-5 pe-5" name="submit" value="{$lang->login}">
+</div>
+	
+	<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+		<input type="submit" class="btn btn-primary mt-3 ps-5 pe-5" style="width: 100%;" name="submit" value="{$lang->login}">
+	</div>
+	</div>
+		
+		
+<input type="hidden" name="action" value="do_login" />
+<input type="hidden" name="url" value="{$redirect_url}" />
+<input name="my_post_key" type="hidden" value="{$mybb->post_code}" />
+</form>
+
+
+		
+		<div class="text-end mt-3 pe-3">
+
+	<a href="{$mybb->settings['bburl']}/member.php?action=lostpw">{$lang->lostpw_note}</a>
+			
+		</div>
+	</div>
+	</div>
+	</div>
+
+
+{$footer}
+</body>
+</html>

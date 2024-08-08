@@ -1,0 +1,33 @@
+<div class="modal">
+	<div style="overflow-y: auto; max-height: 400px;" class="modal_{$user['uid']}_{$reputation_pid}">
+      <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+	<tr>
+		<td class="trow1" style="padding: 20px">
+			<strong>{$vote_title}</strong><br />{$post_rep_info}<br />
+          <form action="reputation.php" method="post" class="reputation_{$user['uid']}_{$reputation_pid}" onsubmit="return MyBB.submitReputation({$user['uid']}, {$reputation_pid});">
+				<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+				<input type="hidden" name="action" value="do_add" />
+				<input type="hidden" name="uid" value="{$user['uid']}" />
+				<input type="hidden" name="pid" value="{$reputation_pid}" />
+				<input type="hidden" name="rid" value="{$rid}" />
+				<input type="hidden" name="nomodal" value="1" />
+				<select name="reputation" id="reputation">
+					{$positive_power}
+					{$neutral_power}
+					{$negative_power}
+				</select>
+				<br /><br />
+				<span class="smalltext">{$lang->user_comments}</span>
+				<br />
+				<input type="text" class="textbox" name="comments" size="35" maxlength="250" value="{$comments}" style="width: 95%" />
+				<br /><br />
+				<div style="text-align: center;">
+					<input type="submit" class="button" value="{$vote_button}" />
+					{$delete_button}
+				</div>
+			</form>
+		</td>
+	</tr>
+</table>
+  </div>
+</div>

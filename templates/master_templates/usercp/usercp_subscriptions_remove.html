@@ -1,0 +1,17 @@
+<tr>
+	<td class="tfoot" colspan="7">
+	<div class="float_right">
+		<strong>{$lang->with_selected}</strong>
+		<select name="do">
+			<option value="delete">{$lang->delete_subscriptions}</option>
+			<option value="no_notification">{$lang->update_no_notification}</option>
+			<option value="email_notification">{$lang->update_email_notification}</option>
+			<option value="pm_notification">{$lang->update_pm_notification}</option>
+		</select>
+		{$gobutton}
+	</div>
+	<div>
+		<strong><a href="usercp.php?action=removesubscriptions&amp;my_post_key={$mybb->post_code}">{$lang->remove_all_subscriptions}</a></strong>
+	</div>
+	</td>
+</tr>

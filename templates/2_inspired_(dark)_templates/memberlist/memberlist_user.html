@@ -1,0 +1,37 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row p-3 me-0 ms-0 border-bottom">
+<div class="col-1 align-self-center">
+{$user['avatar']}
+</div>
+<div class="col-3 align-self-center">
+{$user['profilelink']} <br />
+	<span class="text-muted" style="font-size: 14px">{$user['usertitle']}</span>
+</div>
+<div class="col-3 align-self-center" style="font-size: 14px">
+{$lang->joined}<br />
+	<span class="text-muted" style="font-size: 14px">{$user['regdate']}</span>
+</div>
+<div class="col-3 align-self-center" style="font-size: 14px">
+{$lang->lastvisit}<br />
+	<span class="text-muted" style="font-size: 14px">{$user['lastvisit']}</span>
+</div>
+<div class="col align-self-center" style="font-size: 14px">
+<span class="text-muted">{$lang->posts}</span> {$user['postnum']}<br />
+	<span class="text-muted">{$lang->threads}</span> {$user['threadnum']}
+</div>
+</div>
+</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<div class="row me-0 ms-0 p-3">
+		<div class="col-auto align-self-center">{$user['avatar']}</div>
+		<div class="col align-self-center">{$user['profilelink']}<br /><span class="text-muted" style="font-size: 14px">{$user['usertitle']}</span></div>
+	</div>
+	<div class="row me-0 ms-0 p-3 border-bottom">
+		<div class="col align-self-center" style="font-size: 14px">
+			{$lang->lastvisit} <span class="text-muted" style="font-size: 14px">{$user['lastvisit']}</span>
+		</div>
+		<div class="col align-self-center text-end" style="font-size: 14px">
+			<span class="text-muted">{$lang->posts}</span> {$user['postnum']}, <span class="text-muted">{$lang->threads}</span> {$user['threadnum']}</div>
+	</div>
+</div>

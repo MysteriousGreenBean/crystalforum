@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->report_center}</title>
+{$headerinclude}
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/inline_reports.js?ver=1821"></script>
+</head>
+<body>
+{$header}
+<form action="modcp.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="page" value="{$page}" />
+	<div class="container-md">
+		
+		<div class="row">
+			
+			<div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+{$modcp_nav}
+			</div>
+			<div class="col">
+				<!-- offcanvas -->
+				<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+				<button class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="bi bi-list"></i> &nbsp;{$lang->nav_menu}
+</button>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header catmod">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{$lang->nav_menu}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body catmod">
+    <div>
+     {$modcp_nav}
+    </div>
+  </div>
+</div>
+				</div>
+				<!-- /offcanvas -->
+
+
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+	
+	<div class="legend mb-4">{$lang->report_center}</div>
+	
+	<div class="ps-3 pe-3 text-end"><input type="checkbox" class="form-check-input" name="allbox" onclick="inlineReports.checkAll(this);" /></div>
+		</tr>
+	
+		{$reports}
+		
+	
+		
+	
+		
+			<div class="row mt-5">
+				<div class="col">
+					<a href="modcp.php?action=allreports" class="btn btn-primary">{$lang->view_all_reports}</a>
+				</div>
+				<div class="col text-end">
+					<input type="hidden" name="action" value="do_reports" /><input type="submit" id="inline_read" class="btn btn-primary" name="reportsubmit" value="{$lang->mark_read} ({$inlinecount})" />
+				</div>
+	</div>
+
+</form>
+	</div></div>
+{$reportspages}
+</div>
+</div>
+</div>
+{$footer}
+<script type="text/javascript">
+<!--
+	var mark_read_text = "{$lang->mark_read}";
+	var all_text = "{$report_count}";
+// -->
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+{$warn_errors}
+</div>
+<form action="warnings.php" method="post" name="input">
+	<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+	<input type="hidden" name="action" value="do_revoke" />
+	<input type="hidden" name="wid" value="{$warning['wid']}" />
+
+	<div class="legend mt-4 mb-4">{$lang->revoke_warning}</div>
+<div class="ps-3 pe-3">	<span class="text-muted">{$lang->revoke_warning_desc}</span>
+		
+	<div class="mt-4"></div>
+			{$lang->reason}
+			<textarea name="reason" class="form-control border" cols="60" rows="4"></textarea>
+		
+	<div class="mt-1 text-end"><input type="submit" class="btn btn-primary" value="{$lang->revoke_warning}" /></div>
+</form>

@@ -1,0 +1,10 @@
+					<dt><label style="display: block;"><input type="radio" name="type" value="{$type['tid']}" {$checked} class="types_check" onclick="checkType();" style="vertical-align: middle;" /> <strong>{$type['title']}</strong> {$points}</label></dt>
+					<dd style="margin-top: 4px;" id="type_{$type['tid']}" class="types">
+						<div class="smalltext">{$lang->new_warning_level}</div>
+						<div class="tborder float_left" style="width: 150px; margin: 0; padding: 1px;">
+							<div class="trow1 float_left" style="width: {$current_level}%;">&nbsp;</div>
+							<div class="trow2 float_left" style="width: {$level_diff}%;">&nbsp;</div>
+						</div>
+						<div class="float_left" style="padding-left: 10px; font-weight: bold;">{$new_warning_level}%</div><br style="clear: left;" />
+						{$result}
+					</dd>

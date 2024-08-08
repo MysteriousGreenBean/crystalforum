@@ -1,0 +1,30 @@
+<script type="text/javascript">
+<!--
+	lang.captcha_fetch_failure = "{$lang->captcha_fetch_failure}";
+// -->
+</script>
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/captcha.js?ver=1821"></script>
+		
+<div class="legend mb-4 mt-4">{$lang->image_verification}</div>
+		<div class="text-muted mb-2">{$lang->verification_note}</div>
+		
+	
+		<img src="captcha.php?action=regimage&amp;imagehash={$imagehash}" alt="{$lang->image_verification}" title="{$lang->image_verification}" id="captcha_img" /><br />
+<script type="text/javascript">
+<!--
+	if(use_xmlhttprequest == "1")
+	{
+		document.write('<input type="button" class="btn btn-multipage float-end mb-1" tabindex="10000" name="refresh" value="{$lang->refresh}" onclick="return captcha.refresh();" \/>');
+	}
+// -->
+</script>
+	
+		
+		<span class="text-danger" style="font-size: 12px">{$lang->verification_subnote}</span>
+		<input type="text" class="form-control border mt-1" name="imagestring" value="" id="imagestring" /><input type="hidden" name="imagehash" value="{$imagehash}" id="imagehash" />
+		
+	
+		<div class="row mt-3">
+	<div class="col" id="imagestring_status"  style="display: none;" >&nbsp;
+			</div>
+</div>

@@ -1,0 +1,26 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+<div class="row">		
+<div class="col align-self-top">
+{$lang->whos_online} <i class="bi bi-arrow-right-short"></i> <span class="text-muted">{$lang->online_note}</span>
+	</div>
+	<div class="col-auto align-self-top text-end">
+		<a href="online.php" class="btn btn-multipage">{$lang->complete_list} <i class="bi bi-chevron-right"></i></a>
+	</div>
+	</div>
+
+<div class="row">
+	<div class="col align-self-top">
+		<i class="bi bi-arrow-return-right"></i> &nbsp;<span class="text-muted">{$onlinemembers}</span>
+	</div>
+</div>
+</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+<div class="card border-0 m-0">
+    <div class="card-body">
+        <h6 class="card-title" style="font-weight: 400; font-size: 14px">{$lang->whos_online}</h6>
+		<h6 class="text-muted" style="font-weight: 400; font-size: 14px">{$lang->online_note}</h6>
+        <p class="card-text" style="font-weight: 400; font-size: 14px">{$onlinemembers}</p>
+    </div>
+</div>
+</div>

@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>{$mybb->settings['bbname']} - {$lang->warning_log}</title>
+	{$headerinclude}
+</head>
+<body>
+	{$header}
+
+	{$multipage}
+	<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+		<thead>
+			<tr>
+				<td class="thead" colspan="5">
+					<div class="float_right">{$lang->current_warning_level}</div>
+					<div><strong>{$lang->warning_log}</strong></div>
+				</td>
+			</tr>
+			<tr>
+				<td class="tcat"><span class="smalltext"><strong>{$lang->warning}</strong></span></td>
+				<td class="tcat" width="20%" align="center"><span class="smalltext"><strong>{$lang->date_issued}</strong></span></td>
+				<td class="tcat" width="20%" align="center"><span class="smalltext"><strong>{$lang->expiry_date}</strong></span></td>
+				<td class="tcat" width="20%" align="center"><span class="smalltext"><strong>{$lang->issued_by}</strong></span></td>
+				<td class="tcat" width="1" align="center"><span class="smalltext"><strong>{$lang->details}</strong></span></td>
+			</tr>
+		</thead>
+		<tbody>
+		{$warnings}
+		</tbody>
+	</table>
+	{$multipage}
+
+{$footer}
+</body>
+</html>

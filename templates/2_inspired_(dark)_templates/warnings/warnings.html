@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>{$mybb->settings['bbname']} - {$lang->warning_log}</title>
+	{$headerinclude}
+</head>
+<body>
+	{$header}
+
+	
+	
+	<div class="container-md">
+		{$multipage}
+<div class="card shadow-sm bg-white rounded border-0">
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+<div class="legend mb-4">
+	<div class="row">
+		<div class="col align-self-center">
+			{$lang->warning_log}
+		</div>
+		<div class="col-auto align-self-center">
+			<span class="btn btn-multipage">{$lang->current_warning_level}</span>
+		</div>
+	</div>
+	</div>
+
+	
+			
+		{$warnings}
+	</div></div>
+	{$multipage}
+	</div>
+{$footer}
+</body>
+</html>

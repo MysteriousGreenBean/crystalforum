@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->attachments_awaiting_moderation}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="modcp.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<input type="hidden" name="action" value="do_modqueue" />
+<table width="100%" border="0" align="center">
+<tr>
+{$modcp_nav}
+<td valign="top">
+	<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+		<tr>
+			<td class="thead" colspan="6">
+				<div class="float_right">
+					{$thread_link}
+					{$post_link}
+					{$navsep}<strong>{$lang->attachments}</strong>
+				</div>
+				<strong>{$lang->attachments_awaiting_moderation}</strong>
+			</td>
+		</tr>
+		<tr>
+			<td class="tcat"><span class="smalltext"><strong>{$lang->filename}</strong></span></td>
+			<td class="tcat" align="center" width="20%"><span class="smalltext"><strong>{$lang->author}</strong></span></td>
+			<td class="tcat" align="center" width="20%"><span class="smalltext"><strong>{$lang->date}</strong></span></td>
+			<td class="tcat" align="center" colspan="3"><span class="smalltext"><strong>{$lang->controls}</strong></span></td>
+		</tr>
+		{$attachments}
+		</table>
+{$multipage}
+{$mass_controls}
+<br />
+<div align="center"><input type="submit" class="button" name="reportsubmit" value="{$lang->perform_actions}" /></div>
+</td>
+</tr>
+</table>
+</form>
+{$footer}
+</body>
+</html>

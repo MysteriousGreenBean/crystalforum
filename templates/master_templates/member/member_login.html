@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->login}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<br />
+{$inline_errors}
+{$member_loggedin_notice}
+<form action="member.php" method="post">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="2"><strong>{$lang->login}</strong></td>
+</tr>
+<tr>
+<td class="trow1"><strong>{$lang->username}</strong></td>
+<td class="trow1"><input type="text" class="textbox" name="username" size="25" style="width: 200px;" value="{$username}" /></td>
+</tr>
+<tr>
+<td class="trow2"><strong>{$lang->password}</strong><br /><span class="smalltext">{$lang->pw_note}</span></td>
+<td class="trow2"><input type="password" class="textbox" name="password" size="25" style="width: 200px;" value="{$password}" /> (<a href="member.php?action=lostpw">{$lang->lostpw_note}</a>)</td>
+</tr>
+<tr>
+<td class="trow1" colspan="2" align="center"><label title="{$lang->remember_me_desc}"><input type="checkbox" class="checkbox" name="remember" checked="checked" value="yes" /> {$lang->remember_me}</label></td>
+</tr>
+{$captcha}
+</table>
+<br />
+<div align="center"><input type="submit" class="button" name="submit" value="{$lang->login}" /></div>
+<input type="hidden" name="action" value="do_login" />
+<input type="hidden" name="url" value="{$redirect_url}" />
+<input name="my_post_key" type="hidden" value="{$mybb->post_code}" />
+</form>
+{$footer}
+</body>
+</html>

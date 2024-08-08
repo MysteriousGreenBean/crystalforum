@@ -1,0 +1,40 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+<div class="row p-3 m-0 border-bottom">
+	<div class="col-auto align-self-center ps-0">
+		<img src="{$theme['imgdir']}/{$msgstatus}.png" alt="{$msgalt}" title="{$msgalt}" />
+	</div>
+	<div class="col-auto align-self-center">
+		{$icon}
+	</div>
+	<div class="col align-self-center">
+		<a class="{$msgstatus}" href="private.php?action=read&amp;pmid={$message['pmid']}">{$message['subject']}</a>{$denyreceipt}
+	</div>
+	<div class="col-1 align-self-center">
+		<avatarep_uid_[{$tofromuid}]>
+	</div>
+		<div class="col-2 align-self-center">
+			{$tofromusername}
+		</div>
+		<div class="col-2 align-self-center text-muted text-end">
+			{$senddate}
+		</div>
+		<div class="col-auto text-end align-self-center pe-0">
+			<input type="checkbox" class="form-check-input" name="check[{$message['pmid']}]" value="1" />
+		</div>
+	</div>
+	</div>
+	
+	
+		
+		<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<div class="card border-0">
+    <div class="card-body border-0">
+        <h4 class="card-title"><a class="{$msgstatus}" href="private.php?action=read&amp;pmid={$message['pmid']}">{$message['subject']}</a>{$denyreceipt}</h4>
+        <div class="row p-3 bg-light m-0 rounded">
+			<div class="col-auto align-self-center"><avatarep_uid_[{$tofromuid}]></div>
+            <div class="col align-self-center">{$tofromusername}<br /><span class="text-muted">{$senddate}</span><span class="float-end"><input type="checkbox" class="form-check-input" name="check[{$message['pmid']}]" value="1" /></span></div>
+        </div>
+    </div>
+</div>
+			</div>

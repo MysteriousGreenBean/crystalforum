@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->member_list}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+{$multipage}
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="{$colspan}">
+	<div class="float_right">
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->a}" style="padding: 5px;">{$lang->a}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->b}" style="padding: 5px;">{$lang->b}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->c}" style="padding: 5px;">{$lang->c}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->d}" style="padding: 5px;">{$lang->d}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->e}" style="padding: 5px;">{$lang->e}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->f}" style="padding: 5px;">{$lang->f}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->g}" style="padding: 5px;">{$lang->g}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->h}" style="padding: 5px;">{$lang->h}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->i}" style="padding: 5px;">{$lang->i}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->j}" style="padding: 5px;">{$lang->j}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->k}" style="padding: 5px;">{$lang->k}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->l}" style="padding: 5px;">{$lang->l}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->m}" style="padding: 5px;">{$lang->m}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->n}" style="padding: 5px;">{$lang->n}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->o}" style="padding: 5px;">{$lang->o}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->p}" style="padding: 5px;">{$lang->p}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->q}" style="padding: 5px;">{$lang->q}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->r}" style="padding: 5px;">{$lang->r}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->s}" style="padding: 5px;">{$lang->s}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->t}" style="padding: 5px;">{$lang->t}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->u}" style="padding: 5px;">{$lang->u}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->v}" style="padding: 5px;">{$lang->v}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->w}" style="padding: 5px;">{$lang->w}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->x}" style="padding: 5px;">{$lang->x}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->y}" style="padding: 5px;">{$lang->y}</a>
+		<a href="memberlist.php?username_match=begins&amp;username={$lang->z}" style="padding: 5px;">{$lang->z}</a>
+	</div>
+	<div><strong>{$lang->member_list}</strong></div></td>
+</tr>
+<tr>
+<td class="tcat" width="1%"><span class="smalltext"><strong>{$lang->avatar}</strong></span></td>
+<td class="tcat"><span class="smalltext"><a href="{$sorturl}&amp;sort=username&amp;order=ascending"><strong>{$lang->username}</strong></a> {$orderarrow['username']}</span></td>
+<td class="tcat" width="15%" align="center"><span class="smalltext"><a href="{$sorturl}&amp;sort=regdate&amp;order=ascending"><strong>{$lang->joined}</strong></a> {$orderarrow['regdate']}</span></td>
+<td class="tcat" width="15%" align="center"><span class="smalltext"><a href="{$sorturl}&amp;sort=lastvisit&amp;order=descending"><strong>{$lang->lastvisit}</strong></a> {$orderarrow['lastvisit']}</span></td>
+<td class="tcat" width="10%" align="center"><span class="smalltext"><a href="{$sorturl}&amp;sort=postnum&amp;order=descending"><strong>{$lang->posts}</strong></a> {$orderarrow['postnum']}</span></td>
+<td class="tcat" width="10%" align="center"><span class="smalltext"><a href="{$sorturl}&amp;sort=threadnum&amp;order=descending"><strong>{$lang->threads}</strong></a> {$orderarrow['threadnum']}</span></td>
+{$referral_header}
+</tr>
+{$users}
+</table>
+{$multipage}
+<br class="clear" />
+<br />
+<form method="post" action="memberlist.php">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="3">
+	<div class="float_right">
+		<strong><a href="memberlist.php?action=search">{$lang->advanced_search}</a></strong>
+	</div>
+	<div><strong>{$lang->search_members}</strong></div>
+</td>
+</tr>
+<tr>
+	<td class="tcat"><strong><label for="username">{$lang->username}</label></strong></td>
+	<td class="tcat"><strong><label for="website">{$lang->website}</label></strong></td>
+	<td class="tcat"><strong><label for="sort">{$lang->sort_by}</label></strong></td>
+</tr>
+<tr>
+	<td class="trow1" width="33%" style="vertical-align: top;">
+		{$lang->exactly}<br />
+		<input type="text" class="textbox" name="username" id="username" style="width: 99%; margin-top: 4px;" value="{$search_username}" />
+	</td>
+	<td class="trow1" width="33%" style="vertical-align: top;">
+		{$lang->contains}<br />
+		<input type="text" class="textbox" name="website" id="website" style="width: 99%; margin-top: 4px;" value="{$search_website}" />
+	</td>
+	<td class="trow1" width="33%">
+		<div class="smalltext" style="margin-bottom: 3px;">
+			<input type="radio" class="radio" name="order" id="order_asc" value="ascending"{$order_check['ascending']} /> <label for="order_asc">{$lang->order_asc}</label>&nbsp;
+			<input type="radio" class="radio" name="order" id="order_desc" value="descending"{$order_check['descending']} /> <label for="order_desc">{$lang->order_desc}</label>
+		</div>
+		<select name="sort" id="sort" style="width: 99%;">
+			<option value="username"{$sort_selected['username']}>{$lang->sort_by_username}</option>
+			<option value="regdate"{$sort_selected['regdate']}>{$lang->sort_by_regdate}</option>
+			<option value="lastvisit"{$sort_selected['lastvisit']}>{$lang->sort_by_lastvisit}</option>
+			<option value="postnum"{$sort_selected['postnum']}>{$lang->sort_by_posts}</option>
+			<option value="threadnum"{$sort_selected['threadnum']}>{$lang->sort_by_threads}</option>
+			{$referrals_option}
+		</select>
+	</td>
+</tr>
+</table>
+<div align="center"><br /><input type="submit" class="button" name="submit" value="{$lang->search}" /></div>
+</form>
+{$footer}
+<link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807">
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+<script type="text/javascript">
+<!--
+if(use_xmlhttprequest == "1")
+{
+	MyBB.select2();
+	$("#username").select2({
+		placeholder: "{$lang->search_user}",
+		minimumInputLength: 2,
+		multiple: false,
+		allowClear: true,
+		ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+			url: "xmlhttp.php?action=get_users",
+			dataType: 'json',
+			data: function (term, page) {
+				return {
+					query: term, // search term
+				};
+			},
+			results: function (data, page) { // parse the results into the format expected by Select2.
+				// since we are using custom formatting functions we do not need to alter remote JSON data
+				return {results: data};
+			}
+		},
+		initSelection: function(element, callback) {
+			var value = $(element).val();
+			if (value !== "") {
+				callback({
+					id: value,
+					text: value
+				});
+			}
+		},
+       // Allow the user entered text to be selected as well
+       createSearchChoice:function(term, data) {
+			if ( $(data).filter( function() {
+				return this.text.localeCompare(term)===0;
+			}).length===0) {
+				return {id:term, text:term};
+			}
+		},
+	});
+
+  	$('[for=username]').on('click', function(){
+		$("#username").select2('open');
+		return false;
+	});
+}
+// -->
+</script>
+</body>
+</html>

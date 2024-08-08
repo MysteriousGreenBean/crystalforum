@@ -1,0 +1,30 @@
+<br />
+<fieldset class="trow2">
+<script type="text/javascript">
+<!--
+	lang.question_fetch_failure = "{$lang->question_fetch_failure}";
+// -->
+</script>
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/question.js?ver=1821"></script>
+<legend><strong>{$lang->security_question}</strong></legend>
+<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+<tr>
+<td colspan="2"><span class="smalltext">{$lang->question_note}</span></td>
+</tr>
+<tr>
+<td colspan="2"><br /><span class="smalltext" id="question" style="font-weight:bold;">{$question['question']}</span></td>
+</tr>
+<tr>
+<td width="60%">
+	<input type="text" class="textbox" name="answer" value="" id="answer" style="width: 70%;" />
+	<input type="hidden" name="question_id" value="{$sid}" id="question_id" />
+</td>
+<td width="40%">
+	{$refresh}
+</td>
+</tr>
+<tr>
+	<td id="answer_status"  style="display: none;" colspan="2">&nbsp;</td>
+</tr>
+</table>
+</fieldset>

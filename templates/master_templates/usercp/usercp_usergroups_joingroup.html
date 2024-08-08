@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->request_join_usergroup}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="usercp.php" method="post">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<table width="100%" border="0" align="center">
+<tr>
+{$usercpnav}
+<td valign="top">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="2"><strong>{$lang->request_join_usergroup}</strong></td>
+</tr>
+<tr>
+<td class="trow1" align="center" colspan="2">{$lang->join_group_moderate_note}</td>
+</tr>
+<tr>
+<td class="trow2"><strong>{$lang->user_group}</strong></td>
+<td class="trow2">{$usergroup['title']}</td>
+</tr>
+<tr>
+<td class="trow1"><strong>{$lang->join_reason}</strong></td>
+<td class="trow1"><input type="text" class="textbox" name="reason" value="" size="50"  maxlength="250" /></td>
+</tr>
+</table>
+<br />
+<div align="center">
+<input type="hidden" name="action" value="usergroups" />
+<input type="hidden" name="joingroup" value="{$joingroup}" />
+<input type="hidden" name="do" value="joingroup" />
+<input type="submit" class="button" value="{$lang->send_join_request}" />
+</div>
+</td>
+</tr>
+</table>
+</form>
+{$footer}
+</body>
+</html>

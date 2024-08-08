@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->edit_profile}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+	
+	
+<form action="usercp.php" method="post" name="input">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<div class="container-md">
+		
+		<div class="row">
+			<div class="col-3 d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+
+{$usercpnav}
+				
+			</div>
+			<div class="col">
+				{$errors}
+				<!-- offcanvas -->
+				<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+				<button class="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+  <i class="bi bi-list"></i> &nbsp;{$lang->ucpmenu}
+</button>
+				
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header catmod">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{$lang->ucp_nav_menu}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body catmod">
+    <div>
+     {$usercpnav}
+    </div>
+  </div>
+</div>
+				</div>
+				<!-- /offcanvas -->
+				<div class="card shadow-sm bg-white rounded border-0">
+					
+						
+				
+<div class="card-body bg-white p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 mt-0 rounded">
+
+
+
+						<div class="legend mb-4">{$lang->profile_required}</div>
+						<div class="p-3">{$lang->change_email_notice}
+						
+{$requiredfields}
+						</div>
+						<div class="legend mb-4 mt-4">{$lang->profile_optional}</div>
+						
+						<div class="p-3"><div class="row">
+							<div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
+								
+								<div class="form-group">
+									<label for="birthday">
+										{$lang->birthday}
+									</label>
+									<select name="bday1" class="form-select border">
+<option value="">&nbsp;</option>
+{$bdaydaysel}
+</select>
+								</div>
+								</div>
+								<div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
+									
+									<div class="form-group">
+										<label for="birthmonth">&nbsp;</label>
+										<select name="bday2" class="form-select border w-100">
+<option value="">&nbsp;</option>
+<option value="1" {$bdaymonthsel['1']}>{$lang->month_1}</option>
+<option value="2" {$bdaymonthsel['2']}>{$lang->month_2}</option>
+<option value="3" {$bdaymonthsel['3']}>{$lang->month_3}</option>
+<option value="4" {$bdaymonthsel['4']}>{$lang->month_4}</option>
+<option value="5" {$bdaymonthsel['5']}>{$lang->month_5}</option>
+<option value="6" {$bdaymonthsel['6']}>{$lang->month_6}</option>
+<option value="7" {$bdaymonthsel['7']}>{$lang->month_7}</option>
+<option value="8" {$bdaymonthsel['8']}>{$lang->month_8}</option>
+<option value="9" {$bdaymonthsel['9']}>{$lang->month_9}</option>
+<option value="10" {$bdaymonthsel['10']}>{$lang->month_10}</option>
+<option value="11" {$bdaymonthsel['11']}>{$lang->month_11}</option>
+<option value="12" {$bdaymonthsel['12']}>{$lang->month_12}</option>
+</select>
+									</div></div>
+							<div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
+								
+								<div class="form-group">
+									<label for="birthyear">&nbsp;</label>
+									<input type="text" class="form-control border border" size="4" maxlength="4" name="bday3" value="{$bday['2']}" />
+								</div>
+							</div>
+							
+							<div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3">
+								
+								<div class="form-group">
+									<label for="birthyear">{$lang->birthdayprivacy}</label>
+									<select name="birthdayprivacy" class="form-select border">
+<option value="all"{$allselected}>{$lang->birthdayprivacyall}</option>
+<option value="none"{$noneselected}>{$lang->birthdayprivacynone}</option>
+<option value="age"{$ageselected}>{$lang->birthdayprivacyage}</option>
+</select>
+								</div>
+							</div>
+						</div>
+						</div>		
+
+						<div class="p-3">{$website}</div>
+
+						{$customfields}
+
+					
+{$customtitle}
+{$contactfields}
+{$awaysection}
+
+
+<div class="text-end pe-3">
+<input type="hidden" name="action" value="do_profile" />
+<input type="submit" class="btn btn-primary" name="regsubmit" value="{$lang->update_profile}" />
+</div>
+
+</form>
+
+	</div>
+	</div>
+	</div>
+	</div>
+{$footer}
+</body>
+</html>

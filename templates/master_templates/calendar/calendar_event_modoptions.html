@@ -1,0 +1,11 @@
+				<form method="post" action="calendar.php">
+					<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+					<input type="hidden" name="eid" value="{$event['eid']}">
+					<select name="action" onchange="if(this.options[this.selectedIndex].value != '') { window.location=('calendar.php?action='+this.options[this.selectedIndex].value+'&amp;eid={$event['eid']}&amp;my_post_key={$mybb->post_code}') }">
+						<option value="" style="font-weight: bold;">{$lang->moderator_options}</option>
+						<option value="{$approve_value}">{$approve}</option>
+						<option value="move">{$lang->move_event}</option>
+					</select>
+					{$gobutton}
+				</form>
+				<br />

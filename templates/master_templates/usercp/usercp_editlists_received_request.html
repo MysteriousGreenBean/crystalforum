@@ -1,0 +1,11 @@
+<tr>
+	<td class="{$bgcolor}">
+		{$request['username']}
+	</td>
+	<td class="{$bgcolor}">
+		{$request['date']}
+	</td>
+	<td class="{$bgcolor}">
+		<a href="{$mybb->settings['bburl']}/usercp.php?action=acceptrequest&amp;id={$request['id']}&amp;my_post_key={$mybb->post_code}">{$lang->accept}</a> - <a href="{$mybb->settings['bburl']}/usercp.php?action=declinerequest&amp;id={$request['id']}&amp;my_post_key={$mybb->post_code}">{$lang->decline}</a>
+	</td>
+</tr>

@@ -1,0 +1,206 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->search}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+
+	<div class="container-md">
+<form action="search.php">
+<input type="hidden" name="action" value="do_search" />
+	
+<div class="card shadow-sm border-0 mt-3">
+
+<div class="card-body p-2 p-sm-2 p-md-2 p-lg-5 p-xl-5 p-xxl-5 border-0 mt-1" style="border-top: 0px"> 
+	
+	
+	<div class="legend mb-4">{$lang->search}</div>
+	
+	<div class="p-3">
+			{$lang->search_keyword}
+			
+			
+			
+			<input type="text" class="form-control border" name="keywords" size="35" maxlength="250" />
+			
+		
+	
+	<div class="form-check form-check-inline mt-1">
+  <input class="form-check-input" type="radio" name="postthread" id="postthread" value="1" checked>
+  <label class="form-check-label" for="postthread">
+    {$lang->search_entire_post}
+  </label>
+</div>
+			<div class="form-check form-check-inline mt-1">
+  <input class="form-check-input" type="radio" name="postthread" id="postthread2" value="2" />
+  <label class="form-check-label" for="postthread2">
+    {$lang->search_titles_only}
+  </label>
+</div>
+	</div>
+
+	<div class="legend mt-4 mb-4">{$lang->search_forums}</div>
+			
+	<div class="p-3">	{$srchlist}</div>
+			
+
+		
+		
+	<div class="legend mb-4">{$lang->search_username}</div>
+			<div class="p-3"><input type="text" class="form-control border" id="author" name="author" size="35" maxlength="{$mybb->settings['maxnamelength']}" />
+			
+			<div class="form-check mt-1">
+  <input class="form-check-input" type="checkbox" name="matchusername" value="1" id="match" checked>
+  <label class="form-check-label" for="match">
+    {$lang->match_username}
+  </label>
+</div>
+	</div>
+	<div class="legend mt-4 mb-4">{$lang->search_options}</div>
+			<div class="p-3">
+			<div class="row p-0">
+				<div class="col-8">
+			<select name="findthreadst" class="form-select border mt-3">
+<option value="1">{$lang->threads_at_least}</option>
+<option value="2">{$lang->threads_at_most}</option>
+					</select> </div>
+				<div class="col-4">
+					
+					<input type="text" class="form-control border mt-3" name="numreplies" size="2" maxlength="4" />&nbsp;{$lang->replies2}
+					
+				</div>
+			</div>
+			
+<select name="postdate" class="form-select border mt-3 mb-1">
+<option value="0">{$lang->find_anydate}</option>
+<option value="1">{$lang->find_yesterday}</option>
+<option value="7">{$lang->find_lastweek}</option>
+<option value="14">{$lang->find_2weeks}</option>
+<option value="30">{$lang->find_month}</option>
+<option value="90">{$lang->find_3months}</option>
+<option value="180">{$lang->find_6months}</option>
+<option value="365">{$lang->find_year}</option>
+</select>
+			
+			
+  <input class="form-check-input radio-inline mt-1" type="radio" name="pddir" id="pddir" value="1" checked>
+  <label class="form-check-label" for="pddir">
+    {$lang->and_newer}
+  </label>
+		&nbsp; &nbsp;	
+		
+  <input class="form-check-input mt-1" type="radio" name="pddir" id="pddir2" value="0">
+  <label class="form-check-label radio-inline" for="pddir2">
+    {$lang->and_older}
+  </label>
+
+			
+			<div class="mt-3">{$prefixselect}</div>
+			
+	</div>
+			
+	<div class="legend mt-4 mb-4">{$lang->sorting_options}</div>
+			
+			<div class="p-3"><select name="sortby" class="form-select border mb-1">
+<option value="lastpost">{$lang->sort_lastpost}</option>
+<option value="starter">{$lang->sort_author}</option>
+<option value="forum">{$lang->sort_forum}</option>
+<option value="views">{$lang->sort_views}</option>
+<option value="replies">{$lang->sort_replies}</option>
+</select> 
+			
+			  <input class="form-check-input radio-inline" type="radio" name="sortordr" id="1" value="asc">
+  <label class="form-check-label" for="1">
+    {$lang->sort_in} {$lang->sort_asc} {$lang->sort_order}
+  </label>
+		&nbsp; &nbsp;	
+		
+  <input class="form-check-input" type="radio" name="sortordr" id="2" value="desc" checked>
+  <label class="form-check-label radio-inline" for="2">
+    {$lang->sort_in} {$lang->sort_desc} {$lang->sort_order}
+  </label>
+			
+			
+	</div>
+	<div class="legend mb-4 mt-4">{$lang->display_options}</div>
+			
+		<div class="p-3">	
+			{$lang->show_results_as} &nbsp;&nbsp;&nbsp;
+			
+			 <input class="form-check-input radio-inline mt-1" type="radio" name="showresults" id="show1" value="threads" checked>
+  <label class="form-check-label" for="show1">
+    {$lang->show_results_threads}
+  </label>
+		&nbsp; &nbsp;	
+		
+  <input class="form-check-input mt-1" type="radio" name="showresults" id="show2" value="posts" />
+  <label class="form-check-label radio-inline" for="2">
+    {$lang->show_results_posts}
+  </label>
+			
+	</div>
+			
+			
+			{$moderator_options}
+	
+			
+	
+			<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+				<div class="mt-5 text-end p-0"><input type="submit" class="btn btn-primary" name="submit" value="{$lang->search}" /></div>
+	</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+	<div class="mt-5 text-center p-0"><input type="submit" class="btn btn-primary" style="width: 100%" name="submit" value="{$lang->search}" /></div>
+	</div>
+	
+	
+	
+	
+	</div></div>
+		
+
+
+
+</form>
+{$footer}
+<link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807">
+<script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+<script type="text/javascript">
+<!--
+if(use_xmlhttprequest == "1")
+{
+	MyBB.select2();
+	$("#author").select2({
+		placeholder: "{$lang->search_user}",
+		minimumInputLength: 2,
+		multiple: false,
+		allowClear: true,
+		ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+			url: "xmlhttp.php?action=get_users",
+			dataType: 'json',
+			data: function (term, page) {
+				return {
+					query: term, // search term
+				};
+			},
+			results: function (data, page) { // parse the results into the format expected by Select2.
+				// since we are using custom formatting functions we do not need to alter remote JSON data
+				return {results: data};
+			}
+		},
+		initSelection: function(element, callback) {
+			var value = $(element).val();
+			if (value !== "") {
+				callback({
+					id: value,
+					text: value
+				});
+			}
+		},
+	});
+}
+// -->
+</script>
+</body>
+</html>

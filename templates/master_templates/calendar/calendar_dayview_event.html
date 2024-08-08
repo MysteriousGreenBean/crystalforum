@@ -1,0 +1,31 @@
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+	<tr>
+		<td class="thead"><strong>{$event['name']}</strong></td>
+	</tr>
+	<tr>
+		<td class="tcat"><strong>{$time_period}</strong></td>
+	</tr>
+	<tr>
+		<td class="trow1{$event_class}">
+			<div class="float_left">
+				<strong><span class="largetext">{$event['profilelink']}</span></strong><br />
+				<span class="smalltext">
+					{$event['usertitle']}<br />
+					{$event['userstars']}
+				</span>
+			</div>
+			<div class="float_right" style="text-align: right;">
+				{$moderator_options}
+				{$repeats}
+			</div>
+			<br class="clear" />
+		</td>
+	</tr>
+	<tr>
+		<td class="trow2 scaleimages{$event_class}">
+			<p>{$event['description']}</p>
+			{$edit_event}
+		</td>
+	</tr>
+</table>
+<br />

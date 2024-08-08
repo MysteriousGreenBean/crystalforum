@@ -1,0 +1,80 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->modlogs}</title>
+{$headerinclude}
+</head>
+<body>
+	{$header}
+	<table width="100%" border="0" align="center">
+		<tr>
+			{$modcp_nav}
+			<td valign="top">
+				<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+					<tr>
+						<td class="thead" align="center" colspan="5"><strong>{$lang->modlogs}</strong></td>
+					</tr>
+					<tr>
+						<td class="tcat"><span class="smalltext"><strong>{$lang->username}</strong></span></td>
+						<td class="tcat" align="center"><span class="smalltext"><strong>{$lang->date}</strong></span></td>
+						<td class="tcat" align="center"><span class="smalltext"><strong>{$lang->action}</strong></span></td>
+						<td class="tcat" align="center"><span class="smalltext"><strong>{$lang->information}</strong></span></td>
+						<td class="tcat" align="center"><span class="smalltext"><strong>{$lang->ip}</strong></span></td>
+					</tr>
+					{$results}
+					{$resultspages}
+				</table>
+				<br />
+				<form action="modcp.php?action=modlogs" method="post">
+					<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+						<tr>
+							<td class="thead" colspan="2"><strong>{$lang->filter_modlogs}</strong></td>
+						</tr>
+						<tr>
+							<td class="trow1" width="25%"><strong>{$lang->forum}</strong></td>
+							<td class="trow1" width="75%">
+								{$forum_select}
+							</td>
+						</tr>
+						<tr>
+							<td class="trow1" width="25%"><strong>{$lang->from_moderator}</strong></td>
+							<td class="trow1" width="75%">
+								<select name="uid">
+									<option value="">{$lang->all_moderators}</option>
+									<option value="">----------</option>
+									{$user_options}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="trow1" width="25%"><strong>{$lang->sort_by}</strong></td>
+							<td class="trow1" width="75%">
+								<select name="sortby">
+									<option value="dateline"{$sortbysel['dateline']}>{$lang->date}</option>
+									<option value="username"{$sortbysel['username']}>{$lang->username}</option>
+									<option value="forum"{$sortbysel['forum']}>{$lang->forum_name}</option>
+									<option value="thread"{$sortbysel['thread']}>{$lang->thread_subject}</option>
+								</select>
+								{$lang->in}
+								<select name="order">
+									<option value="asc"{$ordersel['asc']}>{$lang->asc}</option>
+									<option value="desc"{$ordersel['desc']}>{$lang->desc}</option>
+								</select>
+								{$lang->order}
+							</td>
+						</tr>
+						<tr>
+							<td class="trow1" width="25%"><strong>{$lang->per_page}</strong></td>
+							<td class="trow1" width="75%"><input type="text" name="perpage" value="{$perpage}" size="4" class="textbox" /></td>
+						</tr>
+					</table>
+					<br />
+					<div align="center">
+						<input type="submit" class="button" value="{$lang->filter_logs}" />
+					</div>
+				</form>
+			</td>
+		</tr>
+	</table>
+{$footer}
+</body>
+</html>

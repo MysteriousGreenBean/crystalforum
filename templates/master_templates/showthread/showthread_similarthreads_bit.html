@@ -1,0 +1,11 @@
+<tr>
+	<td align="center" class="{$trow}" width="2%">{$icon}</td>
+	<td class="{$trow}">{$similar_thread['threadprefix']}<a href="{$similar_thread['threadlink']}">{$similar_thread['subject']}</a></td>
+	<td align="center" class="{$trow}">{$similar_thread['profilelink']}</td>
+	<td align="center" class="{$trow}"><a href="{$mybb->settings['bburl']}/misc.php?action=whoposted&tid={$similar_thread['tid']}" onclick="MyBB.whoPosted({$similar_thread['tid']}); return false;">{$similar_thread['replies']}</a></td>
+	<td align="center" class="{$trow}">{$similar_thread['views']}</td>
+	<td class="{$trow}" style="white-space: nowrap">
+		<span class="smalltext">{$lastpostdate}<br />
+		<a href="{$similar_thread['lastpostlink']}">{$lang->lastpost}</a>: {$lastposterlink}</span>
+	</td>
+	</tr>

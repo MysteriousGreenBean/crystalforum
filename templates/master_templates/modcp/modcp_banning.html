@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->ban_banned}</title>
+{$headerinclude}
+</head>
+<body>
+	{$header}
+	<table width="100%" border="0" align="center">
+		<tr>
+			{$modcp_nav}
+			<td valign="top">
+				<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+					<tr>
+						<td class="thead" colspan="4">
+							<div class="float_right"><a href="modcp.php?action=banuser">{$lang->ban_user}</a></div>
+						<strong>{$lang->ban_banned}</strong></td>
+					</tr>
+					<tr>
+						<td class="tcat" width="25%"><span class="smalltext"><strong>{$lang->username}</strong></span></td>
+						<td class="tcat" align="center" width="30%"><span class="smalltext"><strong>{$lang->reason}</strong></span></td>
+						<td class="tcat" align="center" width="25%"><span class="smalltext"><strong>{$lang->ban_length}</strong></span></td>
+						<td class="tcat" align="center" width="20%"><span class="smalltext"><strong>{$lang->ban_bannedby}</strong></span></td>
+					</tr>
+					{$bannedusers}
+				</table>
+				{$multipage}
+			</td>
+		</tr>
+	</table>
+	{$footer}
+</body>
+</html>

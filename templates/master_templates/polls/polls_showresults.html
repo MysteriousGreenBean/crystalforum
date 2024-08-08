@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->poll_results}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+<colgroup>
+<col style="width: 35%;" />
+<col style="width: 50%" />
+<col style="width: 7%" />
+</colgroup>
+<tr>
+<td class="thead" colspan="4" style="text-align: center;"><strong>{$poll['question']}</strong></td>
+</tr>
+{$polloptions}
+<tr>
+<td class="tfoot" colspan="2" style="text-align: right;"><strong>{$lang->poll_total}</strong></td>
+<td class="tfoot" style="text-align: center;"><strong>{$poll['numvotes']} {$lang->poll_votes}</strong></td>
+<td class="tfoot" style="text-align: center;"><strong>{$totpercent}</strong></td>
+</tr>
+</table>
+{$footer}
+</body>
+</html>

@@ -1,0 +1,33 @@
+<table cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead"><strong>{$icon} <a href="{$mybb->settings['bburl']}/{$announcement['threadlink']}">{$announcement['subject']}</a></strong></td>
+</tr>
+<tr>
+<td class="trow2" align="right">
+<span class="smalltext">{$lang->posted_by} {$profilelink}  - {$anndate} - {$lang->forum} <a href="{$mybb->settings['bburl']}/{$announcement['forumlink']}">{$announcement['forumname']}</a> {$numcomments}</span>
+</td>
+</tr>
+<tr>
+<td class="trow1">
+<table border="0" cellpadding="{$theme['tablespace']}" class="tfixed" style="width: 100%;">
+	<tr>
+		{$avatar}
+		<td class="trow1 scaleimages">
+			<p>
+				{$message}
+			</p>
+			{$post['attachments']}
+		</td>
+	</tr>
+	<tr>
+		<td align="right" colspan="2" valign="bottom">
+			<span class="smalltext">
+				<a href="{$mybb->settings['bburl']}/printthread.php?tid={$announcement['tid']}"><img src="{$theme['imgdir']}/printable.png" alt="{$lang->print_this_item}" title="{$lang->print_this_item}" /></a>{$senditem}
+			</span>
+		</td>
+	</tr>
+</table>
+</td>
+</tr>
+</table>
+<br />

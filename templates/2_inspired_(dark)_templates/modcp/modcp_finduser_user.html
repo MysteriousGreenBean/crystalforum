@@ -1,0 +1,25 @@
+<div class="d-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+	<div class="row p-3 m-0 border-bottom">
+    <div class="col-3 align-self-center"><a href="modcp.php?action=editprofile&amp;uid={$user['uid']}">{$user['username']}</a><br />{$usergroup}</div>
+    <div class="col align-self-center" style="font-size: 14px">{$lang->regdate} <span class="text-muted">{$regdate}</span></div>
+    <div class="col align-self-center" style="font-size: 14px">{$lang->lastvisit} <span class="text-muted">{$lastdate}</span></div>
+    <div class="col-1 align-self-center text-center" style="font-size: 14px">{$lang->postnum}<br /><span class="text-muted">{$user['postnum']}</span></div>
+</div>
+</div>
+
+<div class="d-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+<div class="card border-0">
+    <div class="card-body border-0">
+        <h5 class="card-title"><a href="modcp.php?action=editprofile&amp;uid={$user['uid']}">{$user['username']}</a></h5>
+        <h6 class="text-muted card-subtitle mb-2">{$usergroup}</h6>
+        <p class="card-text text-muted">{$lang->regdate} {$regdate}</p>
+        <div class="row p-3 bg-light m-0 rounded">
+            <div class="col align-self-center">{$lang->lastvisit} {$lastdate} <br />{$lang->postnum} {$user['postnum']}</div>
+        </div>
+    </div>
+</div>	
+	
+	
+	
+	
+</div>

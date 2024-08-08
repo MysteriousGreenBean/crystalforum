@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>{$mybb->settings['bbname']} - {$lang->edit_profile}</title>
+{$headerinclude}
+</head>
+<body>
+{$header}
+<form action="usercp.php" method="post" name="input">
+<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+<table width="100%" border="0" align="center">
+<tr>
+{$usercpnav}
+<td valign="top">
+{$errors}
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<tr>
+<td class="thead" colspan="2"><strong>{$lang->edit_profile}</strong></td>
+</tr>
+<tr>
+<td width="50%" class="trow1" valign="top">
+<fieldset class="trow2">
+<legend><strong>{$lang->profile_required}</strong></legend>
+<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+<tr>
+<td colspan="2"><span class="smalltext"><strong>{$lang->change_email_notice}</strong></span></td>
+</tr>
+{$requiredfields}
+</table>
+</fieldset>
+<br />
+<fieldset class="trow2">
+<legend><strong>{$lang->profile_optional}</strong></legend>
+<table cellspacing="0" cellpadding="{$theme['tablespace']}">
+<tr>
+<td colspan="3"><span class="smalltext">{$lang->birthday}</span></td>
+</tr>
+<tr>
+<td>
+<select name="bday1">
+<option value="">&nbsp;</option>
+{$bdaydaysel}
+</select>
+</td>
+<td>
+<select name="bday2">
+<option value="">&nbsp;</option>
+<option value="1" {$bdaymonthsel['1']}>{$lang->month_1}</option>
+<option value="2" {$bdaymonthsel['2']}>{$lang->month_2}</option>
+<option value="3" {$bdaymonthsel['3']}>{$lang->month_3}</option>
+<option value="4" {$bdaymonthsel['4']}>{$lang->month_4}</option>
+<option value="5" {$bdaymonthsel['5']}>{$lang->month_5}</option>
+<option value="6" {$bdaymonthsel['6']}>{$lang->month_6}</option>
+<option value="7" {$bdaymonthsel['7']}>{$lang->month_7}</option>
+<option value="8" {$bdaymonthsel['8']}>{$lang->month_8}</option>
+<option value="9" {$bdaymonthsel['9']}>{$lang->month_9}</option>
+<option value="10" {$bdaymonthsel['10']}>{$lang->month_10}</option>
+<option value="11" {$bdaymonthsel['11']}>{$lang->month_11}</option>
+<option value="12" {$bdaymonthsel['12']}>{$lang->month_12}</option>
+</select>
+</td>
+<td>
+<input type="text" class="textbox" size="4" maxlength="4" name="bday3" value="{$bday['2']}" />
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<span class="smalltext">{$lang->birthdayprivacy}</span>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<select name="birthdayprivacy">
+<option value="all"{$allselected}>{$lang->birthdayprivacyall}</option>
+<option value="none"{$noneselected}>{$lang->birthdayprivacynone}</option>
+<option value="age"{$ageselected}>{$lang->birthdayprivacyage}</option>
+</select>
+</td>
+</tr>
+{$website}
+</table>
+</fieldset>
+{$customfields}
+</td>
+<td width="50%" class="trow1" valign="top">
+{$customtitle}
+{$contactfields}
+{$awaysection}
+</td>
+</tr>
+</table>
+<br />
+<div align="center">
+<input type="hidden" name="action" value="do_profile" />
+<input type="submit" class="button" name="regsubmit" value="{$lang->update_profile}" />
+</div>
+</td>
+</tr>
+</table>
+</form>
+{$footer}
+</body>
+</html>
