@@ -35,7 +35,7 @@ $handleEvent = {
 
         $fullUrl = $baseUrl + "action=" + $changeType + "&updatedfilepath=" + $encodedFilePath + "&oldfilepath=" + $encodedOldFilePath;
         $response = Invoke-WebRequest -Uri $fullUrl
-        Write-Host $response
+        # Write-Host $response
       }
     catch {
         Write-Host $_.Exception.Message
@@ -69,8 +69,6 @@ try {
 }
 finally {
     $stylesheetWatcher.Dispose()
-    Unregister-Event -SourceIdentifier "Changed"
-    Unregister-Event -SourceIdentifier "Created"
-    Unregister-Event -SourceIdentifier "Deleted"
-    Unregister-Event -SourceIdentifier "Renamed"
+    $templateWatcher.Dispose()
+    Get-EventSubscriber -Force | Unregister-Event -Force
 }

@@ -3,42 +3,64 @@ define("IN_MYBB", 1);
 require_once "./global.php";
 require_once MYBB_ROOT."admin/inc/functions_themes.php";
 
-function update_template($sid, $updatedfilename) {
+
+function update_template($sid, $updatedFilename) {
     global $db;
     // transform to docker path
     $pattern = '/.*\/templates\//';
-    preg_match($pattern, $updatedfilename, $matches);
-    $updatedfilename = str_replace($matches[0], "/var/templates/", $updatedfilename);
-    if (is_file($updatedfilename)) {
-            // read contents of $updatedfilename
-    $updatedfile = file_get_contents($updatedfilename);
-    // read filename without extension from $updatedfilename
-    $filename = pathinfo($updatedfilename, PATHINFO_FILENAME);
-    // find template with title $filename
-    echo "Template title: ".$filename." | SID: ".$sid."\n";
-    $query = $db->simple_select("templates", "tid, template", "title = '".$db->escape_string($filename) . "' AND sid = ". $sid);
+    preg_match($pattern, $updatedFilename, $matches);
+    $updatedFilename = str_replace($matches[0], "/var/templates/", $updatedFilename);
 
-    // if template exists
-    if ($template = $db->fetch_array($query)) {
-        // update template with $updatedfile
-        $updated_template = array(
-            "template" => $db->escape_string($updatedfile),
-            "dateline" => TIME_NOW
-        );
-        $db->update_query("templates", $updated_template, "tid=".$template['tid']);
-    } else {
-        // insert new template with title $filename and $updatedfile
-        $new_template = array(
-            "title" => $db->escape_string($filename),
-            "template" => $db->escape_string($updatedfile),
-            "sid" => -2,
-            "dateline" => TIME_NOW
-        );
-        $db->insert_query("templates", $new_template);
+    if (is_file($updatedFilename)) {
+        $updatedFile = file_get_contents($updatedFilename);
+        $fileName = pathinfo($updatedFilename, PATHINFO_FILENAME);
+        $query = $db->simple_select("templates", "tid, template", "title = '".$db->escape_string($fileName) . "' AND sid = ". $sid);
+
+        if ($template = $db->fetch_array($query)) {
+            $updated_template = array(
+                "template" => $db->escape_string($updatedFile),
+                "dateline" => TIME_NOW
+            );
+            $db->update_query("templates", $updated_template, "tid=".$template['tid']);
+        } 
+        // else {
+        //     // insert new template with title $fileName and $updatedFile
+        //     $new_template = array(
+        //         "title" => $db->escape_string($fileName),
+        //         "template" => $db->escape_string($updatedFile),
+        //         "sid" => -2,
+        //         "dateline" => TIME_NOW
+        //     );
+        //     $db->insert_query("templates", $new_template);
+        // }
     }
+}
+
+function update_stylesheet($tid, $updatedFilename) {
+    global $db;
+    // transform to docker path
+    $pattern = '/.*\/stylesheets\//';
+    preg_match($pattern, $updatedFilename, $matches);
+    $updatedFilename = str_replace($matches[0], "/var/stylesheets/", $updatedFilename);
+
+    echo "Updated file path: ".$updatedFilename." and tid: $tid\n";
+
+    if (is_file($updatedFilename)) {
+        $updatedFile = file_get_contents($updatedFilename);
+        $fileName = pathinfo($updatedFilename, PATHINFO_BASENAME);
+
+        $query = $db->simple_select("themestylesheets", "sid, stylesheet", "cachefile = '".$db->escape_string($fileName) . "' AND tid = ". $tid);
+
+        if ($stylesheet = $db->fetch_array($query)) {
+            $updated_stylesheet = array(
+                "stylesheet" => $db->escape_string($updatedFile),
+                "lastmodified" => TIME_NOW
+            );
+            $db->update_query("themestylesheets", $updated_stylesheet, "sid=".$stylesheet['sid']);
+
+            cache_stylesheet($tid, $fileName, $updatedFile);
+        } 
     }
-
-
 }
 
 function rebuild_stylesheets_cache_for_all_themes() {
@@ -49,7 +71,7 @@ function rebuild_stylesheets_cache_for_all_themes() {
         $stylesheetsQuery = $db->simple_select("themestylesheets", "stylesheet,cachefile", "tid = ". $theme['tid']);
         while ($stylesheet = $db->fetch_array($stylesheetsQuery)) {
             echo "Cache refreshed for: ". cache_stylesheet($theme['tid'], $stylesheet['cachefile'], $stylesheet['stylesheet'])."\n";
-            echo "Stylesheet cache for theme ID ". $theme['tid'] . " and with filename ".$stylesheet['cachefile']." has been updated\n";
+            echo "Stylesheet cache for theme ID ". $theme['tid'] . " and with fileName ".$stylesheet['cachefile']." has been updated\n";
         }
     }
 
@@ -63,9 +85,9 @@ function rebuild_stylesheet_cache_for_specific_theme($themeid, $cachefile) {
     $stylesheet = $db->fetch_array($stylesheetsQuery);
     if ($stylesheet) {
         echo "Cache refreshed for: ". cache_stylesheet($themeid, $cachefile, $stylesheet['stylesheet'])."\n";
-        echo "Stylesheet cache for theme ID ". $themeid . " and with filename ".$cachefile." has been updated\n";
+        echo "Stylesheet cache for theme ID ". $themeid . " and with fileName ".$cachefile." has been updated\n";
     } else {
-        echo "No stylesheet found for theme ID ". $themeid . " and with filename\n";
+        echo "No stylesheet found for theme ID ". $themeid . " and with fileName\n";
     }
 }
 
@@ -84,7 +106,14 @@ function handle_template_updated($updatedFilePath) {
     }
 }
 
-if (isset($_GET['action']) && isset($_GET['updatedfilepath']) && isset($_GET['oldfilepath'])){
+function handle_stylesheet_updated($updatedFilePath) {
+    $pattern = '/\/stylesheets\/theme(\d+)/';
+    preg_match($pattern, $updatedFilePath, $matches);
+    $themeid = $matches[1];
+    update_stylesheet($themeid, $updatedFilePath);
+}
+
+if (isset($_GET['action']) && isset($_GET['updatedfilepath']) && isset($_GET['oldfilepath'])) {
     $action = $_GET['action'];
     $updatedFilePath = str_replace("\\", "/", $_GET['updatedfilepath']);
     $oldFilePath = str_replace("\\", "/", $_GET['oldfilepath']);
@@ -92,6 +121,8 @@ if (isset($_GET['action']) && isset($_GET['updatedfilepath']) && isset($_GET['ol
     // check if updatedFilePath contains string \templates\
     if (strpos($updatedFilePath, "/templates/") !== false && $action == "Changed") {     
         handle_template_updated($updatedFilePath);
+    } else if (strpos($updatedFilePath, "/stylesheets/") !== false && $action == "Changed") {
+        handle_stylesheet_updated($updatedFilePath);
     }
 
     echo "Action: ".$action." | Updated file path: ".$updatedFilePath." | Old file name: ".$oldFilePath." | ";
