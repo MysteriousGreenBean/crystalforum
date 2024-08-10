@@ -2,6 +2,7 @@ name: Bug
 description: Report an issue
 title: "[BUG]"
 labels: ["bug"]
+projects: ["MysteriousGreenBean/projects/4"]
 body:
   - type: textarea
     id: bug
@@ -20,7 +21,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: bug
+    id: expected-behaviour
     attributes:
       label: Expected behavior
       description: A clear and concise description of what you expected to happen.
