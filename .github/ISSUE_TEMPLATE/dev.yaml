@@ -3,6 +3,8 @@ description: Things related to environments and pipelines rather than solution i
 title: "[DEV]"
 labels: ["devops"]
 projects: ["MysteriousGreenBean/4"]
+assignees:
+  - MysteriousGreenBean
 body:
   - type: textarea
     id: bug
