@@ -1,7 +1,0 @@
-<input type="radio" name="type" class="form-check-input" value="merge" {$type_selected['merge']} id="type_merge" onclick="toggleType();" /> <label for="type_merge">{$lang->merge_threads}</label><br />
-<dd style="margin-top: 4px; width: 100%;" id="type_merge_expanded">
-	{$lang->new_subject}<br />
-	<input type="text" class="form-control border" name="delayedmoderation[subject]" value="{$delayedmoderation_subject}" size="40" /><br />
-	{$lang->thread_to_merge_with}<br />
-	<input type="text" class="form-control border" name="delayedmoderation[threadurl]" value="{$delayedmoderation_threadurl}" size="40" />
-	<br /><span class="text-muted">{$lang->merge_with_note}</span>
