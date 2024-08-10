@@ -1,13 +1,15 @@
 <br />
 <form action="usercp.php" method="post">
 <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_table">
 <tr>
 <td class="thead"><strong>{$lang->personal_notepad}</strong></td>
 </tr>
 <tr>
 <td align="center" class="trow1" width="100%">
+    <div class="post_inside">
 <textarea name="notepad" cols="1" rows="10" class="usercp_notepad">{$mybb->user['notepad']}</textarea>
+</div>
 </td>
 </tr>
 </table>
