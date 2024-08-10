@@ -2,7 +2,7 @@ name: Bug
 description: Report an issue
 title: "[BUG]"
 labels: ["bug"]
-projects: ["users/MysteriousGreenBean/projects/4"]
+projects: ["MysteriousGreenBean/4"]
 body:
   - type: textarea
     id: bug
