@@ -4,6 +4,7 @@ about: Things related to environments and pipelines rather than solution itself
 title: "[DEV]"
 labels: devops
 assignees: MysteriousGreenBean
+projects: ["/users/MysteriousGreenBean/projects/4"]
 
 ---
 
