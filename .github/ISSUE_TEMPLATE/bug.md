@@ -4,7 +4,7 @@ about: Report an issue
 title: "[BUG]"
 labels: bug
 assignees: ''
-projects: ["MysteriousGreenBean/4"]
+projects: ["/users/MysteriousGreenBean/projects/4"]
 
 ---
 
