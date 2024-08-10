@@ -25,7 +25,6 @@ $handleEvent = {
     try {
         $baseUrl = "http://localhost/handlestylesheetsandtemplates.php?"
        
-        $args = ConvertTo-Json $eventArgs
         $changeType = $eventArgs.ChangeType
         $fullPath = $eventArgs.FullPath
         $oldFullPath = $eventArgs.OldFullPath
@@ -43,15 +42,17 @@ $handleEvent = {
 }
 
 # Attach event handlers
-Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Changed -Action $handleEvent
-Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Created -Action $handleEvent
-Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Deleted -Action $handleEvent
-Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Renamed -Action $handleEvent
+$handlers = . {
+    Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Changed -Action $handleEvent
+    Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Created -Action $handleEvent
+    Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Deleted -Action $handleEvent
+    Register-ObjectEvent -InputObject $stylesheetWatcher -EventName Renamed -Action $handleEvent
 
-Register-ObjectEvent -InputObject $templateWatcher -EventName Changed -Action $handleEvent
-Register-ObjectEvent -InputObject $templateWatcher -EventName Created -Action $handleEvent
-Register-ObjectEvent -InputObject $templateWatcher -EventName Deleted -Action $handleEvent
-Register-ObjectEvent -InputObject $templateWatcher -EventName Renamed -Action $handleEvent
+    Register-ObjectEvent -InputObject $templateWatcher -EventName Changed -Action $handleEvent
+    Register-ObjectEvent -InputObject $templateWatcher -EventName Created -Action $handleEvent
+    Register-ObjectEvent -InputObject $templateWatcher -EventName Deleted -Action $handleEvent
+    Register-ObjectEvent -InputObject $templateWatcher -EventName Renamed -Action $handleEvent
+}
 
 # Enable the FileSystemWatcher
 $stylesheetWatcher.EnableRaisingEvents = $true
@@ -64,11 +65,19 @@ Write-Host "Click [Ctrl] + [C] to stop..."
 
 try {
     while ($true) {
-        Start-Sleep -Seconds 1
+        Wait-Event -Timeout 1
     }
 }
 finally {
+    $stylesheetWatcher.EnableRaisingEvents = $false
+    $templateWatcher.EnableRaisingEvents = $false
+
+    $handlers | ForEach-Object {
+        Unregister-Event -SourceIdentifier $_.Name
+    }
+
+    $handlers | Remove-Job
+
     $stylesheetWatcher.Dispose()
     $templateWatcher.Dispose()
-    Get-EventSubscriber -Force | Unregister-Event -Force
 }

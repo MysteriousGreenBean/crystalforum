@@ -127,4 +127,12 @@ if (isset($_GET['action']) && isset($_GET['updatedfilepath']) && isset($_GET['ol
 
     echo "Action: ".$action." | Updated file path: ".$updatedFilePath." | Old file name: ".$oldFilePath." | ";
 }
+
+if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
+    if (isset($_GET['themeid']) && isset($_GET['cachefile'])) {
+        rebuild_stylesheet_cache_for_specific_theme($_GET['themeid'], $_GET['cachefile']);
+    } else {
+        rebuild_stylesheets_cache_for_all_themes();
+    }
+}
 ?>
