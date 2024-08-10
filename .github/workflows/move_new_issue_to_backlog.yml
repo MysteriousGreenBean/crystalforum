@@ -1,0 +1,44 @@
+name: Set Issue Status to Backlog
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  update_status:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set issue status to "Backlog" in the project
+      env:
+        GITHUB_TOKEN: ${{ secrets.ISSUE_MANAGEMENT_TOKEN }}
+      run: |
+        issue_number=${{ github.event.issue.number }}
+        owner=${{ github.repository_owner }}
+        repo_name=${{ github.event.repository.name }}
+        project_number=4 # Update this with your project number
+        status_field_id="PVTSSF_lAHOALga5M4AmCpxzgeAE6M"
+
+        # Get the node ID of the issue
+        issue_node_id=$(gh api graphql -f query='
+        query {
+          repository(owner:"'"$owner"'", name:"'"$repo_name"'") {
+            issue(number:'"$issue_number"') {
+              id
+            }
+          }
+        }' -q .data.repository.issue.id)
+
+        # Set the status of the issue to "Backlog"
+        gh api graphql -f query='
+        mutation {
+          updateProjectV2ItemFieldValue(input:{
+            fieldId: "'"PVT_kwHOALga5M4AmCpx"'"
+            itemId: "'"$issue_node_id"'"
+            projectId:"'"PVT_kwHOALga5M4AmCpx"'"
+            value:{singleSelectOptionId: "'"f75ad846"'"}}) {
+            projectV2Item {
+              id    
+            }
+          }
+        } '
