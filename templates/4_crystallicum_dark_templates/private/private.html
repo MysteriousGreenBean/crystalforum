@@ -32,14 +32,12 @@
 <td class="tcat" align="center" width="1%" style="white-space: nowrap"><span class="smalltext"><input name="allbox" title="{$lang->check_all}" type="checkbox" class="checkbox checkall" value="{$lang->check_all}" /></span></td>
 </tr>
 {$messagelist}
-<tr>
-<td class="tfoot" align="right" colspan="6">
+</table>
+<div class="tfoot" align="right">
 <input type="submit" class="button" name="moveto" value="{$lang->move_to}" /> {$folderoplist} {$lang->or}
 <input type="submit" class="button" name="delete" value="{$lang->delete}" /> {$lang->selected_messages}
-</td>
-</tr>
-</table>
-<br />
+</div>
+<br/>
 <div class="float_left">{$multipage}</div>
 <div class="float_right">
 <span class="smalltext">
