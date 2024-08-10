@@ -1,0 +1,23 @@
+name: Feature
+description: New functionality or improvement
+title: "[FEATURE]"
+labels: ["enhancement"]
+projects: ["MysteriousGreenBean/4"]
+body:
+  - type: textarea
+    id: bug
+    attributes:
+      label: Feature description
+      description: Describe what the feature solves and how it should be achieved
+      placeholder: Describe what the feature solves and how it should be achieved
+    validations:
+      required: true
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature here.
+      placeholder: Add any other context or screenshots about the feature here.
+    validations:
+      required: false
+    
