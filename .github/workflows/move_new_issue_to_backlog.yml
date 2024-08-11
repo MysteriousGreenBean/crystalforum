@@ -16,7 +16,7 @@ jobs:
         issue_number=${{ github.event.issue.number }}
         owner=${{ github.repository_owner }}
         repo_name=${{ github.event.repository.name }}
-        project_id=""PVT_kwHOALga5M4AmCpx"
+        project_id="PVT_kwHOALga5M4AmCpx"
 
         # Get the node ID of the issue
         issue_node_id=$(gh api graphql -f query='
