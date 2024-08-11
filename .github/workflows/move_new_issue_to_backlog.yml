@@ -5,6 +5,8 @@ on:
     types: [opened]
 
 jobs:
+  test:
+
   update_status:
     runs-on: ubuntu-latest
 
@@ -16,8 +18,8 @@ jobs:
         issue_number=${{ github.event.issue.number }}
         owner=${{ github.repository_owner }}
         repo_name=${{ github.event.repository.name }}
-        project_number=4 # Update this with your project number
         status_field_id="PVTSSF_lAHOALga5M4AmCpxzgeAE6M"
+        project_id=""PVT_kwHOALga5M4AmCpx"
 
         # Get the node ID of the issue
         issue_node_id=$(gh api graphql -f query='
@@ -29,16 +31,35 @@ jobs:
           }
         }' -q .data.repository.issue.id)
 
-        # Set the status of the issue to "Backlog"
-        gh api graphql -f query='
-        mutation {
-          updateProjectV2ItemFieldValue(input:{
-            fieldId: "'"PVT_kwHOALga5M4AmCpx"'"
-            itemId: "'"$issue_node_id"'"
-            projectId:"'"PVT_kwHOALga5M4AmCpx"'"
-            value:{singleSelectOptionId: "'"f75ad846"'"}}) {
-            projectV2Item {
-              id    
+        project_item_id=$(gh api graphql -f query='
+            query {
+              node(id: "'"$project_id"'") {
+                ... on ProjectV2 {
+                  items(first: 100, query: "is:issue", contentType: ISSUE) {
+                    nodes {
+                      id
+                      content {
+                        ... on Issue {
+                          id
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -q ".data.node.items.nodes[] | select(.content.id == \"$issue_node_id\") | .id")
+
+          # Set the status of the issue to "Backlog"
+          gh api graphql -f query='
+          mutation {
+            updateProjectV2ItemFieldValue(input:{
+              fieldId: "'"PVT_kwHOALga5M4AmCpx"'"
+              itemId: "'"$issue_node_id"'"
+              projectId:"'"$project_id"'"
+              value:{singleSelectOptionId: "'"f75ad846"'"}}) {
+              projectV2Item {
+                id    
+              }
             }
-          }
-        } '
+          } '
+
