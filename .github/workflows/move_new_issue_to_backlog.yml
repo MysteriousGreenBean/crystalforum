@@ -45,10 +45,10 @@ jobs:
           echo "Project Item ID: $project_item_id"
 
           # Set the status of the issue to "Backlog"
-          gh api graphql -f query='
+          gh api graphql -f query="
           mutation {
             updateProjectV2ItemFieldValue(input:{
-              fieldId: "'"PVT_kwHOALga5M4AmCpx"'"
+              fieldId: \"PVTSSF_lAHOALga5M4AmCpxzgeAE6M\"
               itemId: "'"$project_item_id"'"
               projectId:"'"$project_id"'"
               value:{singleSelectOptionId: "'"f75ad846"'"}}) {
@@ -56,5 +56,5 @@ jobs:
                 id    
               }
             }
-          } '
+          } "
 
