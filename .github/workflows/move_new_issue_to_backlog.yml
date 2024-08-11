@@ -49,5 +49,3 @@ jobs:
               }
             }
           } "
-
-gh api graphql -f query="mutation { updateProjectV2ItemFieldValue(input:{ fieldId: \"PVTSSF_lAHOALga5M4AmCpxzgeAE6M\" itemId: "'"$project_item_id"'" projectId:"'"$project_id"'" value:{singleSelectOptionId: "'"f75ad846"'"}}) { projectV2Item { id } } } "
