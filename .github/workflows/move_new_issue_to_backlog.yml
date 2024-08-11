@@ -36,7 +36,7 @@ jobs:
                     }
                   }
                 }
-              }" -q ".data.node.items.nodes[] | select(.content.number == $issue_number") | .id")
+              }" -q ".data.node.items.nodes[] | select(.content.number == $issue_number) | .id")
 
 
           echo "Project Item ID: $project_item_id"
