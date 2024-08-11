@@ -5,8 +5,6 @@ on:
     types: [opened]
 
 jobs:
-  test:
-
   update_status:
     runs-on: ubuntu-latest
 
@@ -18,7 +16,6 @@ jobs:
         issue_number=${{ github.event.issue.number }}
         owner=${{ github.repository_owner }}
         repo_name=${{ github.event.repository.name }}
-        status_field_id="PVTSSF_lAHOALga5M4AmCpxzgeAE6M"
         project_id=""PVT_kwHOALga5M4AmCpx"
 
         # Get the node ID of the issue
