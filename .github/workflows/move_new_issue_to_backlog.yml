@@ -18,6 +18,8 @@ jobs:
         repo_name=${{ github.event.repository.name }}
         project_id="PVT_kwHOALga5M4AmCpx"
 
+        echo "Moving issue $issue_number to Backlog"
+
         project_item_id=$(gh api graphql -F project_id=$project_id -f query="
              query($project_id: ID!) {
                 node(id: $project_id) {
@@ -36,6 +38,9 @@ jobs:
                 }
               }" -q ".data.node.items.nodes[] | select(.content.number == $issue_number) | .id")
 
+
+          echo "Project Item ID: $project_item_id"
+          
           # Set the status of the issue to "Backlog"
           gh api graphql -F project_item_id=$project_item_id  -F project_id=$project_id -f query="
           mutation($project_item_id: ID!, $project_id: ID!) {
