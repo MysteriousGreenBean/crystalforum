@@ -18,33 +18,23 @@ jobs:
         repo_name=${{ github.event.repository.name }}
         project_id="PVT_kwHOALga5M4AmCpx"
 
-        # Get the node ID of the issue
-        issue_node_id=$(gh api graphql -f query='
-        query {
-          repository(owner:"'"$owner"'", name:"'"$repo_name"'") {
-            issue(number:'"$issue_number"') {
-              id
-            }
-          }
-        }' -q .data.repository.issue.id)
-
         project_item_id=$(gh api graphql -f query='
-            query {
-              node(id: "'"$project_id"'") {
-                ... on ProjectV2 {
-                  items(first: 100, query: "is:issue", contentType: ISSUE) {
-                    nodes {
-                      id
-                      content {
-                        ... on Issue {
-                          id
+             query {
+                node(id: "'"$project_id"'") {
+                  ... on ProjectV2 {
+                    items(first: 5, orderBy: { field: POSITION, direction: DESC}) {
+                      nodes {
+                        id
+                        content {
+                          ... on Issue {
+                            number
+                          }
                         }
                       }
                     }
                   }
                 }
-              }
-            }' -q ".data.node.items.nodes[] | select(.content.id == \"$issue_node_id\") | .id")
+              }' -q ".data.node.items.nodes[] | select(.content.number == \"$issue_number\") | .id")
 
           # Set the status of the issue to "Backlog"
           gh api graphql -f query='
