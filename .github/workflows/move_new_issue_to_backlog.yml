@@ -23,9 +23,9 @@ jobs:
         echo "Repo Name: $repo_name"
         echo "Project ID: $project_id"
 
-        project_item_id=$(gh api graphql -f query='
+        project_item_id=$(gh api graphql -f query="
              query {
-                node(id: "'"$project_id"'") {
+                node(id: \"PVT_kwHOALga5M4AmCpx\") {
                   ... on ProjectV2 {
                     items(first: 5, orderBy: { field: POSITION, direction: DESC}) {
                       nodes {
@@ -39,7 +39,7 @@ jobs:
                     }
                   }
                 }
-              }' -q ".data.node.items.nodes[] | select(.content.number == \"$issue_number\") | .id")
+              }" -q ".data.node.items.nodes[] | select(.content.number == $issue_number) | .id")
 
 
           echo "Project Item ID: $project_item_id"
