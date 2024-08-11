@@ -36,11 +36,11 @@ jobs:
                     }
                   }
                 }
-              }" -q ".data.node.items.nodes[] | select(.content.number == $issue_number) | .id")
+              }" -q ".data.node.items.nodes[] | select(.content.number == $issue_number") | .id")
 
 
           echo "Project Item ID: $project_item_id"
-          
+
           # Set the status of the issue to "Backlog"
           gh api graphql -F project_item_id=$project_item_id  -F project_id=$project_id -f query="
           mutation($project_item_id: ID!, $project_id: ID!) {
