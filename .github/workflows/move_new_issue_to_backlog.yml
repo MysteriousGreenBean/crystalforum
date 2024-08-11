@@ -17,10 +17,12 @@ jobs:
         owner=${{ github.repository_owner }}
         repo_name=${{ github.event.repository.name }}
         project_id="PVT_kwHOALga5M4AmCpx"
+        field_id="PVTSSF_lAHOALga5M4AmCpxzgeAE6M"
+        singleSelectOption_id="f75ad846"
 
         echo "Moving issue $issue_number to Backlog"
 
-        project_item_id=$(gh api graphql -F project_id=$project_id -f query="
+        project_item_id=$(gh api graphql -F project_id=$project_id -f query='
              query($project_id: ID!) {
                 node(id: $project_id) {
                   ... on ProjectV2 {
@@ -36,21 +38,21 @@ jobs:
                     }
                   }
                 }
-              }" -q ".data.node.items.nodes[] | select(.content.number == $issue_number) | .id")
+              }' -q ".data.node.items.nodes[] | select(.content.number == $issue_number) | .id")
 
 
           echo "Project Item ID: $project_item_id"
 
           # Set the status of the issue to "Backlog"
-          gh api graphql -F project_item_id=$project_item_id  -F project_id=$project_id -f query="
-          mutation($project_item_id: ID!, $project_id: ID!) {
+          gh api graphql -F project_item_id=$project_item_id  -F project_id=$project_id -F field_id=$field_id -F singleSelectOption_id=$singleSelectOption_id  -f query='
+          mutation($project_item_id: ID!, $project_id: ID!, $field_id: ID!, $singleSelectOption_id: String) {
             updateProjectV2ItemFieldValue(input:{
-              fieldId: \"PVTSSF_lAHOALga5M4AmCpxzgeAE6M\"
+              fieldId: $field_id
               itemId: $project_item_id
               projectId: $project_id
-              value:{singleSelectOptionId: \"f75ad846\"}}) {
+              value:{singleSelectOptionId: $singleSelectOption_id }}) {
               projectV2Item {
                 id    
               }
             }
-          } "
+          }'
