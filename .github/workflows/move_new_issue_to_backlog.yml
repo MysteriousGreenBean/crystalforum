@@ -41,7 +41,7 @@ jobs:
           mutation {
             updateProjectV2ItemFieldValue(input:{
               fieldId: "'"PVT_kwHOALga5M4AmCpx"'"
-              itemId: "'"$issue_node_id"'"
+              itemId: "'"$project_item_id"'"
               projectId:"'"$project_id"'"
               value:{singleSelectOptionId: "'"f75ad846"'"}}) {
               projectV2Item {
