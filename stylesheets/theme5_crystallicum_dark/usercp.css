@@ -156,11 +156,40 @@ td[class^=trow]{border:none;}
 	border: var(--main-border);
 	box-shadow: var(--main-shadow);
 }
+
+.ucp_avinfo {
+	background: var(--accent2-color);
+	border: var(--main-border);
+	box-shadow: var(--main-shadow);
+	padding: 10px;
+	margin: 10px;
+}
 		
-		
-		
-		
-		
+.ucp_avimg {
+	background: var(--main-nt-color);
+	border: var(--main-border);
+	box-shadow: var(--main-shadow);
+	border-radius: 100%;
+}
+
+.tcat2 {
+	padding: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+.av_padding {
+	padding: 10px;
+	margin: 10px;
+	border: var(--main-border);
+}
+
+.ucp_avtable {
+	border: var(--main-border);
+	box-shadow: var(--main-shadow);
+}
 		
 		
 		
