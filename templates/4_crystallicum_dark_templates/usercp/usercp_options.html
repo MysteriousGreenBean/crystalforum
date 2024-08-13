@@ -18,18 +18,9 @@
 </tr>
 <tr>
 <td width="100%" class="trow1" valign="top">
-<fieldset class="trow2">
-<legend><strong>{$lang->login_cookies_privacy}</strong></legend>
-<table cellspacing="0" cellpadding="2">
-<tr>
-<td valign="top" width="1"><input type="checkbox" class="checkbox" name="invisible" id="invisible" value="1" {$invisiblecheck} /></td>
-<td><span class="smalltext"><label for="invisible">{$lang->invisible_mode}</label></span></td>
-</tr>
-</table>
-</fieldset>
-<br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->messaging_notification}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 <tr>
 <td valign="top" width="1"><input type="checkbox" class="checkbox" name="allownotices" id="allownotices" value="1" {$allownoticescheck} /></td>
@@ -57,12 +48,13 @@
 	</select>
 </td>
 </tr>
-
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->date_time_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 <tr>
 <td><span class="smalltext">{$lang->date_format}</span></td>
@@ -105,13 +97,15 @@
 </td>
 </tr>
 </table>
+</div>
 </fieldset>
 </td>
 </tr>
 <tr>
 <td width="100%" class="trow1" valign="top">
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->forum_display_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 {$tppselect}
 <tr>
@@ -134,10 +128,12 @@
 </td>
 </tr>
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->thread_view_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 	<tr>
 	<td valign="top" width="1"><input type="checkbox" class="checkbox" name="classicpostbit" id="classicpostbit" value="1" {$classicpostbitcheck} /></td>
@@ -168,10 +164,12 @@
 <td colspan="2"><select name="threadmode"><option value="">{$lang->use_default}</option><option value="linear" {$threadview['linear']}>{$lang->linear}</option><option value="threaded" {$threadview['threaded']}>{$lang->threaded}</option></select></td>
 </tr>
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->other_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 <tr>
 <td valign="top" width="1"><input type="checkbox" class="checkbox" name="showredirect" id="showredirect" value="1" {$showredirectcheck} /></td>
@@ -188,6 +186,7 @@
 {$board_style}
 {$board_language}
 </table>
+</div>
 </fieldset>
 </td>
 </tr>
