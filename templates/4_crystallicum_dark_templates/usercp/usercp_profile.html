@@ -12,24 +12,28 @@
 <div id="content_width" style="width:74%;float:right;">
 <td valign="top">
 {$errors}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_input">
 <tr>
 <td class="thead" colspan="2"><strong>{$lang->edit_profile}</strong></td>
 </tr>
 <tr>
 <td width="100%" class="trow1" valign="top">
-<fieldset class="trow2">
+{$awaysection}
+<fieldset class="tcat">
 <legend><strong>{$lang->profile_required}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="{$theme['tablespace']}">
 <tr>
 <td colspan="2"><span class="smalltext"><strong>{$lang->change_email_notice}</strong></span></td>
 </tr>
 {$requiredfields}
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->profile_optional}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="{$theme['tablespace']}">
 <tr>
 <td colspan="3"><span class="smalltext">{$lang->birthday}</span></td>
@@ -77,18 +81,14 @@
 </td>
 </tr>
 {$website}
+</div>
 </table>
 </fieldset>
 {$customfields}
-</td>
-	</tr>
-	<tr>
-<td width="100%" class="trow1" valign="top">
 {$customtitle}
 {$contactfields}
-{$awaysection}
 </td>
-</tr>
+	</tr>
 </table>
 <br />
 <div align="center">

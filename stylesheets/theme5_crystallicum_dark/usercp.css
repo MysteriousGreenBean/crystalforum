@@ -190,7 +190,37 @@ td[class^=trow]{border:none;}
 	border: var(--main-border);
 	box-shadow: var(--main-shadow);
 }
-		
+
+legend {
+	font-size: 25px;
+	font-family: var(--nick-font);
+}
+	
+.ucp_input input[type="radio"]{
+	appearance: none;
+	width: 15px;
+	height: 15px;
+	background: var(--box-background);
+    border: var(--radio-border);
+    box-shadow: var(--main-shadow);
+	border-radius: 100%;
+}
+
+.ucp_input input[type="radio"]:checked {
+	appearance: none;
+	width: 15px;
+	height: 15px;
+	background: var(--main-color);
+    border: var(--radio-border);
+}
+
+.ucp_input input[type="radio"]:checked::before{
+	appearance: none;
+	width: 15px;
+	height: 15px;
+	background: var(--main-color);
+    border: var(--radio-border);
+}
 		
 		
 		
