@@ -16,13 +16,13 @@
 </fieldset>
 <br />
 {$limitwarning}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
 <tr>
 <td class="thead" colspan="6">
 	<div class="float_right">
 	<input type="text" name="keywords" value="{$lang->enter_keywords}" onfocus="if(this.value == '{$lang->enter_keywords}') { this.value = ''; }" onblur="if(this.value=='') { this.value='{$lang->enter_keywords}'; }" class="textbox" size="25" />
 	<input type="submit" class="button" name="quick_search" value="{$lang->search_pms}" />
-	(<a href="private.php?action=advanced_search">{$lang->advanced_search}</a>)</div>
+	<span class="ucp_find">(<a href="private.php?action=advanced_search"><i class="cp cp-search"></i> {$lang->advanced_search}</a>)</span></div>
 	<strong>{$foldername}</strong></td>
 </tr>
 <tr>
@@ -32,14 +32,12 @@
 <td class="tcat" align="center" width="1%" style="white-space: nowrap"><span class="smalltext"><input name="allbox" title="{$lang->check_all}" type="checkbox" class="checkbox checkall" value="{$lang->check_all}" /></span></td>
 </tr>
 {$messagelist}
-<tr>
-<td class="tfoot" align="right" colspan="6">
+</table>
+<div class="tfoot" align="right">
 <input type="submit" class="button" name="moveto" value="{$lang->move_to}" /> {$folderoplist} {$lang->or}
 <input type="submit" class="button" name="delete" value="{$lang->delete}" /> {$lang->selected_messages}
-</td>
-</tr>
-</table>
-<br />
+</div>
+<br/>
 <div class="float_left">{$multipage}</div>
 <div class="float_right">
 <span class="smalltext">

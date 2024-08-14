@@ -833,7 +833,7 @@ content: "\f0c1";
 }
 
 .subforum_minion {
-	color: var(--accent-color);
+	color: var(--new-status-icon-color);
 }
 
 .subforum_minioff {
@@ -1111,7 +1111,9 @@ input.textbox {
     font-size: 13px;
     background: var(--dropdown-background);
 	padding: 2px;
+	padding-left: 10px;
 	height: 20px;
+	margin-right: 5px;
 }
 
 input.textbox2 {	
@@ -1130,6 +1132,7 @@ textarea {
 	color: var(--secondary-font-color);
     border: 1px solid #303030;
     padding: 2px;
+	padding-left: 10px;
     line-height: 1.4;
     outline: 0;
     font-family: Tahoma, Verdana, Arial, Sans-Serif;
@@ -1140,7 +1143,8 @@ textarea {
 select {
 	background: var(--dropdown-background);;
 	color:var(--secondary-font-color);
-	padding: 1px;
+	padding: 2px;
+	padding-left: 10px;
 	border: var(--main-border);
 	box-shadow: var(--main-shadow);
 	outline: 0;
@@ -2206,14 +2210,21 @@ div.jqi .jqisubstate .jqibuttons button {
     text-indent: 2em;
     margin-top: 5px;
 }
+
+/* Newreply */
 .newreply {
-	color: var(--main-font-color);
+	color: var(--main-font-color); 
+	background: var(--post-background) !important;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
-.newreply td {
-    background-image: var(--post-background);
-    background-repeat: no-repeat;
-    background-size: cover;
+.newreply .trow1 {
+	background: none;
+}
+
+.newreply .trow2 {
+	background: none;
 }
 
 .newreply .thead {
@@ -2250,57 +2261,6 @@ div.jqi .jqisubstate .jqibuttons button {
 	.character_nick {
     font-size: 30px;
 	}
-}
-
-.ucp_nick {
-    font-family: var(--nick-font);
-    font-weight: 400;
-    font-style: normal;
-    font-size: 35px;
-    text-shadow: var(--main-shadow);
-}
-
-.ucp_avatar {
-	border-radius: 100px;
-	border: var(--main-border);
-	border: 1px solid var(--main-nt-color) /* var(--main-border)*/;
-	background: var(--main-nt-color);
-	box-shadow: var(--main-shadow);
-}
-
-.ucp_avatar img{
-	height: 250px;
-	border-radius: 100px;
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
-	-webkit-filter: sepia(50%); /* Safari 6.0 - 9.0 */
-	filter: sepia(50%);
-}
-
-.ucp_table {
-	background: var(--category-image) !important;
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-
-.ucp_table tr {
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
-}
-
-.ucp_table hr {
-	color: var(--main-nt-color);
-	background: var(--main-nt-color);
-	height: 5px;
-	margin-bottom: 20px;
-}
-
-.ucp_table .trow1 {
-	background: none;
-}
-
-.ucp_table .trow2 {
-	background: none;
 }
 
 .post.classic .post_author {

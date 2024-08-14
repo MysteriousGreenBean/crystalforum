@@ -1,6 +1,6 @@
-<br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->away_information}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="{$theme['tablespace']}">
 <tr>
 <td colspan="2"><span class="smalltext">{$lang->away_status}</span></td>
@@ -22,13 +22,13 @@
 </tr>
 <tr>
 <td>
-<select name="awayday">
+<select name="awayday" class="ucp_select">
 <option value="">&nbsp;</option>
 {$returndatesel}
 </select>
 </td>
 <td>
-<select name="awaymonth">
+<select name="awaymonth" class="ucp_select">
 <option value="">&nbsp;</option>
 <option value="1" {$returndatemonthsel['1']}>{$lang->month_1}</option>
 <option value="2" {$returndatemonthsel['2']}>{$lang->month_2}</option>
@@ -49,4 +49,6 @@
 </td>
 </tr>
 </table>
+</div>
 </fieldset>
+<br />

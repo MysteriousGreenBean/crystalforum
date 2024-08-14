@@ -13,7 +13,7 @@
 <td valign="top">
 {$error}
 {$signature}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder newreply">
 <tr>
 <td class="thead" colspan="2"><strong>{$lang->edit_sig}</strong></td>
 </tr>
@@ -21,6 +21,7 @@
 <td class="trow1 hide_mobile" valign="top" width="20%"><span class="smalltext">{$lang->edit_sig_note}</span>
 {$smilieinserter}</td>
 <td class="trow1" width="80%">
+	<div class="post_inside">
 <textarea rows="15" cols="70" id="signature" name="signature">{$sig}</textarea>
 {$codebuttons}
 </td>

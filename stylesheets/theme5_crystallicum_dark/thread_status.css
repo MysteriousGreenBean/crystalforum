@@ -24,19 +24,19 @@
     content: "\eb6a"
 }
 .thread_status.dot_newfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\ec9b"
 }
 .thread_status.dot_newhotfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\ea52"
 }
 .thread_status.dot_newhotlockfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\eb69"
 }
 .thread_status.dot_newlockfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\eb69"
 }
 .thread_status.folder:before {
@@ -60,19 +60,19 @@
     content: "\eb6a"
 }
 .thread_status.newfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\ead5"
 }
 .thread_status.newhotfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\ea52"
 }
 .thread_status.newhotlockfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\eb69"
 }
 .thread_status.newlockfolder:before {
-    color: var(--status-icon-color);
+    color: var(--new-status-icon-color);
     content: "\eb69"
 }
 		

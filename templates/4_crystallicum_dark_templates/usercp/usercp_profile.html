@@ -12,37 +12,41 @@
 <div id="content_width" style="width:74%;float:right;">
 <td valign="top">
 {$errors}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_input">
 <tr>
 <td class="thead" colspan="2"><strong>{$lang->edit_profile}</strong></td>
 </tr>
 <tr>
 <td width="100%" class="trow1" valign="top">
-<fieldset class="trow2">
+{$awaysection}
+<fieldset class="tcat">
 <legend><strong>{$lang->profile_required}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="{$theme['tablespace']}">
 <tr>
 <td colspan="2"><span class="smalltext"><strong>{$lang->change_email_notice}</strong></span></td>
 </tr>
 {$requiredfields}
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->profile_optional}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="{$theme['tablespace']}">
 <tr>
 <td colspan="3"><span class="smalltext">{$lang->birthday}</span></td>
 </tr>
 <tr>
 <td>
-<select name="bday1">
+<select name="bday1" class="ucp_select">
 <option value="">&nbsp;</option>
 {$bdaydaysel}
 </select>
 </td>
 <td>
-<select name="bday2">
+<select name="bday2" class="ucp_select">
 <option value="">&nbsp;</option>
 <option value="1" {$bdaymonthsel['1']}>{$lang->month_1}</option>
 <option value="2" {$bdaymonthsel['2']}>{$lang->month_2}</option>
@@ -69,7 +73,7 @@
 </tr>
 <tr>
 <td colspan="3">
-<select name="birthdayprivacy">
+<select name="birthdayprivacy" class="ucp_select">
 <option value="all"{$allselected}>{$lang->birthdayprivacyall}</option>
 <option value="none"{$noneselected}>{$lang->birthdayprivacynone}</option>
 <option value="age"{$ageselected}>{$lang->birthdayprivacyage}</option>
@@ -77,18 +81,14 @@
 </td>
 </tr>
 {$website}
+</div>
 </table>
 </fieldset>
 {$customfields}
-</td>
-	</tr>
-	<tr>
-<td width="100%" class="trow1" valign="top">
 {$customtitle}
 {$contactfields}
-{$awaysection}
 </td>
-</tr>
+	</tr>
 </table>
 <br />
 <div align="center">

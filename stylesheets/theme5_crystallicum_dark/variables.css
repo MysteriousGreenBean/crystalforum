@@ -5,13 +5,15 @@
 	--main-nt-color: #143426;
 	--secondary-color: #1F4132;
 	--accent-color: #673e10;
+	--accent2-color: #330308d6;
 	--mycode-color: #266046;
 	--status-icon-color: #27ae60;
+	--new-status-icon-color: #5e1f0b;
 	
 	--main-font-color: #a3a3a3;
 	--secondary-font-color: #878787;	
 	--sticky-font-color: #838383;
-	--link-hover: white;	
+	--link-hover: white;
 	
 	/* User colours */
 	--registered: #8e8e8ed6;
@@ -39,8 +41,9 @@
 	
 	--main-border: 1px solid rgba(30,30,30,0.298039);
 	--secondary-border: 1px solid #31302dd9;
-	--main-shadow: rgba(0,0,0,0.498039) 0 0 3px, rgba(0,0,0,0.498039) 0 0 5px inset;
+	--radio-border: solid 1px #303030;
 	--trow-border: #222;
+	--main-shadow: rgba(0,0,0,0.498039) 0 0 3px, rgba(0,0,0,0.498039) 0 0 5px inset;
 	
 	/* Images */
 	--background-image: url(https://i.imgur.com/BgMgifV.png);

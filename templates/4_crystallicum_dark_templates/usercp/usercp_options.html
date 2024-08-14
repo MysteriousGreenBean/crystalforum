@@ -12,24 +12,15 @@
 <div id="content_width">
 <td valign="top">
 {$errors}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable ucp_input">
 <tr>
 <td class="thead" colspan="2"><strong>{$lang->edit_options}</strong></td>
 </tr>
 <tr>
 <td width="100%" class="trow1" valign="top">
-<fieldset class="trow2">
-<legend><strong>{$lang->login_cookies_privacy}</strong></legend>
-<table cellspacing="0" cellpadding="2">
-<tr>
-<td valign="top" width="1"><input type="checkbox" class="checkbox" name="invisible" id="invisible" value="1" {$invisiblecheck} /></td>
-<td><span class="smalltext"><label for="invisible">{$lang->invisible_mode}</label></span></td>
-</tr>
-</table>
-</fieldset>
-<br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->messaging_notification}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 <tr>
 <td valign="top" width="1"><input type="checkbox" class="checkbox" name="allownotices" id="allownotices" value="1" {$allownoticescheck} /></td>
@@ -49,7 +40,7 @@
 </tr>
 <tr>
 <td colspan="2">
-	<select name="subscriptionmethod" id="subscriptionmethod">
+	<select name="subscriptionmethod" id="subscriptionmethod" class="ucp_select">
 		<option value="0" {$no_auto_subscribe_selected}>{$lang->no_auto_subscribe}</option>
 		<option value="1" {$no_subscribe_selected}>{$lang->no_subscribe}</option>
 		<option value="2" {$instant_email_subscribe_selected}>{$lang->instant_email_subscribe}</option>
@@ -57,19 +48,20 @@
 	</select>
 </td>
 </tr>
-
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->date_time_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 <tr>
 <td><span class="smalltext">{$lang->date_format}</span></td>
 </tr>
 <tr>
 <td>
-<select name="dateformat">
+<select name="dateformat" class="ucp_select">
 <option value="0">{$lang->use_default}</option>
 {$date_format_options}
 </select>
@@ -80,7 +72,7 @@
 </tr>
 <tr>
 <td>
-<select name="timeformat">
+<select name="timeformat" class="ucp_select">
 <option value="0">{$lang->use_default}</option>
 {$time_format_options}
 </select>
@@ -97,7 +89,7 @@
 </tr>
 <tr>
 <td>
-	<select name="dstcorrection">
+	<select name="dstcorrection" class="ucp_select">
 		<option value="2" {$dst_auto_selected}>{$lang->dst_correction_auto}</option>
 		<option value="1" {$dst_enabled_selected}>{$lang->dst_correction_enabled}</option>
 		<option value="0" {$dst_disabled_selected}>{$lang->dst_correction_disabled}</option>
@@ -105,13 +97,15 @@
 </td>
 </tr>
 </table>
+</div>
 </fieldset>
 </td>
 </tr>
 <tr>
 <td width="100%" class="trow1" valign="top">
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->forum_display_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 {$tppselect}
 <tr>
@@ -119,7 +113,7 @@
 </tr>
 <tr>
 <td>
-<select name="daysprune">
+<select name="daysprune" class="ucp_select">
 <option value="">{$lang->use_default}</option>
 <option value="1" {$daysprunesel['1']}>{$lang->thread_view_lastday}</option>
 <option value="5" {$daysprunesel['5']}>{$lang->thread_view_5days}</option>
@@ -134,10 +128,12 @@
 </td>
 </tr>
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->thread_view_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 	<tr>
 	<td valign="top" width="1"><input type="checkbox" class="checkbox" name="classicpostbit" id="classicpostbit" value="1" {$classicpostbitcheck} /></td>
@@ -165,13 +161,15 @@
 <td colspan="2"><span class="smalltext">{$lang->thread_mode}</span></td>
 </tr>
 <tr>
-<td colspan="2"><select name="threadmode"><option value="">{$lang->use_default}</option><option value="linear" {$threadview['linear']}>{$lang->linear}</option><option value="threaded" {$threadview['threaded']}>{$lang->threaded}</option></select></td>
+<td colspan="2"><select name="threadmode" class="ucp_select"><option value="">{$lang->use_default}</option><option value="linear" {$threadview['linear']}>{$lang->linear}</option><option value="threaded" {$threadview['threaded']}>{$lang->threaded}</option></select></td>
 </tr>
 </table>
+</div>
 </fieldset>
 <br />
-<fieldset class="trow2">
+<fieldset class="tcat">
 <legend><strong>{$lang->other_options}</strong></legend>
+<div class="box">
 <table cellspacing="0" cellpadding="2">
 <tr>
 <td valign="top" width="1"><input type="checkbox" class="checkbox" name="showredirect" id="showredirect" value="1" {$showredirectcheck} /></td>
@@ -188,6 +186,7 @@
 {$board_style}
 {$board_language}
 </table>
+</div>
 </fieldset>
 </td>
 </tr>

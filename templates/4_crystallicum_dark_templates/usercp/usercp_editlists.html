@@ -26,16 +26,16 @@
 			<input type="hidden" name="action" value="do_editlists" />
 			<input type="hidden" name="manage" value="buddy" />
 			<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-			<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+			<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable ucp_input">
 				<tr>
 					<td class="thead" align="center"><strong>{$lang->edit_buddy_list}</strong></td>
 				</tr>
 				<tr>
 					<td class="trow1">
-						<fieldset>
+						<fieldset class="tcat">
 							<legend><strong>{$lang->add_buddies}</strong></legend>
+							<div class="box ucp_padding">
 							<span class="smalltext">{$lang->add_buddies_desc}</span><br />
-							<div class="float_left" style="width: 120px; text-align: right;"><strong>{$lang->username_or_usernames}</strong></div>
 							<div style="margin-left: 130px;"><input type="text" name="add_username" id="buddy_add_username" style="width: 60%;" class="textbox" /> <input type="submit" value="{$lang->add_to_buddies}" id="buddy_submit" class="button" /></div>
 							<script type="text/javascript">
 							<!--
@@ -81,13 +81,15 @@
 									});
                                 }
                             // -->
-							</script>
-						</fieldset>
-						<fieldset id="buddy_container">
+							</script></div>
+						</fieldset><br/>
+						<fieldset id="buddy_container" class="tcat">
 							<legend><strong>{$lang->current_buddies}</strong></legend>
+							<div class="box">
 							<ul id="buddy_list" style="list-style: none;">
 								{$buddy_list}
 							</ul>
+							</div>
 						</fieldset>
 					</td>
 				</tr>
@@ -98,16 +100,16 @@
 			<input type="hidden" name="action" value="do_editlists" />
 			<input type="hidden" name="manage" value="ignored" />
 			<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-			<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+			<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable ucp_input">
 				<tr>
 					<td class="thead" align="center"><strong>{$lang->edit_ignore_list}</strong></td>
 				</tr>
 				<tr>
 					<td class="trow1">
-						<fieldset>
+						<fieldset class="tcat">
 							<legend><strong>{$lang->add_ignored_users}</strong></legend>
-							<span class="smalltext">{$lang->add_ignored_users_desc}</span><br />
-							<div class="float_left" style="width: 120px; text-align: right;"><strong>{$lang->username_or_usernames}</strong></div>
+							<div class="box">
+							<span class="smalltext">{$lang->add_ignored_users_desc}</span><br /><br />
 							<div style="margin-left: 130px;"><input type="text" name="add_username" id="ignored_add_username" style="width: 60%;" class="textbox" /> <input type="submit" value="{$lang->ignore_users}" id="ignored_submit" class="button" /></div>
 							<script type="text/javascript">
 							<!--
@@ -154,12 +156,15 @@
 								}
 							// -->
 							</script>
-						</fieldset>
-						<fieldset id="ignored_container">
+							</div>
+						</fieldset><br/>
+						<fieldset id="ignored_container" class="tcat">
 							<legend><strong>{$lang->current_ignored_users}</strong></legend>
+							<div class="box">
 							<ul id="ignore_list" style="list-style: none;">
 								{$ignore_list}
 							</ul>
+							</div>
 						</fieldset>
 					</td>
 				</tr>

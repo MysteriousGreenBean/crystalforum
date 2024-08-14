@@ -13,7 +13,7 @@
 <form action="private.php" method="post">
 <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
 <input type="hidden" name="action" value="do_tracking" />
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
 <tr>
 <td class="thead" align="center" colspan="5"><strong>{$lang->read_messages}</strong></td>
 </tr>
@@ -32,7 +32,7 @@
 <form action="private.php" method="post">
 <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
 <input type="hidden" name="action" value="do_tracking" />
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
 <tr>
 <td class="thead" align="center" colspan="5"><strong>{$lang->unread_messages}</strong></td>
 </tr>
@@ -43,8 +43,10 @@
 <td class="tcat" align="center" width="1%" style="white-space: nowrap"><span class="smalltext"><input type="checkbox" class="checkbox checkall" name="allbox" /></span></td>
 </tr>
 {$unreadmessages}
-{$stoptrackingunread}
 </table>
+<div class="tfoot" align="right">
+{$stoptrackingunread}
+</div>
 	</div>
 </form>
 	</td></div>
