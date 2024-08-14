@@ -234,6 +234,9 @@ legend {
     box-shadow: var(--main-shadow);
 }
 		
+.ucp_padding {
+	padding: 10px;
+}
 		
 		
 		
