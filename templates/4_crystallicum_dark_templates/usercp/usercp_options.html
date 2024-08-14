@@ -12,7 +12,7 @@
 <div id="content_width">
 <td valign="top">
 {$errors}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable ucp_input">
 <tr>
 <td class="thead" colspan="2"><strong>{$lang->edit_options}</strong></td>
 </tr>
@@ -40,7 +40,7 @@
 </tr>
 <tr>
 <td colspan="2">
-	<select name="subscriptionmethod" id="subscriptionmethod">
+	<select name="subscriptionmethod" id="subscriptionmethod" class="ucp_select">
 		<option value="0" {$no_auto_subscribe_selected}>{$lang->no_auto_subscribe}</option>
 		<option value="1" {$no_subscribe_selected}>{$lang->no_subscribe}</option>
 		<option value="2" {$instant_email_subscribe_selected}>{$lang->instant_email_subscribe}</option>
@@ -61,7 +61,7 @@
 </tr>
 <tr>
 <td>
-<select name="dateformat">
+<select name="dateformat" class="ucp_select">
 <option value="0">{$lang->use_default}</option>
 {$date_format_options}
 </select>
@@ -72,7 +72,7 @@
 </tr>
 <tr>
 <td>
-<select name="timeformat">
+<select name="timeformat" class="ucp_select">
 <option value="0">{$lang->use_default}</option>
 {$time_format_options}
 </select>
@@ -89,7 +89,7 @@
 </tr>
 <tr>
 <td>
-	<select name="dstcorrection">
+	<select name="dstcorrection" class="ucp_select">
 		<option value="2" {$dst_auto_selected}>{$lang->dst_correction_auto}</option>
 		<option value="1" {$dst_enabled_selected}>{$lang->dst_correction_enabled}</option>
 		<option value="0" {$dst_disabled_selected}>{$lang->dst_correction_disabled}</option>
@@ -113,7 +113,7 @@
 </tr>
 <tr>
 <td>
-<select name="daysprune">
+<select name="daysprune" class="ucp_select">
 <option value="">{$lang->use_default}</option>
 <option value="1" {$daysprunesel['1']}>{$lang->thread_view_lastday}</option>
 <option value="5" {$daysprunesel['5']}>{$lang->thread_view_5days}</option>
@@ -161,7 +161,7 @@
 <td colspan="2"><span class="smalltext">{$lang->thread_mode}</span></td>
 </tr>
 <tr>
-<td colspan="2"><select name="threadmode"><option value="">{$lang->use_default}</option><option value="linear" {$threadview['linear']}>{$lang->linear}</option><option value="threaded" {$threadview['threaded']}>{$lang->threaded}</option></select></td>
+<td colspan="2"><select name="threadmode" class="ucp_select"><option value="">{$lang->use_default}</option><option value="linear" {$threadview['linear']}>{$lang->linear}</option><option value="threaded" {$threadview['threaded']}>{$lang->threaded}</option></select></td>
 </tr>
 </table>
 </div>

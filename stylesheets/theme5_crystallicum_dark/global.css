@@ -1111,7 +1111,9 @@ input.textbox {
     font-size: 13px;
     background: var(--dropdown-background);
 	padding: 2px;
+	padding-left: 10px;
 	height: 20px;
+	margin-right: 5px;
 }
 
 input.textbox2 {	
@@ -1130,6 +1132,7 @@ textarea {
 	color: var(--secondary-font-color);
     border: 1px solid #303030;
     padding: 2px;
+	padding-left: 10px;
     line-height: 1.4;
     outline: 0;
     font-family: Tahoma, Verdana, Arial, Sans-Serif;
@@ -1140,7 +1143,8 @@ textarea {
 select {
 	background: var(--dropdown-background);;
 	color:var(--secondary-font-color);
-	padding: 1px;
+	padding: 2px;
+	padding-left: 10px;
 	border: var(--main-border);
 	box-shadow: var(--main-shadow);
 	outline: 0;

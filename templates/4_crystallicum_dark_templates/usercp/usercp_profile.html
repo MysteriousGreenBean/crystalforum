@@ -40,13 +40,13 @@
 </tr>
 <tr>
 <td>
-<select name="bday1">
+<select name="bday1" class="ucp_select">
 <option value="">&nbsp;</option>
 {$bdaydaysel}
 </select>
 </td>
 <td>
-<select name="bday2">
+<select name="bday2" class="ucp_select">
 <option value="">&nbsp;</option>
 <option value="1" {$bdaymonthsel['1']}>{$lang->month_1}</option>
 <option value="2" {$bdaymonthsel['2']}>{$lang->month_2}</option>
@@ -73,7 +73,7 @@
 </tr>
 <tr>
 <td colspan="3">
-<select name="birthdayprivacy">
+<select name="birthdayprivacy" class="ucp_select">
 <option value="all"{$allselected}>{$lang->birthdayprivacyall}</option>
 <option value="none"{$noneselected}>{$lang->birthdayprivacynone}</option>
 <option value="age"{$ageselected}>{$lang->birthdayprivacyage}</option>

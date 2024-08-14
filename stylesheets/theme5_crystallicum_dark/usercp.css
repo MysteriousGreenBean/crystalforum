@@ -221,6 +221,18 @@ legend {
 	background: var(--main-color);
     border: var(--radio-border);
 }
+
+.ucp_input .textbox {
+	background: var(--main-color);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+}
+
+.ucp_select {
+	background: var(--main-color);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+}
 		
 		
 		
