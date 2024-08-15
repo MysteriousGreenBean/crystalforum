@@ -2308,6 +2308,15 @@ div.jqi .jqisubstate .jqibuttons button {
     padding: 15px;
 }
 
+.away_status {
+	background: var(--new-status-icon-color);
+	padding: 10px;
+	margin: 10px;
+	border: var(--main-border);
+	box-shadow: var(--main-shadow);
+	text-align: center;
+}
+
 
 /* Avatar */
 /* Avatar animation container */

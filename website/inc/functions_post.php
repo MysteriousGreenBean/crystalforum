@@ -237,21 +237,50 @@ function build_postbit($post, $post_type=0)
 	// Add this part where the user's data is being fetched
 	$user = get_user($post['uid']); // Assuming user data is not already loaded
 
-	// Fetch away status
-	if($user['away'] == 1)
-	{
-		$awaydate = my_date($mybb->settings['dateformat'], $memprofile['awaydate']);
-		// Set the away message
-		$awaybit = "<div class='away_message'>{$user['username']} is currently away ({$user['awayreason']}). Expected return: {$awaydate}-{$user['returndate']}</div>";
-	}
-	else
-	{
-		$awaybit = "";
-	}
+	$awaybit = '';
+if ($post['away'] == 1 && $mybb->settings['allowaway'] != 0) {
+    $lang->away_note = $lang->sprintf($lang->away_note, $post['username']);
+    $awaydate = my_date($mybb->settings['dateformat'], $post['awaydate']);
+    
+    if (!empty($post['awayreason'])) {
+        $reason = $parser->parse_badwords($post['awayreason']);
+        $awayreason = htmlspecialchars_uni($reason);
+    } else {
+        $awayreason = $lang->away_no_reason;
+    }
 
-	// Add awaybit to the post array, so it can be used in templates
-	$post['awaybit'] = $awaybit;
-	$postbit = $templates->get("postbit", array("awaybit" => $post['awaybit']));
+    if ($post['returndate'] == '') {
+        $returndate = $lang->unknown;
+    } else {
+        $returnhome = explode("-", $post['returndate']);
+
+        // Handle return date correctly
+        if ($returnhome[2] >= 2038) {
+            require_once MYBB_ROOT."inc/functions_time.php";
+            $returnmkdate = adodb_mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
+            $returndate = my_date($mybb->settings['dateformat'], $returnmkdate, "", 1, true);
+        } else {
+            $returnmkdate = mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
+            $returndate = my_date($mybb->settings['dateformat'], $returnmkdate);
+        }
+
+        // If away time has expired
+        if ($returnmkdate < TIME_NOW) {
+            $db->update_query('users', array('away' => '0', 'awaydate' => '0', 'returndate' => '', 'awayreason' => ''), 'uid=\''.(int)$post['uid'].'\'');
+            $post['away'] = 0;
+        }
+    }
+
+    // Check if still away after updates
+    if ($post['away'] == 1) {
+        // You may need a new template bit for postbit away message
+        eval("\$awaybit = \"".$templates->get("postbit_away")."\";");
+    }
+}
+
+// Add awaybit to the post array
+$post['awaybit'] = $awaybit;
+
 
 
 
