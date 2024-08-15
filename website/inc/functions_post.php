@@ -234,6 +234,27 @@ function build_postbit($post, $post_type=0)
 		unset($usertitle, $cached_titles);
 	}
 
+	// Add this part where the user's data is being fetched
+	$user = get_user($post['uid']); // Assuming user data is not already loaded
+
+	// Fetch away status
+	if($user['away'] == 1)
+	{
+		$awaydate = my_date($mybb->settings['dateformat'], $memprofile['awaydate']);
+		// Set the away message
+		$awaybit = "<div class='away_message'>{$user['username']} is currently away ({$user['awayreason']}). Expected return: {$awaydate}-{$user['returndate']}</div>";
+	}
+	else
+	{
+		$awaybit = "";
+	}
+
+	// Add awaybit to the post array, so it can be used in templates
+	$post['awaybit'] = $awaybit;
+	$postbit = $templates->get("postbit", array("awaybit" => $post['awaybit']));
+
+
+
 	// Work out the usergroup/title stuff
 	$post['groupimage'] = '';
 	if(!empty($usergroup['image']))
