@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let signatureHTML = sig.innerHTML;
 
         // Debug initial signatureHTML
-        console.log('Initial signatureHTML:', signatureHTML);
+        console.debug('Initial signatureHTML:', signatureHTML);
 
         // Handle quote color
         const quoteColorMarker = signatureHTML.match(/\[quote_color=([#a-zA-Z0-9]+)\]/);
@@ -176,6 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Debug final signatureHTML
-        console.log('Final signatureHTML:', sig.innerHTML);
+        console.debug('Final signatureHTML:', sig.innerHTML);
     });
 });
