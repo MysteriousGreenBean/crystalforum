@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const usernameElement = postWrapper.querySelector('.username');
             if (usernameElement) {
                 const usernameColor = window.getComputedStyle(usernameElement).color;
-                
+
                 // Apply the color to the .sig_quote elements
                 const sigShadow = sig.closest('.sig_shadow');
                 if (sigShadow) {
@@ -30,6 +30,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 const sigUrls = postWrapper.querySelector('.sig_urls');
                 if (sigUrls && !sigUrls.hasAttribute('data-user-set-color')) {
                     sigUrls.style.color = usernameColor;
+
+                    // Apply the color to .sig_urls a and a:hover elements
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        .sig_urls a { color: ${usernameColor} !important; }
+                        .sig_urls a:hover { color: ${usernameColor} !important; }
+                    `;
+                    document.head.appendChild(style);
                 }
             }
         }
@@ -42,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let signatureHTML = sig.innerHTML;
 
         // Debug initial signatureHTML
-        console.log('Initial signatureHTML:', signatureHTML);
+        console.debug('Initial signatureHTML:', signatureHTML);
 
         // Handle quote color
         const quoteColorMarker = signatureHTML.match(/\[quote_color=([#a-zA-Z0-9]+)\]/);
@@ -168,6 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Debug final signatureHTML
-        console.log('Final signatureHTML:', sig.innerHTML);
+        console.debug('Final signatureHTML:', sig.innerHTML);
     });
 });
