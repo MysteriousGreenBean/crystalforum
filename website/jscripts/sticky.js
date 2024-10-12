@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateAvatarPositions() {
     const posts = document.querySelectorAll('.post_author');
     
-    console.log(`Number of post_author containers: ${posts.length}`);
+    console.debug(`Number of post_author containers: ${posts.length}`);
 
     posts.forEach(post => {
       const avatar = post.querySelector('.author_avatar');
