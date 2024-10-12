@@ -238,7 +238,7 @@ function build_postbit($post, $post_type=0)
 	$user = get_user($post['uid']); // Assuming user data is not already loaded
 
 	$awaybit = '';
-if ($post['away'] == 1 && $mybb->settings['allowaway'] != 0) {
+if ($post['away'] == 1 && $mybb->settings['allowaway'] == 1) {
     $lang->away_note = $lang->sprintf($lang->away_note, $post['username']);
     $awaydate = my_date($mybb->settings['dateformat'], $post['awaydate']);
     
@@ -275,6 +275,7 @@ if ($post['away'] == 1 && $mybb->settings['allowaway'] != 0) {
     if ($post['away'] == 1) {
         // You may need a new template bit for postbit away message
         eval("\$awaybit = \"".$templates->get("postbit_away")."\";");
+
     }
 }
 

@@ -2303,6 +2303,8 @@ div.jqi .jqisubstate .jqibuttons button {
 }
 
 .post .post_author div.author_avatar {
+	--avatar-height: calc(100% + 10px);
+	height: auto;
     position: absolute;
     top: 0px;
     padding: 15px;

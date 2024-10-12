@@ -1,23 +1,4 @@
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-	  // Get the author avatar element
-	  const authorAvatar = document.querySelector('.author_avatar');
-  
-	  // Get the post author element
-	  const postAuthor = document.querySelector('.post_author');
-  
-	  // Check if the elements exist
-	  if (authorAvatar && postAuthor) {
-		// Get the height of the author avatar
-		const avatarHeight = authorAvatar.offsetHeight;
-  
-		// Set the min-height of the post author
-		postAuthor.style.minHeight = (avatarHeight + 10) + 'px';
-	  }
-	});
-  </script>
-  
-  <!-- post content -->
+<!-- post content -->
   {$ignore_bit}
   <a name="pid{$post['pid']}" id="pid{$post['pid']}"></a>
   
