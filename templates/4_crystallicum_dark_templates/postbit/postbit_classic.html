@@ -17,38 +17,6 @@
 	});
   </script>
   
-  <!--- Mechanika --->
-  <script>
-	document.addEventListener('DOMContentLoaded', function() {
-	  const userStatsClickElements = document.querySelectorAll('.user_stats_click');
-	  
-	  userStatsClickElements.forEach(function(element) {
-		element.addEventListener('click', function() {
-		  const postElement = element.closest('.post');
-		  const userStatsElement = postElement.querySelector('.user_stats');
-		  
-		  if (userStatsElement) {
-			if (userStatsElement.classList.contains('visible')) {
-			  // Closing
-			  userStatsElement.classList.remove('visible');
-			  userStatsElement.style.maxHeight = '0';
-			  userStatsElement.style.opacity = '0';
-			} else {
-			  // Opening
-			  userStatsElement.classList.add('visible');
-			  userStatsElement.style.maxHeight = userStatsElement.scrollHeight + 'px';
-			  userStatsElement.style.opacity = '1';
-			}
-		  } else {
-			console.log('No .user_stats element found');
-		  }
-		});
-	  });
-	});
-  </script>
-  
-  
-  
   <!-- post content -->
   {$ignore_bit}
   <a name="pid{$post['pid']}" id="pid{$post['pid']}"></a>
@@ -85,8 +53,10 @@
   </div>
   <div class="post_controls">
 	<div class="postbit_buttons author_buttons float_left">
-		{$post['button_pm']}{$post['button_rep']}<a href="{$post['fid2']}"><i class="cp cp-feather" title="Korespondencja"></i></a><a href="{$post['fid3']}"><i class="cp cp-home" title="Miejsce zamieszkania"></i></a> <i class="cp cp-clover user_stats_click" title="Mechanika" id="mechanika"></i>
-	</div>
+		{$post['button_pm']}{$post['button_rep']}<a href="{$post['fid2']}"><i class="cp cp-feather" title="Korespondencja"></i></a><a href="{$post['fid3']}">
+			<i class="cp cp-home" title="Miejsce zamieszkania"></i></a>
+		 <i class="cp cp-clover user_stats_click" title="Mechanika" id="mechanika" onclick="Thread.statsOnClick(event)"></i>
+		</div>
 	<div class="postbit_buttons post_management_buttons float_right">
 	  {$post['button_warn']}{$post['button_quote']}{$post['button_multiquote']}{$post['button_report']}{$post['button_purgespammer']}{$post['button_reply_pm']}{$post['button_replyall_pm']}{$post['button_forward_pm']}{$post['button_delete_pm']}{$post['button_edit']}{$post['button_quickdelete']}{$post['button_quickrestore']}
 	</div>
