@@ -33,6 +33,9 @@
 	  {$post['posturl']}
 	  {$post['icon']}
 	  <span class="post_date"><i class="fa fa-clock-o"></i> {$post['postdate']} <span class="post_edit" id="edited_by_{$post['pid']}">{$post['editedmsg']}</span></span>
+	  {$post['posturl']}
+	  {$post['icon']}
+	  <span class="post_date"><i class="fa fa-clock-o"></i> {$post['postdate']} <span class="post_edit" id="edited_by_{$post['pid']}">{$post['editedmsg']}</span></span>
 	{$post['subject_extra']}
 	</div>
 	<div class="away-status">
@@ -44,6 +47,7 @@
 	</div>
 	{$post['attachments']}
 	<div class="post_meta" id="post_meta_{$post['pid']}">
+	  {$post['iplogged']}
 	  {$post['iplogged']}
 	</div>
 	</div>
@@ -59,6 +63,9 @@
 		</div>
 	<div class="postbit_buttons post_management_buttons float_right">
 	  {$post['button_warn']}{$post['button_quote']}{$post['button_multiquote']}{$post['button_report']}{$post['button_purgespammer']}{$post['button_reply_pm']}{$post['button_replyall_pm']}{$post['button_forward_pm']}{$post['button_delete_pm']}{$post['button_edit']}{$post['button_quickdelete']}{$post['button_quickrestore']}
+	  {$post['button_warn']}{$post['button_quote']}{$post['button_multiquote']}{$post['button_report']}{$post['button_purgespammer']}{$post['button_reply_pm']}{$post['button_replyall_pm']}{$post['button_forward_pm']}{$post['button_delete_pm']}{$post['button_edit']}{$post['button_quickdelete']}{$post['button_quickrestore']}
 	</div>
+  </div>
+  </div>
   </div>
   </div>
