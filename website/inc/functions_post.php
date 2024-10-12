@@ -234,6 +234,57 @@ function build_postbit($post, $post_type=0)
 		unset($usertitle, $cached_titles);
 	}
 
+	// Add this part where the user's data is being fetched
+	$user = get_user($post['uid']); // Assuming user data is not already loaded
+
+	$awaybit = '';
+if ($post['away'] == 1 && $mybb->settings['allowaway'] == 1) {
+    $lang->away_note = $lang->sprintf($lang->away_note, $post['username']);
+    $awaydate = my_date($mybb->settings['dateformat'], $post['awaydate']);
+    
+    if (!empty($post['awayreason'])) {
+        $reason = $parser->parse_badwords($post['awayreason']);
+        $awayreason = htmlspecialchars_uni($reason);
+    } else {
+        $awayreason = $lang->away_no_reason;
+    }
+
+    if ($post['returndate'] == '') {
+        $returndate = $lang->unknown;
+    } else {
+        $returnhome = explode("-", $post['returndate']);
+
+        // Handle return date correctly
+        if ($returnhome[2] >= 2038) {
+            require_once MYBB_ROOT."inc/functions_time.php";
+            $returnmkdate = adodb_mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
+            $returndate = my_date($mybb->settings['dateformat'], $returnmkdate, "", 1, true);
+        } else {
+            $returnmkdate = mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
+            $returndate = my_date($mybb->settings['dateformat'], $returnmkdate);
+        }
+
+        // If away time has expired
+        if ($returnmkdate < TIME_NOW) {
+            $db->update_query('users', array('away' => '0', 'awaydate' => '0', 'returndate' => '', 'awayreason' => ''), 'uid=\''.(int)$post['uid'].'\'');
+            $post['away'] = 0;
+        }
+    }
+
+    // Check if still away after updates
+    if ($post['away'] == 1) {
+        // You may need a new template bit for postbit away message
+        eval("\$awaybit = \"".$templates->get("postbit_away")."\";");
+
+    }
+}
+
+// Add awaybit to the post array
+$post['awaybit'] = $awaybit;
+
+
+
+
 	// Work out the usergroup/title stuff
 	$post['groupimage'] = '';
 	if(!empty($usergroup['image']))
