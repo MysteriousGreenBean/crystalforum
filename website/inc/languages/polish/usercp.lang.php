@@ -154,7 +154,6 @@ $l['thread_mode'] = "Tryb wyświetlania wątków:";
 $l['thread_mode_desc'] = "Styl wyświetlania wątków. Wybierz \"Użyj domyślnego\" jeśli chcesz przeglądać w trybie domyślnym.";
 $l['threaded'] = "Drzewo";
 $l['linear'] = "Standardowy";
-$l['show_classic_postbit'] = "Wyświetlaj posty w trybie klasycznym.";
 $l['show_images'] = "Wyświetlaj obrazki w postach.";
 $l['show_videos'] = "Wyświetlaj pliki wideo w postach.";
 $l['show_sigs'] = "Pokazuj sygnatury użytkowników pod ich postami.";

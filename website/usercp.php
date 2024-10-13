@@ -805,7 +805,6 @@ if($mybb->input['action'] == "do_options" && $mybb->request_method == "post")
 		"buddyrequestspm" => $mybb->get_input('buddyrequestspm', MyBB::INPUT_INT),
 		"buddyrequestsauto" => $mybb->get_input('buddyrequestsauto', MyBB::INPUT_INT),
 		"showredirect" => $mybb->get_input('showredirect', MyBB::INPUT_INT),
-		"classicpostbit" => $mybb->get_input('classicpostbit', MyBB::INPUT_INT)
 	);
 
 	if($mybb->settings['usertppoptions'])
@@ -1065,15 +1064,6 @@ if($mybb->input['action'] == "options")
 	if(!isset($user['threadmode']) || ($user['threadmode'] != "threaded" && $user['threadmode'] != "linear"))
 	{
 		$user['threadmode'] = ''; // Leave blank to show default
-	}
-
-	if(isset($user['classicpostbit']) && $user['classicpostbit'] != 0)
-	{
-		$classicpostbitcheck = "checked=\"checked\"";
-	}
-	else
-	{
-		$classicpostbitcheck = '';
 	}
 
 	$date_format_options = $dateformat = '';
