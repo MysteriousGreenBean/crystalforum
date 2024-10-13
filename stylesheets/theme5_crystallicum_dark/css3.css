@@ -189,6 +189,12 @@ text-align: center;
 	width: 80%;
 }
 
+.post.parent .post_author {
+	float:none; 
+	width:100%; 
+	padding: 20px 0px;
+}
+
 .teammember {
 display:block;width:60%
 }

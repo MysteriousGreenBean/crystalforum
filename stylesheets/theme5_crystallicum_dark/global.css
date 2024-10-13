@@ -2139,8 +2139,22 @@ div.jqi .jqisubstate .jqibuttons button {
     overflow: hidden;
 }
 
+.post.parent {
+    margin-top: 15px;
+}
+
 .post_flexible {
     display: flex;
+}
+
+.post.parent .post_content {
+    position: relative;
+}
+
+@media only screen and (min-width: 769px) {
+	.post.parent .post_content {
+		width: 90%;  
+	}
 }
 
 .post_content {
@@ -2166,6 +2180,18 @@ div.jqi .jqisubstate .jqibuttons button {
     	padding: 4px 4px 4px;
     	border-top: var(--secondary-border);
 	}
+}
+
+.post.parent .post_content .post_inside {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    opacity: 0.6;
+    box-shadow: var(--main-shadow);
+    margin: 0px 10px 10px;
+    background: var(--box-background);
+    border-radius: 10px;
 }
 
 .post_inside {
@@ -2235,6 +2261,16 @@ div.jqi .jqisubstate .jqibuttons button {
 	.character_nick {
     font-size: 30px;
 	}
+}
+
+.post.parent .post_author {
+    width: 30%;
+    float: left;
+    text-align: center;
+    position: relative;
+    border-left: none;
+    padding: 0px 20px;
+    border-right: 1px solid var(--trow-border);
 }
 
 .post .post_author {
