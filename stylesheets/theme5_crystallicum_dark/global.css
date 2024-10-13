@@ -2267,9 +2267,20 @@ div.jqi .jqisubstate .jqibuttons button {
 }
 
 .post .post_author div.author_avatar {
+	--avatar-height: calc(100% + 10px);
+	height: auto;
     position: absolute;
     top: 0px;
     padding: 15px;
+}
+
+.away_status {
+	background: var(--new-status-icon-color);
+	padding: 10px;
+	margin: 10px;
+	border: var(--main-border);
+	box-shadow: var(--main-shadow);
+	text-align: center;
 }
 
 

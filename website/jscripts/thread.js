@@ -625,6 +625,22 @@ var Thread = {
 				splitTool.attr("disabled","disabled");
 			}
 		}
+	},
+	statsOnClick: function (event) {
+		const element = event.target.parentElement.parentElement.parentElement;
+		const userStatsElement = element.querySelector('.user_stats');
+	
+		if (userStatsElement.classList.contains('visible')) {
+			  // Closing
+			  userStatsElement.classList.remove('visible');
+			  userStatsElement.style.maxHeight = '0';
+			  userStatsElement.style.opacity = '0';
+			} else {
+			  // Opening
+			  userStatsElement.classList.add('visible');
+			  userStatsElement.style.maxHeight = userStatsElement.scrollHeight + 'px';
+			  userStatsElement.style.opacity = '1';
+			}
 	}
 };
 
