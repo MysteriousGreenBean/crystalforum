@@ -98,12 +98,6 @@ a.button {
 	border-radius: 6px;
 }
 
-.post.classic .post_author {
-	-moz-border-radius: 0 6px 6px 0;
-	-webkit-border-radius: 0 6px 6px 0;
-	border-radius: 0 6px 6px 0;
-}
-
 .popup_menu .popup_item_container:first-child .popup_item {
 	-moz-border-radius-topleft: 6px;
 	-moz-border-radius-topright: 6px;
