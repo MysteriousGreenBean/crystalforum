@@ -7,9 +7,24 @@
 <body>
 {$header}
 <div class="post classic">
-<div class="character_nick"><center>{$formattedname} - {$usertitle}</center></div>
-
-xxxxx</div>
+<div class="character_nick"><center>{$formattedname}</center></div>
+<div class="profile_container">
+	<div class="left_profile">
+		<!-- Avatar or other content -->
+		<div class="profile_avatar_container profile_avatar">{$avatar}</div>
+		{$awaybit}{$bannedbit}
+		<p>Additional content like stats or badges</p>
+	</div>
+	<div class="right_profile">
+		<!-- Info or other content -->
+		<p>User Info:</p>
+		<ul>
+			<li>Posts: {$postcount}</li>
+			<li>Joined: {$joindate}</li>
+			<li>Reputation: {$reputation}</li>
+		</ul>
+	</div>
+</div></div>
 <fieldset>
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
 		<tr>

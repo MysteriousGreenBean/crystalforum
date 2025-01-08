@@ -2641,3 +2641,56 @@ div.jqi .jqisubstate .jqibuttons button {
 .sig_quote {
 	color: var(--main-nt-color)
 }
+
+/* Profiles */
+.profile_container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px; /* Adds spacing between left and right sections */
+}
+
+.left_profile, .right_profile {
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left_profile {
+	flex: 1;
+    text-align: center; /* Center content in the left section */
+}
+
+.right_profile {
+	flex: 3;
+}
+
+.right_profile ul {
+    list-style: none;
+    padding: 0;
+}
+
+.right_profile li {
+    margin-bottom: 5px;
+}
+
+.profile_avatar {
+	border-radius: 110px;
+    border: var(--main-border);
+    border: 1px solid var(--main-nt-color) /* var(--main-border)*/;
+    background: var(--main-nt-color);
+    box-shadow: var(--main-shadow);
+}
+
+.profile_avatar img{
+	height: 320px;
+    border-radius: 100px;
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+    -webkit-filter: sepia(50%);
+    filter: sepia(50%);
+}
+
+.profile_avatar_container {
+	margin: 8px;
+    padding-top: 9px;
+	padding-bottom: 9px;
+}
