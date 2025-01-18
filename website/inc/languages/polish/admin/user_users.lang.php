@@ -212,7 +212,6 @@ $l['show_all_threads'] = "Pokazuj wszystkie wątki";
 $l['threads_per_page'] = "Wątków na stronę";
 $l['default_thread_age_view'] = "Wyświetlanie wątków";
 $l['forum_display_options'] = "Opcje wyświetlania działów";
-$l['show_classic_postbit'] = "Pokazuj posty w układzie klasycznym";
 $l['display_images'] = "Pokazuj obrazki w postach";
 $l['display_videos'] = "Pokazuj wideo w postach";
 $l['display_users_sigs'] = "Pokazuj sygnatury użytkowników";

@@ -2139,7 +2139,7 @@ div.jqi .jqisubstate .jqibuttons button {
     overflow: hidden;
 }
 
-.post.classic {
+.post.parent {
     margin-top: 15px;
 }
 
@@ -2147,12 +2147,12 @@ div.jqi .jqisubstate .jqibuttons button {
     display: flex;
 }
 
-.post.classic .post_content {
+.post.parent .post_content {
     position: relative;
 }
 
 @media only screen and (min-width: 769px) {
-	.post.classic .post_content {
+	.post.parent .post_content {
 		width: 90%;  
 	}
 }
@@ -2182,7 +2182,7 @@ div.jqi .jqisubstate .jqibuttons button {
 	}
 }
 
-.post.classic .post_content .post_inside {
+.post.parent .post_content .post_inside {
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 20px;
@@ -2263,7 +2263,7 @@ div.jqi .jqisubstate .jqibuttons button {
 	}
 }
 
-.post.classic .post_author {
+.post.parent .post_author {
     width: 30%;
     float: left;
     text-align: center;

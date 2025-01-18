@@ -298,11 +298,6 @@ $post['awaybit'] = $awaybit;
 		$usergroup['image'] = str_replace("{lang}", $language, $usergroup['image']);
 		$usergroup['image'] = str_replace("{theme}", $theme['imgdir'], $usergroup['image']);
 		eval("\$post['groupimage'] = \"".$templates->get("postbit_groupimage")."\";");
-
-		if($mybb->settings['postlayout'] == "classic")
-		{
-			$post['groupimage'] .= "<br />";
-		}
 	}
 
 	if($post['userusername'])
@@ -993,14 +988,7 @@ $post['awaybit'] = $awaybit;
 	}
 	else
 	{
-		if($mybb->settings['postlayout'] == "classic")
-		{
-			eval("\$postbit = \"".$templates->get("postbit_classic")."\";");
-		}
-		else
-		{
-			eval("\$postbit = \"".$templates->get("postbit")."\";");
-		}
+		eval("\$postbit = \"".$templates->get("postbit")."\";");
 	}
 
 	$GLOBALS['post'] = "";

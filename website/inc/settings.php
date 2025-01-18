@@ -227,7 +227,6 @@ $settings['polltimelimit'] = "12";
 $settings['prunepostcount'] = "0";
 $settings['postfloodcheck'] = "1";
 $settings['postfloodsecs'] = "60";
-$settings['postlayout'] = "classic";
 $settings['purgespammerpostlimit'] = "10";
 $settings['postmergemins'] = "60";
 $settings['postsperpage'] = "15";

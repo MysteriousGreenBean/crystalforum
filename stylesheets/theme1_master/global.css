@@ -441,7 +441,7 @@ table {
 	border-bottom-color: #ffb8be;
 }
 
-.post.classic.unapproved_post .post_author {
+.post.parent.unapproved_post .post_author {
 	border-color: #ffb8be;
 }
 
@@ -1100,7 +1100,7 @@ div.error ul {
 	overflow: hidden;
 }
 
-.post.classic {
+.post.parent {
 	padding-top: 15px;
 }
 
@@ -1112,7 +1112,7 @@ div.error ul {
 	overflow: hidden;
 }
 
-.post.classic .post_author {
+.post.parent .post_author {
 	border: 1px solid #ddd;
 	float: left;
 	width: 15%;
@@ -1131,7 +1131,7 @@ div.error ul {
 	margin-right: 3px;
 }
 
-.post.classic .post_author div.author_avatar {
+.post.parent .post_author div.author_avatar {
 	float: none;
 	text-align: center;
 	margin-bottom: 8px;
@@ -1148,7 +1148,7 @@ div.error ul {
 	padding: 6px 8px;
 }
 
-.post.classic .post_author div.author_information {
+.post.parent .post_author div.author_information {
 	float: none;
 	padding: 0;
 	text-align: center;
@@ -1162,7 +1162,7 @@ div.error ul {
 	line-height: 1.3;
 }
 
-.post.classic .post_author div.author_statistics {
+.post.parent .post_author div.author_statistics {
 	border-top: 1px dotted #ccc;
 	margin: 6px 0 0 0;
 	padding: 6px 6px 3px 6px;
@@ -1194,7 +1194,7 @@ div.error ul {
 	padding: 12px 0;
 }
 
-.post.classic .post_content {
+.post.parent .post_content {
 	float: left;
 	width: 79%;
 	padding: 0 1% 5px 1%;

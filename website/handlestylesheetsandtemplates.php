@@ -23,16 +23,6 @@ function update_template($sid, $updatedFilename) {
             );
             $db->update_query("templates", $updated_template, "tid=".$template['tid']);
         } 
-        // else {
-        //     // insert new template with title $fileName and $updatedFile
-        //     $new_template = array(
-        //         "title" => $db->escape_string($fileName),
-        //         "template" => $db->escape_string($updatedFile),
-        //         "sid" => -2,
-        //         "dateline" => TIME_NOW
-        //     );
-        //     $db->insert_query("templates", $new_template);
-        // }
     }
 }
 
@@ -91,6 +81,55 @@ function rebuild_stylesheet_cache_for_specific_theme($themeid, $cachefile) {
     }
 }
 
+function rebuild_templates_in_category($category, $sid) {
+    global $db;
+
+    $templateFiles = array_diff(scandir($category), array(".", ".."));
+    $templateInserts = array();
+    foreach ($templateFiles as $templateFile) {
+        $templateFilePath = $category."/".$templateFile;
+        if (is_file($templateFilePath)) {
+            $templateInserts[] = array(
+                'title' => $db->escape_string(pathinfo($templateFilePath, PATHINFO_FILENAME)),
+                'template' => $db->escape_string(file_get_contents($templateFilePath)),
+                'sid' => $sid,
+                'version' => '1838',
+                'status' => '',
+                'dateline' => TIME_NOW,
+            );
+        }
+    }
+
+    $db->insert_query_multiple("templates", $templateInserts);
+}
+
+function rebuild_templates_in_directory($directory, $sid) {
+    $templateCategories = array_diff(scandir($directory), array(".", ".."));
+    foreach ($templateCategories as $templateCategory) {
+        rebuild_templates_in_category($directory."/".$templateCategory, $sid);
+    }
+}
+
+function get_sid_from_directory($directory) {
+    if ($directory == 'global_templates')
+        return -1;
+    if ($directory == 'master_templates')
+        return -2;
+
+    $pattern = '/(\d+)/';
+    preg_match($pattern, $directory, $matches);
+    return $matches[1];
+}
+
+function rebuild_all_templates() {
+    $templatesDirectory = "/var/templates/";
+    $directories = array_diff(scandir($templatesDirectory), array(".", ".."));
+    foreach ($directories as $directory) {
+       rebuild_templates_in_directory($templatesDirectory.$directory, get_sid_from_directory($directory));
+    }
+}
+
+
 function handle_template_updated($updatedFilePath) {
     if (strpos($updatedFilePath, "/templates/master_templates") !== false) {
         update_template(-2, $updatedFilePath);
@@ -133,6 +172,26 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
         rebuild_stylesheet_cache_for_specific_theme($_GET['themeid'], $_GET['cachefile']);
     } else {
         rebuild_stylesheets_cache_for_all_themes();
+    }
+}
+
+if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
+    global $db;
+    $query = $db->simple_select("templates", "tid", "1=1", array('limit' => 1));
+    $forceRebuild = isset($_GET['force']) && $_GET['force'] == "True";
+    if ($forceRebuild) {
+        echo "Force rebuild templates\n";
+        $db->delete_query("templates", "1=1");
+        $db->write_query("ALTER TABLE mybb_templates AUTO_INCREMENT = 1");
+        echo "Cleared templates table, rebuilding templates";
+        rebuild_all_templates();
+    } else {
+        if ($db->fetch_array($query)) {
+            echo "Templates already exist in the database, rebuild unnecessary";
+        } else {
+            echo "Templates do not exist in the database, rebuilding";
+            rebuild_all_templates();
+        }
     }
 }
 ?>
