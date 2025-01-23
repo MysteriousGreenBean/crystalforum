@@ -10,9 +10,6 @@ $backgroundScript = "./docker/monitor/monitor.ps1"
 # Run docker-compose up -d
 Invoke-Expression $dockerComposeScript
 
-Write-Host "Building stylesheets..."
-$rebuildStylesheetsUrl = "http://localhost/handlestylesheetsandtemplates.php?rebuild=stylesheets"
-$response = Invoke-WebRequest -Uri $rebuildStylesheetsUrl
 Write-Host "Building templates..."
 $templateRebuildUrl = "http://localhost/handlestylesheetsandtemplates.php?rebuild=templates&force=$rebuildTemplates"
 $response = Invoke-WebRequest -Uri $templateRebuildUrl
@@ -25,5 +22,5 @@ else
     Write-Host $response.Content
     Write-Host "Templates are ready!"
 }
-# Start the background PowerShell script
+Start the background PowerShell script
 Invoke-Expression $backgroundScript
