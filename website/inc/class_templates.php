@@ -65,15 +65,22 @@ class templates
 	{
 		global $db, $theme, $mybb;
 
-		//
-		// DEVELOPMENT MODE
-		//
-		if($mybb->dev_mode == 1)
-		{
-			$template = $this->dev_get($title);
-			if($template !== false)
-			{
-				$this->cache[$title] = $template;
+		if($mybb->settings['developermode'] == '1'){
+			$templateset = $theme['templateset'];
+
+			$filepath = $this->tryToGetFilePath($title, $templateset);
+
+			if (empty($filepath)) {
+				$filepath = $this->tryToGetFilePath($title, "global_templates");
+			}
+			if (empty($filepath)) {
+				$filepath = $this->tryToGetFilePath($title, "master_templates");
+			}
+
+			if (!empty($filepath)) {
+				$this->cache[$title] = file_get_contents($filepath);
+			} else {
+				$this->cache[$title] = '';
 			}
 		}
 
@@ -90,7 +97,7 @@ class templates
 			}
 
 			$gettemplate = $db->fetch_array($query);
-			if($mybb->debug_mode)
+			if($mybb->settings['developermode'] == '1')
 			{
 				$this->uncached_templates[$title] = $title;
 			}
@@ -101,7 +108,9 @@ class templates
 			}
 
 			$this->cache[$title] = $gettemplate['template'];
+			
 		}
+
 		$template = $this->cache[$title];
 
 		if($htmlcomments && $template !== false)
@@ -121,6 +130,36 @@ class templates
 			$template = str_replace("\\'", "'", addslashes($template));
 		}
 		return $template;
+	}
+
+	function tryToGetFilePath($title, $templates_folder_name) {
+		$templateset_path = MYBB_ROOT . "templates/";
+
+		$folder_name = $this->get_folder_name($title);
+
+		if (is_dir($templateset_path . $templates_folder_name . '/' . $folder_name)) {
+			$folderPath = $templateset_path . $templates_folder_name . '/' . $folder_name;
+		} else {
+			$folderPath = $templateset_path . $templates_folder_name . '/ungrouped';
+		}
+
+		if (file_exists($folderPath . '/' . $title . '.html')) {
+			$filepath = $folderPath . '/' . $title . '.html';
+		} else {
+			$filepath = '';
+		}
+
+		return $filepath;
+	}
+
+	function get_folder_name($title) {
+		if ($title == 'headerinclude') {
+			return 'header';
+		}
+
+		$parts = explode('_', $title);
+		$folder_name = $parts[0];
+		return $folder_name;
 	}
 	
 	/**
