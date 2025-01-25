@@ -293,6 +293,35 @@ if(!isset($theme['tid']) || isset($theme['tid']) && !$theme['tid'])
 }
 $theme = @array_merge($theme, my_unserialize($theme['properties']));
 
+$isDevMode = $mybb->settings['developermode'] == '1';
+
+if ($isDevMode) {
+	$theme_stylesheet_path = MYBB_ROOT . 'stylesheets/theme'.$theme['tid'].'/';
+
+	$theme_stylesheet_file = '';
+	if ($handle = opendir($theme_stylesheet_path)) {
+		while (false !== ($entry = readdir($handle))) {
+			if ($entry[0] === '_' && substr($entry, -5) === '.json') {
+				$theme_stylesheet_file = $entry;
+				break;
+			}
+		}
+		closedir($handle);
+	}
+	
+	if ($theme_stylesheet_file) {
+		$theme_stylesheet_content = file_get_contents($theme_stylesheet_path . $theme_stylesheet_file);
+		$decoded = json_decode($theme_stylesheet_content, true);
+
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			error('Invalid JSON in the stylesheet theme'.$theme['tid'].' folder.');
+		}
+		$theme['stylesheets'] = my_serialize($decoded);
+	} else {
+		error('No JSON file starting with "_" found in the theme'.$theme['tid'].' folder.');
+	}
+}
+
 // Fetch all necessary stylesheets
 $stylesheets = '';
 $theme['stylesheets'] = my_unserialize($theme['stylesheets']);
@@ -306,6 +335,7 @@ if(!empty($mybb->input['action']))
 {
 	$stylesheet_actions[] = $mybb->get_input('action');
 }
+
 foreach($stylesheet_scripts as $stylesheet_script)
 {
 	// Load stylesheets for global actions and the current action
@@ -315,7 +345,7 @@ foreach($stylesheet_scripts as $stylesheet_script)
 		{
 			continue;
 		}
-
+	
 		if(!empty($theme['stylesheets'][$stylesheet_script][$stylesheet_action]))
 		{
 			// Actually add the stylesheets to the list
@@ -329,10 +359,14 @@ foreach($stylesheet_scripts as $stylesheet_script)
 				if(strpos($page_stylesheet, 'css.php') !== false)
 				{
 					$stylesheet_url = $mybb->settings['bburl'] . '/' . $page_stylesheet;
+					if ($isDevMode)
+						$stylesheet_url = str_replace('cache/themes', 'stylesheets', $stylesheet_url);
 				}
 				else
 				{
 					$stylesheet_url = $mybb->get_asset_url($page_stylesheet);
+					if ($isDevMode)
+						$stylesheet_url = str_replace('cache/themes', 'stylesheets', $stylesheet_url);
 					if (file_exists(MYBB_ROOT.$page_stylesheet))
 					{
 						$stylesheet_url .= "?t=".filemtime(MYBB_ROOT.$page_stylesheet);
@@ -369,6 +403,7 @@ $css_php_script_stylesheets = array();
 
 if(!empty($theme_stylesheets) && is_array($theme['disporder']))
 {
+
 	foreach($theme['disporder'] as $style_name => $order)
 	{
 		if(!empty($theme_stylesheets[$style_name]))
@@ -384,6 +419,9 @@ if(!empty($theme_stylesheets) && is_array($theme['disporder']))
 		}
 	}
 }
+echo "<!-- Stylesheet URL:  -->\n";
+
+
 
 if(!empty($css_php_script_stylesheets))
 {
@@ -391,7 +429,7 @@ if(!empty($css_php_script_stylesheets))
 		'stylesheet' => $css_php_script_stylesheets
 		));
 
-	$stylesheets .= "<link type=\"text/css\" rel=\"stylesheet\" href=\"{$sheet}\" />\n";
+	$stylesheets .= "<link type=\"text/css\"  rel=\"stylesheet\" href=\"{$sheet}\" />\n";
 }
 
 // Are we linking to a remote theme server?

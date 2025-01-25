@@ -9,7 +9,7 @@ function update_template($sid, $updatedFilename) {
     // transform to docker path
     $pattern = '/.*\/templates\//';
     preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/var/templates/", $updatedFilename);
+    $updatedFilename = str_replace($matches[0], "/var/www/html/templates/", $updatedFilename);
 
     if (is_file($updatedFilename)) {
         $updatedFile = file_get_contents($updatedFilename);
@@ -31,7 +31,7 @@ function update_stylesheet($tid, $updatedFilename) {
     // transform to docker path
     $pattern = '/.*\/stylesheets\//';
     preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/var/stylesheets/", $updatedFilename);
+    $updatedFilename = str_replace($matches[0], "/var/www/html/stylesheets/", $updatedFilename);
 
     echo "Updated file path: ".$updatedFilename." and tid: $tid\n";
 
@@ -122,7 +122,7 @@ function get_sid_from_directory($directory) {
 }
 
 function rebuild_all_templates() {
-    $templatesDirectory = "/var/templates/";
+    $templatesDirectory = "/var/www/html/templates/";
     $directories = array_diff(scandir($templatesDirectory), array(".", ".."));
     foreach ($directories as $directory) {
        rebuild_templates_in_directory($templatesDirectory.$directory, get_sid_from_directory($directory));
