@@ -47,6 +47,22 @@ services:
     depends_on:
       - mysql
 
+  liquibase:
+    container_name: liquibase
+    image: liquibase:latest
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./docker/liquibase:/liquibase/resources:rw
+      - ./docker/liquibase/changelog:/liquibase/changelog:rw
+    environment:
+      LIQUIBASE_HOME: /liquibase
+      LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
+    networks:
+      - mybb_network
+    command: ["sh", "-c", "liquibase update && liquibase snapshot --snapshot-format=JSON --output-file=resources/database_before.json"]
+
 networks:
   mybb_network:
     driver: bridge
