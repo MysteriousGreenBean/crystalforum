@@ -22,7 +22,7 @@ jobs:
       - name: Run Liquibase update
         run: |
           docker compose run liquibase update
-            --changeLogFile=changelog/db.changelog.xml
+            --changelog-file=changelog/db.changelog.xml
             --url=jdbc:mariadb://${{ secrets.databaseHost }}/${{ secrets.databaseName }}
             --username=${{ secrets.databaseUsername }}
             --password=${{ secrets.databasePassword }}
@@ -34,13 +34,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Update settings
+      - name: Update mybb_settings
         run: |
-          sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' ./website/inc/settings.php
-          sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}";#g'
-          sed -i 's#$settings\["cookiedomain"\] = "localhost";#$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";#g'
-          sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "https://${{ secrets.siteDomain }}/";#g'
-          sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g'
+          sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' website/inc/settings.php
+          sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}l";#g'
+          sed -i 's/$settings\["cookiedomain"\] = "localhost";/$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";/g' website/inc/settings.php
+          sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g'
+          sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
 
       - name: Upload website via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
