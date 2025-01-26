@@ -54,18 +54,14 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./docker/liquibase:/liquibase/resources:r
+      - ./docker/liquibase:/liquibase/resources:rw
       - ./docker/liquibase/changelog:/liquibase/changelog:rw
     environment:
       LIQUIBASE_HOME: /liquibase
       LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
-    profiles:
-      - liquibase
-    deploy:
-      restart_policy:
-        condition: none
     networks:
       - mybb_network
+    command: ["sh", "-c", "liquibase update && liquibase snapshot --snapshot-format=JSON --output-file=resources/database_before.json"]
 
 networks:
   mybb_network:
