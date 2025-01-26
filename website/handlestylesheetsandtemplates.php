@@ -9,7 +9,7 @@ function update_template($sid, $updatedFilename) {
     // transform to docker path
     $pattern = '/.*\/templates\//';
     preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/var/www/html/templates/", $updatedFilename);
+    $updatedFilename = str_replace($matches[0], "/templates/", $updatedFilename);
 
     if (is_file($updatedFilename)) {
         $updatedFile = file_get_contents($updatedFilename);
@@ -31,7 +31,7 @@ function update_stylesheet($tid, $updatedFilename) {
     // transform to docker path
     $pattern = '/.*\/stylesheets\//';
     preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/var/www/html/stylesheets/", $updatedFilename);
+    $updatedFilename = str_replace($matches[0], "/stylesheets/", $updatedFilename);
 
     echo "Updated file path: ".$updatedFilename." and tid: $tid\n";
 
@@ -122,50 +122,13 @@ function get_sid_from_directory($directory) {
 }
 
 function rebuild_all_templates() {
-    $templatesDirectory = "/var/www/html/templates/";
+    $templatesDirectory = "/templates/";
     $directories = array_diff(scandir($templatesDirectory), array(".", ".."));
     foreach ($directories as $directory) {
        rebuild_templates_in_directory($templatesDirectory.$directory, get_sid_from_directory($directory));
     }
 }
 
-
-function handle_template_updated($updatedFilePath) {
-    if (strpos($updatedFilePath, "/templates/master_templates") !== false) {
-        update_template(-2, $updatedFilePath);
-    }
-    else if (strpos($updatedFilePath, "/templates/global_templates") !== false) {
-        update_template(-1, $updatedFilePath);
-    }
-    else {
-        $pattern = '/\/templates\/(\d+)/';
-        preg_match($pattern, $updatedFilePath, $matches);
-        $sid = $matches[1];
-        update_template($sid, $updatedFilePath);
-    }
-}
-
-function handle_stylesheet_updated($updatedFilePath) {
-    $pattern = '/\/stylesheets\/theme(\d+)/';
-    preg_match($pattern, $updatedFilePath, $matches);
-    $themeid = $matches[1];
-    update_stylesheet($themeid, $updatedFilePath);
-}
-
-if (isset($_GET['action']) && isset($_GET['updatedfilepath']) && isset($_GET['oldfilepath'])) {
-    $action = $_GET['action'];
-    $updatedFilePath = str_replace("\\", "/", $_GET['updatedfilepath']);
-    $oldFilePath = str_replace("\\", "/", $_GET['oldfilepath']);
-
-    // check if updatedFilePath contains string \templates\
-    if (strpos($updatedFilePath, "/templates/") !== false && $action == "Changed") {     
-        handle_template_updated($updatedFilePath);
-    } else if (strpos($updatedFilePath, "/stylesheets/") !== false && $action == "Changed") {
-        handle_stylesheet_updated($updatedFilePath);
-    }
-
-    echo "Action: ".$action." | Updated file path: ".$updatedFilePath." | Old file name: ".$oldFilePath." | ";
-}
 
 if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
     if (isset($_GET['themeid']) && isset($_GET['cachefile'])) {
@@ -178,7 +141,7 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
 if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
     global $db;
     $query = $db->simple_select("templates", "tid", "1=1", array('limit' => 1));
-    $forceRebuild = isset($_GET['force']) && $_GET['force'] == "True";
+    $forceRebuild = isset($_GET['force']) && $_GET['force'] == "true";
     if ($forceRebuild) {
         echo "Force rebuild templates\n";
         $db->delete_query("templates", "1=1");
