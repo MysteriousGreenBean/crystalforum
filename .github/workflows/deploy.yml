@@ -14,18 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker Compose
-        run: |
-          curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
-
-      - name: Run Liquibase update
-        run: |
-          docker compose run liquibase update
-            --url=jdbc:mariadb://${{ secrets.databaseHost }}/${{ secrets.databaseName }}
-            --username=${{ secrets.databaseUsername }}
-            --password=${{ secrets.databasePassword }}
-            --driver=org.mariadb.jdbc.Driver
+      - uses: liquibase/liquibase-github-action@v7
+        with:
+          operation: 'update'
+          classpath: 'docker/liquibase/changelog'
+          changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
+          username: ${{ secrets.databaseUsername }}
+          password: ${{ secrets.databasePassword }}
+          url: jdbc:mariadb://${{ secrets.databaseHost }}/${{ secrets.databaseName }}
 
   update-files:
     runs-on: ubuntu-latest
@@ -47,7 +43,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: .website
+          local-dir: .website/
 
       - name: Upload stylesheets via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
