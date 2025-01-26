@@ -1,4 +1,4 @@
-name: deploy forum and make it official!
+name: Deploy forum and make it official!
 
 on:
   workflow_dispatch:
@@ -14,14 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker
+      - name: Set up Docker Compose
         run: |
-          docker --version
-          docker-compose --version
+          curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
 
       - name: Run Liquibase update
         run: |
-          docker-compose run liquibase update
+          docker compose run liquibase update
             --changeLogFile=changelog/db.changelog.xml
             --url=jdbc:mariadb://${{ secrets.databaseHost }}/${{ secrets.databaseName }}
             --username=${{ secrets.databaseUsername }}
@@ -36,7 +36,7 @@ jobs:
 
       - name: Update settings
         run: |
-          sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' inc/settings.php
+          sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' ./website/inc/settings.php
           sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}";#g'
           sed -i 's#$settings\["cookiedomain"\] = "localhost";#$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";#g'
           sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "https://${{ secrets.siteDomain }}/";#g'
