@@ -47,6 +47,26 @@ services:
     depends_on:
       - mysql
 
+  liquibase:
+    container_name: liquibase
+    image: liquibase:latest
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./docker/liquibase:/liquibase/resources:r
+      - ./docker/liquibase/changelog:/liquibase/changelog:rw
+    environment:
+      LIQUIBASE_HOME: /liquibase
+      LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
+    profiles:
+      - liquibase
+    deploy:
+      restart_policy:
+        condition: none
+    networks:
+      - mybb_network
+
 networks:
   mybb_network:
     driver: bridge
