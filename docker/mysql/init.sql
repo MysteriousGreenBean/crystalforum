@@ -24,6 +24,193 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `DATABASECHANGELOG`
+--
+
+CREATE TABLE `DATABASECHANGELOG` (
+  `ID` varchar(255) NOT NULL,
+  `AUTHOR` varchar(255) NOT NULL,
+  `FILENAME` varchar(255) NOT NULL,
+  `DATEEXECUTED` datetime NOT NULL,
+  `ORDEREXECUTED` int(11) NOT NULL,
+  `EXECTYPE` varchar(10) NOT NULL,
+  `MD5SUM` varchar(35) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `COMMENTS` varchar(255) DEFAULT NULL,
+  `TAG` varchar(255) DEFAULT NULL,
+  `LIQUIBASE` varchar(20) DEFAULT NULL,
+  `CONTEXTS` varchar(255) DEFAULT NULL,
+  `LABELS` varchar(255) DEFAULT NULL,
+  `DEPLOYMENT_ID` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `DATABASECHANGELOG`
+--
+
+INSERT INTO `DATABASECHANGELOG` (`ID`, `AUTHOR`, `FILENAME`, `DATEEXECUTED`, `ORDEREXECUTED`, `EXECTYPE`, `MD5SUM`, `DESCRIPTION`, `COMMENTS`, `TAG`, `LIQUIBASE`, `CONTEXTS`, `LABELS`, `DEPLOYMENT_ID`) VALUES
+('1737903523367-1', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 1, 'EXECUTED', '9:278d2d063f00286b0e3ad71421f4a159', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-2', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 2, 'EXECUTED', '9:48a487ccc7b1e998adf57836e1ee2647', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-3', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 3, 'EXECUTED', '9:34573475a9a6a4adf1a87e050f93052f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-4', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 4, 'EXECUTED', '9:a8004d52a8bf5aa3e4ebdc84d024fd38', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-5', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 5, 'EXECUTED', '9:3429a4107002d33bc6faebe724267d27', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-6', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 6, 'EXECUTED', '9:fe3c91f0578b7dffa3e9616fcc086778', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-7', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 7, 'EXECUTED', '9:1e89e3e104c2debeaa6e077a9b74e955', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-8', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 8, 'EXECUTED', '9:c0c8330fd7e3e925d40f113b4b26d027', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-9', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 9, 'EXECUTED', '9:5ff5ed607c0965b557760ecd9c0096ba', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-10', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 10, 'EXECUTED', '9:9f5029ce2610f98c45b83ff73a0a8d63', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-11', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 11, 'EXECUTED', '9:aa9377292350115ead73867e14139a81', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-12', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 12, 'EXECUTED', '9:d2f5269c66249076ad2a3fcb895007fb', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-13', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 13, 'EXECUTED', '9:9e942bfbe827ea7d04a5e7839527e5dc', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-14', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 14, 'EXECUTED', '9:49532571c7b41687ae67bdabeffe1e60', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-15', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 15, 'EXECUTED', '9:834fa8fbb510e5625e6ef31cc9c58a7d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-16', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 16, 'EXECUTED', '9:a7bad54155d732ca5e586f039d2a22f2', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-17', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 17, 'EXECUTED', '9:c65a96c77ce1627051baf1a3ed39cbf2', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-18', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 18, 'EXECUTED', '9:c40831c1b7031a46698cad10b60b0882', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-19', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 19, 'EXECUTED', '9:93d8dd3c7a768644154f165b0528425f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-20', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 20, 'EXECUTED', '9:105cf6f70ad6af3ead8a4dcc14e5a461', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-21', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 21, 'EXECUTED', '9:e2d13feaba800d9c66b2cd630512bc1f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-22', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 22, 'EXECUTED', '9:68ba0c836f8bef09c44b57aba81938b7', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-23', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 23, 'EXECUTED', '9:f37258115e4e6e29a0fca9180c9553d7', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-24', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 24, 'EXECUTED', '9:8faecc9f00615d58cce900a6b1c08865', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-25', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 25, 'EXECUTED', '9:196b6505da39b8b2a48bc4412e1c0d3a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-26', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 26, 'EXECUTED', '9:10beca5778cbc0110c8159a4c88d28ce', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-27', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 27, 'EXECUTED', '9:728923374b276df2ab012c0e261bc8d8', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-28', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 28, 'EXECUTED', '9:7a2ed49dd2e483f92e6ea2366cb28329', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-29', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 29, 'EXECUTED', '9:6f806ee7b85091d88e54de54a1599dec', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-30', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 30, 'EXECUTED', '9:8b4cfaa5fdff90372d1d54012ed25ec1', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-31', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 31, 'EXECUTED', '9:16f76de44b22705748610b2ab997798c', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-32', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 32, 'EXECUTED', '9:1aaa2910ee3535ede5a8c9887b5a2608', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-33', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 33, 'EXECUTED', '9:3eeb7e93d9d6301c0e5c3d87cce9ee2a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-34', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 34, 'EXECUTED', '9:6c5a43696a62623e91f9604fa87ca963', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-35', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 35, 'EXECUTED', '9:b581ff406c72bfd2dcbf8952e00015a0', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-36', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 36, 'EXECUTED', '9:10fff904fda617ad3ab1df031908926b', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-37', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 37, 'EXECUTED', '9:874e50ee149614434628e0ef655b7a8a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-38', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 38, 'EXECUTED', '9:1b40b27753bd292bb9ba0d4172c84a50', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-39', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 39, 'EXECUTED', '9:c7d55dba5b2ddeb186bbb6e28245d6b6', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-40', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 40, 'EXECUTED', '9:43ad79e6f7f290d3c4cfaab7a987549a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-41', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 41, 'EXECUTED', '9:ee50ed4d4dc3968f72c5164aebb9afc0', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-42', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 42, 'EXECUTED', '9:5ba12e23e6897de08d394129ca34612b', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-43', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 43, 'EXECUTED', '9:7df56e145430ed9832f54b17a01e6aef', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-44', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 44, 'EXECUTED', '9:46e6d6a48dd986023ffb5b780430f1fd', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-45', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 45, 'EXECUTED', '9:c1f3e4e3ce41fcb472edb1d5dde3d5a3', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-46', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 46, 'EXECUTED', '9:21a7becc70c1a23d6373965204429b2c', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-47', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 47, 'EXECUTED', '9:4978d7b7b976f8637d0b43bd12412cc4', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-48', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 48, 'EXECUTED', '9:8031e31fdd12fe6c102dfd2646a9449b', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-49', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 49, 'EXECUTED', '9:e37c52c385ee91db8e9afea1b8c918b0', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-50', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 50, 'EXECUTED', '9:bd35ac05f384f9c2cbc62b2715c7c86d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-51', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 51, 'EXECUTED', '9:878ff18a91f2bd4c719fc598825fb681', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-52', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 52, 'EXECUTED', '9:5ae9c378b351ccaa8059f6da6d81b640', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-53', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 53, 'EXECUTED', '9:4a909525941d07643b6e36b14a34794f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-54', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 54, 'EXECUTED', '9:a7ed03da7c8fc1d6c231a2124c67a019', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-55', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 55, 'EXECUTED', '9:564db65bf466fb6db8d0b3457c324f74', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-56', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 56, 'EXECUTED', '9:be9495bcd8fd9cbe7737d456adc1a3da', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-57', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 57, 'EXECUTED', '9:9e98a99397ea189b22dafc1b0f343e0c', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-58', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 58, 'EXECUTED', '9:6a09332414c4f1447e0147a3881a6065', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-59', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 59, 'EXECUTED', '9:aeef2abaab57b515a807f9bb0975255c', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-60', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 60, 'EXECUTED', '9:a047bbf2bf42c1e8fde5c01f7a8c4fb7', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-61', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 61, 'EXECUTED', '9:8f6938b219a44fb59d539f559c6c0778', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-62', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 62, 'EXECUTED', '9:0db4fc16bcf08645ea6360e5b6141998', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-63', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 63, 'EXECUTED', '9:55517b510843e7896098e929f1405209', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-64', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 64, 'EXECUTED', '9:1790af772419542b256c990d34aef5e8', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-65', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 65, 'EXECUTED', '9:5628f1f99f0e11295055444592f16876', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-66', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 66, 'EXECUTED', '9:83a37e14c4b39576c9c6c3190c91118d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-67', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 67, 'EXECUTED', '9:00a14430cbd316380fa392533f996d5d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-68', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 68, 'EXECUTED', '9:7ad9a9cdd7c6ff04bb69f78ad20f8b96', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-69', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 69, 'EXECUTED', '9:8b881e0fefadbb6b2fe4d45dc965747d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-70', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 70, 'EXECUTED', '9:94fa74ffdb0a74a09a56ddf50c9a1b50', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-71', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 71, 'EXECUTED', '9:576be607725633ec668e91132bc44f94', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-72', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 72, 'EXECUTED', '9:ee8f0e183980eac5d7014d7efebf6407', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-73', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 73, 'EXECUTED', '9:6482a390b8ff8b5e5f1eafd7ad66dd79', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-74', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 74, 'EXECUTED', '9:8ee612e12f1b596954ee7cacea99fe5a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-75', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 75, 'EXECUTED', '9:7390b5f76f48f66f38b9b5a7841253d1', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-76', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 76, 'EXECUTED', '9:96ce2857b5cebb931e054e57b5a82c90', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-77', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 77, 'EXECUTED', '9:6bb9de9aad629cab2b31ecc2224168ca', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-78', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 78, 'EXECUTED', '9:b6572b6494564d7b87051f6fa59a8bda', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-79', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 79, 'EXECUTED', '9:2e34c434fc4f452facd56f8aae2f24c8', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-80', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 80, 'EXECUTED', '9:ad2301ddaff12e91108eabbfcfba6cc9', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-81', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 81, 'EXECUTED', '9:d7431dbc7067a1a9275e8d735a384c65', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-82', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 82, 'EXECUTED', '9:4272f593d56e0a5c1cdcdd8f9c7a8a09', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-83', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 83, 'EXECUTED', '9:e03e668e956334ba5fe234a37ff86f06', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-84', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 84, 'EXECUTED', '9:5e22c409a5aa7113bf7871d711709acd', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-85', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 85, 'EXECUTED', '9:5b743f8b7d7594c9e91eb23dfe1cd101', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-86', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 86, 'EXECUTED', '9:bbfe5ca3c106bef1d602fc387c3669c6', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-87', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 87, 'EXECUTED', '9:2042c2086a3b9e166f588ec90138837b', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-88', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 88, 'EXECUTED', '9:17f8fd51fbce6d923c4ddfac6698ca73', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-89', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 89, 'EXECUTED', '9:8824f645e332d2dff87e7eec46b14754', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-90', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 90, 'EXECUTED', '9:59682d5e905f01d59c1f21676120f1fe', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-91', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 91, 'EXECUTED', '9:ace5095ca6eb154b451d11e8a14bbdce', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-92', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 92, 'EXECUTED', '9:b400996bf390c97726ba5feadb843fe6', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-93', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 93, 'EXECUTED', '9:d915182092e4624005233d2a5a63a699', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-94', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 94, 'EXECUTED', '9:3e4f592fe843e5c2024a95e881d4dd51', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-95', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 95, 'EXECUTED', '9:977998ecadfc544ead03dbc0f4ed6924', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-96', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 96, 'EXECUTED', '9:592229e073ffb8db7672749bd975d458', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-97', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 97, 'EXECUTED', '9:58cc66724e3166466fadf922d79c8723', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-98', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 98, 'EXECUTED', '9:954526014591cd2131609db5aa7e670e', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-99', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 99, 'EXECUTED', '9:c639f31b62d847a80304577601a303f4', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-100', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 100, 'EXECUTED', '9:5e44e178dae6698cb1dd84b38aff0d42', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-101', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 101, 'EXECUTED', '9:f83266b209d6d070fd313d8125fd730a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-102', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 102, 'EXECUTED', '9:170078cddebe7402eed2b796de6f1679', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-103', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 103, 'EXECUTED', '9:3dd5276e84e618062916ccf7277834a7', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-104', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 104, 'EXECUTED', '9:5037de49d4edd2ebe9d85c8659d65e55', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-105', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 105, 'EXECUTED', '9:bda1da6cc8d71d9fa4d0cebdc68f04d0', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-106', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 106, 'EXECUTED', '9:dba45566b834ac40152824b52e286532', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-107', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 107, 'EXECUTED', '9:8286a853f33bf4dc47e138a8d38ee098', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-108', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 108, 'EXECUTED', '9:bfeb2bd0999014ae197f1fabc97c9934', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-109', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 109, 'EXECUTED', '9:f4ed49be328eac5d3b44f2a2b51e1fc5', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-110', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 110, 'EXECUTED', '9:80fbbd2c106e5f40324a0976510dc29e', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-111', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:27', 111, 'EXECUTED', '9:83e9dfc33554755293c6bf098f0b9704', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-112', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 112, 'EXECUTED', '9:34e5e98d8f181853439fbffefb2d917d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-113', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 113, 'EXECUTED', '9:cae1bc93e25de1a4d5fcf0a2f979912a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-114', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 114, 'EXECUTED', '9:97df699a8311d323f9175bf3d1b64fad', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-115', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 115, 'EXECUTED', '9:a1e372f3a4d318faa92951a62742188a', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-116', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 116, 'EXECUTED', '9:66c4b3f5c22909fa327ed9ff7077de1d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-117', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 117, 'EXECUTED', '9:c245c911a4454f38b5795f3c1e865798', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-118', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 118, 'EXECUTED', '9:2c4eeb16eeb586e6bce7c76319f91d88', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-119', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 119, 'EXECUTED', '9:ac44009d8f52f45942ab15c3ee9b628d', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-120', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 120, 'EXECUTED', '9:78d1b849643dc37d521fd535c669742f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-121', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 121, 'EXECUTED', '9:622aa99eabc35679faaca12e4086d08e', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-122', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 122, 'EXECUTED', '9:01620ec58f8d5e355fad51cfbe41308b', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-123', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 123, 'EXECUTED', '9:ec3d928caa829054f83170be7777abfa', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-124', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 124, 'EXECUTED', '9:ca9e43ec6ea02ed9ea4ae47f8ea17819', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-125', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 125, 'EXECUTED', '9:a4934ac4d6ec8138e4745b7ce94ee25b', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-126', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 126, 'EXECUTED', '9:604714c0d2ebf6eb7249da0e3ac26579', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-127', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 127, 'EXECUTED', '9:53dcc59da107d386e31fcf62d1a23f4f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-128', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 128, 'EXECUTED', '9:5c16b82450e969216b38ed6c65133f2f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-129', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 129, 'EXECUTED', '9:73adf6814bf2680f762b7dc6470396b1', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-130', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 130, 'EXECUTED', '9:e96893ab8810f6faf01b7afc90c02d32', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-131', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 131, 'EXECUTED', '9:e2398df0382139383de9e3845231b6f5', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-132', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 132, 'EXECUTED', '9:5262f875902f4dbe0398650a2c9305c1', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-133', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 133, 'EXECUTED', '9:0e24b46bb03b8568cbc57e3b904f4cb4', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-134', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 134, 'EXECUTED', '9:3e22787db665b60ecfd4e4680004638f', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-135', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 135, 'EXECUTED', '9:7cf07e56868d62ec0ee0e36ffaa36f86', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-136', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 136, 'EXECUTED', '9:72d80af66ca631929dc21a18d8892006', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-137', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 137, 'EXECUTED', '9:103b11c623090f32e76def05ee2e3648', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397'),
+('1737903523367-138', 'liquibase', 'changelog/db.changelog.mariadb.sql', '2025-01-26 15:07:28', 138, 'EXECUTED', '9:8cfbea9b8d784efba2e284073069a3cd', 'sql', '', NULL, '4.31.0', NULL, NULL, '7904045397');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `DATABASECHANGELOGLOCK`
+--
+
+CREATE TABLE `DATABASECHANGELOGLOCK` (
+  `ID` int(11) NOT NULL,
+  `LOCKED` tinyint(1) NOT NULL,
+  `LOCKGRANTED` datetime DEFAULT NULL,
+  `LOCKEDBY` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `DATABASECHANGELOGLOCK`
+--
+
+INSERT INTO `DATABASECHANGELOGLOCK` (`ID`, `LOCKED`, `LOCKGRANTED`, `LOCKEDBY`) VALUES
+(1, 0, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mybb_adminlog`
 --
 
