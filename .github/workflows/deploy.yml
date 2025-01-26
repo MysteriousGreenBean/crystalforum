@@ -38,31 +38,31 @@ jobs:
           sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "https://${{ secrets.siteDomain }}/";#g'
           sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g'
 
-        - name: Upload website via FTP
-          uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-          with:
-            server: ${{ secrets.FTP_HOST }}
-            username: ${{ secrets.FTP_USERNAME }}
-            password: ${{ secrets.FTP_PASSWORD }}
-            local-dir: .website
+      - name: Upload website via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: .website
 
-        - name: Upload stylesheets via FTP
-          uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-          with:
-            server: ${{ secrets.FTP_HOST }}
-            username: ${{ secrets.FTP_USERNAME }}
-            password: ${{ secrets.FTP_PASSWORD }}
-            local-dir: .stylesheets/
-            server-dir: ./stylesheets/
+      - name: Upload stylesheets via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: .stylesheets/
+          server-dir: ./stylesheets/
 
-        - name: Upload templates via FTP
-          uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-          with:
-            server: ${{ secrets.FTP_HOST }}
-            username: ${{ secrets.FTP_USERNAME }}
-            password: ${{ secrets.FTP_PASSWORD }}
-            local-dir: .templates/
-            server-dir: ./templates/
+      - name: Upload templates via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: .templates/
+          server-dir: ./templates/
 
   update-stylesheets:
     needs: [update-database, update-files]
