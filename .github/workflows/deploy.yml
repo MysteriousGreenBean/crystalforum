@@ -17,11 +17,11 @@ jobs:
 
       - name: Run Liquibase update
         run: |
-          docker-compose run liquibase update \
-            --changeLogFile=changelog/db.changelog.xml \
-            --url=jdbc:mariadb://${{ secrets.databaseHost }}/${{ secrets.databaseName }}  \
-            --username=${{ secrets.databaseUsername }} \
-            --password=${{ secrets.databasePassword }} \
+          docker-compose run liquibase update
+            --changeLogFile=changelog/db.changelog.xml
+            --url=jdbc:mariadb://${{ secrets.databaseHost }}/${{ secrets.databaseName }}
+            --username=${{ secrets.databaseUsername }}
+            --password=${{ secrets.databasePassword }}
             --driver=org.mariadb.jdbc.Driver
 
   update-files:
@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
       - name: Update settings
         run: |
           sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' inc/settings.php
