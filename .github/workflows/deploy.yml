@@ -51,7 +51,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: .stylesheets/
+          local-dir: ./stylesheets/
           server-dir: ./stylesheets/
 
       - name: Upload templates via FTP
@@ -60,7 +60,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: .templates/
+          local-dir: ./templates/
           server-dir: ./templates/
 
   update-stylesheets:
