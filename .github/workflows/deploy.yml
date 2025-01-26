@@ -5,7 +5,6 @@ on:
     inputs:
       branch:
         description: Branch from which code will be taken
-        requred: true
         default: '33-dev-manual-forum-deployment'
 
 jobs:
