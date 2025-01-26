@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update settings
-        run |
+        run: |
           sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' inc/settings.php
           sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}";#g'
           sed -i 's#$settings\["cookiedomain"\] = "localhost";#$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";#g'
