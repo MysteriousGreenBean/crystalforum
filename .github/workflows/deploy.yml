@@ -98,18 +98,18 @@ jobs:
           DB_PASSWORD: ${{ secrets.databasePassword }}
           DB_NAME: ${{ secrets.databaseName }}
         run: |
-          Find all _*.json files in stylesheets folder and its subdirectories
+          # Find all _*.json files in stylesheets folder and its subdirectories
           find ./stylesheets -type f -name "_*.json" | while read json_file; do
-            Extract the theme ID from the JSON file path
+            # Extract the theme ID from the JSON file path
             theme_id=$(echo "$json_file" | sed -n 's|.*/theme\([0-9]\+\)/.*|\1|p')
 
-            Replace 'stylesheets' with 'cache/themes' in each JSON file
+            # Replace 'stylesheets' with 'cache/themes' in each JSON file
             sed -i 's|stylesheets|cache/themes|g' "$json_file"
 
-            Read the contents of the JSON file
+            # Read the contents of the JSON file
             json_content=$(jq -Rs '.' < "$json_file")
 
-            Update the mybb_themes table with the JSON contents for the appropriate tid
+            # Update the mybb_themes table with the JSON contents for the appropriate tid
             mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD $DB_NAME -e "
               UPDATE mybb_themes
               SET stylesheets = '$json_content'
