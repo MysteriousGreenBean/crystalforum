@@ -4,71 +4,71 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-database:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # update-database:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - uses: liquibase/liquibase-github-action@v7
-        with:
-          operation: 'update'
-          classpath: 'docker/liquibase/changelog'
-          changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
-          username: ${{ secrets.databaseUsername }}
-          password: ${{ secrets.databasePassword }}
-          url: jdbc:mariadb://${{ secrets.databaseHost }}:3306/${{ secrets.databaseName }}
+  #     - uses: liquibase/liquibase-github-action@v7
+  #       with:
+  #         operation: 'update'
+  #         classpath: 'docker/liquibase/changelog'
+  #         changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
+  #         username: ${{ secrets.databaseUsername }}
+  #         password: ${{ secrets.databasePassword }}
+  #         url: jdbc:mariadb://${{ secrets.databaseHost }}:3306/${{ secrets.databaseName }}
 
-  update-files:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # update-files:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Update mybb_settings
-        run: |
-          sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' website/inc/settings.php
-          sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}l";#g' website/inc/settings.php
-          sed -i 's/$settings\["cookiedomain"\] = "localhost";/$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";/g' website/inc/settings.php
-          sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g' website/inc/settings.php
-          sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
+  #     - name: Update mybb_settings
+  #       run: |
+  #         sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' website/inc/settings.php
+  #         sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}l";#g' website/inc/settings.php
+  #         sed -i 's/$settings\["cookiedomain"\] = "localhost";/$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";/g' website/inc/settings.php
+  #         sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g' website/inc/settings.php
+  #         sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
 
-      - name: Update config.php
-        run: |
-          sed -i 's/$config\["database"\]\["database"\] = "crystalforum_";/$config["database"]["database"] = "${{ secrets.databaseName }}";/g' website/inc/config.php
-          sed -i 's/$config\["database"\]\["hostname"\] = "172.28.1.2:3306";/$config["database"]["hostname"] = "${{ secrets.databaseHost }}";/g' website/inc/config.php
-          sed -i 's/$config\["database"\]\["username"\] = "root";/$config["database"]["username"] = "${{ secrets.databaseUsername }}";/g' website/inc/config.php
-          sed -i 's/$config\["database"\]\["password"\] = "root";/$config["database"]["password"] = "${{ secrets.databasePassword }}";/g' website/inc/config.php
-
-
-      - name: Create files for upload
-        run: |
-          mkdir -p ./upload_folder #create folder to upload
-          cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
-          zip -r ./upload_folder/website.zip ./website #zip website folder
-          zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
-          zip -r ./upload_folder/templates.zip ./templates #zip templates folder
-
-      - name: Upload zipped files to the server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./upload_folder/
+  #     - name: Update config.php
+  #       run: |
+  #         sed -i 's/$config\["database"\]\["database"\] = "crystalforum_";/$config["database"]["database"] = "${{ secrets.databaseName }}";/g' website/inc/config.php
+  #         sed -i 's/$config\["database"\]\["hostname"\] = "172.28.1.2:3306";/$config["database"]["hostname"] = "${{ secrets.databaseHost }}";/g' website/inc/config.php
+  #         sed -i 's/$config\["database"\]\["username"\] = "root";/$config["database"]["username"] = "${{ secrets.databaseUsername }}";/g' website/inc/config.php
+  #         sed -i 's/$config\["database"\]\["password"\] = "root";/$config["database"]["password"] = "${{ secrets.databasePassword }}";/g' website/inc/config.php
 
 
-      - name: Unzip website on the server to root folder
-        run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
+  #     - name: Create files for upload
+  #       run: |
+  #         mkdir -p ./upload_folder #create folder to upload
+  #         cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
+  #         zip -r ./upload_folder/website.zip ./website #zip website folder
+  #         zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
+  #         zip -r ./upload_folder/templates.zip ./templates #zip templates folder
 
-      - name: Unzip stylesheets on the server to stylesheets folder
-        run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target="
+  #     - name: Upload zipped files to the server
+  #       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+  #       with:
+  #         server: ${{ secrets.FTP_HOST }}
+  #         username: ${{ secrets.FTP_USERNAME }}
+  #         password: ${{ secrets.FTP_PASSWORD }}
+  #         local-dir: ./upload_folder/
 
-      - name: Unzip templates on the server to templates folder
-        run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
+
+  #     - name: Unzip website on the server to root folder
+  #       run: |
+  #         curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
+
+  #     - name: Unzip stylesheets on the server to stylesheets folder
+  #       run: |
+  #         curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target="
+
+  #     - name: Unzip templates on the server to templates folder
+  #       run: |
+  #         curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
 
   update-stylesheets:
     needs: [update-database, update-files]
@@ -89,45 +89,13 @@ jobs:
             # Replace 'stylesheets' with 'cache/themes' in each JSON file
             sed -i 's|stylesheets|cache/themes|g' "$json_file"
             # Read the contents of the JSON file
-            json_content=$(<"$json_file")
+            json_content=$(jq -Rs '.' < "$json_file")
             # Update the mybb_themes table with the JSON contents for the appropriate tid
             mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD $DB_NAME -e "
               UPDATE mybb_themes
               SET stylesheets = '$json_content'
               WHERE tid = $theme_id;
             "
-          done
-
-      - name: Update stylesheets in mybb_themes table
-        env:
-          DB_HOST: ${{ secrets.databaseHost }}
-          DB_USER: ${{ secrets.databaseUsername }}
-          DB_PASSWORD: ${{ secrets.databasePassword }}
-          DB_NAME: ${{ secrets.databaseName }}
-        run: |
-          # Find all theme folders in stylesheets directory
-          find ./stylesheets -type d -name "theme*" | while read theme_dir; do
-            # Extract the theme ID (tid) from the folder name (e.g., 'theme1' -> 1)
-            theme_id=$(basename "$theme_dir" | sed 's/theme//')
-            # Find the _*.json file in the theme directory
-            json_file="$theme_dir/_*.json"
-            
-            # Check if the JSON file exists
-            if [ -f "$json_file" ]; then
-              # Read the contents of the JSON file
-              json_content=$(jq -Rs '.' < "$json_file")
-
-              echo "UPDATE mybb_themes SET stylesheets = $json_content WHERE tid = $theme_id;"
-              
-              # Update the mybb_themes table with the JSON contents for the appropriate tid
-              mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "
-                UPDATE mybb_themes
-                SET stylesheets = $json_content
-                WHERE tid = $theme_id;
-              "
-            else
-              echo "No JSON file found in $theme_dir"
-            fi
           done
 
       - name: Rebuild stylesheets
