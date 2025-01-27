@@ -56,15 +56,15 @@ jobs:
 
       - name: Unzip website on the server to root folder
         run: |
-          curl -X GET ${{ secrets.endpointUrl }}/handlezipfiles.php?unzip=website.zip&target=
+          curl -X GET ${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=
 
       - name: Unzip stylesheets on the server to stylesheets folder
         run: |
-          curl -X GET ${{ secrets.endpointUrl }}/handlezipfiles.php?unzip=stylesheets.zip&target=stylesheets
+          curl -X GET ${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target=stylesheets
 
       - name: Unzip templates on the server to templates folder
         run: |
-          curl -X GET ${{ secrets.endpointUrl }}/handlezipfiles.php?unzip=templates.zip&target=templates
+          curl -X GET ${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target=templates
 
   update-stylesheets:
     needs: [update-database, update-files]
@@ -113,7 +113,7 @@ jobs:
 
       - name: Rebuild stylesheets
         run: |
-          curl -X GET ${{ secrets.endpointUrl }}/handlestylesheetsandtemplates.php?rebuild=stylesheets
+          curl -X GET ${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets
        
   update-templates:
     needs: [update-database, update-files]
@@ -124,7 +124,7 @@ jobs:
 
       - name: Rebuild templates
         run: |
-          curl -X GET ${{ secrets.endpointUrl }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true 
+          curl -X GET ${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true 
 
 
   cleanup:
