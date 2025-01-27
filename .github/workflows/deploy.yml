@@ -140,7 +140,7 @@ jobs:
       - name: Install lftp
         run: sudo apt-get install -y lftp
 
-      - name: Remove handlestylesheetsandtemplates.php from the server
+      - name: Remove zip files and PHP cleanup scripts from server
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USERNAME }}
@@ -148,44 +148,8 @@ jobs:
         run: |
           lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
           set ssl:verify-certificate no
-          rm handlestylesheetsandtemplates.php
-          bye
-          EOF
-
-      - name: Remove templates from server
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
-          set ssl:verify-certificate no
-          rm -r ./templates/*
-          rmdir ./templates
-          bye
-          EOF
-
-      - name: Remove stylesheets from server
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
-          set ssl:verify-certificate no
-          rm -r ./stylesheets/*
-          rmdir ./stylesheets
-          bye
-          EOF
-
-      - name: Remove zip files and other trash
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
-          set ssl:verify-certificate no
+          rm -rf ./templates
+          rm -rf ./stylesheets
           rm ./website.zip
           rm ./stylesheets.zip
           rm ./templates.zip

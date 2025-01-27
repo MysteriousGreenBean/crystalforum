@@ -122,7 +122,7 @@ function get_sid_from_directory($directory) {
 }
 
 function rebuild_all_templates() {
-    $templatesDirectory = "/templates/";
+    $templatesDirectory = __DIR__."/templates/";
     $directories = array_diff(scandir($templatesDirectory), array(".", ".."));
     foreach ($directories as $directory) {
        rebuild_templates_in_directory($templatesDirectory.$directory, get_sid_from_directory($directory));
