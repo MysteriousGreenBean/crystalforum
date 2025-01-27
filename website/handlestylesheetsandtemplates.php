@@ -146,13 +146,13 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
         echo "Force rebuild templates\n";
         $db->delete_query("templates", "1=1");
         $db->write_query("ALTER TABLE mybb_templates AUTO_INCREMENT = 1");
-        echo "Cleared templates table, rebuilding templates";
+        echo "Cleared templates table, rebuilding templates\n";
         rebuild_all_templates();
     } else {
         if ($db->fetch_array($query)) {
-            echo "Templates already exist in the database, rebuild unnecessary";
+            echo "Templates already exist in the database, rebuild unnecessary\n";
         } else {
-            echo "Templates do not exist in the database, rebuilding";
+            echo "Templates do not exist in the database, rebuilding\n";
             rebuild_all_templates();
         }
     }
