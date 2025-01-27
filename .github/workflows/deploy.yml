@@ -33,6 +33,14 @@ jobs:
           sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g' website/inc/settings.php
           sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
 
+      - name: Update config.php
+        run: |
+          sed -i 's/$config\["database"\]\["database"\] = "crystalforum_";/$config["database"]["database"] = "${{ secrets.databaseName }}";/g' website/inc/config.php
+          sed -i 's/$config\["database"\]\["hostname"\] = "172.28.1.2:3306";/$config["database"]["hostname"] = "${{ secrets.databaseHost }}";/g' website/inc/config.php
+          sed -i 's/$config\["database"\]\["username"\] = "root";/$config["database"]["username"] = "${{ secrets.databaseUsername }}";/g' website/inc/config.php
+          sed -i 's/$config\["database"\]\["password"\] = "root";/$config["database"]["password"] = "${{ secrets.databasePassword }}";/g' website/inc/config.php
+
+
       - name: Create files for upload
         run: |
           mkdir -p ./upload_folder #create folder to upload
