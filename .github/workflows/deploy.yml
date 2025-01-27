@@ -71,7 +71,7 @@ jobs:
           curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
 
   update-stylesheets:
-    # needs: [update-database, update-files]
+    needs: [update-database, update-files]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -108,7 +108,7 @@ jobs:
           curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets"
        
   update-templates:
-    # needs: [update-database, update-files]
+    needs: [update-database, update-files]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
