@@ -17,7 +17,7 @@ jobs:
           changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
           username: ${{ secrets.databaseUsername }}
           password: ${{ secrets.databasePassword }}
-          url: jdbc:mariadb://${{ secrets.databaseHost }}/${{ secrets.databaseName }}
+          url: jdbc:mariadb://${{ secrets.databaseHost }}:3306/${{ secrets.databaseName }}
 
   update-files:
     runs-on: ubuntu-latest
@@ -91,11 +91,41 @@ jobs:
             # Read the contents of the JSON file
             json_content=$(<"$json_file")
             # Update the mybb_themes table with the JSON contents for the appropriate tid
-            mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD $DB_NAME -e "
+            mysql -h $DB_HOST -u $DB_USER -p $DB_PASSWORD $DB_NAME -e "
               UPDATE mybb_themes
               SET stylesheets = '$json_content'
               WHERE tid = $theme_id;
             "
+          done
+
+      - name: Update stylesheets in mybb_themes table
+        env:
+          DB_HOST: ${{ secrets.databaseHost }}
+          DB_USER: ${{ secrets.databaseUsername }}
+          DB_PASSWORD: ${{ secrets.databasePassword }}
+          DB_NAME: ${{ secrets.databaseName }}
+        run: |
+          # Find all theme folders in stylesheets directory
+          find ./stylesheets -type d -name "theme*" | while read theme_dir; do
+            # Extract the theme ID (tid) from the folder name (e.g., 'theme1' -> 1)
+            theme_id=$(basename "$theme_dir" | sed 's/theme//')
+            # Find the _*.json file in the theme directory
+            json_file="$theme_dir/_*.json"
+            
+            # Check if the JSON file exists
+            if [ -f "$json_file" ]; then
+              # Read the contents of the JSON file
+              json_content=$(<"$json_file")
+              
+              # Update the mybb_themes table with the JSON contents for the appropriate tid
+              mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD $DB_NAME -e "
+                UPDATE mybb_themes
+                SET stylesheets = '$json_content'
+                WHERE tid = $theme_id;
+              "
+            else
+              echo "No JSON file found in $theme_dir"
+            fi
           done
 
       - name: Rebuild stylesheets
