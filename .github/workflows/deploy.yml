@@ -25,29 +25,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      At least for now we handle settings and config manually as it doesn't seem to work well
-      - name: Update mybb_settings
-        env:
-          SITE_DOMAIN: ${{ secrets.siteDomain }}
-        run: |
-          sed -i 's/\[\x27cookiedomain\x27\] = "localhost";/\[\x27cookiedomain\x27\] = ".localhost";/g' website/inc/settings.php
-          sed -i 's/\[\x27developermode\x27\] = "1";/\[\x27developermode\x27\] = "0";/g' website/inc/settings.php
-          sed -i 's/localhost/'"$SITE_DOMAIN"'/g' website/inc/settings.php
-          sed -i 's/http:/https:/g' website/inc/settings.php
-          sed -i 's/\[\x27minifycss\x27\] = "0";/\[\x27minifycss\x27\] = "1";/g' website/inc/settings.php
+      # At least for now we handle settings and config manually as it doesn't seem to work well
+      # - name: Update mybb_settings
+      #   env:
+      #     SITE_DOMAIN: ${{ secrets.siteDomain }}
+      #   run: |
+      #     sed -i 's/\[\x27cookiedomain\x27\] = "localhost";/\[\x27cookiedomain\x27\] = ".localhost";/g' website/inc/settings.php
+      #     sed -i 's/\[\x27developermode\x27\] = "1";/\[\x27developermode\x27\] = "0";/g' website/inc/settings.php
+      #     sed -i 's/localhost/'"$SITE_DOMAIN"'/g' website/inc/settings.php
+      #     sed -i 's/http:/https:/g' website/inc/settings.php
+      #     sed -i 's/\[\x27minifycss\x27\] = "0";/\[\x27minifycss\x27\] = "1";/g' website/inc/settings.php
 
 
-      - name: Update config.php
-        env:
-          DB_NAME: ${{ secrets.databaseName }}
-          DB_HOST: ${{ secrets.databaseHost }}
-          DB_USERNAME: ${{ secrets.databaseUsername }}
-          DB_PASSWORD: ${{ secrets.databasePassword }}
-        run: |
-            sed -i 's/crystalforum\_/'"$DB_NAME"'/g' website/inc/config.php
-            sed -i "s/172.28.1.2/${DB_HOST}/g" website/inc/config.php
-            sed -i "s/\['username'\] = 'root';/\['username'\] = '$DB_USERNAME';/g" website/inc/config.php
-            sed -i "s/\['password'\] = 'root';/\['password'\] = '$DB_PASSWORD';/g" website/inc/config.php
+      # - name: Update config.php
+      #   env:
+      #     DB_NAME: ${{ secrets.databaseName }}
+      #     DB_HOST: ${{ secrets.databaseHost }}
+      #     DB_USERNAME: ${{ secrets.databaseUsername }}
+      #     DB_PASSWORD: ${{ secrets.databasePassword }}
+      #   run: |
+      #       sed -i 's/crystalforum\_/'"$DB_NAME"'/g' website/inc/config.php
+      #       sed -i "s/172.28.1.2/${DB_HOST}/g" website/inc/config.php
+      #       sed -i "s/\['username'\] = 'root';/\['username'\] = '$DB_USERNAME';/g" website/inc/config.php
+      #       sed -i "s/\['password'\] = 'root';/\['password'\] = '$DB_PASSWORD';/g" website/inc/config.php
 
 
       - name: Remove config and settings
