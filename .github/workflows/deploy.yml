@@ -2,10 +2,6 @@ name: Deploy forum and make it official!
 
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: Branch from which code will be taken
-        default: '33-dev-manual-forum-deployment'
 
 jobs:
   update-database:
