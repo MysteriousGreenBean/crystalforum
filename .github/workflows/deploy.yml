@@ -77,42 +77,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Replace stylesheets with cache/themes in JSON files
-        run: |
-          # Find all _*.json files in stylesheets folder and its subdirectories
-          find ./stylesheets -type f -name "_*.json" | while read json_file; do
-            # Replace 'stylesheets' with 'cache/themes' in each JSON file
-            sed -i 's|stylesheets|cache/themes|g' "$json_file"
-          done
-
-      - name: Update stylesheets in mybb_themes table
+      - name: Replace stylesheets with cache/themes in JSON files and update mybb_themes table
         env:
           DB_HOST: ${{ secrets.databaseHost }}
           DB_USER: ${{ secrets.databaseUsername }}
           DB_PASSWORD: ${{ secrets.databasePassword }}
           DB_NAME: ${{ secrets.databaseName }}
         run: |
-          # Find all theme folders in stylesheets directory
-          find ./stylesheets -type d -name "theme*" | while read theme_dir; do
-            # Extract the theme ID (tid) from the folder name (e.g., 'theme1' -> 1)
-            theme_id=$(basename "$theme_dir" | sed 's/theme//')
-            # Find the _*.json file in the theme directory
-            json_file="$theme_dir/_*.json"
-            
-            # Check if the JSON file exists
-            if [ -f "$json_file" ]; then
-              # Read the contents of the JSON file
-              json_content=$(<"$json_file")
-              
-              # Update the mybb_themes table with the JSON contents for the appropriate tid
-              mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD $DB_NAME -e "
-                UPDATE mybb_themes
-                SET stylesheets = '$json_content'
-                WHERE tid = $theme_id;
-              "
-            else
-              echo "No JSON file found in $theme_dir"
-            fi
+          # Find all _*.json files in stylesheets folder and its subdirectories
+          find ./stylesheets -type f -name "_*.json" | while read json_file; do
+            # Replace 'stylesheets' with 'cache/themes' in each JSON file
+            sed -i 's|stylesheets|cache/themes|g' "$json_file"
+            # Read the contents of the JSON file
+            json_content=$(<"$json_file")
+            # Update the mybb_themes table with the JSON contents for the appropriate tid
+            mysql -h $DB_HOST -u $DB_USER -p$DB_PASSWORD $DB_NAME -e "
+              UPDATE mybb_themes
+              SET stylesheets = '$json_content'
+              WHERE tid = $theme_id;
+            "
           done
 
       - name: Rebuild stylesheets
