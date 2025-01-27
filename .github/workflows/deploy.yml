@@ -115,7 +115,7 @@ jobs:
             # Check if the JSON file exists
             if [ -f "$json_file" ]; then
               # Read the contents of the JSON file
-              json_content=$(jq -Rs '.' < "$json_file")
+              json_content=$(jq -Rs '.' < $json_file)
               
               # Update the mybb_themes table with the JSON contents for the appropriate tid
               mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "
