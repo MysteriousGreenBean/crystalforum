@@ -4,71 +4,71 @@ on:
   workflow_dispatch:
 
 jobs:
-  # update-database:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+  update-database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - uses: liquibase/liquibase-github-action@v7
-  #       with:
-  #         operation: 'update'
-  #         classpath: 'docker/liquibase/changelog'
-  #         changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
-  #         username: ${{ secrets.databaseUsername }}
-  #         password: ${{ secrets.databasePassword }}
-  #         url: jdbc:mariadb://${{ secrets.databaseHost }}:3306/${{ secrets.databaseName }}
+      - uses: liquibase/liquibase-github-action@v7
+        with:
+          operation: 'update'
+          classpath: 'docker/liquibase/changelog'
+          changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
+          username: ${{ secrets.databaseUsername }}
+          password: ${{ secrets.databasePassword }}
+          url: jdbc:mariadb://${{ secrets.databaseHost }}:3306/${{ secrets.databaseName }}
 
-  # update-files:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+  update-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Update mybb_settings
-  #       run: |
-  #         sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' website/inc/settings.php
-  #         sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}l";#g' website/inc/settings.php
-  #         sed -i 's/$settings\["cookiedomain"\] = "localhost";/$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";/g' website/inc/settings.php
-  #         sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g' website/inc/settings.php
-  #         sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
+      - name: Update mybb_settings
+        run: |
+          sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' website/inc/settings.php
+          sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}l";#g' website/inc/settings.php
+          sed -i 's/$settings\["cookiedomain"\] = "localhost";/$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";/g' website/inc/settings.php
+          sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g' website/inc/settings.php
+          sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
 
-  #     - name: Update config.php
-  #       run: |
-  #         sed -i 's/$config\["database"\]\["database"\] = "crystalforum_";/$config["database"]["database"] = "${{ secrets.databaseName }}";/g' website/inc/config.php
-  #         sed -i 's/$config\["database"\]\["hostname"\] = "172.28.1.2:3306";/$config["database"]["hostname"] = "${{ secrets.databaseHost }}";/g' website/inc/config.php
-  #         sed -i 's/$config\["database"\]\["username"\] = "root";/$config["database"]["username"] = "${{ secrets.databaseUsername }}";/g' website/inc/config.php
-  #         sed -i 's/$config\["database"\]\["password"\] = "root";/$config["database"]["password"] = "${{ secrets.databasePassword }}";/g' website/inc/config.php
-
-
-  #     - name: Create files for upload
-  #       run: |
-  #         mkdir -p ./upload_folder #create folder to upload
-  #         cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
-  #         zip -r ./upload_folder/website.zip ./website #zip website folder
-  #         zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
-  #         zip -r ./upload_folder/templates.zip ./templates #zip templates folder
-
-  #     - name: Upload zipped files to the server
-  #       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-  #       with:
-  #         server: ${{ secrets.FTP_HOST }}
-  #         username: ${{ secrets.FTP_USERNAME }}
-  #         password: ${{ secrets.FTP_PASSWORD }}
-  #         local-dir: ./upload_folder/
+      - name: Update config.php
+        run: |
+          sed -i 's/crystalforum_/${{ secrets.databaseName }}/g' website/inc/config.php
+          sed -i 's/172.28.1.2/${{ secrets.databaseHost }}/g' website/inc/config.php
+          sed -i "s/\['username'\] = 'root';/\['username'\] = '\${{ secrets.databaseUsername }}';/g" website/inc/config.php
+          sed -i "s/\['password'\] = 'root';/\['password'\] = '\${{ secrets.databasePassword }}';/g" website/inc/config.php
 
 
-  #     - name: Unzip website on the server to root folder
-  #       run: |
-  #         curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
+      - name: Create files for upload
+        run: |
+          mkdir -p ./upload_folder #create folder to upload
+          cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
+          zip -r ./upload_folder/website.zip ./website #zip website folder
+          zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
+          zip -r ./upload_folder/templates.zip ./templates #zip templates folder
 
-  #     - name: Unzip stylesheets on the server to stylesheets folder
-  #       run: |
-  #         curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target="
+      - name: Upload zipped files to the server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./upload_folder/
 
-  #     - name: Unzip templates on the server to templates folder
-  #       run: |
-  #         curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
+
+      - name: Unzip website on the server to root folder
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
+
+      - name: Unzip stylesheets on the server to stylesheets folder
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target="
+
+      - name: Unzip templates on the server to templates folder
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
 
   update-stylesheets:
     # needs: [update-database, update-files]
@@ -133,6 +133,7 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASSWORD }}
         run: |
           lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
           rm handlestylesheetsandtemplates.php
           bye
           EOF
@@ -143,17 +144,25 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USERNAME }}
           FTP_PASS: ${{ secrets.FTP_PASSWORD }}
         run: |
-          # Use lftp to recursively delete the directory
-            lftp -u $FTP_USERNAME,$FTP_PASSWORD -e "rm -r ./templates/*; rmdir ./templates; quit" $FTP_HOST
-        
+          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
+          rm -r ./templates/*
+          rmdir ./templates
+          bye
+          EOF
+
       - name: Remove stylesheets from server
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USERNAME }}
           FTP_PASS: ${{ secrets.FTP_PASSWORD }}
         run: |
-          # Use lftp to recursively delete the directory
-            lftp -u $FTP_USERNAME,$FTP_PASSWORD -e "rm -r ./stylesheets/*; rmdir ./stylesheets; quit" $FTP_HOST
+          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
+          rm -r ./stylesheets/*
+          rmdir ./stylesheets
+          bye
+          EOF
 
       - name: Remove zip files and other trash
         env:
@@ -161,11 +170,12 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USERNAME }}
           FTP_PASS: ${{ secrets.FTP_PASSWORD }}
         run: |
-          lftp -e "
-            rm ./website.zip;
-            rm ./stylesheets.zip;
-            rm ./templates.zip;
-            rm ./handlestyhlesheetsandtemplates.php;
-            rm ./handlezipfiles.php;
-            bye
-          " -u $FTP_USER,$FTP_PASS $FTP_HOST
+          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
+          rm ./website.zip
+          rm ./stylesheets.zip
+          rm ./templates.zip
+          rm ./handlestyhlesheetsandtemplates.php
+          rm ./handlezipfiles.php
+          bye
+          EOF
