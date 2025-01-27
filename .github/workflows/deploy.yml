@@ -148,8 +148,8 @@ jobs:
         run: |
           lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
           set ssl:verify-certificate no
-          rm -rf ./templates
-          rm -rf ./stylesheets
+          mirror -R --remove ./templates /dev/null
+          mirror -R --remove ./stylesheets /dev/null
           rm -f ./website.zip
           rm -f ./stylesheets.zip
           rm -f ./templates.zip
