@@ -26,19 +26,27 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update mybb_settings
+        env:
+          SITE_DOMAIN: ${{ secrets.siteDomain }}
         run: |
-          sed -i 's/$settings\["developermode"\] = "1";/$settings["developermode"] = "0";/g' website/inc/settings.php
-          sed -i 's#$settings\["bburl"\] = "http://localhost";#$settings["bburl"] = "https://${{ secrets.siteDomain }}l";#g' website/inc/settings.php
-          sed -i 's/$settings\["cookiedomain"\] = "localhost";/$settings["cookiedomain"] = ".${{ secrets.siteDomain }}";/g' website/inc/settings.php
-          sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g' website/inc/settings.php
-          sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
+          sed -i 's/\[\x27cookiedomain\x27\] = "localhost";/\[\x27cookiedomain\x27\] = ".localhost";/g' website/inc/settings.php
+          sed -i 's/\[\x27developermode\x27\] = "1";/\[\x27developermode\x27\] = "0";/g' website/inc/settings.php
+          sed -i 's/localhost/'"$SITE_DOMAIN"'/g' website/inc/settings.php
+          sed -i 's/http:/https:/g' website/inc/settings.php
+          sed -i 's/\[\x27minifycss\x27\] = "0";/\[\x27minifycss\x27\] = "1";/g' website/inc/settings.php
+
 
       - name: Update config.php
+        env:
+          DB_NAME: ${{ secrets.databaseName }}
+          DB_HOST: ${{ secrets.databaseHost }}
+          DB_USERNAME: ${{ secrets.databaseUsername }}
+          DB_PASSWORD: ${{ secrets.databasePassword }}
         run: |
-          sed -i 's/crystalforum_/${{ secrets.databaseName }}/g' website/inc/config.php
-          sed -i 's/172.28.1.2/${{ secrets.databaseHost }}/g' website/inc/config.php
-          sed -i "s/\['username'\] = 'root';/\['username'\] = '\${{ secrets.databaseUsername }}';/g" website/inc/config.php
-          sed -i "s/\['password'\] = 'root';/\['password'\] = '\${{ secrets.databasePassword }}';/g" website/inc/config.php
+            sed -i 's/crystalforum\_/'"$DB_NAME"'/g' website/inc/config.php
+            sed -i "s/172.28.1.2/${DB_HOST}/g" website/inc/config.php
+            sed -i "s/\['username'\] = 'root';/\['username'\] = '$DB_USERNAME';/g" website/inc/config.php
+            sed -i "s/\['password'\] = 'root';/\['password'\] = '$DB_PASSWORD';/g" website/inc/config.php
 
 
       - name: Create files for upload
