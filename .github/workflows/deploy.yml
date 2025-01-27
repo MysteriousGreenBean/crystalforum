@@ -37,31 +37,34 @@ jobs:
           sed -i 's#$settings\["homeurl"\] = "http://localhost/";#$settings["homeurl"] = "http://${{ secrets.siteDomain }}/";#g' website/inc/settings.php
           sed -i 's/$settings\["minifycss"\] = "0";/$settings["minifycss"] = "1";/g' website/inc/settings.php
 
-      - name: Upload website via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./website/
+      - name: Create files for upload
+        run: |
+          mkdir -p ./upload_folder #create folder to upload
+          cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
+          zip -r ./upload_folder/website.zip ./website #zip website folder
+          zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
+          zip -r ./upload_folder/templates.zip ./templates #zip templates folder
 
-      - name: Upload stylesheets via FTP
+      - name: Upload zipped files to the server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./stylesheets/
-          server-dir: ./stylesheets/
+          local-dir: ./upload_folder/
 
-      - name: Upload templates via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./templates/
-          server-dir: ./templates/
+
+      - name: Unzip website on the server to root folder
+        run: |
+          curl -X GET ${{ secrets.endpointUrl }}/handlezipfiles.php?unzip=website.zip&target=
+
+      - name: Unzip stylesheets on the server to stylesheets folder
+        run: |
+          curl -X GET ${{ secrets.endpointUrl }}/handlezipfiles.php?unzip=stylesheets.zip&target=stylesheets
+
+      - name: Unzip templates on the server to templates folder
+        run: |
+          curl -X GET ${{ secrets.endpointUrl }}/handlezipfiles.php?unzip=templates.zip&target=templates
 
   update-stylesheets:
     needs: [update-database, update-files]
@@ -158,4 +161,19 @@ jobs:
           FTP_PASS: ${{ secrets.FTP_PASSWORD }}
         run: |
           # Use lftp to recursively delete the directory
-            lftp -u $FTP_USERNAME,$FTP_PASSWORD -e "rm -r ./templates/*; rmdir ./templates; quit" $FTP_HOST
+            lftp -u $FTP_USERNAME,$FTP_PASSWORD -e "rm -r ./stylesheets/*; rmdir ./stylesheets; quit" $FTP_HOST
+
+      - name: Remove zip files and other trash
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -e "
+            rm ./website.zip;
+            rm ./stylesheets.zip;
+            rm ./templates.zip;
+            rm ./handlestyhlesheetsandtemplates.php;
+            rm ./handlezipfiles.php;
+            bye
+          " -u $FTP_USER,$FTP_PASS $FTP_HOST
