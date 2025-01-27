@@ -1,5 +1,40 @@
 <?php
 
+/**
+ * Recursively merge source directory into destination directory.
+ *
+ * @param string $sourcePath The source directory.
+ * @param string $destPath The destination directory.
+ */
+function mergeDirectories($sourcePath, $destPath)
+{
+    if (!is_dir($destPath)) {
+        // Create the destination directory if it doesn't exist
+        mkdir($destPath, 0755, true);
+    }
+
+    $items = array_diff(scandir($sourcePath), array('..', '.')); // Get all items except . and ..
+
+    foreach ($items as $item) {
+        $sourceItemPath = $sourcePath . DIRECTORY_SEPARATOR . $item;
+        $destItemPath = $destPath . DIRECTORY_SEPARATOR . $item;
+
+        if (is_dir($sourceItemPath)) {
+            // If it's a directory, recursively merge
+            mergeDirectories($sourceItemPath, $destItemPath);
+        } else {
+            // If it's a file, move it (overwrite if necessary)
+            if (file_exists($destItemPath)) {
+                echo "File already exists: $destItemPath. Overwriting.\n";
+            }
+            rename($sourceItemPath, $destItemPath);
+        }
+    }
+
+    // Remove the source directory after merging its contents
+    rmdir($sourcePath);
+}
+
 if (isset($_GET['unzip']) && isset($_GET['target'])) {
     // Get the directory of the current file
     $currentDir = __DIR__;
@@ -65,41 +100,6 @@ if (isset($_GET['unzip']) && isset($_GET['target'])) {
         
         // Remove the 'current' folder
         rmdir($currentFolder);
-        
-        /**
-         * Recursively merge source directory into destination directory.
-         *
-         * @param string $sourcePath The source directory.
-         * @param string $destPath The destination directory.
-         */
-        function mergeDirectories($sourcePath, $destPath)
-        {
-            if (!is_dir($destPath)) {
-                // Create the destination directory if it doesn't exist
-                mkdir($destPath, 0755, true);
-            }
-        
-            $items = array_diff(scandir($sourcePath), array('..', '.')); // Get all items except . and ..
-        
-            foreach ($items as $item) {
-                $sourceItemPath = $sourcePath . DIRECTORY_SEPARATOR . $item;
-                $destItemPath = $destPath . DIRECTORY_SEPARATOR . $item;
-        
-                if (is_dir($sourceItemPath)) {
-                    // If it's a directory, recursively merge
-                    mergeDirectories($sourceItemPath, $destItemPath);
-                } else {
-                    // If it's a file, move it (overwrite if necessary)
-                    if (file_exists($destItemPath)) {
-                        echo "File already exists: $destItemPath. Overwriting.\n";
-                    }
-                    rename($sourceItemPath, $destItemPath);
-                }
-            }
-        
-            // Remove the source directory after merging its contents
-            rmdir($sourcePath);
-        }
     }
 } else {
     echo "Missing parameters.\n";
