@@ -129,6 +129,25 @@ function rebuild_all_templates() {
     }
 }
 
+function deleteDirectory($dir) {
+    // Check if the directory exists
+    if (!is_dir($dir)) {
+        echo "The directory does not exist: $dir\n";
+        return false;
+    }
+
+    // Get all files and directories, including subdirectories (deeply nested)
+    $files = glob($dir . '/*');
+    
+    // Delete all files and directories
+    array_map(function($file) {
+        is_dir($file) ? deleteDirectory($file) : unlink($file);
+    }, $files);
+
+    // Remove the empty directory
+    return rmdir($dir);
+}
+
 
 if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
     if (isset($_GET['themeid']) && isset($_GET['cachefile'])) {
@@ -156,5 +175,12 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
             rebuild_all_templates();
         }
     }
+}
+
+if (isset($_GET['cleanup']) && $_GET['cleanup'] == "true") {
+    deleteDirectory(__DIR__."/templates");
+    echo "Deleted templates directory\n";
+    deleteDirectory(__DIR__."/stylesheets");
+    echo "Deleted stylesheets directory\n";
 }
 ?>
