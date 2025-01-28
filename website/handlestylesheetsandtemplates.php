@@ -122,11 +122,30 @@ function get_sid_from_directory($directory) {
 }
 
 function rebuild_all_templates() {
-    $templatesDirectory = "/templates/";
+    $templatesDirectory = __DIR__."/templates/";
     $directories = array_diff(scandir($templatesDirectory), array(".", ".."));
     foreach ($directories as $directory) {
        rebuild_templates_in_directory($templatesDirectory.$directory, get_sid_from_directory($directory));
     }
+}
+
+function deleteDirectory($dir) {
+    // Check if the directory exists
+    if (!is_dir($dir)) {
+        echo "The directory does not exist: $dir\n";
+        return false;
+    }
+
+    // Get all files and directories, including subdirectories (deeply nested)
+    $files = glob($dir . '/*');
+    
+    // Delete all files and directories
+    array_map(function($file) {
+        is_dir($file) ? deleteDirectory($file) : unlink($file);
+    }, $files);
+
+    // Remove the empty directory
+    return rmdir($dir);
 }
 
 
@@ -146,15 +165,22 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
         echo "Force rebuild templates\n";
         $db->delete_query("templates", "1=1");
         $db->write_query("ALTER TABLE mybb_templates AUTO_INCREMENT = 1");
-        echo "Cleared templates table, rebuilding templates";
+        echo "Cleared templates table, rebuilding templates\n";
         rebuild_all_templates();
     } else {
         if ($db->fetch_array($query)) {
-            echo "Templates already exist in the database, rebuild unnecessary";
+            echo "Templates already exist in the database, rebuild unnecessary\n";
         } else {
-            echo "Templates do not exist in the database, rebuilding";
+            echo "Templates do not exist in the database, rebuilding\n";
             rebuild_all_templates();
         }
     }
+}
+
+if (isset($_GET['cleanup']) && $_GET['cleanup'] == "true") {
+    deleteDirectory(__DIR__."/templates");
+    echo "Deleted templates directory\n";
+    deleteDirectory(__DIR__."/stylesheets");
+    echo "Deleted stylesheets directory\n";
 }
 ?>
