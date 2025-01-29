@@ -1155,7 +1155,7 @@ select {
 
 button,
 input.button {
-	background-image: radial-gradient(circle, #1f4132, #1c3e2f, #193a2c, #173729, #143426) !important;;
+	background-image: radial-gradient(circle, #1f4132, #1c3e2f, #193a2c, #173729, #143426) !important;
 	color: #B3B3B3;
 	cursor: pointer;
 	padding: 3px 7px;
@@ -2319,6 +2319,18 @@ div.jqi .jqisubstate .jqibuttons button {
 	text-align: center;
 }
 
+.away_status_profile {
+	background: var(--new-status-icon-color);
+	padding: 10px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	border: var(--main-border);
+	box-shadow: var(--main-shadow);
+	text-align: center;
+}
+
 
 /* Avatar */
 /* Avatar animation container */
@@ -2646,7 +2658,11 @@ div.jqi .jqisubstate .jqibuttons button {
 .profile_container {
     display: flex;
     justify-content: space-between;
-    gap: 15px; /* Adds spacing between left and right sections */
+	align-content: center;
+    gap: 0px; /* Adds spacing between left and right sections */
+	background-image: var(--post-background);
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 
 .left_profile, .right_profile {
@@ -2661,6 +2677,7 @@ div.jqi .jqisubstate .jqibuttons button {
 
 .right_profile {
 	flex: 3;
+	padding-right: 0px;
 }
 
 .right_profile ul {
@@ -2694,3 +2711,245 @@ div.jqi .jqisubstate .jqibuttons button {
     padding-top: 9px;
 	padding-bottom: 9px;
 }
+
+.user_title_space {
+	width: 100%;
+	background-image: var(--thead-image);
+	border-radius: 10px;
+	box-shadow: var(--main-shadow);
+	border: var(--main-border);
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0 auto;
+}
+
+.user_title {
+    font-size: 1.35rem;
+	color: var(--main-font-color) !important;
+	font-family: var(--thead-font)
+}
+
+.profile_extras {
+	width: 100%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 0 auto;
+}
+
+.profile_links {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add 10px spacing between items */
+    text-align: center; /* Center text within items */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.profile_links a {
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    background: radial-gradient(circle, gray, var(--main-font-color), var(--secondary-font-color)); /* Define your gradient */
+    -webkit-background-clip: text; /* Apply background to text */
+    -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
+    transition: all 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+.profile_links a:hover {
+    transform: scale(1.5);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Adds a soft glow effect */
+}
+
+
+/* Mobile Layout */
+@media (max-width: 860px) {
+    .profile_container {
+        flex-direction: column; /* Stack the left and right sections vertically */
+        padding: 0; /* Remove extra padding that might cause misalignment */
+    }
+
+    .left_profile, .right_profile {
+        flex: none;
+        width: 100%; /* Full width for each section */
+        text-align: center; /* Center text within the sections */
+        margin: 0 auto; /* Center the sections within the container */
+        padding: 0; /* Ensure padding is uniform */
+    }
+
+    .profile_avatar {
+        width: 220px;
+        margin: 0 auto; /* Ensure avatar is horizontally centered */
+    }
+
+    .user_title {
+        width: 100%; /* Make sure they span the full width */
+        padding: 15px 10px; /* Add consistent padding inside the content */
+        margin: 0 auto; /* Center the content */
+        box-sizing: border-box; /* Include padding in the width calculation */
+		text-shadow: var(--text-shadow);
+    }
+
+	.profile_extras {
+        width: 100%; /* Make sure they span the full width */
+        padding: 0 10px; /* Add consistent padding inside the content */
+        margin: 0 auto; /* Center the content */
+        box-sizing: border-box; /* Include padding in the width calculation */
+    }
+}
+
+
+.tabs {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.tabs button {
+	background-color: var(--box-background);
+	font-family: var(--thead-font);
+	font-size: 1.2rem;
+}
+
+.tab-buttons {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+/* Vertical tab layout on smaller screens */
+@media (max-width: 860px) {
+    .tab-buttons {
+        flex-direction: column; /* Stacks the tabs vertically */
+        border-bottom: none; /* Remove bottom border for vertical layout */
+    }
+
+	.tab-button {
+		border-radius: 0px !important;
+	}
+
+	.tab-button.active {
+		opacity: 50%;
+	}
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    outline: none;
+    transition: background-color 0.3s ease;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+    border-bottom: 2px solid #333;
+	color: var(--main-font-color) !important;
+	text-shadow: var(--text-shadow);
+}
+
+.tab-button:hover {	
+	opacity: 50%;
+}
+
+@media (min-width: 861px) {
+	.tab-button.active {
+		border-bottom: none;
+		background-image: none !important;
+		box-shadow: none !important;
+	}
+	
+	.tab-button.active:hover {
+		opacity: 80%;
+	}
+}
+
+
+.tab-content {
+    display: none;
+    padding: 10px;
+    font-size: 14px;
+	background-color: var(--box-background);
+
+
+}
+
+.tab-content.active {
+    display: block;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.frame {
+	border: 10px solid transparent;
+	border-image: var(--frame) 30 stretch;
+	margin: 10px;
+	padding: 0px;
+	background-image: var(--thead-image);
+}
+
+.profile_frame {
+	border-left: 3px solid var(--main-color);
+	border-bottom: 3px solid var(--main-color);
+	border-right: 3px solid var(--main-color);
+	border-top: none;
+	background-image: var(--thead-image);
+	box-shadow: var(--main-shadow);
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	padding: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.profile_header {
+	background-image: var(--button-bg);
+	font-size: 2rem;
+	font-family: var(--thead-font);
+	text-align: center;
+	padding: 5px;
+	box-shadow: var(--main-shadow);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-shadow: var(--text-shadow);
+}
+
+.profile_header1 {
+	font-size: 2rem;
+	font-family: var(--thead-font);
+	text-align: center;
+	padding: 5px;
+}
+
+.profile_info {
+	background: var(--box-background);
+	box-shadow: var(--main-shadow);
+	padding: 10px;
+}
+
+.reputacja {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Keeps it circular */
+    border: solid 2px var(--main-font-color); /* Slightly thinner border */
+    padding: 0.15rem; /* Reduce inner spacing */
+    min-width: 1.3rem; /* Reduce minimum size */
+    min-height: 1.3rem; /* Reduce minimum size */
+    width: auto; /* Allows it to shrink */
+    height: auto; /* Allows it to shrink */
+    font-size: 0.85rem; /* Make number slightly smaller */
+    text-align: center;
+    white-space: nowrap; /* Prevents number from wrapping */
+    line-height: 1; /* Ensures text is properly centered */
+}
+
+

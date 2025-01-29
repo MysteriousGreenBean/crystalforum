@@ -3,6 +3,27 @@
 <title>{$mybb->settings['bbname']} - {$lang->profile}</title>
 {$headerinclude}
 <script type="text/javascript" src="{$mybb->asset_url}/jscripts/report.js?ver=1804"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                // Remove active class from all buttons and content
+                tabButtons.forEach(btn => btn.classList.remove("active"));
+                tabContents.forEach(content => content.classList.remove("active"));
+
+                // Add active class to the clicked button and its corresponding content
+                button.classList.add("active");
+                const tabId = button.getAttribute("data-tab");
+                document.getElementById(tabId).classList.add("active");
+            });
+        });
+    });
+</script>
+
+
 </head>
 <body>
 {$header}
@@ -11,18 +32,103 @@
 <div class="profile_container">
 	<div class="left_profile">
 		<!-- Avatar or other content -->
-		<div class="profile_avatar_container profile_avatar">{$avatar}</div>
-		{$awaybit}{$bannedbit}
-		<p>Additional content like stats or badges</p>
+		<div class="user_title_space"><div class="user_title">{$usertitle}</div>
+			<div class="profile_avatar_container profile_avatar">{$avatar}</div>
+			<div class="user_title"><img src="{$displaygroup['image']}" alt="" title="{$displaygroup['title']}" class='groupImage'/></div>
+		</div>
+		<div class="profile_extras">
+			{$awaybit}{$bannedbit}
+			<div class="profile_links">
+				<a href="private.php?action=send&amp;uid={$memprofile['uid']}"><i class="cp cp-envelope" title="Wyślij wiadomość prywatną"></i></a>
+				<a href="javascript:MyBB.reputation({$memprofile['uid']});"><i class="cp cp-star" title="Dodaj punkty reputacji"></i></a>
+				<if $userfields['fid2'] then><a href="{$userfields['fid2']}"><i class="cp cp-feather" title="Korespondencja"></i></a></if>
+				<if $userfields['fid3'] then><a href="{$userfields['fid3']}"><i class="cp cp-home" title="Miejsce zamieszkania"></i></a></if>
+				<if $userfields['fid4'] then><a href="{$userfields['fid4']}"><i class="cp cp-clover" title="Aktualizacje mechaniczne"></i></a></if>
+				<if $userfields['fid5'] then><a href="{$userfields['fid5']}"><i class="cp cp-music-note" title="Playlista"></i></a></if>
+				Tematy
+				Posty
+				<div class="reputacja">{$reputation}</div>
+			</div>
+		</div>
 	</div>
 	<div class="right_profile">
 		<!-- Info or other content -->
-		<p>User Info:</p>
-		<ul>
-			<li>Posts: {$postcount}</li>
-			<li>Joined: {$joindate}</li>
-			<li>Reputation: {$reputation}</li>
-		</ul>
+		
+		<div class="tabs">
+			<div class="tab-buttons">
+				<button class="tab-button active" data-tab="tab1">Karta</button>
+				<button class="tab-button" data-tab="tab2">Mechanika</button>
+				<button class="tab-button" data-tab="tab3">Dziennik</button>
+				<button class="tab-button" data-tab="tab4">Relacje</button>
+				<button class="tab-button" data-tab="tab5">Osiągnięcia</button>
+				<button class="tab-button" data-tab="tab6">Gracz</button>
+			</div>
+			<div class="tab-content active" id="tab1">
+
+				<if $memprofile['usergroup'] == "4" then> 
+					info dka admina
+				</if>
+
+				Grupa: {$mybb->user['usergroup']}
+				Grupa: {$displaygroup['title']}
+				Grupa: {$memprofile['usergroup']}
+				
+					
+					
+
+				<h1>Informacje o postaci</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porttitor aliquet ornare. Sed feugiat libero facilisis auctor lobortis. Integer eu risus augue. Duis ullamcorper eleifend tortor. Praesent faucibus facilisis ultricies. Donec nibh erat, venenatis eget leo eu, facilisis accumsan neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas interdum mauris in mollis convallis. Pellentesque rutrum mi nec tortor pharetra pretium. Integer eleifend pretium turpis in efficitur. Integer iaculis ut eros et commodo. Aliquam rhoncus aliquam lacus in lobortis. Proin quam tellus, posuere vitae euismod ac, consequat at erat. Fusce congue laoreet libero, vitae rhoncus lacus. Praesent non vehicula odio.
+
+					Curabitur aliquam lectus ex, in tristique felis pulvinar a. Fusce id dolor sit amet quam finibus cursus vel facilisis lorem. Proin convallis condimentum augue at laoreet. Ut quis metus ligula. Sed quis laoreet arcu. Fusce in aliquet eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam ac sem finibus, condimentum magna eget, pellentesque orci. Aliquam vitae lobortis felis, quis sagittis risus.
+					
+					Phasellus sodales dolor venenatis sem volutpat condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi id tincidunt nulla. Vivamus ut libero maximus, porta sem eget, rutrum justo. Nunc at accumsan tortor. Donec commodo massa metus, sit amet porttitor ligula placerat et. Fusce sapien elit, lobortis eget risus luctus, facilisis pretium sem. Sed faucibus vulputate convallis. Suspendisse in fermentum orci.
+					
+					Pellentesque eu lorem arcu. Morbi finibus, ipsum ac aliquam ullamcorper, metus ligula sodales elit, sed tincidunt turpis lacus a quam. Ut ultricies id neque a tincidunt. Donec et fermentum nunc. Integer vulputate sollicitudin ante, quis tempus tortor accumsan at. Pellentesque euismod, arcu non vehicula varius, lorem lacus aliquam ex, nec venenatis mi sem non felis. In vitae ante quis dolor pretium congue.
+					
+					Nulla faucibus lorem eget nibh sagittis, id cursus magna facilisis. Donec molestie, enim ac viverra sagittis, nibh tortor ultrices lorem, et placerat nisl mi nec orci. Mauris mollis molestie aliquet. Aliquam vulputate, dolor sed laoreet volutpat, arcu turpis condimentum massa, eu venenatis justo elit non libero. Quisque vulputate at eros eu faucibus. Nunc ut iaculis nunc, et tincidunt ante. Nulla venenatis, velit et sodales auctor, sapien ipsum cursus magna, et tempus nunc est id sem. Pellentesque posuere risus vel mauris viverra porttitor. Sed a blandit nisl. Sed vitae commodo ligula, sit amet aliquet libero. Nulla eu augue blandit mauris feugiat tincidunt. Nulla aliquet, lectus eu vehicula dapibus, erat dui congue nunc, a laoreet purus arcu at sem.</p>
+			</div>
+			<div class="tab-content" id="tab2">
+				<h1>Mechanika</h1>
+				<p>Różne staty i inne duperele</p>
+				<p>{$userfields['fid5']}</p>
+			</div>
+			<div class="tab-content" id="tab3">
+				<h1>Kalendarium wydarzeń</h1>
+				<p>Obowiązkowo sesje z mg, można też inne. Najlepiej by było mieć na to jakiś plugin dla graczy, żeby nie musieli tego wpisywać kodem.</p>
+			</div>
+			<div class="tab-content" id="tab4">
+				<h1>Rodzina</h1>
+				<p>Relacje z pluginu</p>
+				<h1>Przyjaciele i znajomi</h1>
+				<p>Relacje z pluginu</p>
+				<h1>Inne</h1>
+				<p>Relacje z pluginu</p>
+			</div>
+			<div class="tab-content" id="tab5">
+				<h1>Kategoria osiągnięć</h1>
+				<p>Osięgnięcia</p>
+			</div>
+			<div class="tab-content" id="tab6">
+				<br/>
+				<div class="profile_header">Informacje o graczu</div>
+				<div class="profile_frame">Info o graczu - info z main konta?, lista multikont? Kontakt na discordzie etc.<br/>
+					{$online_status}<br/>
+					
+					sdfdsf<br/>
+				</div><br/>
+				<div class="profile_header">Informacje o koncie {$memprofile['username']}</div>
+				<div class="profile_frame">Staty konta<br/>
+					<strong>{$lang->joined}</strong> {$memregdate}<br/>
+					<strong>{$lang->lastvisit}</strong> {$memlastvisitdate}<br/>
+					<strong>{$lang->total_posts}</strong> {$memprofile['postnum']} ({$lang->ppd_percent_total}) (<a href="search.php?action=finduser&amp;uid={$uid}">{$lang->find_posts}</a>)</br>
+					<strong>{$lang->total_threads}</strong> {$memprofile['threadnum']} ({$lang->tpd_percent_total}) (<a href="search.php?action=finduserthreads&amp;uid={$uid}">{$lang->find_threads}</a>)</br>
+					<strong>{$lang->timeonline}</strong> {$timeonline}</br>
+					{$referrals}<br/>
+					<strong>{$lang->reputation}</strong> {$reputation} [<a href="reputation.php?uid={$memprofile['uid']}">{$lang->reputation_details}</a>]<br/>
+					{$warning_level}<br/> {$myawards} <!-- this might be needed for awards later -->
+				</div><br/>
+			</div>
+		</div>
 	</div>
 </div></div>
 <fieldset>
