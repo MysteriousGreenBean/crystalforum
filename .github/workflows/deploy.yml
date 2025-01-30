@@ -2,7 +2,14 @@ name: Deploy forum and make it official!
 
 on:
   workflow_dispatch:
-
+    inputs:
+      branch:
+        description: "Select the branch to use as source"
+        required: true
+        default: "main"
+  push:
+    branches:
+      - main
 jobs:
   update-database:
     runs-on: ubuntu-latest
