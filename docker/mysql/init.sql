@@ -24,6 +24,192 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `DATABASECHANGELOG`
+--
+
+CREATE TABLE `DATABASECHANGELOG` (
+  `ID` varchar(255) NOT NULL,
+  `AUTHOR` varchar(255) NOT NULL,
+  `FILENAME` varchar(255) NOT NULL,
+  `DATEEXECUTED` datetime NOT NULL,
+  `ORDEREXECUTED` int(11) NOT NULL,
+  `EXECTYPE` varchar(10) NOT NULL,
+  `MD5SUM` varchar(35) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `COMMENTS` varchar(255) DEFAULT NULL,
+  `TAG` varchar(255) DEFAULT NULL,
+  `LIQUIBASE` varchar(20) DEFAULT NULL,
+  `CONTEXTS` varchar(255) DEFAULT NULL,
+  `LABELS` varchar(255) DEFAULT NULL,
+  `DEPLOYMENT_ID` varchar(10) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Dumping data for table `DATABASECHANGELOG`
+--
+
+INSERT INTO `DATABASECHANGELOG` (`ID`, `AUTHOR`, `FILENAME`, `DATEEXECUTED`, `ORDEREXECUTED`, `EXECTYPE`, `MD5SUM`, `DESCRIPTION`, `COMMENTS`, `TAG`, `LIQUIBASE`, `CONTEXTS`, `LABELS`, `DEPLOYMENT_ID`) VALUES
+('1737906077484-1', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:32', 1, 'EXECUTED', '9:e87c99fb569bdc0e6b4ec37368220f81', 'createTable tableName=mybb_adminlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-2', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:32', 2, 'EXECUTED', '9:854d92802551178867ea3ccb11e797f2', 'createTable tableName=mybb_adminoptions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-3', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:32', 3, 'EXECUTED', '9:7e5e79498212b63994a797eb44078fed', 'createTable tableName=mybb_adminsessions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-4', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:32', 4, 'EXECUTED', '9:bf09f006ed65024b4a400e4195601fa3', 'createTable tableName=mybb_adminviews', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-5', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 5, 'EXECUTED', '9:2a8deb869194ca34f12bdb709333d6b2', 'createTable tableName=mybb_announcements', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-6', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 6, 'EXECUTED', '9:0548fe5fe3647f16f2deb97cb9fcccd7', 'createTable tableName=mybb_attachments', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-7', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 7, 'EXECUTED', '9:d9269e026fdeaff1239d692cdae4d16e', 'createTable tableName=mybb_attachtypes', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-8', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 8, 'EXECUTED', '9:d56046fe1d22eb78e4b01a65f7cfe413', 'createTable tableName=mybb_awaitingactivation', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-9', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 9, 'EXECUTED', '9:c69e379d50fb99d7e29521a1c7b3312d', 'createTable tableName=mybb_badwords', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-10', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 10, 'EXECUTED', '9:d96588d3e98787e5fc4379d37737796e', 'createTable tableName=mybb_banfilters', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-11', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 11, 'EXECUTED', '9:092d8eb489e9e00bdb794a31c01fadf1', 'createTable tableName=mybb_banned', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-12', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 12, 'EXECUTED', '9:115242d5b6f32ea8813ca61fdf5438d2', 'createTable tableName=mybb_buddyrequests', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-13', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 13, 'EXECUTED', '9:3547bce2b16d0e3fbb0736444e5f6728', 'createTable tableName=mybb_calendarpermissions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-14', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 14, 'EXECUTED', '9:91aaf6517b24e4671cdb6011f72bf6ad', 'createTable tableName=mybb_calendars', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-15', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 15, 'EXECUTED', '9:7188147130700aba411330ad45bb94b4', 'createTable tableName=mybb_captcha', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-16', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 16, 'EXECUTED', '9:1169947b12bda5e586e8d936225e6b97', 'createTable tableName=mybb_datacache', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-17', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 17, 'EXECUTED', '9:48e38cd18608fca57c51d031d4a66612', 'createTable tableName=mybb_delayedmoderation', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-18', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 18, 'EXECUTED', '9:f503b13ef3407c72a16675f74e957711', 'createTable tableName=mybb_events', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-19', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 19, 'EXECUTED', '9:00bfcd52c233034a0772fa698ce903ce', 'createTable tableName=mybb_forumpermissions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-20', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 20, 'EXECUTED', '9:dc233d83d9182251c3dbb41bf7915179', 'createTable tableName=mybb_forums', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-21', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 21, 'EXECUTED', '9:2d42f71e58956409915c5bf75a6e3245', 'createTable tableName=mybb_forumsread', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-22', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 22, 'EXECUTED', '9:3d573c63bde39de306bbefa2c8ea03f9', 'createTable tableName=mybb_forumsubscriptions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-23', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 23, 'EXECUTED', '9:e468e4a756ec02c02fca2d873b2e626c', 'createTable tableName=mybb_groupleaders', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-24', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 24, 'EXECUTED', '9:c3f0cca5b976173e919deeeceb5ea91a', 'createTable tableName=mybb_helpdocs', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-25', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 25, 'EXECUTED', '9:0af10de964c26f89aa6aa057a1caddf9', 'createTable tableName=mybb_helpsections', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-26', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 26, 'EXECUTED', '9:d98ca42d10b21c977b09992a86aa6511', 'createTable tableName=mybb_hidecontent', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-27', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 27, 'EXECUTED', '9:54b3e6997909ccc610cbcbeedfb51459', 'createTable tableName=mybb_icons', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-28', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 28, 'EXECUTED', '9:461e0778a0ca29a3e812f7c55a3aca63', 'createTable tableName=mybb_joinrequests', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-29', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 29, 'EXECUTED', '9:a6d64c3d61c392c1611401fbb1979ead', 'createTable tableName=mybb_mailerrors', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-30', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 30, 'EXECUTED', '9:9d0d74327a7e09f0321bf7824ec806d2', 'createTable tableName=mybb_maillogs', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-31', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 31, 'EXECUTED', '9:ba318347b0f374a6ffed571a56eb74c3', 'createTable tableName=mybb_mailqueue', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-32', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 32, 'EXECUTED', '9:893b80dc8d4443c18e220033683c9cb6', 'createTable tableName=mybb_massemails', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-33', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 33, 'EXECUTED', '9:eb2fab793a7a42279750e2d79a114cc6', 'createTable tableName=mybb_moderatorlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-34', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 34, 'EXECUTED', '9:ac36728292d4561a8b58f7d5220ae653', 'createTable tableName=mybb_moderators', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-35', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 35, 'EXECUTED', '9:4b7f865852a584694b4bfc387fc1475d', 'createTable tableName=mybb_modtools', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-36', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 36, 'EXECUTED', '9:41fe1de7992dba15bd7c3a479396c474', 'createTable tableName=mybb_mycode', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-37', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 37, 'EXECUTED', '9:529a6165fdcbad01e8a4330489fd26cd', 'createTable tableName=mybb_polls', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-38', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 38, 'EXECUTED', '9:b21219953f1600c2f294564ec61ddac9', 'createTable tableName=mybb_pollvotes', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-39', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 39, 'EXECUTED', '9:791c86fac3cdadcf7b96bd75f334d74c', 'createTable tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-40', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 40, 'EXECUTED', '9:e366e03a4f9f61273c365d30439a7e91', 'createTable tableName=mybb_privatemessages', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-41', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 41, 'EXECUTED', '9:53b912d9ac45ce18e54ef2c5d10a7a96', 'createTable tableName=mybb_profilefields', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-42', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 42, 'EXECUTED', '9:f3b2efffec042a46a01ac64ed8a55ad5', 'createTable tableName=mybb_promotionlogs', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-43', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 43, 'EXECUTED', '9:89a020adf5ec5258cf4cc451b55be85e', 'createTable tableName=mybb_promotions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-44', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 44, 'EXECUTED', '9:66854c289d3d7717356007b55a5fdcb3', 'createTable tableName=mybb_questions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-45', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 45, 'EXECUTED', '9:23bc3edf6c49b129b0ea3a97d34dd7e1', 'createTable tableName=mybb_questionsessions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-46', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 46, 'EXECUTED', '9:8d6599d3d4caffacc3960531d4637292', 'createTable tableName=mybb_reportedcontent', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-47', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 47, 'EXECUTED', '9:00e8bb159656f2bc9a49d3405cb69b1f', 'createTable tableName=mybb_reportreasons', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-48', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 48, 'EXECUTED', '9:40ccc233144367953d1692e627156752', 'createTable tableName=mybb_reputation', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-49', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 49, 'EXECUTED', '9:4f3ca1942e377b917149cfa6f93f9444', 'createTable tableName=mybb_searchlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-50', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 50, 'EXECUTED', '9:bac5173d2a17744e204a0361a1e8be02', 'createTable tableName=mybb_sessions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-51', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 51, 'EXECUTED', '9:a4359addfe098f3a66cb170baca90b60', 'createTable tableName=mybb_settinggroups', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-52', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 52, 'EXECUTED', '9:0c35d92e0473a36aa3931723e75dc50d', 'createTable tableName=mybb_settings', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-53', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 53, 'EXECUTED', '9:3660533a530ba5afc98fc280c84c1727', 'createTable tableName=mybb_smilies', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-54', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 54, 'EXECUTED', '9:529f0425faf32066008c778ed1e0816d', 'createTable tableName=mybb_spamlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-55', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 55, 'EXECUTED', '9:3a5d3f8237b1beafce0b6c5fb2a9219f', 'createTable tableName=mybb_spiders', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-56', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 56, 'EXECUTED', '9:bdff0285ba1f787fe5869b23cc6532c4', 'createTable tableName=mybb_stats', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-57', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 57, 'EXECUTED', '9:9b10c60821debd919c9f18bab6528ee6', 'createTable tableName=mybb_tasklog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-58', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 58, 'EXECUTED', '9:51da62631e9ffacfc72e862c462c29dc', 'createTable tableName=mybb_tasks', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-59', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 59, 'EXECUTED', '9:ccde09ce9ae4e486506bf985ca23299c', 'createTable tableName=mybb_templategroups', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-60', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 60, 'EXECUTED', '9:26f27636114e7d9f5ed01f3acb277faa', 'createTable tableName=mybb_templates', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-61', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 61, 'EXECUTED', '9:ec819cec6819dd85a49fd75df01c7588', 'createTable tableName=mybb_templatesets', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-62', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 62, 'EXECUTED', '9:154c856aeea0d6f75935ceb2fe563d62', 'createTable tableName=mybb_themes', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-63', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 63, 'EXECUTED', '9:6e1fb4f4216e4e001d86784e257a794a', 'createTable tableName=mybb_themestylesheets', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-64', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 64, 'EXECUTED', '9:2fd72c148286372a3ea39a902c60d98d', 'createTable tableName=mybb_threadprefixes', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-65', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 65, 'EXECUTED', '9:58d1f1223d1052bb1feb78c438108954', 'createTable tableName=mybb_threadratings', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-66', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 66, 'EXECUTED', '9:1e25b44465f4bdd283497f53182db4db', 'createTable tableName=mybb_threads', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-67', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 67, 'EXECUTED', '9:c56604fa5c23a4860460d36d162a1c44', 'createTable tableName=mybb_threadsread', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-68', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 68, 'EXECUTED', '9:e0e1b59dcc76f3de67b61083278e23fe', 'createTable tableName=mybb_threadsubscriptions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-69', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 69, 'EXECUTED', '9:428d9d6d2751e7d9162afbf715758db6', 'createTable tableName=mybb_threadviews', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-70', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 70, 'EXECUTED', '9:dfd350e2e196c694d821f5ffab8d6374', 'createTable tableName=mybb_userfields', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-71', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 71, 'EXECUTED', '9:572a4cdf17f76b91d9201aca5c248f9b', 'createTable tableName=mybb_usergroups', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-72', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 72, 'EXECUTED', '9:c514296d1ee950a444cff3d61b1a3d80', 'createTable tableName=mybb_users', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-73', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 73, 'EXECUTED', '9:345ad1e721990e2d596e3506c07654d6', 'createTable tableName=mybb_usertitles', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-74', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 74, 'EXECUTED', '9:1d0950d2306fc5d6503c9d119e787431', 'createTable tableName=mybb_warninglevels', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-75', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 75, 'EXECUTED', '9:471f9465c02d023b5a6939d76510218b', 'createTable tableName=mybb_warnings', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-76', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 76, 'EXECUTED', '9:ddb99fea14e51c591db6c94f49dc7892', 'createTable tableName=mybb_warningtypes', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-77', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 77, 'EXECUTED', '9:ff554059010695422ebe454f33b4c9e3', 'addUniqueConstraint constraintName=fid, tableName=mybb_forumsread', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-78', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 78, 'EXECUTED', '9:89ba465b5ac580f2921754df0ad65866', 'addUniqueConstraint constraintName=tid, tableName=mybb_threadsread', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-79', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 79, 'EXECUTED', '9:04c71ab401bf5f18021318e6726c3488', 'createIndex indexName=cid, tableName=mybb_events', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-80', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 80, 'EXECUTED', '9:8edadf39ebfb3c91239c08e8dcd8b29f', 'createIndex indexName=dateline, tableName=mybb_banned', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-81', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 81, 'EXECUTED', '9:8505817ea310d27878481c7d1c8aa3d9', 'createIndex indexName=dateline, tableName=mybb_captcha', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-82', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 82, 'EXECUTED', '9:4f905178f0ef7ac5c8ca353a8dd3f438', 'createIndex indexName=dateline, tableName=mybb_forumsread', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-83', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 83, 'EXECUTED', '9:b4a3984c831327cdfc6a4049ff650f68', 'createIndex indexName=dateline, tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-84', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 84, 'EXECUTED', '9:bd3a652e5802247f477b20d0a69f05fe', 'createIndex indexName=dateline, tableName=mybb_threads', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-85', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 85, 'EXECUTED', '9:779a7c9a6214002a812c642e899824ad', 'createIndex indexName=dateline, tableName=mybb_threadsread', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-86', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 86, 'EXECUTED', '9:472893c8bd55b655c1002f69a48be55a', 'createIndex indexName=daterange, tableName=mybb_events', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-87', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 87, 'EXECUTED', '9:a1790e86ea433895a3b12439ebb74a55', 'createIndex indexName=fid, tableName=mybb_announcements', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-88', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 88, 'EXECUTED', '9:521bea22e31d6402b675e45e73397057', 'createIndex indexName=fid, tableName=mybb_forumpermissions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-89', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 89, 'EXECUTED', '9:d2e2403cbba5a901f0d287ebeeda1f45', 'createIndex indexName=fid, tableName=mybb_moderatorlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-90', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 90, 'EXECUTED', '9:977519881ae5e1d2134f5675dac0f130', 'createIndex indexName=fid, tableName=mybb_threads', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-91', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 91, 'EXECUTED', '9:3c02eeaaf84211a1ce69430cce19bcdf', 'createIndex indexName=firstpost, tableName=mybb_threads', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-92', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 92, 'EXECUTED', '9:bd20ba45f12654adb2cdc562974e55d6', 'createIndex indexName=gid, tableName=mybb_settings', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-93', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 93, 'EXECUTED', '9:f18376e6783b4b88b57de935674958aa', 'createIndex indexName=imagehash, tableName=mybb_captcha', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-94', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 94, 'EXECUTED', '9:4c316f2a5d8b98304f7ea32f00fde3ab', 'createIndex indexName=ip, tableName=mybb_sessions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-95', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 95, 'EXECUTED', '9:fd4bb46cd701b68d316734a19abbb492', 'createIndex indexName=ipaddress, tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-96', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 96, 'EXECUTED', '9:086f52a4fa60d2e9928b8053c1f98d4b', 'createIndex indexName=lastip, tableName=mybb_users', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-97', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 97, 'EXECUTED', '9:44cf79a8844ddbcfbf638a4606625da0', 'createIndex indexName=lastpost, tableName=mybb_threads', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-98', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 98, 'EXECUTED', '9:445d5672529240b908d40cebffebdb4e', 'createIndex indexName=lastreport, tableName=mybb_reportedcontent', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-99', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 99, 'EXECUTED', '9:70e6aa8733944f00350a8965d4999af2', 'createIndex indexName=location, tableName=mybb_sessions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-100', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 100, 'EXECUTED', '9:aea2b5c03af4d13398c813460dd2e768', 'createIndex indexName=message, tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-101', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 101, 'EXECUTED', '9:979d2b5d32e526b94351bb342716a732', 'createIndex indexName=module, tableName=mybb_adminlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-102', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 102, 'EXECUTED', '9:7686b309c17e7c242b171f2d448f30b2', 'createIndex indexName=pid, tableName=mybb_attachments', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-103', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 103, 'EXECUTED', '9:e4e7ddb27343527feff7cf38533557d3', 'createIndex indexName=pid, tableName=mybb_hidecontent', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-104', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 104, 'EXECUTED', '9:0466aa412606361940f5c53eee2ffcad', 'createIndex indexName=pid, tableName=mybb_pollvotes', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-105', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 105, 'EXECUTED', '9:7cfe9e4b14d54d94adb735619c00dea0', 'createIndex indexName=private, tableName=mybb_events', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-106', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 106, 'EXECUTED', '9:7afcc8d485d8b0d4b3ab142f5352ab24', 'createIndex indexName=regip, tableName=mybb_users', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-107', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 107, 'EXECUTED', '9:01d6fd698cf7e85ecf3a9a9b07506fd7', 'createIndex indexName=reportstatus, tableName=mybb_reportedcontent', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-108', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 108, 'EXECUTED', '9:de491358041746e73503ca5ed2800ff2', 'createIndex indexName=sid, tableName=mybb_templates', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-109', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 109, 'EXECUTED', '9:fd2b3fedaf120694f8b948f50a012dbc', 'createIndex indexName=subject, tableName=mybb_threads', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-110', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 110, 'EXECUTED', '9:c220843b683e1daafeb5de078f80f9cb', 'createIndex indexName=tid, tableName=mybb_moderatorlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-111', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 111, 'EXECUTED', '9:dee8f7769ae8befb6f04517cf06a9052', 'createIndex indexName=tid, tableName=mybb_polls', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-112', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 112, 'EXECUTED', '9:06ed5c5071f1e99acf805a76c06a0f2c', 'createIndex indexName=tid, tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-113', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 113, 'EXECUTED', '9:aea326276e8e210731d3445ca6c60b8f', 'createIndex indexName=tid, tableName=mybb_themestylesheets', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-114', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 114, 'EXECUTED', '9:50e3e3b2890a3c7c10d4547b41d1576f', 'createIndex indexName=tid, tableName=mybb_threadratings', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-115', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 115, 'EXECUTED', '9:520d27daa3d0d28e6b2a6fa2e8d270b9', 'createIndex indexName=tid, tableName=mybb_threadsubscriptions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-116', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 116, 'EXECUTED', '9:bde24dad14a69eebcded1863e4d79d17', 'createIndex indexName=tid, tableName=mybb_threadviews', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-117', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 117, 'EXECUTED', '9:4efe2eab62e54c4179612605b334dd3e', 'createIndex indexName=tiddate, tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-118', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 118, 'EXECUTED', '9:e868776c7e882b0a524a504d16f86bee', 'createIndex indexName=time, tableName=mybb_sessions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-119', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 119, 'EXECUTED', '9:c3d465c62eb60ca2744626028aa86ca4', 'createIndex indexName=toid, tableName=mybb_privatemessages', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-120', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 120, 'EXECUTED', '9:ab389bd87c2aa752bb69e06c1abd6329', 'createIndex indexName=touid, tableName=mybb_buddyrequests', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-121', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 121, 'EXECUTED', '9:88b351cd416842d742851484a4d71d49', 'createIndex indexName=type, tableName=mybb_banfilters', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-122', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 122, 'EXECUTED', '9:e70986c536be58e6c4c9a76ff7553801', 'createIndex indexName=uid, tableName=mybb_adminlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-123', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 123, 'EXECUTED', '9:b84fda7132a1fb4ceb0200c30467bc3d', 'createIndex indexName=uid, tableName=mybb_attachments', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-124', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:33', 124, 'EXECUTED', '9:f2969db212cf28a65086cce08663fef5', 'createIndex indexName=uid, tableName=mybb_banned', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-125', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 125, 'EXECUTED', '9:2c100494d20fe6ba4649d01200d7937a', 'createIndex indexName=uid, tableName=mybb_buddyrequests', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-126', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 126, 'EXECUTED', '9:7d7ae509736449d608eb9e0e0ec0634a', 'createIndex indexName=uid, tableName=mybb_forumsubscriptions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-127', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 127, 'EXECUTED', '9:65f2dfcac3ec6058d96ffb0a294d569d', 'createIndex indexName=uid, tableName=mybb_hidecontent', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-128', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 128, 'EXECUTED', '9:01ac0bff1ca4f46aa828e6f45f261376', 'createIndex indexName=uid, tableName=mybb_moderatorlog', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-129', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 129, 'EXECUTED', '9:70dc196e668eb4a57cf0b658733cd46f', 'createIndex indexName=uid, tableName=mybb_moderators', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-130', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 130, 'EXECUTED', '9:56a75ef90d54ee5551a8d1e0193dc740', 'createIndex indexName=uid, tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-131', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 131, 'EXECUTED', '9:09d6ab2c141b557a5c5618923f50a371', 'createIndex indexName=uid, tableName=mybb_privatemessages', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-132', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 132, 'EXECUTED', '9:bc6ac50d8c442911c9c6a3b308d5ca58', 'createIndex indexName=uid, tableName=mybb_reputation', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-133', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 133, 'EXECUTED', '9:4ff1aeb46adc480fca8d556cf99f96c0', 'createIndex indexName=uid, tableName=mybb_sessions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-134', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 134, 'EXECUTED', '9:c02aacacd21779d34e481a0373cd6518', 'createIndex indexName=uid, tableName=mybb_threads', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-135', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 135, 'EXECUTED', '9:ca955ea60b207315945a52b88d2b7d9a', 'createIndex indexName=uid, tableName=mybb_threadsubscriptions', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-136', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 136, 'EXECUTED', '9:64d62cb1d49dc28904faa7f69a5146b9', 'createIndex indexName=uid, tableName=mybb_warnings', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-137', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 137, 'EXECUTED', '9:93848dd1ed6214e7b5b901769fd73036', 'createIndex indexName=usergroup, tableName=mybb_users', '', NULL, '4.31.0', NULL, NULL, '7906211173'),
+('1737906077484-138', 'liquibase (generated)', 'changelog/db.changelog.xml', '2025-01-26 15:43:34', 138, 'EXECUTED', '9:143b2a78699578f5972ea3f74735716a', 'createIndex indexName=visible, tableName=mybb_posts', '', NULL, '4.31.0', NULL, NULL, '7906211173');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `DATABASECHANGELOGLOCK`
+--
+
+CREATE TABLE `DATABASECHANGELOGLOCK` (
+  `ID` int(11) NOT NULL,
+  `LOCKED` tinyint(1) NOT NULL,
+  `LOCKGRANTED` datetime DEFAULT NULL,
+  `LOCKEDBY` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Dumping data for table `DATABASECHANGELOGLOCK`
+--
+
+INSERT INTO `DATABASECHANGELOGLOCK` (`ID`, `LOCKED`, `LOCKGRANTED`, `LOCKEDBY`) VALUES
+(1, 0, NULL, NULL);
+
+-- --------------------------------------------------------
+--
 -- Table structure for table `mybb_adminlog`
 --
 

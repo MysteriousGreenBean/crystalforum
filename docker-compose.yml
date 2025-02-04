@@ -9,6 +9,13 @@ services:
     networks:
       mybb_network:
         ipv4_address: 172.28.1.2
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      start_interval: 3s
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   mybb:
     container_name: mybb_forum
@@ -19,12 +26,13 @@ services:
       - "80:80"
     volumes:
       - ./website:/var/www/html:rw
-      - ./stylesheets:/var/stylesheets:ro
-      - ./templates:/var/templates:ro
+      - ./stylesheets:/var/www/html/stylesheets:ro
+      - ./templates:/var/www/html/templates:ro
     networks:
       - mybb_network
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -38,6 +46,22 @@ services:
       - mybb_network
     depends_on:
       - mysql
+
+  liquibase:
+    container_name: liquibase
+    image: liquibase:latest
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./docker/liquibase:/liquibase/resources:rw
+      - ./docker/liquibase/changelog:/liquibase/changelog:rw
+    environment:
+      LIQUIBASE_HOME: /liquibase
+      LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
+    networks:
+      - mybb_network
+    command: ["sh", "-c", "liquibase update && liquibase snapshot --snapshot-format=JSON --output-file=resources/database_before.json"]
 
 networks:
   mybb_network:

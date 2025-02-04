@@ -328,4 +328,5 @@ $settings['avatarep_version'] = "303";
 $settings['hottopicviews'] = "150";
 $settings['woldisplayspiders'] = "1";
 $settings['wolorder'] = "username";
+$settings['developermode'] = "1";
 

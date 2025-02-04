@@ -1,0 +1,3115 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="liquibase (generated)" id="1737906077484-1">
+        <createTable tableName="mybb_adminlog">
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="module" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="action" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-2">
+        <createTable tableName="mybb_adminoptions">
+            <column defaultValueNumeric="0" name="uid" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="cpstyle" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="cplanguage" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="codepress" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permissions" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="defaultviews" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="loginattempts" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="loginlockoutexpiry" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="authsecret" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="recovery_codes" type="VARCHAR(177)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-3">
+        <createTable tableName="mybb_adminsessions">
+            <column defaultValue="" name="sid" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="loginkey" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ip" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastactive" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="useragent" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="authenticated" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-4">
+        <createTable tableName="mybb_adminviews">
+            <column autoIncrement="true" name="vid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="type" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="visibility" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fields" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conditions" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="custom_profile_fields" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="sortby" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="sortorder" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="perpage" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="view_type" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-5">
+        <createTable tableName="mybb_announcements">
+            <column autoIncrement="true" name="aid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="subject" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="startdate" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="enddate" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowhtml" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowmycode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowsmilies" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-6">
+        <createTable tableName="mybb_attachments">
+            <column autoIncrement="true" name="aid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="posthash" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="filename" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="filetype" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="filesize" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="attachname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="downloads" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateuploaded" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="visible" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="thumbnail" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-7">
+        <createTable tableName="mybb_attachtypes">
+            <column autoIncrement="true" name="atid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="mimetype" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="extension" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="maxsize" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="icon" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="forcedownload" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="groups" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="forums" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="avatarfile" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-8">
+        <createTable tableName="mybb_awaitingactivation">
+            <column autoIncrement="true" name="aid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="code" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="type" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="validated" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="misc" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-9">
+        <createTable tableName="mybb_badwords">
+            <column autoIncrement="true" name="bid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="badword" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="regex" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="replacement" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-10">
+        <createTable tableName="mybb_banfilters">
+            <column autoIncrement="true" name="fid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="filter" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="type" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastuse" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-11">
+        <createTable tableName="mybb_banned">
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="gid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="oldgroup" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="oldadditionalgroups" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="olddisplaygroup" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="admin" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="bantime" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lifted" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="reason" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-12">
+        <createTable tableName="mybb_buddyrequests">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="touid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="date" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-13">
+        <createTable tableName="mybb_calendarpermissions">
+            <column defaultValueNumeric="0" name="cid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="gid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewcalendar" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canaddevents" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canbypasseventmod" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmoderateevents" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-14">
+        <createTable tableName="mybb_calendars">
+            <column autoIncrement="true" name="cid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="startofweek" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showbirthdays" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="eventlimit" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="moderation" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowhtml" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowmycode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowimgcode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowvideocode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowsmilies" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-15">
+        <createTable tableName="mybb_captcha">
+            <column defaultValue="" name="imagehash" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="imagestring" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="used" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-16">
+        <createTable tableName="mybb_datacache">
+            <column defaultValue="" name="title" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="cache" type="MEDIUMTEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-17">
+        <createTable tableName="mybb_delayedmoderation">
+            <column autoIncrement="true" name="did" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="type" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="delaydateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tids" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="inputs" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-18">
+        <createTable tableName="mybb_events">
+            <column autoIncrement="true" name="eid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="cid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="visible" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="private" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="starttime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="endtime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="timezone" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="ignoretimezone" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="usingtime" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="repeats" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-19">
+        <createTable tableName="mybb_forumpermissions">
+            <column autoIncrement="true" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="gid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canview" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canonlyviewownthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candlattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostreplys" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canonlyreplyownthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canratethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="caneditposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candeleteposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candeletethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="caneditattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewdeletionnotice" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="modposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="modthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="mod_edit_posts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="modattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostpolls" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canvotepolls" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cansearch" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-20">
+        <createTable tableName="mybb_forums">
+            <column autoIncrement="true" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="linkto" type="VARCHAR(180)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="type" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parentlist" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="active" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="open" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="threads" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="posts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastpost" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="lastposter" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastposteruid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastposttid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="lastpostsubject" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowhtml" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowmycode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowsmilies" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowimgcode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowvideocode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowpicons" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowtratings" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="usepostcounts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="usethreadcounts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="requireprefix" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showinjump" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="style" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="overridestyle" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="rulestype" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="rulestitle" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rules" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="unapprovedthreads" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="unapprovedposts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="deletedthreads" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="deletedposts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="defaultdatecut" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="defaultsortby" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="defaultsortorder" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-21">
+        <createTable tableName="mybb_forumsread">
+            <column defaultValueNumeric="0" name="fid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-22">
+        <createTable tableName="mybb_forumsubscriptions">
+            <column autoIncrement="true" name="fsid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-23">
+        <createTable tableName="mybb_groupleaders">
+            <column autoIncrement="true" name="lid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="gid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanagemembers" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanagerequests" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="caninvitemembers" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-24">
+        <createTable tableName="mybb_helpdocs">
+            <column autoIncrement="true" name="hid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="sid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="document" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="usetranslation" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-25">
+        <createTable tableName="mybb_helpsections">
+            <column autoIncrement="true" name="sid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="usetranslation" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-26">
+        <createTable tableName="mybb_hidecontent">
+            <column autoIncrement="true" name="id" type="BIGINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="uid" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pid" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-27">
+        <createTable tableName="mybb_icons">
+            <column autoIncrement="true" name="iid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="path" type="VARCHAR(220)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-28">
+        <createTable tableName="mybb_joinrequests">
+            <column autoIncrement="true" name="rid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="gid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="reason" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="invite" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-29">
+        <createTable tableName="mybb_mailerrors">
+            <column autoIncrement="true" name="eid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="subject" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="toaddress" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="fromaddress" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="error" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="smtperror" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="smtpcode" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-30">
+        <createTable tableName="mybb_maillogs">
+            <column autoIncrement="true" name="mid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="subject" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="fromuid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="fromemail" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="touid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="toemail" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="type" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-31">
+        <createTable tableName="mybb_mailqueue">
+            <column autoIncrement="true" name="mid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="mailto" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mailfrom" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="headers" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-32">
+        <createTable tableName="mybb_massemails">
+            <column autoIncrement="true" name="mid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="subject" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="htmlmessage" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="type" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="format" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="senddate" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="status" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sentcount" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="totalcount" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conditions" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="50" name="perpage" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-33">
+        <createTable tableName="mybb_moderatorlog">
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="action" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-34">
+        <createTable tableName="mybb_moderators">
+            <column autoIncrement="true" name="mid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="id" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="isgroup" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="caneditposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cansoftdeleteposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canrestoreposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candeleteposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cansoftdeletethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canrestorethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candeletethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewips" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewunapprove" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewdeleted" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canopenclosethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canstickunstickthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canapproveunapprovethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canapproveunapproveposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canapproveunapproveattachs" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanagethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanagepolls" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostclosedthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmovetononmodforum" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canusecustomtools" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanageannouncements" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanagereportedposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewmodlog" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-35">
+        <createTable tableName="mybb_modtools">
+            <column autoIncrement="true" name="tid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="forums" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="groups" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="type" type="CHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="postoptions" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="threadoptions" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-36">
+        <createTable tableName="mybb_mycode">
+            <column autoIncrement="true" name="cid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="regex" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="replacement" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="active" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="parseorder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-37">
+        <createTable tableName="mybb_polls">
+            <column autoIncrement="true" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="question" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="options" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="votes" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="numoptions" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="numvotes" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="timeout" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="closed" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="multiple" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="public" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="maxoptions" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-38">
+        <createTable tableName="mybb_pollvotes">
+            <column autoIncrement="true" name="vid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="voteoption" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-39">
+        <createTable tableName="mybb_posts">
+            <column autoIncrement="true" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="replyto" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="subject" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="icon" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="username" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="includesig" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="smilieoff" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="edituid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="edittime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="editreason" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="visible" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-40">
+        <createTable tableName="mybb_privatemessages">
+            <column autoIncrement="true" name="pmid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="toid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="fromid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipients" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="folder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="subject" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="icon" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="deletetime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="status" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="statustime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="includesig" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="smilieoff" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="receipt" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="readtime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-41">
+        <createTable tableName="mybb_profilefields">
+            <column autoIncrement="true" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="regex" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="length" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="maxlength" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="required" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="registration" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="profile" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="postbit" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="viewableby" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="editableby" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="postnum" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowhtml" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowmycode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowsmilies" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowimgcode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allowvideocode" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-42">
+        <createTable tableName="mybb_promotionlogs">
+            <column autoIncrement="true" name="plid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="oldusergroup" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="newusergroup" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="primary" name="type" type="VARCHAR(9)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-43">
+        <createTable tableName="mybb_promotions">
+            <column autoIncrement="true" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="logging" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="posts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="posttype" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="threads" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="threadtype" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="registered" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="registeredtype" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="online" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="onlinetype" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="reputations" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="reputationtype" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="referrals" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="referralstype" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="warnings" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="warningstype" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="requirements" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="originalusergroup" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="newusergroup" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="usergrouptype" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-44">
+        <createTable tableName="mybb_questions">
+            <column autoIncrement="true" name="qid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="question" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="answer" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="shown" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="correct" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="incorrect" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="active" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-45">
+        <createTable tableName="mybb_questionsessions">
+            <column defaultValue="" name="sid" type="VARCHAR(32)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="qid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-46">
+        <createTable tableName="mybb_reportedcontent">
+            <column autoIncrement="true" name="rid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="id" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="id2" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="id3" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="reportstatus" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="reasonid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="reason" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="reports" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reporters" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastreport" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-47">
+        <createTable tableName="mybb_reportreasons">
+            <column autoIncrement="true" name="rid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="appliesto" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="extra" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-48">
+        <createTable tableName="mybb_reputation">
+            <column autoIncrement="true" name="rid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="adduid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="reputation" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comments" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-49">
+        <createTable tableName="mybb_searchlog">
+            <column defaultValue="" name="sid" type="VARCHAR(32)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="threads" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="posts" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="resulttype" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="querycache" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="keywords" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-50">
+        <createTable tableName="mybb_sessions">
+            <column defaultValue="" name="sid" type="VARCHAR(32)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ip" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="time" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="location" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="useragent" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="anonymous" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="nopermission" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="location1" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="location2" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-51">
+        <createTable tableName="mybb_settinggroups">
+            <column autoIncrement="true" name="gid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(220)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="isdefault" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-52">
+        <createTable tableName="mybb_settings">
+            <column autoIncrement="true" name="sid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="optionscode" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="gid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="isdefault" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-53">
+        <createTable tableName="mybb_smilies">
+            <column autoIncrement="true" name="sid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="find" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="image" type="VARCHAR(220)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showclickable" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-54">
+        <createTable tableName="mybb_spamlog">
+            <column autoIncrement="true" name="sid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="username" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="email" type="VARCHAR(220)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-55">
+        <createTable tableName="mybb_spiders">
+            <column autoIncrement="true" name="sid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="theme" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="language" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="usergroup" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="useragent" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastvisit" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-56">
+        <createTable tableName="mybb_stats">
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="numusers" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="numthreads" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="numposts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-57">
+        <createTable tableName="mybb_tasklog">
+            <column autoIncrement="true" name="lid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-58">
+        <createTable tableName="mybb_tasks">
+            <column autoIncrement="true" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="file" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="minute" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="hour" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="day" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="month" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="weekday" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="nextrun" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastrun" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="enabled" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="logging" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="locked" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-59">
+        <createTable tableName="mybb_templategroups">
+            <column autoIncrement="true" name="gid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="prefix" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="isdefault" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-60">
+        <createTable tableName="mybb_templates">
+            <column autoIncrement="true" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="template" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="sid" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="version" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="status" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-61">
+        <createTable tableName="mybb_templatesets">
+            <column autoIncrement="true" name="sid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-62">
+        <createTable tableName="mybb_themes">
+            <column autoIncrement="true" name="tid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="def" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="properties" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stylesheets" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="allowedgroups" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-63">
+        <createTable tableName="mybb_themestylesheets">
+            <column autoIncrement="true" name="sid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attachedto" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stylesheet" type="LONGTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="cachefile" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastmodified" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-64">
+        <createTable tableName="mybb_threadprefixes">
+            <column autoIncrement="true" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="prefix" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="displaystyle" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="forums" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="groups" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-65">
+        <createTable tableName="mybb_threadratings">
+            <column autoIncrement="true" name="rid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="rating" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="ipaddress" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-66">
+        <createTable tableName="mybb_threads">
+            <column autoIncrement="true" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="fid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="subject" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="prefix" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="icon" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="poll" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="username" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="firstpost" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastpost" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="lastposter" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastposteruid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="views" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="replies" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="closed" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="sticky" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="numratings" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="totalratings" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="visible" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="unapprovedposts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="deletedposts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="attachmentcount" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="deletetime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-67">
+        <createTable tableName="mybb_threadsread">
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-68">
+        <createTable tableName="mybb_threadsubscriptions">
+            <column autoIncrement="true" name="sid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="notification" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-69">
+        <createTable tableName="mybb_threadviews">
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-70">
+        <createTable tableName="mybb_userfields">
+            <column defaultValueNumeric="0" name="ufid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fid1" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fid2" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fid3" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fid4" type="TEXT"/>
+            <column name="fid5" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-71">
+        <createTable tableName="mybb_usergroups">
+            <column autoIncrement="true" name="gid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="2" name="type" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="{username}" name="namestyle" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="usertitle" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="stars" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="starimage" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="image" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="disporder" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="isbannedgroup" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canview" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewprofiles" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candlattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewboardclosed" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostreplys" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canratethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="modposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="modthreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="mod_edit_posts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="modattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="caneditposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candeleteposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candeletethreads" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="caneditattachments" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewdeletionnotice" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canpostpolls" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canvotepolls" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canundovotes" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canusepms" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cansendpms" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cantrackpms" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candenypmreceipts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="pmquota" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="5" name="maxpmrecipients" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cansendemail" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cansendemailoverride" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="5" name="maxemails" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="5" name="emailfloodtime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewmemberlist" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewcalendar" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canaddevents" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canbypasseventmod" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmoderateevents" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewonline" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewwolinvis" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewonlineips" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cancp" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="issupermod" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cansearch" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canusercp" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canuploadavatars" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canratemembers" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canchangename" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canbereported" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="canbeinvisible" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="canchangewebsite" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showforumteam" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="usereputationsystem" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cangivereputations" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candeletereputations" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="reputationpower" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="maxreputationsday" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="maxreputationsperuser" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="maxreputationsperthread" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="candisplaygroup" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="attachquota" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="cancustomtitle" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canwarnusers" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canreceivewarnings" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="3" name="maxwarningsday" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmodcp" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showinbirthdaylist" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canoverridepm" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canusesig" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="canusesigxposts" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="signofollow" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="edittimelimit" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="maxposts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="showmemberlist" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanageannounce" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanagemodqueue" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canmanagereportedcontent" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewmodlogs" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="caneditprofiles" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canbanusers" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canviewwarnlogs" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="canuseipsearch" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-72">
+        <createTable tableName="mybb_users">
+            <column autoIncrement="true" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="username" type="VARCHAR(120)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column defaultValue="" name="password" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="salt" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="loginkey" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="email" type="VARCHAR(220)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="postnum" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="threadnum" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="avatar" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="avatardimensions" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0" name="avatartype" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="usergroup" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="additionalgroups" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="displaygroup" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="usertitle" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="regdate" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastactive" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastvisit" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="lastpost" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="website" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="icq" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="skype" type="VARCHAR(75)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="google" type="VARCHAR(75)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="birthday" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="all" name="birthdayprivacy" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="signature" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="allownotices" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="hideemail" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="subscriptionmethod" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="invisible" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="receivepms" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="receivefrombuddy" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="pmnotice" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="pmnotify" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="buddyrequestspm" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="buddyrequestsauto" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="threadmode" type="VARCHAR(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showimages" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showvideos" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showsigs" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showavatars" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showquickreply" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="showredirect" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="ppp" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="tpp" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="daysprune" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="dateformat" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="timeformat" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="timezone" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="dst" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="dstcorrection" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="buddylist" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ignorelist" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="style" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="away" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="awaydate" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="returndate" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="awayreason" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pmfolders" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notepad" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="referrer" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="referrals" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="reputation" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="regip" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="lastip" type="VARBINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="language" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="timeonline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="1" name="showcodebuttons" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="totalpms" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="unreadpms" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="warningpoints" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="moderateposts" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="moderationtime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="suspendposting" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="suspensiontime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="suspendsignature" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="suspendsigtime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="coppauser" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="loginattempts" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="loginlockoutexpiry" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usernotes" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="sourceeditor" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-73">
+        <createTable tableName="mybb_usertitles">
+            <column autoIncrement="true" name="utid" type="SMALLINT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="posts" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="stars" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="starimage" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-74">
+        <createTable tableName="mybb_warninglevels">
+            <column autoIncrement="true" name="lid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="percentage" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="action" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-75">
+        <createTable tableName="mybb_warnings">
+            <column autoIncrement="true" name="wid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueNumeric="0" name="uid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="pid" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="points" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="dateline" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="issuedby" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="expires" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="0" name="expired" type="TINYINT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="daterevoked" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="revokedby" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="revokereason" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notes" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-76">
+        <createTable tableName="mybb_warningtypes">
+            <column autoIncrement="true" name="tid" type="INT UNSIGNED">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="title" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="points" type="SMALLINT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="expirationtime" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-77">
+        <addUniqueConstraint columnNames="fid, uid" constraintName="fid" tableName="mybb_forumsread"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-78">
+        <addUniqueConstraint columnNames="tid, uid" constraintName="tid" tableName="mybb_threadsread"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-79">
+        <createIndex associatedWith="" indexName="cid" tableName="mybb_events">
+            <column defaultValueNumeric="0" name="cid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-80">
+        <createIndex associatedWith="" indexName="dateline" tableName="mybb_banned">
+            <column defaultValueNumeric="0" name="dateline"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-81">
+        <createIndex associatedWith="" indexName="dateline" tableName="mybb_captcha">
+            <column defaultValueNumeric="0" name="dateline"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-82">
+        <createIndex associatedWith="" indexName="dateline" tableName="mybb_forumsread">
+            <column defaultValueNumeric="0" name="dateline"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-83">
+        <createIndex associatedWith="" indexName="dateline" tableName="mybb_posts">
+            <column defaultValueNumeric="0" name="dateline"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-84">
+        <createIndex associatedWith="" indexName="dateline" tableName="mybb_threads">
+            <column defaultValueNumeric="0" name="dateline"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-85">
+        <createIndex associatedWith="" indexName="dateline" tableName="mybb_threadsread">
+            <column defaultValueNumeric="0" name="dateline"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-86">
+        <createIndex associatedWith="" indexName="daterange" tableName="mybb_events">
+            <column defaultValueNumeric="0" name="starttime"/>
+            <column defaultValueNumeric="0" name="endtime"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-87">
+        <createIndex associatedWith="" indexName="fid" tableName="mybb_announcements">
+            <column defaultValueNumeric="0" name="fid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-88">
+        <createIndex associatedWith="" indexName="fid" tableName="mybb_forumpermissions">
+            <column defaultValueNumeric="0" name="fid"/>
+            <column defaultValueNumeric="0" name="gid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-89">
+        <createIndex associatedWith="" indexName="fid" tableName="mybb_moderatorlog">
+            <column defaultValueNumeric="0" name="fid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-90">
+        <createIndex associatedWith="" indexName="fid" tableName="mybb_threads">
+            <column defaultValueNumeric="0" name="fid"/>
+            <column defaultValueComputed="0" name="visible"/>
+            <column defaultValueComputed="0" name="sticky"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-91">
+        <createIndex associatedWith="" indexName="firstpost" tableName="mybb_threads">
+            <column defaultValueNumeric="0" name="firstpost"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-92">
+        <createIndex associatedWith="" indexName="gid" tableName="mybb_settings">
+            <column defaultValueNumeric="0" name="gid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-93">
+        <createIndex associatedWith="" indexName="imagehash" tableName="mybb_captcha">
+            <column name="imagehash"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-94">
+        <createIndex associatedWith="" indexName="ip" tableName="mybb_sessions">
+            <column name="ip"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-95">
+        <createIndex associatedWith="" indexName="ipaddress" tableName="mybb_posts">
+            <column name="ipaddress"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-96">
+        <createIndex associatedWith="" indexName="lastip" tableName="mybb_users">
+            <column name="lastip"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-97">
+        <createIndex associatedWith="" indexName="lastpost" tableName="mybb_threads">
+            <column defaultValueNumeric="0" name="lastpost"/>
+            <column defaultValueNumeric="0" name="fid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-98">
+        <createIndex associatedWith="" indexName="lastreport" tableName="mybb_reportedcontent">
+            <column defaultValueNumeric="0" name="lastreport"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-99">
+        <createIndex associatedWith="" indexName="location" tableName="mybb_sessions">
+            <column defaultValueNumeric="0" name="location1"/>
+            <column defaultValueNumeric="0" name="location2"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-100">
+        <createIndex associatedWith="" indexName="message" tableName="mybb_posts">
+            <column name="message"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-101">
+        <createIndex associatedWith="" indexName="module" tableName="mybb_adminlog">
+            <column name="module"/>
+            <column name="action"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-102">
+        <createIndex associatedWith="" indexName="pid" tableName="mybb_attachments">
+            <column defaultValueNumeric="0" name="pid"/>
+            <column defaultValueComputed="0" name="visible"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-103">
+        <createIndex associatedWith="" indexName="pid" tableName="mybb_hidecontent">
+            <column name="pid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-104">
+        <createIndex associatedWith="" indexName="pid" tableName="mybb_pollvotes">
+            <column defaultValueNumeric="0" name="pid"/>
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-105">
+        <createIndex associatedWith="" indexName="private" tableName="mybb_events">
+            <column defaultValueComputed="0" name="private"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-106">
+        <createIndex associatedWith="" indexName="regip" tableName="mybb_users">
+            <column name="regip"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-107">
+        <createIndex associatedWith="" indexName="reportstatus" tableName="mybb_reportedcontent">
+            <column defaultValueComputed="0" name="reportstatus"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-108">
+        <createIndex associatedWith="" indexName="sid" tableName="mybb_templates">
+            <column defaultValueNumeric="0" name="sid"/>
+            <column name="title"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-109">
+        <createIndex associatedWith="" indexName="subject" tableName="mybb_threads">
+            <column name="subject"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-110">
+        <createIndex associatedWith="" indexName="tid" tableName="mybb_moderatorlog">
+            <column defaultValueNumeric="0" name="tid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-111">
+        <createIndex associatedWith="" indexName="tid" tableName="mybb_polls">
+            <column defaultValueNumeric="0" name="tid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-112">
+        <createIndex associatedWith="" indexName="tid" tableName="mybb_posts">
+            <column defaultValueNumeric="0" name="tid"/>
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-113">
+        <createIndex associatedWith="" indexName="tid" tableName="mybb_themestylesheets">
+            <column defaultValueNumeric="0" name="tid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-114">
+        <createIndex associatedWith="" indexName="tid" tableName="mybb_threadratings">
+            <column defaultValueNumeric="0" name="tid"/>
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-115">
+        <createIndex associatedWith="" indexName="tid" tableName="mybb_threadsubscriptions">
+            <column defaultValueNumeric="0" name="tid"/>
+            <column defaultValueComputed="0" name="notification"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-116">
+        <createIndex associatedWith="" indexName="tid" tableName="mybb_threadviews">
+            <column defaultValueNumeric="0" name="tid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-117">
+        <createIndex associatedWith="" indexName="tiddate" tableName="mybb_posts">
+            <column defaultValueNumeric="0" name="tid"/>
+            <column defaultValueNumeric="0" name="dateline"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-118">
+        <createIndex associatedWith="" indexName="time" tableName="mybb_sessions">
+            <column defaultValueNumeric="0" name="time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-119">
+        <createIndex associatedWith="" indexName="toid" tableName="mybb_privatemessages">
+            <column defaultValueNumeric="0" name="toid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-120">
+        <createIndex associatedWith="" indexName="touid" tableName="mybb_buddyrequests">
+            <column defaultValueNumeric="0" name="touid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-121">
+        <createIndex associatedWith="" indexName="type" tableName="mybb_banfilters">
+            <column defaultValueComputed="0" name="type"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-122">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_adminlog">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-123">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_attachments">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-124">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_banned">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-125">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_buddyrequests">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-126">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_forumsubscriptions">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-127">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_hidecontent">
+            <column name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-128">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_moderatorlog">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-129">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_moderators">
+            <column defaultValueNumeric="0" name="id"/>
+            <column defaultValueNumeric="0" name="fid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-130">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_posts">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-131">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_privatemessages">
+            <column defaultValueNumeric="0" name="uid"/>
+            <column defaultValueNumeric="1" name="folder"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-132">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_reputation">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-133">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_sessions">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-134">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_threads">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-135">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_threadsubscriptions">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-136">
+        <createIndex associatedWith="" indexName="uid" tableName="mybb_warnings">
+            <column defaultValueNumeric="0" name="uid"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-137">
+        <createIndex associatedWith="" indexName="usergroup" tableName="mybb_users">
+            <column defaultValueNumeric="0" name="usergroup"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1737906077484-138">
+        <createIndex associatedWith="" indexName="visible" tableName="mybb_posts">
+            <column defaultValueComputed="0" name="visible"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
