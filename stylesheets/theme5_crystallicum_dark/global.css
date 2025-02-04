@@ -1435,7 +1435,7 @@ hr {
 }
 
 .online {
-	color: #15A018;
+	color: #00CC00;
 }
 
 .offline {
@@ -2727,8 +2727,8 @@ div.jqi .jqisubstate .jqibuttons button {
 
 .user_title {
     font-size: 1.35rem;
-	color: var(--main-font-color) !important;
-	font-family: var(--thead-font)
+	color: var(--main-font-color);
+	font-family: var(--thead-font);
 }
 
 .profile_extras {
@@ -2738,6 +2738,17 @@ div.jqi .jqisubstate .jqibuttons button {
 	padding-left: 10px;
 	padding-right: 10px;
 	margin: 0 auto;
+}
+
+.profile_extras_links {
+    width: 100%;
+    margin: 0 auto;
+    
+    display: flex; /* Enables flexbox */
+    flex-direction: column; /* Stacks items vertically (change to 'row' for horizontal) */
+    justify-content: center; /* Centers items vertically (if applicable) */
+    align-items: center; /* Centers items horizontally */
+    text-align: center; /* Ensures text inside elements is centered */
 }
 
 .profile_links {
@@ -2750,6 +2761,7 @@ div.jqi .jqisubstate .jqibuttons button {
     gap: 10px; /* Add 10px spacing between items */
     text-align: center; /* Center text within items */
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
+	max-width: 80%;
 }
 
 .profile_links a {
@@ -2802,6 +2814,10 @@ div.jqi .jqisubstate .jqibuttons button {
         margin: 0 auto; /* Center the content */
         box-sizing: border-box; /* Include padding in the width calculation */
     }
+
+	.profile_links {
+		width: 70%;
+	}
 }
 
 
@@ -2814,6 +2830,7 @@ div.jqi .jqisubstate .jqibuttons button {
 	background-color: var(--box-background);
 	font-family: var(--thead-font);
 	font-size: 1.2rem;
+	color: var(--main-font-color);
 }
 
 .tab-buttons {
@@ -2850,7 +2867,7 @@ div.jqi .jqisubstate .jqibuttons button {
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
     border-bottom: 2px solid #333;
-	color: var(--main-font-color) !important;
+	color: var(--main-font-color);
 	text-shadow: var(--text-shadow);
 }
 
@@ -2939,17 +2956,84 @@ div.jqi .jqisubstate .jqibuttons button {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%; /* Keeps it circular */
-    border: solid 2px var(--main-font-color); /* Slightly thinner border */
-    padding: 0.15rem; /* Reduce inner spacing */
-    min-width: 1.3rem; /* Reduce minimum size */
-    min-height: 1.3rem; /* Reduce minimum size */
-    width: auto; /* Allows it to shrink */
-    height: auto; /* Allows it to shrink */
-    font-size: 0.85rem; /* Make number slightly smaller */
+    border-radius: 50%; /* Ensures it's always a circle */
+    border: solid 2px var(--main-font-color); /* Keeps a clean border */
+    padding: 0.2rem; /* Reduce padding to allow text to fit */
+    min-width: 1.3rem; /* Keep the preferred size */
+    min-height: 1.3rem; /* Keep it a perfect circle */
+    width: auto; /* Allows dynamic sizing */
+    height: auto; /* Ensures it stays proportional */
+    font-size: 0.9rem; /* Ensures text is readable */
     text-align: center;
-    white-space: nowrap; /* Prevents number from wrapping */
-    line-height: 1; /* Ensures text is properly centered */
+    white-space: nowrap; /* Prevents wrapping */
+    line-height: 1; /* Keeps text properly centered */
 }
 
+.online-location {
+    display: none; /* Hide initially */
+    margin-top: 5px;
+    padding: 10px;
+    background: var(--box-background);
+	box-shadow: var(--main-shadow);
+    border-radius: 5px;
+    text-align: center;
+}
 
+.profile_details {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add 10px spacing between items */
+    text-align: center; /* Center text within items */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.profile_field {
+	background: var(--box-background);
+	box-shadow: var(--main-shadow);
+	border: var(--main-border);
+	border-radius: 10px;
+	padding-top: 0px;
+	text-align: center;
+}
+
+.profile_field legend {
+	font-size: 1.25rem;
+	font-family: var(--header-font);
+	text-shadow: var(--main-shadow);
+	text-align: center;
+}
+
+.profile_button {
+	background: var(--button-bg);
+	padding: 10px;
+	border: var(--main-border);
+	border-radius: 10px;
+	box-shadow: var(--main-shadow);
+}
+
+.player_avatar {
+	height: 101px;
+	width: 101px;
+	border-radius: 100px;
+    border: var(--main-border);
+    border: 1px solid var(--main-nt-color) /* var(--main-border)*/;
+    background: var(--main-nt-color);
+    box-shadow: var(--main-shadow);
+}
+
+.player_avatar img{
+	height: 100px;
+	width: 100px;
+	object-fit: cover;
+    border-radius: 100px;
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+    -webkit-filter: sepia(50%);
+    filter: sepia(50%);
+}
+
+.player_avatar_container {
+	margin: 5px;
+    padding: 5px;
+}
