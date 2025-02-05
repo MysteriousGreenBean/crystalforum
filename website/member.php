@@ -2675,7 +2675,7 @@ if($mybb->input['action'] == "profile")
 			if($memban['lifted'] == 'perm' || $memban['lifted'] == '' || $memban['bantime'] == 'perm' || $memban['bantime'] == '---')
 			{
 				$banlength = $lang->permanent;
-				$timeremaining = $lang->na;
+				$timeremaining = " ";
 				$banned_class = "normal_banned";
 			}
 			else
@@ -2686,7 +2686,7 @@ if($mybb->input['action'] == "profile")
 				$banlength = $bantimes[$memban['bantime']];
 				$remaining = $memban['lifted']-TIME_NOW;
 
-				$timeremaining = nice_time($remaining, array('short' => 1, 'seconds' => false))."";
+				$timeremaining = nice_time($remaining, array('short' => 1, 'seconds' => false)).
 
 				$banned_class = '';
 				if($remaining < 3600)
