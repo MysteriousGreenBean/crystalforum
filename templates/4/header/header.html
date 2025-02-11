@@ -5,7 +5,7 @@
 
         <div class="nav-item">
             
-            <a href="{$mybb->settings['bburl']}"><i class="cp cp-menu"></i> Radiant Cities</a>
+            <a href="{$mybb->settings['bburl']}" title="Radiant Cities"><i class="cp cp-menu"></i> Radiant Cities</a>
                 <div class="dd_menu">
                     <div class="items">
                         <div class="social">
@@ -15,7 +15,7 @@
                         </div>
                         <hr class="green">
                         <a href="">Regulamin</a>
-                        <a href="">Administracja</a>
+                        <a href="{$mybb->settings['bburl']}/showteam.php">Administracja</a>
                         <a href="">Współpraca</a>
                     </div>
                     
@@ -47,7 +47,7 @@
 
         <div>
 
-            <div class="nav-item"><a>Drogowskaz</a>
+            <div class="nav-item"><a title="Drogowskaz">Drogowskaz</a>
                 <div class="dd_menu">
                     <div class="items">
                         <a href="{$mybb->settings['bburl']}/misc.php?action=help">FAQ</a>
@@ -57,7 +57,7 @@
             </div>
         
             <div class="nav-item">
-                <a href="{$mybb->settings['bburl']}/memberlist.php">Gracze</a>
+                <a href="{$mybb->settings['bburl']}/memberlist.php" title="Gracze">Gracze</a>
                 <if $mybb->user['uid'] != 0 then>
                     <div class="dd_menu">
                         <div class="items">
@@ -73,9 +73,62 @@
     </div>
 
     </nav>
- 
 
-<!-- Mobile navigation-->
+ <!-- Mobile navigation-->
+  <nav class="mobile_nav">
+    <div>
+
+        <div class="nav-item">
+            
+            <a title="Menu"><i class="cp cp-menu"></i></a>
+                <div class="dd_menu">
+                    <div class="items">
+                        <div class="social">
+                            <a href="" title="Tumblr"><i class="cp cp-tumblr social_icon"></i></a>
+                            <a href="" title="Discord"><i class="cp cp-discord social_icon"></i></a>
+                            <a href="" title="Kody"><i class="cp cp-code social_icon"></i></a>
+                        </div>
+                        <hr class="green">
+                        <a href="">Regulamin</a>
+                        <a href="{$mybb->settings['bburl']}/showteam.php">Administracja</a>
+                        <a href="">Współpraca</a>
+                    </div>
+                    
+                </div>
+        </div>
+
+        <!-- If on the dark theme --><a title="Jasny wygląd"><i class="cp cp-sun"></i></a>
+        <!-- If on the light theme <i class="cp cp-moon"></i> -->
+
+        <div class="nav-item">
+            <a href="{$mybb->settings['bburl']}/search.php" title="Szukaj"><i class="cp cp-search"></i></a>
+        </div>
+
+        <a href="{$mybb->settings['bburl']}/calendar.php" title="Kalndarz"><i class="cp cp-calendar"></i></a>
+
+    </div>
+		
+    <div class="member">
+
+        <div>
+
+            <div class="nav-item"><a title="Drogowskaz"><i class="cp cp-map"></i></a>
+                <div class="dd_menu">
+                    <div class="items">
+                        <a href="{$mybb->settings['bburl']}/misc.php?action=help">FAQ</a>
+                        <a href="{$mybb->settings['bburl']}/showteam.php">Administracja</a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="nav-item">
+                <a href="{$mybb->settings['bburl']}/memberlist.php" title="Gracze"><i class="cp cp-dinosaur"></i></a>
+            </div>
+        </div>
+
+        {$welcomeblock}
+    </div>
+  </nav>
 
 <!-- Header -->
 <div style="width:100%; height:100px;"></div>

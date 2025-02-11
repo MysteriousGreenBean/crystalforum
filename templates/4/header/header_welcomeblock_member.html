@@ -2,7 +2,7 @@
 	<!-- Dropdown for Game Masters -->
 	<if $mybb->user['usergroup'] == 8 || $mybb->user['additionalgroups'] == 8 then>
 		<div class="nav-item">
-			<a>Narrator</a>
+			<a class="desktop_member">Narrator</a><a class="mobile_member" title="Narrator"><i class="cp cp-book"></i></a>
 			<div class="dd_menu">
 				<div class="items">
 					<a href="">Link 1</a>
@@ -15,7 +15,7 @@
 	<!-- Dropdown for Moderators and Administrators -->
 	<if $mybb->user['usergroup'] == 3 || $mybb->user['usergroup'] == 4 || $mybb->user['usergroup'] == 6 || $mybb->user['additionalgroups'] == 3 || $mybb->user['additionalgroups'] == 4 || $mybb->user['additionalgroups'] == 6 then>
 		<div class="nav-item">
-			<a>Moderacja</a>
+			<a class="desktop_member">Moderacja</a><a class="mobile_member" title="Moderacja"><i class="cp cp-star"></i></a>
 			<div class="dd_menu">
 				<div class="items">
 					{$admincplink}
@@ -34,11 +34,11 @@
 		</if>
 	</a>	 
 
-	<a href="usercp.php">{$mybb->user['username']}</a>
+	<a href="usercp.php" class="desktop_member" title="Ustawienia Konta">{$mybb->user['username']}</a><a href="usercp.php" class="mobile_member" title="Ustawienia Konta"><i class="cp cp-user"></i></a>
 
-	<div class="av_bcg">
+	<div class="av_bcg desktop_member">
 		<a href="{$mybb->settings['bburl']}/member.php?action=profile&uid={$mybb->user['uid']}">
-			<img src="{$mybb->user['avatar']}" id="avatarheader">
+			<img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
 		</a>
 		<div class="av_menu">
 			<div class="items">
@@ -48,7 +48,20 @@
 			</div>
 		</div>
 	</div>
+
 	
+	<div class="av_bcg mobile_member">
+		<a>
+			<img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
+		</a>
+		<div class="av_menu">
+			<div class="items">
+				<!-- Extra account avatars will be here, with links to switch thems -->
+				<a href="" title="Dodaj konto"><i class="cp cp-add"></i></a>
+				<a href="{$mybb->settings['bburl']}/logout.php" title="Wyloguj się"><i class="cp cp-power"></i></a>
+			</div>
+		</div>
+	</div>
 
 
 <script>

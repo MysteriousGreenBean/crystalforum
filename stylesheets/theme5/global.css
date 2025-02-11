@@ -181,7 +181,7 @@ body {
 	font-family: var(--main-font);
 	font-size: 13px;
 	padding: 10px;
-	width:100%
+	width:100%;
 	position: absolute;
 	bottom: 0px;
 	border-bottom-left-radius: 10px;
@@ -461,10 +461,6 @@ body {
 .subforum_miniofflink i:before {
 	content:'\ead5';
 	font-family:'cappuccicons';
-}
-
-#nav_mobile {
-	display:none;
 }
 
 .forum {
