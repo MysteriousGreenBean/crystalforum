@@ -1,6 +1,6 @@
 <div>
 	<!-- Dropdown for Game Masters -->
-	<if $mybb->user['usergroup'] == 8 || $mybb->user['additionalgroups'] == 8 then>
+	<if $mybb->user['usergroup'] == 8 || $mybb->user['is_in_group_8'] then>
 		<div class="nav-item">
 			<a class="desktop_member" title="Narrator">Narrator</a><a class="mobile_member" title="Narrator"><i class="cp cp-book"></i></a>
 			<div class="dd_menu">
@@ -13,7 +13,7 @@
 	</if>
 
 	<!-- Dropdown for Moderators and Administrators -->
-	<if $mybb->user['usergroup'] == 3 || $mybb->user['usergroup'] == 4 || $mybb->user['usergroup'] == 6 || $mybb->user['additionalgroups'] == 3 || $mybb->user['additionalgroups'] == 4 || $mybb->user['additionalgroups'] == 6 then>
+	<if $mybb->user['usergroup'] == 3 || $mybb->user['usergroup'] == 4 || $mybb->user['usergroup'] == 6 || $mybb->user['is_in_groups_3_4_6'] then>
 		<div class="nav-item">
 			<a class="desktop_member" title="Moderacja">Moderacja</a><a class="mobile_member" title="Moderacja"><i class="cp cp-star"></i></a>
 			<div class="dd_menu">
@@ -26,7 +26,6 @@
 	</if>
 
 </div>
-
 
 	<a class="inbox" href="{$mybb->settings['bburl']}/private.php" id="pm_notification" title="Prywatne Wiadomości"> 
 		<if $mybb->user['pms_unread'] > 0 then><div class="unread_frame"><i class="cp cp-bell unread"></i> {$mybb->user['pms_unread']}</div>
