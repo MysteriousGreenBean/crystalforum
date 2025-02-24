@@ -65,19 +65,11 @@ jobs:
       - name: Create files for upload
         run: |
           mkdir -p ./upload_folder #create folder to upload
-          mkdir -p ./zipfileupload #create folder for zipfileHandler
-          cp ./website/handlezipfiles.php ./zipfileupload/handlezipfiles.php #copy handlezipfiles.php to zipfileupload folder
+          cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
           zip -r ./upload_folder/website.zip ./website #zip website folder
           zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
           zip -r ./upload_folder/templates.zip ./templates #zip templates folder
-
-      - name: Upload zip file handler
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./zipfileupload/
+          ls -l ./upload_folder
 
       - name: Upload zipped files to the server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
