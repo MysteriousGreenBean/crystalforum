@@ -80,7 +80,11 @@ jobs:
           FTP_USER: ${{ secrets.FTP_USERNAME }}
           FTP_PASS: ${{ secrets.FTP_PASSWORD }}
         run: |
-          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST -e "mirror -R ./upload_folder; quit" <<EOF
+          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
+          mirror -R ./upload_folder
+          bye
+          EOF
 
       - name: Unzip website on the server to root folder
         run: |
