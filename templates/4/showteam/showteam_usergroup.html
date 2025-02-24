@@ -1,13 +1,25 @@
 <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
-<tr>
-<td class="thead" colspan="4"><strong>{$usergroup['title']}</strong></td>
-</tr>
-<tr>
-<td class="tcat"><span class="smalltext"><strong>{$lang->username}</strong></span></td>
-<td class="tcat hide_mobile"><span class="smalltext"><strong>{$lang->lastvisit}</strong></span></td>
-<td class="tcat"><span class="smalltext"><strong>{$lang->email}</strong></span></td>
-<td class="tcat"><span class="smalltext"><strong>{$lang->pm}</strong></span></td>
-</tr>
-{$usergrouprows}
+    <tbody>
+        <tr>
+            <td class="thead" colspan="5">
+                <strong>
+                    {$usergroup['title']} 
+                    <div class="expcolimage">
+                        <i id="group-{$usergroup['gid']}" class="expander cp cp-minus smalltext"></i>
+                    </div>
+                </strong>
+            </td>
+        </tr>
+    </tbody>
+    <tbody class="kupa2" id="content-{$usergroup['gid']}">
+        <tr>
+            <td class="tcat"><span class="smalltext"><strong>Awatar</strong></span></td>
+            <td class="tcat"><span class="smalltext"><strong>{$lang->username}</strong></span></td>
+            <td class="tcat hide_mobile"><span class="smalltext"><strong>{$lang->lastvisit}</strong></span></td>
+            <td class="tcat"><span class="smalltext"><strong>{$lang->email}</strong></span></td>
+            <td class="tcat"><span class="smalltext"><strong>{$lang->pm}</strong></span></td>
+        </tr>
+        {$usergrouprows}
+    </tbody>
 </table>
 <br />

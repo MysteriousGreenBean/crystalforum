@@ -1,26 +1,26 @@
 <html>
 <head>
-<title>{$mybb->settings['bbname']}</title>
-{$headerinclude}
-<script type="text/javascript">
-<!--
-lang.no_new_posts = "{$lang->no_new_posts}";
-lang.click_mark_read = "{$lang->click_mark_read}";
-// -->
-</script>
-	
-<!-- Hiding announcements -->	
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const toggleButton = document.getElementById("announcement");
-      const forumsDiv = document.querySelector(".announcements");
+	<title>{$mybb->settings['bbname']}</title>
+	{$headerinclude}
+	<script type="text/javascript">
+	<!--
+	lang.no_new_posts = "{$lang->no_new_posts}";
+	lang.click_mark_read = "{$lang->click_mark_read}";
+	// -->
+	</script>
+		
+	<!-- Hiding announcements -->	
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+		const toggleButton = document.getElementById("announcement");
+		const forumsDiv = document.querySelector(".announcements");
 
-      toggleButton.addEventListener("click", function() {
-        forumsDiv.classList.toggle("hide");
-      });
-    });
-	
-  </script>
+		toggleButton.addEventListener("click", function() {
+			forumsDiv.classList.toggle("hide");
+		});
+		});
+		
+	</script>
 </head>
 <body>
 {$header}

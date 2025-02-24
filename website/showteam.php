@@ -141,7 +141,7 @@ if($mybb->settings['showgroupleaders'])
 	}
 }
 
-$query = $db->simple_select("users", "uid, username, displaygroup, usergroup, additionalgroups, ignorelist, hideemail, receivepms, lastactive, lastvisit, invisible, away", $query_part."displaygroup IN ($groups_in) OR (displaygroup='0' AND usergroup IN ($groups_in)) OR uid IN ($users_in)", array('order_by' => 'username'));
+$query = $db->simple_select("users", "uid, username, if(avatar='', './images/default_avatar.png',avatar) as avatar, displaygroup, usergroup, additionalgroups, ignorelist, hideemail, receivepms, lastactive, lastvisit, invisible, away", $query_part."displaygroup IN ($groups_in) OR (displaygroup='0' AND usergroup IN ($groups_in)) OR uid IN ($users_in)", array('order_by' => 'username'));
 
 while($user = $db->fetch_array($query))
 {
