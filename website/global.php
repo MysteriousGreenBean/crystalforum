@@ -419,6 +419,8 @@ if(!empty($theme_stylesheets) && is_array($theme['disporder']))
 		}
 	}
 }
+echo "<!-- Stylesheet URL:  -->\n";
+
 
 
 if(!empty($css_php_script_stylesheets))
