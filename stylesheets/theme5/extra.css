@@ -53,6 +53,8 @@
     border: 3px solid var(--main-color);
     border-radius: 10px;
     margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
     cursor: pointer; /* Makes it clear it's interactive */
 }
 

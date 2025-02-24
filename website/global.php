@@ -52,34 +52,34 @@ $mybb->session = &$session;
 $mybb->user['ismoderator'] = is_moderator(0, '', $mybb->user['uid']);
 
 // Check if user is in group 8 (either primary or additional) [Mistrz Gry]
-$mybb->user['is_in_group_8'] = false;
+$mybb->user['is_MG'] = false;
 
 // Primary group check
 if ($mybb->user['usergroup'] == 8) {
-    $mybb->user['is_in_group_8'] = true;
+    $mybb->user['is_MG'] = true;
 }
 
 // Additional groups check (only if additionalgroups is not empty)
 elseif (!empty($mybb->user['additionalgroups'])) {
     $additional_groups = explode(",", $mybb->user['additionalgroups']);
     if (in_array("8", $additional_groups)) {
-        $mybb->user['is_in_group_8'] = true;
+        $mybb->user['is_MG'] = true;
     }
 }
 
 // Check if user is in groups 3, 4, or 6 (either primary or additional) [Super Mod, Admin, Moderator]
-$mybb->user['is_in_groups_3_4_6'] = false;
+$mybb->user['is_Mod'] = false;
 
 // Primary group check
 if (in_array($mybb->user['usergroup'], [3, 4, 6])) {
-    $mybb->user['is_in_groups_3_4_6'] = true;
+    $mybb->user['is_Mod'] = true;
 }
 
 // Additional groups check
 elseif (!empty($mybb->user['additionalgroups'])) {
     $additional_groups = explode(",", $mybb->user['additionalgroups']);
     if (array_intersect([3, 4, 6], $additional_groups)) {
-        $mybb->user['is_in_groups_3_4_6'] = true;
+        $mybb->user['is_Mod'] = true;
     }
 }
 

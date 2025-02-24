@@ -110,6 +110,7 @@ td[class^=trow]{border:none;}
 }
 
 .ucp_avatar img{
+	width: 156px;
 	height: 250px;
 	border-radius: 100px;
 	border: var(--main-border);
@@ -158,7 +159,7 @@ td[class^=trow]{border:none;}
 }
 
 .ucp_avinfo {
-	background: var(--accent2-color);
+	background: var(--new-status-icon-color);
 	border: var(--main-border);
 	box-shadow: var(--main-shadow);
 	padding: 10px;
