@@ -86,11 +86,6 @@ jobs:
           ls
           bye
           EOF
-
-
-      - name: Wait for files to settle
-        run: |
-          sleep 3
       
       - name: Unzip website on the server to root folder
         run: |
