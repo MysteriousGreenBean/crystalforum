@@ -82,7 +82,7 @@ jobs:
         run: |
           lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
           set ssl:verify-certificate no
-          mirror -R ./upload_folder
+          mput ./upload_folder/*
           ls
           bye
           EOF
