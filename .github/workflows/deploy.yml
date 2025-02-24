@@ -86,6 +86,11 @@ jobs:
           bye
           EOF
 
+
+      - name: Wait for files to settle
+        run: |
+          sleep 3
+      
       - name: Unzip website on the server to root folder
         run: |
           curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
