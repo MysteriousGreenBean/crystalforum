@@ -245,6 +245,7 @@ class tplcond {
 	
 }
 
+
 if(function_exists('preg_replace_callback_array'))
 	// for PHP 7 ver, we don't need to unescape backslashes added by eval
 	tplcond::$_expr_unesc = array('\\"' => '"', '\\\\' => '\\');

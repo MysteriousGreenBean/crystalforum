@@ -51,6 +51,40 @@ $mybb->session = &$session;
 
 $mybb->user['ismoderator'] = is_moderator(0, '', $mybb->user['uid']);
 
+// Check if user is in group 8 (either primary or additional) [Mistrz Gry]
+$mybb->user['is_MG'] = false;
+
+// Primary group check
+if ($mybb->user['usergroup'] == 8) {
+    $mybb->user['is_MG'] = true;
+}
+
+// Additional groups check (only if additionalgroups is not empty)
+elseif (!empty($mybb->user['additionalgroups'])) {
+    $additional_groups = explode(",", $mybb->user['additionalgroups']);
+    if (in_array("8", $additional_groups)) {
+        $mybb->user['is_GM'] = true;
+    }
+}
+
+// Check if user is in groups 3, 4, or 6 (either primary or additional) [Super Mod, Admin, Moderator]
+$mybb->user['is_Mod'] = false;
+
+// Primary group check
+if (in_array($mybb->user['usergroup'], [3, 4, 6])) {
+    $mybb->user['is_Mod'] = true;
+}
+
+// Additional groups check
+elseif (!empty($mybb->user['additionalgroups'])) {
+    $additional_groups = explode(",", $mybb->user['additionalgroups']);
+    if (array_intersect([3, 4, 6], $additional_groups)) {
+        $mybb->user['is_Mod'] = true;
+    }
+}
+
+
+
 // Set our POST validation code here
 $mybb->post_code = generate_post_check();
 
@@ -122,6 +156,7 @@ if(isset($mybb->input['theme']) && verify_post_check($mybb->get_input('my_post_k
 		'usergroup'	=> $mybb->user['usergroup'],
 		'additionalgroups'	=> $mybb->user['additionalgroups']
 	);
+
 
 	$userhandler->set_data($user);
 
