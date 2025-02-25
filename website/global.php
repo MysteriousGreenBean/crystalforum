@@ -63,7 +63,7 @@ if ($mybb->user['usergroup'] == 8) {
 elseif (!empty($mybb->user['additionalgroups'])) {
     $additional_groups = explode(",", $mybb->user['additionalgroups']);
     if (in_array("8", $additional_groups)) {
-        $mybb->user['is_MG'] = true;
+        $mybb->user['is_GM'] = true;
     }
 }
 

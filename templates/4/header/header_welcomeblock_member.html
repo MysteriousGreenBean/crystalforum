@@ -1,6 +1,6 @@
 <div>
 	<!-- Dropdown for Game Masters -->
-	<if $mybb->user['usergroup'] == 8 || $mybb->user['is_MG'] then>
+	<if $mybb->user['usergroup'] == 8 || $mybb->user['is_GM'] then>
 		<div class="nav-item">
 			<a class="desktop_member" title="Narrator">Narrator</a><a class="mobile_member" title="Narrator"><i class="cp cp-book"></i></a>
 			<div class="dd_menu">
@@ -43,7 +43,7 @@
 			<div class="items">
 				<!-- Extra account avatars will be here, with links to switch thems -->
 				<a href="" title="Dodaj konto"><i class="cp cp-add"></i></a>
-				<a href="member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}" title="Wyloguj się"><i class="cp cp-power"></i></a>
+				<a href="{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}" title="Wyloguj się"><i class="cp cp-power"></i></a> 
 			</div>
 		</div>
 	</div>
@@ -57,7 +57,7 @@
 			<div class="items">
 				<!-- Extra account avatars will be here, with links to switch thems -->
 				<a href="" title="Dodaj konto"><i class="cp cp-add"></i></a>
-				<a href="member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}" title="Wyloguj się"><i class="cp cp-power"></i></a>
+				<a href="{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}" title="Wyloguj się"><i class="cp cp-power"></i></a> 
 			</div>
 		</div>
 	</div>
