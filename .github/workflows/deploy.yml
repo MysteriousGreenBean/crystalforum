@@ -69,16 +69,24 @@ jobs:
           zip -r ./upload_folder/website.zip ./website #zip website folder
           zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
           zip -r ./upload_folder/templates.zip ./templates #zip templates folder
+          ls -l ./upload_folder
+
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
       - name: Upload zipped files to the server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./upload_folder/
-
-
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
+          mput ./upload_folder/*
+          ls
+          bye
+          EOF
+      
       - name: Unzip website on the server to root folder
         run: |
           curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
@@ -126,7 +134,7 @@ jobs:
 
       - name: Rebuild stylesheets
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets"
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets&fromconsole=true"
        
   update-templates:
     needs: [update-database, update-files]
@@ -137,7 +145,7 @@ jobs:
 
       - name: Rebuild templates
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true"
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true&fromconsole=true"
 
 
   cleanup:
@@ -149,7 +157,7 @@ jobs:
 
       - name: Remove templates and stylesheets folders
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?cleanup=true"
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?cleanup=true&fromconsole=true"
 
       - name: Remove zip files and PHP cleanup scripts from server
         env:
