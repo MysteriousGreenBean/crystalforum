@@ -3,76 +3,150 @@ document.addEventListener('DOMContentLoaded', function() {
   const postBodies = document.querySelectorAll('.post_body');
 
   function processGeneralContent(postBody) {
-    let content = postBody.innerHTML;
+    // Preserve carousels by wrapping them in a placeholder
+    const carousels = postBody.querySelectorAll('.carousel-wrapper');
 
-    // Preserve lists by wrapping them with a temporary class
-    content = content.replace(/(<ol[\s\S]*?<\/ol>|<ul[\s\S]*?<\/ul>)/gi, function(match) {
-      return `<div class="preserve-list">${match}</div>`;
+    carousels.forEach(carousel => {
+      const placeholder = document.createElement('div');
+      placeholder.classList.add('carousel-placeholder');
+      carousel.parentNode.insertBefore(placeholder, carousel);
+      placeholder.appendChild(carousel);
     });
 
-    // Preserve spoilers by wrapping them with a temporary class
-    content = content.replace(/(<div class="spoiler">[\s\S]*?<\/div>)/gi, function(match) {
-      return `<div class="preserve-spoiler">${match}</div>`;
-    });
+    // Get all child nodes of postBody
+    const childNodes = Array.from(postBody.childNodes);
+    postBody.innerHTML = ''; // Clear to rebuild content
 
-    // Split content by <br> tags while keeping the list and spoiler content intact
-    const parts = content.split(/(<div class="preserve-list">[\s\S]*?<\/div>|<div class="preserve-spoiler">[\s\S]*?<\/div>)/g);
+    let currentParagraph = document.createElement('div');
+    currentParagraph.classList.add('indented');
 
-    // Clear the current content
-    postBody.innerHTML = '';
+    childNodes.forEach((node, index) => {
+      if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('carousel-wrapper')) {
+        // Restore carousel without modifications
+        postBody.appendChild(node);
+      } else if (node.nodeType === Node.ELEMENT_NODE && (
+          node.tagName === 'OL' || 
+          node.tagName === 'UL' || 
+          node.tagName === 'BLOCKQUOTE' || 
+          node.tagName === 'PRE' || 
+          node.classList.contains('spoiler'))) {
+        // Append structured elements as they are
+        if (currentParagraph.childNodes.length > 0) {
+          postBody.appendChild(currentParagraph);
+          currentParagraph = document.createElement('div');
+          currentParagraph.classList.add('indented');
+        }
+        postBody.appendChild(node);
+      } else if (node.nodeType === Node.ELEMENT_NODE && /^H[1-6]$/.test(node.tagName)) {
+        // **Fix for extra <br> under headings**
+        if (currentParagraph.childNodes.length > 0) {
+          postBody.appendChild(currentParagraph);
+        }
+        postBody.appendChild(node);
+        currentParagraph = document.createElement('div');
+        currentParagraph.classList.add('indented');
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'DIV') {
+        // **Ensure text-only <div> gets indented**
+        const containsOnlyTextOrInline = [...node.childNodes].every(child =>
+          child.nodeType === Node.TEXT_NODE || 
+          (child.nodeType === Node.ELEMENT_NODE && ['SPAN', 'I', 'B', 'A', 'STRONG', 'U', 'ITALIC', 'STROKE'].includes(child.tagName))
+        );
 
-    parts.forEach(part => {
-      if (/^<div class="preserve-list">/.test(part) || /^<div class="preserve-spoiler">/.test(part)) {
-        // Append preserved lists and spoilers directly
-        postBody.innerHTML += part.replace(/^<div class="preserve-list">/, '').replace(/^<div class="preserve-spoiler">/, '').replace(/<\/div>$/, '');
-      } else {
-        // Split non-list, non-spoiler content by <br> tags
-        const paragraphs = part.split(/<br\s*\/?>/);
+        if (containsOnlyTextOrInline) {
+          node.classList.add('indented'); // Instead of replacing, just add the class
+          postBody.appendChild(node);
+        } else {
+          postBody.appendChild(node); // Otherwise, leave it untouched
+        }
+      } else if (node.nodeType === Node.TEXT_NODE || (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR')) {
+        // **Fix: Ignore single <br> right after a heading or image**
+        if (
+          node.tagName === 'BR' && index > 0 &&
+          (
+            /^H[1-6]$/.test(childNodes[index - 1].tagName) ||  // Heading before <br>
+            (childNodes[index - 1].nodeType === Node.ELEMENT_NODE && childNodes[index - 1].tagName === 'IMG') // Image before <br>
+          )
+        ) {
+          return; // Skip this <br>
+        }
 
-        // Wrap each paragraph in a div with the 'indented' class
-        paragraphs.forEach(paragraph => {
-          const trimmedParagraph = paragraph.trim();
-          if (trimmedParagraph) {
-            const div = document.createElement('div');
-            div.classList.add('indented');
-            div.innerHTML = trimmedParagraph;
-            postBody.appendChild(div);
+        // If it's a <br>, close the current paragraph and start a new one
+        if (node.tagName === 'BR' && currentParagraph.childNodes.length > 0) {
+          postBody.appendChild(currentParagraph);
+          currentParagraph = document.createElement('div');
+          currentParagraph.classList.add('indented');
+        } else {
+          currentParagraph.appendChild(node.cloneNode(true));
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // If it's an inline element, keep it inside the same paragraph
+        if (['I', 'B', 'A', 'STRONG', 'U', 'ITALIC', 'STROKE', 'SPAN'].includes(node.tagName)) {
+          currentParagraph.appendChild(node.cloneNode(true));
+        } else {
+          // If it's a block element, close the current paragraph and append it separately
+          if (currentParagraph.childNodes.length > 0) {
+            postBody.appendChild(currentParagraph);
+            currentParagraph = document.createElement('div');
+            currentParagraph.classList.add('indented');
           }
-        });
+          postBody.appendChild(node);
+        }
+      }
+    });
+
+    // Append any remaining paragraph content
+    if (currentParagraph.childNodes.length > 0) {
+      postBody.appendChild(currentParagraph);
+    }
+
+    // Restore `.carousel-wrapper` to its original position
+    postBody.querySelectorAll('.carousel-placeholder').forEach(placeholder => {
+      const carousel = placeholder.querySelector('.carousel-wrapper');
+      if (carousel) {
+        placeholder.replaceWith(carousel);
       }
     });
   }
 
   function addIndentationToSpoilerContent() {
-    // Select all spoiler contents
     const spoilerContents = document.querySelectorAll('.spoiler .spoiler_content');
     
     spoilerContents.forEach(content => {
-      // Process only if content is not already processed
       if (!content.classList.contains('processed')) {
-        // Mark as processed to avoid multiple processing
         content.classList.add('processed');
 
-        // Create a temporary container
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = content.innerHTML;
+        const childNodes = Array.from(content.childNodes);
+        content.innerHTML = ''; // Clear to reprocess
 
-        // Split content by <br> tags
-        const parts = tempDiv.innerHTML.split(/<br\s*\/?>/);
+        let currentParagraph = document.createElement('div');
+        currentParagraph.classList.add('indented');
 
-        // Clear current content
-        content.innerHTML = '';
-
-        // Wrap each part in a div with the 'indented' class
-        parts.forEach(part => {
-          const trimmedPart = part.trim();
-          if (trimmedPart) {
-            const div = document.createElement('div');
-            div.classList.add('indented');
-            div.innerHTML = trimmedPart;
-            content.appendChild(div);
+        childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE || (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR')) {
+            if (node.tagName === 'BR' && currentParagraph.childNodes.length > 0) {
+              content.appendChild(currentParagraph);
+              currentParagraph = document.createElement('div');
+              currentParagraph.classList.add('indented');
+            } else {
+              currentParagraph.appendChild(node.cloneNode(true));
+            }
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            if (['I', 'B', 'A', 'STRONG', 'U', 'ITALIC', 'STROKE', 'SPAN'].includes(node.tagName)) {
+              currentParagraph.appendChild(node.cloneNode(true));
+            } else {
+              if (currentParagraph.childNodes.length > 0) {
+                content.appendChild(currentParagraph);
+                currentParagraph = document.createElement('div');
+                currentParagraph.classList.add('indented');
+              }
+              content.appendChild(node);
+            }
           }
         });
+
+        if (currentParagraph.childNodes.length > 0) {
+          content.appendChild(currentParagraph);
+        }
       }
     });
   }
@@ -81,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
   postBodies.forEach(postBody => {
     processGeneralContent(postBody);
   });
-  
-  // After processing the general content, handle spoilers
+
+  // Process indentation for spoilers
   addIndentationToSpoilerContent();
 });
