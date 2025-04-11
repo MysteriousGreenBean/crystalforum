@@ -1,0 +1,8 @@
+{
+    "monitoredTables": [
+        "mybb_mycode",
+        "mybb_usergroups",
+        "mybb_settinggroups",
+        "mybb_settings"
+    ]
+}
