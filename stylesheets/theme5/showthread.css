@@ -232,6 +232,7 @@ h6 {
 	margin: auto;
 	width: 100%;
 	text-align: center;
+	table-layout: fixed;
 	box-shadow: var(--shadow-text);
 	border-collapse: separate;
 	border-spacing: 1; /* Keeps it clean */
@@ -243,7 +244,7 @@ h6 {
 	background-image: var(--button-bg);
 	font-family: var(--thead-font);
 	font-size: 1.25rem;
-	padding: 5px;
+	padding: 10px;
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
 }
