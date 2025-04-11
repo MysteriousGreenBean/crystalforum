@@ -1,0 +1,94 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Start containers",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Start containers",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "name": "Stop containers",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Stop containers",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "name": "Restart containers",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Restart containers",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "name": "Purge containers",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Purge containers",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "name": "Create database changeset",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Database Dump Changes",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "name": "Make database Snapshot",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Database Snapshot",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        { 
+            "name": "Database update",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Database Update",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "name": "View container logs",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "View Logs",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+    ]
+}

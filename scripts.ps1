@@ -20,6 +20,10 @@ function Restart-Containers {
     docker-compose up -d
 }
 
+function Purge-Containers {
+    docker-compose down --rmi all --volumes --remove-orphans
+}
+
 function View-Logs {
     docker-compose logs -f
 }
@@ -29,7 +33,7 @@ function Database-Update {
 }
 
 function Database-Snapshot {
-    # docker-compose run liquibase snapshot --snapshot-format=JSON --output-file=database_before.json --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root
+    docker-compose run liquibase snapshot --snapshot-format=JSON --output-file=database_before.json --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root
     $masterStatus = docker exec mybb_mariadb mariadb -uroot -proot -e "SHOW MASTER STATUS;"
     $masterStatusArray = $masterStatus -split "`n" | Select-Object -Skip 1 | ForEach-Object {
         $columns = $_ -split "`t"
@@ -39,7 +43,6 @@ function Database-Snapshot {
         }
     }
     $masterStatusArray | ConvertTo-Json | Out-File -FilePath ./docker/liquibase/database_snapshot.json -Encoding utf8
-
 }
 
 function Process-BinlogChanges {
@@ -94,8 +97,22 @@ function Create-Changeset {
     [xml]$xml = Get-Content -Path $changelogFile
     $nsUri = $xml.DocumentElement.NamespaceURI
 
+    $generatedSQL = Get-Content -Path $inputPath -Raw
+    $generatedSQL = $generatedSQL.TrimEnd();
+
     $changeSets = $xml.databaseChangeLog.changeSet
     $lastChangeSet = $changeSets[-1]
+
+    if ([string]::IsNullOrWhiteSpace($generatedSQL)) {
+        Write-Host -ForegroundColor Yellow  "Generated SQL is empty. No new changeSet created."
+        return
+    }
+
+    if ($lastChangeSet.InnerText -eq $generatedSQL) {
+        Write-Host -ForegroundColor Yellow "Last changeSet is identical to the generated SQL. No new changeSet created."
+        return
+    }
+
     $lastId = $lastChangeSet.id
 
     $lastIdParts = $lastId -split '-'
@@ -109,8 +126,7 @@ function Create-Changeset {
     $changeSet.SetAttribute("author", $author)
     
     $sqlNode = $xml.CreateElement("sql", $nsUri)
-    $sqlNode.InnerText = Get-Content -Path $inputPath -Raw
-
+    $sqlNode.InnerText = $generatedSQL.TrimEnd()
     $changeSet.AppendChild($sqlNode) | Out-Null
     $xml.databaseChangeLog.AppendChild($changeSet) | Out-Null
 
@@ -167,6 +183,7 @@ switch ($args[0]) {
     "start" { Start-Containers }
     "stop" { Stop-Containers }
     "restart" { Restart-Containers }
+    "purge" { Purge-Containers }
     "logs" { View-Logs }
     "database-update" { Database-Update }
     "database-snapshot" { Database-Snapshot }
