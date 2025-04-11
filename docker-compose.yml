@@ -61,7 +61,7 @@ services:
       LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
     networks:
       - mybb_network
-    command: ["sh", "-c", "liquibase update && liquibase snapshot --snapshot-format=JSON --output-file=resources/database_before.json"]
+    command: ["sh", "-c", "liquibase update"]
 
 networks:
   mybb_network:
