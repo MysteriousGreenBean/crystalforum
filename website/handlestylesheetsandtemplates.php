@@ -9,57 +9,6 @@ if (isset($_GET['fromconsole']) && $_GET['fromconsole'] == "true") {
     $endline = "\n";
 }
 
-function update_template($sid, $updatedFilename) {
-    global $db;
-    // transform to docker path
-    $pattern = '/.*\/templates\//';
-    preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/templates/", $updatedFilename);
-
-    if (is_file($updatedFilename)) {
-        $updatedFile = file_get_contents($updatedFilename);
-        $fileName = pathinfo($updatedFilename, PATHINFO_FILENAME);
-        $query = $db->simple_select("templates", "tid, template", "title = '".$db->escape_string($fileName) . "' AND sid = ". $sid);
-
-        if ($template = $db->fetch_array($query)) {
-            $updated_template = array(
-                "template" => $db->escape_string($updatedFile),
-                "dateline" => TIME_NOW
-            );
-            $db->update_query("templates", $updated_template, "tid=".$template['tid']);
-        } 
-    }
-}
-
-function update_stylesheet($tid, $updatedFilename) {
-    global $db;
-    global $endline;
-
-    // transform to docker path
-    $pattern = '/.*\/stylesheets\//';
-    preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/stylesheets/", $updatedFilename);
-
-    echo "Updated file path: ".$updatedFilename." and tid: $tid".$endline;
-
-    if (is_file($updatedFilename)) {
-        $updatedFile = file_get_contents($updatedFilename);
-        $fileName = pathinfo($updatedFilename, PATHINFO_BASENAME);
-
-        $query = $db->simple_select("themestylesheets", "sid, stylesheet", "cachefile = '".$db->escape_string($fileName) . "' AND tid = ". $tid);
-
-        if ($stylesheet = $db->fetch_array($query)) {
-            $updated_stylesheet = array(
-                "stylesheet" => $db->escape_string($updatedFile),
-                "lastmodified" => TIME_NOW
-            );
-            $db->update_query("themestylesheets", $updated_stylesheet, "sid=".$stylesheet['sid']);
-
-            cache_stylesheet($tid, $fileName, $updatedFile);
-        } 
-    }
-}
-
 function rebuild_stylesheets_cache_for_all_themes() {
     global $db;
     global $endline;
@@ -93,6 +42,8 @@ function rebuild_stylesheet_cache_for_specific_theme($themeid, $cachefile) {
 function rebuild_templates_in_category($category, $sid) {
     global $db;
 
+    $sid = (int)$sid; 
+
     $templateFiles = array_diff(scandir($category), array(".", ".."));
     $templateInserts = array();
     foreach ($templateFiles as $templateFile) {
@@ -122,6 +73,8 @@ function rebuild_templates_in_directory($directory, $sid) {
 function rebuild_stylesheets_in_directory($directory, $tid) {
     global $db;
     global $endline;
+
+    $tid = (int)$tid; 
 
     echo "Rebuilding stylesheets in directory: $directory with tid: $tid".$endline;
     $files = array_diff(scandir($directory), array(".", ".."));
@@ -234,6 +187,7 @@ function rebuild_all_stylesheets() {
 }
 
 function deleteDirectory($dir) {
+    global $endline;
     // Check if the directory exists
     if (!is_dir($dir)) {
         echo "The directory does not exist: $dir".$endline;
