@@ -3112,4 +3112,58 @@
       <column defaultValueComputed="0" name="visible" />
     </createIndex>
   </changeSet>
+  <changeSet id="1737906077485-1" author="Anna Podlasek">
+    <sql>INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H1','','\\[h1\\](.*?)\\[/h1\\]','&lt;h1&gt;$1&lt;/h1&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H2','','\\[h2\\](.*?)\\[/h2\\]','&lt;h2&gt;$1&lt;/h2&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H3','','\\[h3\\](.*?)\\[/h3\\]','&lt;h3&gt;$1&lt;/h3&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H4','','\\[h4\\](.*?)\\[/h4\\]','&lt;h4&gt;$1&lt;/h4&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H5','','\\[h5\\](.*?)\\[/h5\\]','&lt;h5&gt;$1&lt;/h5&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H6','','\\[h6\\](.*?)\\[/h6\\]','&lt;h6&gt;$1&lt;/h6&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Spis treÅ›ci','','\\[spis\\](.*?)\\[/spis\\]','&lt;h3&gt;Spis treÅ›ci &lt;i class=\"cp cp-minus opener\"&gt;&lt;/i&gt;&lt;/h3&gt;\r\n&lt;div class=\"content_list\"&gt;$1&lt;/div&gt;&lt;br/&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Opis w spisie','','\\[spis-opis\\](.*?)\\[/spis-opis\\]','&lt;div class=\"heading_description\"&gt;$1&lt;/div&gt;',1,0);
+UPDATE mybb_mycode SET `title`='Opis w spisie', `description`='', `regex`='\\[spisopis\\](.*?)\\[/spisopis\\]', `replacement`='&lt;div class=\"heading_description\"&gt;$1&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='14';
+UPDATE mybb_mycode SET `title`='Opis w spisie', `description`='', `regex`='\\[sopis\\](.*?)\\[/sopis\\]', `replacement`='&lt;div class=\"heading_description\"&gt;$1&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='14';
+UPDATE mybb_mycode SET `title`='Opis w spisie', `description`='', `regex`='\\[sopis\\](.*?)\\[/sopis\\]', `replacement`='&lt;div class=\"heading_description\"&gt;$1&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='14';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('BR','','\\[br\\]','&lt;br/&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Pierwsza litera','','\\[a\\](.*?)\\[/a\\]','&lt;i class=\"first_letter\"&gt;$1&lt;/i&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Akapit bez wciÄ™cia','','\\[p\\](.*?)\\[/p\\]','&lt;div class=\"no_indent\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Specjalna lista','','\\[list=special\\](.*?)\\[/list\\]','&lt;div class=\"special_list\"&gt;&lt;li&gt;$1&lt;/li&gt;&lt;/div&gt;',1,0);
+UPDATE mybb_mycode SET `title`='Specjalna lista', `description`='', `regex`='\\[list=special\\](.*?)\\[/list\\]', `replacement`='&lt;div class=\"special_list\"&gt;&lt;li class=\"mycode_list\"&gt;$1&lt;/li&gt;&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='18';
+UPDATE mybb_mycode SET `title`='Specjalna lista', `description`='', `regex`='\\[list=special\\](.*?)\\[/list\\]', `replacement`='&lt;li class=\"mycode_list special_list\"&gt;$1&lt;/li&gt;', `active`=1, `parseorder`=0 WHERE cid='18';
+UPDATE mybb_mycode SET `title`='Specjalna lista', `description`='', `regex`='\\[list=special\\](.*?)\\[/list\\]', `replacement`='&lt;ol class=\"mycode_list special_list\"&gt;$1&lt;/ol&gt;', `active`=1, `parseorder`=0 WHERE cid='18';
+UPDATE mybb_mycode SET `title`='Specjalna lista', `description`='', `regex`='\\[list=special\\](.*?)\\[/list\\]', `replacement`='&lt;ul class=\"mycode_list special_list\"&gt;$1&lt;/ul&gt;', `active`=1, `parseorder`=0 WHERE cid='18';
+UPDATE mybb_mycode SET `title`='Specjalna lista', `description`='', `regex`='\\[list=special\\](.*?)\\[/list\\]', `replacement`='&lt;div class=\" special_list\"&gt;&lt;ul class=\"mycode_list\"&gt;$1&lt;/ul&gt;&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='18';
+UPDATE mybb_mycode SET `title`='Specjalna lista', `description`='', `regex`='\\[sp\\](.*?)\\[/sp\\]', `replacement`='&lt;div class=\" special_list\"&gt;$1&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='18';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Karuzela','','\\[karuzela\\](.*?)\\[/karuzela\\]','&lt;div class=\"carousel-wrapper\"&gt;&lt;div class=\"carousel\"&gt;$1&lt;button class=\"carousel-btn prev-btn\"&gt;â®&lt;/button&gt;&lt;button class=\"carousel-btn next-btn\"&gt;â¯&lt;/button&gt;&lt;/div&gt;&lt;div class=\"carousel-indicators\"&gt;&lt;/div&gt;&lt;/div&gt;&lt;br/&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('URL Blank','','\\[urlb=(.*?)\\](.*?)\\[/url\\]','&lt;a href=\"$1\" target=\"_blank\"&gt;$2&lt;/a&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Karuzela img 1','','\\[img=1\\](.*?)\\[/img\\]','&lt;img src=\"$1\" alt=\"Image 1\" class=\"carousel-image active\"&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Karuzela img','','\\[img=(.*?)\\](.*?)\\[/img\\]','&lt;img src=\"$2\" alt=\"Image $1\" class=\"carousel-image\"&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Lokacja obraz','','\\[img=l\\](.*?)\\[/img\\]','&lt;img class=\"location\" src=\"$1\"&gt;',1,0);
+UPDATE mybb_mycode SET `title`='Lokacja obraz', `description`='', `regex`='\\[imgl\\](.*?)\\[/img\\]', `replacement`='&lt;img class=\"location\" src=\"$1\"&gt;', `active`=1, `parseorder`=0 WHERE cid='23';
+UPDATE mybb_mycode SET `title`='Lokacja obraz', `description`='', `regex`='\\[imgl\\](.*?)\\[/imgl\\]', `replacement`='&lt;img class=\"location\" src=\"$1\"&gt;', `active`=1, `parseorder`=0 WHERE cid='23';
+UPDATE mybb_mycode SET `title`='Lokacja obraz', `description`='', `regex`='\\[lokacja\\](.*?)\\[/lokacja\\]', `replacement`='&lt;img class=\"location\" src=\"$1\"&gt;', `active`=1, `parseorder`=0 WHERE cid='23';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Tabela','','\\[table\\](.*?)\\[/table\\]','&lt;table&gt;$1&lt;/table&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('TR','','\\[tr\\](.*?)\\[/tr\\]','&lt;tr&gt;$1&lt;/tr&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('TD','','\\[td\\](.*?)\\[/td\\]','&lt;td&gt;$1&lt;/td&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('TH','','\\[th\\](.*?)\\[/th\\]','&lt;th&gt;$1&lt;/th&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('TR colspan','','\\[tr=(.*?)\\](.*?)\\[/b\\]','&lt;tr colspan=\"$1\"&gt;$2&lt;/tr&gt;',1,0);
+UPDATE mybb_mycode SET `title`='TD colspan', `description`='', `regex`='\\[td=(.*?)\\](.*?)\\[/td\\]', `replacement`='&lt;td colspan=\"$1\"&gt;$2&lt;/td&gt;', `active`=1, `parseorder`=0 WHERE cid='28';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('TD rowspan','','\\[td rowspan=(.*?)\\](.*?)\\[/td\\]','&lt;td rowspan=\"$1\"&gt;$2&lt;/td&gt;',1,0);
+UPDATE mybb_mycode SET `title`='TD colspan', `description`='', `regex`='\\[td colspan=(.*?)\\](.*?)\\[/td\\]', `replacement`='&lt;td colspan=\"$1\"&gt;$2&lt;/td&gt;', `active`=1, `parseorder`=0 WHERE cid='28';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('TH colspan','','\\[th colspan=(.*?)\\](.*?)\\[/b\\]','&lt;th colspan=\"$1\"&gt;$2&lt;/th&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('TH rowspan','','\\[th rowspan=(.*?)\\](.*?)\\[/th\\]','&lt;th rowspan=\"$1\"&gt;$2&lt;/th&gt;',1,0);
+UPDATE mybb_mycode SET `title`='TH colspan', `description`='', `regex`='\\[th colspan=(.*?)\\](.*?)\\[/th\\]', `replacement`='&lt;th colspan=\"$1\"&gt;$2&lt;/th&gt;', `active`=1, `parseorder`=0 WHERE cid='30';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka','','\\[ramka\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_solid\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka dashed','','\\[ramka=dashed\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_dashed\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka dotted','','\\[ramka=dotted\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_dotted\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka double','','\\[ramka=double\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_double\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka 3D','','\\[ramka=3D\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_double\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box','','\\[infobox\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_solid_green\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Dashed','','\\[infobox=dashed\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_dashed_green\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Dotted','','\\[infobox=dotted\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_dotted_green\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Double','','\\[infobox=double\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_double_green\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box 3D','','\\[infobox=3D\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_3D_green\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box in','','\\[infobox=in\\](.*?)\\[/infobox\\]','&lt;div class=\"notif_in\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Out','','\\[infobox=out\\](.*?)\\[/infobox\\]','&lt;div class=\"notif_out\"&gt;$1&lt;/div&gt;',1,0);</sql>
+  </changeSet>
 </databaseChangeLog>
