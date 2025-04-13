@@ -31,6 +31,7 @@
 	padding: 10px;
 	margin-top: 10px;
 	margin-bottom: 12px;
+	box-shadow: var(--main-shadow);
 }
 
 .mycode_list {
@@ -154,4 +155,15 @@ blockquote cite span.highlight {
 
 .spoiler .no_indent {
 	text-indent: 0px;
+}
+
+.mycode_img {
+	margin: 10px;
+	border: 2px solid var(--main-color);
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	margin-top: 10px;
+	max-height: 350px;
 }

@@ -61,12 +61,14 @@
   },
   "editpost.php": {
     "global": [
-      "stylesheets/theme5/responsivity.css"
+      "stylesheets/theme5/responsivity.css",
+      "stylesheets/theme5/showthread.css"
     ]
   },
   "newreply.php": {
     "global": [
-      "stylesheets/theme5/responsivity.css"
+      "stylesheets/theme5/responsivity.css",
+      "stylesheets/theme5/showthread.css"
     ]
   }
 }

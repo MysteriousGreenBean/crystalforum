@@ -12,6 +12,7 @@ body {
 	font-family: var(--main-font);
 	font-size: 13px;
 	overflow-y: scroll;
+	text-shadow: var(--shadow-text);
 }
 
 @media only screen and (max-width: 700px) {
@@ -2202,10 +2203,6 @@ div.jqi .jqisubstate .jqibuttons button {
     text-align: justify;
 }
 
-.indented {
-    text-indent: 2em;
-    margin-top: 5px;
-}
 
 /* Newreply */
 .newreply {
@@ -2758,6 +2755,7 @@ div.jqi .jqisubstate .jqibuttons button {
     text-align: center; /* Center text within items */
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
 	max-width: 80%;
+	text-shadow: none;
 }
 
 .profile_links a {
@@ -3032,4 +3030,8 @@ div.jqi .jqisubstate .jqibuttons button {
 .player_avatar_container {
 	margin: 5px;
     padding: 5px;
+}
+
+.gradient {
+	background-image: var(--button-bg);
 }
