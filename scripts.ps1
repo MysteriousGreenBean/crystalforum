@@ -29,7 +29,7 @@ function View-Logs {
 }
 
 function Database-Update {
-    docker-compose run liquibase update
+    docker-compose run liquibase update --changelog-file "./docker/liquibase/changelog/db.changelog.xml"
 }
 
 function Database-Snapshot {

@@ -9,57 +9,6 @@ if (isset($_GET['fromconsole']) && $_GET['fromconsole'] == "true") {
     $endline = "\n";
 }
 
-function update_template($sid, $updatedFilename) {
-    global $db;
-    // transform to docker path
-    $pattern = '/.*\/templates\//';
-    preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/templates/", $updatedFilename);
-
-    if (is_file($updatedFilename)) {
-        $updatedFile = file_get_contents($updatedFilename);
-        $fileName = pathinfo($updatedFilename, PATHINFO_FILENAME);
-        $query = $db->simple_select("templates", "tid, template", "title = '".$db->escape_string($fileName) . "' AND sid = ". $sid);
-
-        if ($template = $db->fetch_array($query)) {
-            $updated_template = array(
-                "template" => $db->escape_string($updatedFile),
-                "dateline" => TIME_NOW
-            );
-            $db->update_query("templates", $updated_template, "tid=".$template['tid']);
-        } 
-    }
-}
-
-function update_stylesheet($tid, $updatedFilename) {
-    global $db;
-    global $endline;
-
-    // transform to docker path
-    $pattern = '/.*\/stylesheets\//';
-    preg_match($pattern, $updatedFilename, $matches);
-    $updatedFilename = str_replace($matches[0], "/stylesheets/", $updatedFilename);
-
-    echo "Updated file path: ".$updatedFilename." and tid: $tid".$endline;
-
-    if (is_file($updatedFilename)) {
-        $updatedFile = file_get_contents($updatedFilename);
-        $fileName = pathinfo($updatedFilename, PATHINFO_BASENAME);
-
-        $query = $db->simple_select("themestylesheets", "sid, stylesheet", "cachefile = '".$db->escape_string($fileName) . "' AND tid = ". $tid);
-
-        if ($stylesheet = $db->fetch_array($query)) {
-            $updated_stylesheet = array(
-                "stylesheet" => $db->escape_string($updatedFile),
-                "lastmodified" => TIME_NOW
-            );
-            $db->update_query("themestylesheets", $updated_stylesheet, "sid=".$stylesheet['sid']);
-
-            cache_stylesheet($tid, $fileName, $updatedFile);
-        } 
-    }
-}
-
 function rebuild_stylesheets_cache_for_all_themes() {
     global $db;
     global $endline;
@@ -210,16 +159,28 @@ function get_sid_from_directory($directory) {
 }
 
 function get_tid_from_directory($directory) {
+    if ($directory == 'global_templates')
+        return -1;
+    if ($directory == 'master_templates')
+        return -2;
+
     $pattern = '/(\d+)/';
     preg_match($pattern, $directory, $matches);
     return $matches[1];
 }
 
 function rebuild_all_templates() {
+    global $endline;
+
     $templatesDirectory = __DIR__."/templates/";
     $directories = array_diff(scandir($templatesDirectory), array(".", ".."));
     foreach ($directories as $directory) {
-       rebuild_templates_in_directory($templatesDirectory.$directory, get_tid_from_directory($directory));
+        $fullPath = $templatesDirectory.$directory;
+        if (!is_dir($fullPath)) {
+            echo "Skipping non-directory: $directory".$endline;
+            continue;
+        }
+       rebuild_templates_in_directory($fullPath, get_tid_from_directory($directory));
     }
 }
 
@@ -234,6 +195,7 @@ function rebuild_all_stylesheets() {
 }
 
 function deleteDirectory($dir) {
+    global $endline;
     // Check if the directory exists
     if (!is_dir($dir)) {
         echo "The directory does not exist: $dir".$endline;
@@ -271,14 +233,16 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
         echo "Force rebuild templates $endline";
         $db->delete_query("templates", "1=1");
         $db->write_query("ALTER TABLE mybb_templates AUTO_INCREMENT = 1");
-        echo "Cleared templates table, rebuilding templates".$endline;
+        echo "Cleared templates table, rebuilding templates...".$endline;
         rebuild_all_templates();
+        echo "Rebuilding templates finished successfully".$endline;
     } else {
         if ($db->fetch_array($query)) {
             echo "Templates already exist in the database, rebuild unnecessary".$endline;
         } else {
-            echo "Templates do not exist in the database, rebuilding".$endline;
+            echo "Templates do not exist in the database, rebuilding...".$endline;
             rebuild_all_templates();
+            echo "Rebuilding templates finished successfully".$endline;
         }
     }
 }
