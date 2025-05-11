@@ -89,15 +89,30 @@ jobs:
       
       - name: Unzip website on the server to root folder
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
+          response=$(curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current")
+          echo "$response"
+          if echo "$response" | grep -Eqi "error|failed"; then
+            echo "Error detected."
+          exit 1
+          fi
 
       - name: Unzip stylesheets on the server to stylesheets folder
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target="
+          response=$(curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target=")
+          echo "$response"
+          if echo "$response" | grep -Eqi "error|failed"; then
+            echo "Error detected."
+          exit 1
+          fi
 
       - name: Unzip templates on the server to templates folder
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
+          response=$(curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target=")
+          echo "$response"
+          if echo "$response" | grep -Eqi "error|failed"; then
+            echo "Error detected."
+          exit 1
+          fi
 
   update-stylesheets:
     needs: [update-database, update-files]
@@ -134,7 +149,12 @@ jobs:
 
       - name: Rebuild stylesheets
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets&fromconsole=true"
+          response=$(curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets&fromconsole=true")
+          echo "$response"
+          if echo "$response" | grep -Eqi "error|failed"; then
+            echo "Error detected."
+          exit 1
+          fi
        
   update-templates:
     needs: [update-database, update-files]
@@ -145,7 +165,12 @@ jobs:
 
       - name: Rebuild templates
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true&fromconsole=true"
+          response=$(curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true&fromconsole=true")
+          echo "$response"
+          if echo "$response" | grep -Eqi "error|failed"; then
+            echo "Error detected."
+          exit 1
+          fi
 
 
   cleanup:
@@ -157,7 +182,13 @@ jobs:
 
       - name: Remove templates and stylesheets folders
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?cleanup=true&fromconsole=true"
+            response=$(curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?cleanup=true&fromconsole=true")
+            echo "$response"
+            if echo "$response" | grep -Eqi "error|failed"; then
+              echo "Error detected."
+            exit 1
+            fi
+
 
       - name: Remove zip files and PHP cleanup scripts from server
         env:

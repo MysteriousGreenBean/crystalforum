@@ -6,6 +6,9 @@
 -- Generation Time: Aug 06, 2024 at 10:30 AM
 -- Server version: 11.4.2-MariaDB-ubu2404
 -- PHP Version: 8.2.8
+ALTER DATABASE crystalforum_
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +45,7 @@ CREATE TABLE `DATABASECHANGELOG` (
   `CONTEXTS` varchar(255) DEFAULT NULL,
   `LABELS` varchar(255) DEFAULT NULL,
   `DEPLOYMENT_ID` varchar(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `DATABASECHANGELOG`
@@ -199,7 +202,7 @@ CREATE TABLE `DATABASECHANGELOGLOCK` (
   `LOCKED` tinyint(1) NOT NULL,
   `LOCKGRANTED` datetime DEFAULT NULL,
   `LOCKEDBY` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `DATABASECHANGELOGLOCK`
@@ -220,7 +223,7 @@ CREATE TABLE `mybb_adminlog` (
   `module` varchar(50) NOT NULL DEFAULT '',
   `action` varchar(50) NOT NULL DEFAULT '',
   `data` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_adminlog`
@@ -3341,7 +3344,7 @@ CREATE TABLE `mybb_adminoptions` (
   `loginlockoutexpiry` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `authsecret` varchar(16) NOT NULL DEFAULT '',
   `recovery_codes` varchar(177) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_adminoptions`
@@ -3368,7 +3371,7 @@ CREATE TABLE `mybb_adminsessions` (
   `data` text NOT NULL,
   `useragent` varchar(200) NOT NULL DEFAULT '',
   `authenticated` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_adminsessions`
@@ -3396,7 +3399,7 @@ CREATE TABLE `mybb_adminviews` (
   `sortorder` varchar(4) NOT NULL DEFAULT '',
   `perpage` smallint(4) UNSIGNED NOT NULL DEFAULT 0,
   `view_type` varchar(6) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_adminviews`
@@ -3422,7 +3425,7 @@ CREATE TABLE `mybb_announcements` (
   `allowhtml` tinyint(1) NOT NULL DEFAULT 0,
   `allowmycode` tinyint(1) NOT NULL DEFAULT 0,
   `allowsmilies` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3443,7 +3446,7 @@ CREATE TABLE `mybb_attachments` (
   `dateuploaded` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `visible` tinyint(1) NOT NULL DEFAULT 0,
   `thumbnail` varchar(120) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3463,7 +3466,7 @@ CREATE TABLE `mybb_attachtypes` (
   `groups` text NOT NULL,
   `forums` text NOT NULL,
   `avatarfile` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_attachtypes`
@@ -3506,7 +3509,7 @@ CREATE TABLE `mybb_awaitingactivation` (
   `type` char(1) NOT NULL DEFAULT '',
   `validated` tinyint(1) NOT NULL DEFAULT 0,
   `misc` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3519,7 +3522,7 @@ CREATE TABLE `mybb_badwords` (
   `badword` varchar(100) NOT NULL DEFAULT '',
   `regex` tinyint(1) NOT NULL DEFAULT 0,
   `replacement` varchar(100) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3533,7 +3536,7 @@ CREATE TABLE `mybb_banfilters` (
   `type` tinyint(1) NOT NULL DEFAULT 0,
   `lastuse` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3552,7 +3555,7 @@ CREATE TABLE `mybb_banned` (
   `bantime` varchar(50) NOT NULL DEFAULT '',
   `lifted` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `reason` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3565,7 +3568,7 @@ CREATE TABLE `mybb_buddyrequests` (
   `uid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `touid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `date` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3580,7 +3583,7 @@ CREATE TABLE `mybb_calendarpermissions` (
   `canaddevents` tinyint(1) NOT NULL DEFAULT 0,
   `canbypasseventmod` tinyint(1) NOT NULL DEFAULT 0,
   `canmoderateevents` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3601,7 +3604,7 @@ CREATE TABLE `mybb_calendars` (
   `allowimgcode` tinyint(1) NOT NULL DEFAULT 0,
   `allowvideocode` tinyint(1) NOT NULL DEFAULT 0,
   `allowsmilies` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_calendars`
@@ -3621,7 +3624,7 @@ CREATE TABLE `mybb_captcha` (
   `imagestring` varchar(8) NOT NULL DEFAULT '',
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `used` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_captcha`
@@ -3639,7 +3642,7 @@ INSERT INTO `mybb_captcha` (`imagehash`, `imagestring`, `dateline`, `used`) VALU
 CREATE TABLE `mybb_datacache` (
   `title` varchar(50) NOT NULL DEFAULT '',
   `cache` mediumtext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_datacache`
@@ -3699,7 +3702,7 @@ CREATE TABLE `mybb_delayedmoderation` (
   `tids` text NOT NULL,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `inputs` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3722,7 +3725,7 @@ CREATE TABLE `mybb_events` (
   `ignoretimezone` tinyint(1) NOT NULL DEFAULT 0,
   `usingtime` tinyint(1) NOT NULL DEFAULT 0,
   `repeats` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3755,7 +3758,7 @@ CREATE TABLE `mybb_forumpermissions` (
   `canpostpolls` tinyint(1) NOT NULL DEFAULT 0,
   `canvotepolls` tinyint(1) NOT NULL DEFAULT 0,
   `cansearch` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3805,7 +3808,7 @@ CREATE TABLE `mybb_forums` (
   `defaultdatecut` smallint(4) UNSIGNED NOT NULL DEFAULT 0,
   `defaultsortby` varchar(10) NOT NULL DEFAULT '',
   `defaultsortorder` varchar(4) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_forums`
@@ -3833,7 +3836,7 @@ CREATE TABLE `mybb_forumsread` (
   `fid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `uid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_forumsread`
@@ -3856,7 +3859,7 @@ CREATE TABLE `mybb_forumsubscriptions` (
   `fsid` int(10) UNSIGNED NOT NULL,
   `fid` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `uid` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3871,7 +3874,7 @@ CREATE TABLE `mybb_groupleaders` (
   `canmanagemembers` tinyint(1) NOT NULL DEFAULT 0,
   `canmanagerequests` tinyint(1) NOT NULL DEFAULT 0,
   `caninvitemembers` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3888,7 +3891,7 @@ CREATE TABLE `mybb_helpdocs` (
   `usetranslation` tinyint(1) NOT NULL DEFAULT 0,
   `enabled` tinyint(1) NOT NULL DEFAULT 0,
   `disporder` smallint(5) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_helpdocs`
@@ -3916,7 +3919,7 @@ CREATE TABLE `mybb_helpsections` (
   `usetranslation` tinyint(1) NOT NULL DEFAULT 0,
   `enabled` tinyint(1) NOT NULL DEFAULT 0,
   `disporder` smallint(5) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_helpsections`
@@ -3936,7 +3939,7 @@ CREATE TABLE `mybb_hidecontent` (
   `id` bigint(30) UNSIGNED NOT NULL,
   `uid` int(10) NOT NULL,
   `pid` bigint(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3948,7 +3951,7 @@ CREATE TABLE `mybb_icons` (
   `iid` smallint(5) UNSIGNED NOT NULL,
   `name` varchar(120) NOT NULL DEFAULT '',
   `path` varchar(220) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_icons`
@@ -3978,7 +3981,7 @@ CREATE TABLE `mybb_joinrequests` (
   `reason` varchar(250) NOT NULL DEFAULT '',
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `invite` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3996,7 +3999,7 @@ CREATE TABLE `mybb_mailerrors` (
   `error` text NOT NULL,
   `smtperror` varchar(200) NOT NULL DEFAULT '',
   `smtpcode` smallint(5) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_mailerrors`
@@ -4024,7 +4027,7 @@ CREATE TABLE `mybb_maillogs` (
   `tid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `ipaddress` varbinary(16) NOT NULL DEFAULT '',
   `type` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4039,7 +4042,7 @@ CREATE TABLE `mybb_mailqueue` (
   `subject` varchar(200) NOT NULL,
   `message` text NOT NULL,
   `headers` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4062,7 +4065,7 @@ CREATE TABLE `mybb_massemails` (
   `totalcount` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `conditions` text NOT NULL,
   `perpage` smallint(4) UNSIGNED NOT NULL DEFAULT 50
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4079,7 +4082,7 @@ CREATE TABLE `mybb_moderatorlog` (
   `action` text NOT NULL,
   `data` text NOT NULL,
   `ipaddress` varbinary(16) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_moderatorlog`
@@ -4133,7 +4136,7 @@ CREATE TABLE `mybb_moderators` (
   `canmanageannouncements` tinyint(1) NOT NULL DEFAULT 0,
   `canmanagereportedposts` tinyint(1) NOT NULL DEFAULT 0,
   `canviewmodlog` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4150,7 +4153,7 @@ CREATE TABLE `mybb_modtools` (
   `type` char(1) NOT NULL DEFAULT '',
   `postoptions` text NOT NULL,
   `threadoptions` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4166,7 +4169,7 @@ CREATE TABLE `mybb_mycode` (
   `replacement` text NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
   `parseorder` smallint(5) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_mycode`
@@ -4199,7 +4202,7 @@ CREATE TABLE `mybb_polls` (
   `multiple` tinyint(1) NOT NULL DEFAULT 0,
   `public` tinyint(1) NOT NULL DEFAULT 0,
   `maxoptions` smallint(5) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_polls`
@@ -4221,7 +4224,7 @@ CREATE TABLE `mybb_pollvotes` (
   `voteoption` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `ipaddress` varbinary(16) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_pollvotes`
@@ -4254,7 +4257,7 @@ CREATE TABLE `mybb_posts` (
   `edittime` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `editreason` varchar(150) NOT NULL DEFAULT '',
   `visible` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_posts`
@@ -4298,7 +4301,7 @@ CREATE TABLE `mybb_privatemessages` (
   `receipt` tinyint(1) NOT NULL DEFAULT 0,
   `readtime` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `ipaddress` varbinary(16) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_privatemessages`
@@ -4335,7 +4338,7 @@ CREATE TABLE `mybb_profilefields` (
   `allowsmilies` tinyint(1) NOT NULL DEFAULT 0,
   `allowimgcode` tinyint(1) NOT NULL DEFAULT 0,
   `allowvideocode` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_profilefields`
@@ -4362,7 +4365,7 @@ CREATE TABLE `mybb_promotionlogs` (
   `newusergroup` smallint(6) NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `type` varchar(9) NOT NULL DEFAULT 'primary'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4394,7 +4397,7 @@ CREATE TABLE `mybb_promotions` (
   `originalusergroup` varchar(120) NOT NULL DEFAULT '0',
   `newusergroup` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `usergrouptype` varchar(120) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4410,7 +4413,7 @@ CREATE TABLE `mybb_questions` (
   `correct` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `incorrect` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `active` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_questions`
@@ -4429,7 +4432,7 @@ CREATE TABLE `mybb_questionsessions` (
   `sid` varchar(32) NOT NULL DEFAULT '',
   `qid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_questionsessions`
@@ -4458,7 +4461,7 @@ CREATE TABLE `mybb_reportedcontent` (
   `reporters` text NOT NULL,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `lastreport` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4472,7 +4475,7 @@ CREATE TABLE `mybb_reportreasons` (
   `appliesto` varchar(250) NOT NULL DEFAULT '',
   `extra` tinyint(1) NOT NULL DEFAULT 0,
   `disporder` smallint(5) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_reportreasons`
@@ -4499,7 +4502,7 @@ CREATE TABLE `mybb_reputation` (
   `reputation` smallint(6) NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `comments` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -4517,7 +4520,7 @@ CREATE TABLE `mybb_searchlog` (
   `resulttype` varchar(10) NOT NULL DEFAULT '',
   `querycache` text NOT NULL,
   `keywords` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_searchlog`
@@ -4543,7 +4546,7 @@ CREATE TABLE `mybb_sessions` (
   `nopermission` tinyint(1) NOT NULL DEFAULT 0,
   `location1` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `location2` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_sessions`
@@ -4604,7 +4607,7 @@ CREATE TABLE `mybb_settinggroups` (
   `description` text NOT NULL,
   `disporder` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `isdefault` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_settinggroups`
@@ -4661,7 +4664,7 @@ CREATE TABLE `mybb_settings` (
   `disporder` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `gid` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `isdefault` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_settings`
@@ -5007,7 +5010,7 @@ CREATE TABLE `mybb_smilies` (
   `image` varchar(220) NOT NULL DEFAULT '',
   `disporder` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `showclickable` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5022,7 +5025,7 @@ CREATE TABLE `mybb_spamlog` (
   `ipaddress` varbinary(16) NOT NULL DEFAULT '',
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `data` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5038,7 +5041,7 @@ CREATE TABLE `mybb_spiders` (
   `usergroup` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `useragent` varchar(200) NOT NULL DEFAULT '',
   `lastvisit` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_spiders`
@@ -5072,7 +5075,7 @@ CREATE TABLE `mybb_stats` (
   `numusers` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `numthreads` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `numposts` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_stats`
@@ -5104,7 +5107,7 @@ CREATE TABLE `mybb_tasklog` (
   `tid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `data` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_tasklog`
@@ -7638,7 +7641,7 @@ CREATE TABLE `mybb_tasks` (
   `enabled` tinyint(1) NOT NULL DEFAULT 1,
   `logging` tinyint(1) NOT NULL DEFAULT 0,
   `locked` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_tasks`
@@ -7671,7 +7674,7 @@ CREATE TABLE `mybb_templategroups` (
   `prefix` varchar(50) NOT NULL DEFAULT '',
   `title` varchar(100) NOT NULL DEFAULT '',
   `isdefault` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_templategroups`
@@ -7735,7 +7738,7 @@ CREATE TABLE `mybb_templates` (
   `version` varchar(20) NOT NULL DEFAULT '0',
   `status` varchar(10) NOT NULL DEFAULT '',
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -7746,7 +7749,7 @@ CREATE TABLE `mybb_templates` (
 CREATE TABLE `mybb_templatesets` (
   `sid` smallint(5) UNSIGNED NOT NULL,
   `title` varchar(120) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_templatesets`
@@ -7769,7 +7772,7 @@ CREATE TABLE `mybb_themes` (
   `properties` text NOT NULL,
   `stylesheets` text NOT NULL,
   `allowedgroups` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_themes`
@@ -7793,7 +7796,7 @@ CREATE TABLE `mybb_themestylesheets` (
   `stylesheet` longtext NOT NULL,
   `cachefile` varchar(100) NOT NULL DEFAULT '',
   `lastmodified` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_themestylesheets`
@@ -7838,7 +7841,7 @@ CREATE TABLE `mybb_threadprefixes` (
   `displaystyle` varchar(200) NOT NULL DEFAULT '',
   `forums` text NOT NULL,
   `groups` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -7852,7 +7855,7 @@ CREATE TABLE `mybb_threadratings` (
   `uid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `rating` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
   `ipaddress` varbinary(16) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -7886,7 +7889,7 @@ CREATE TABLE `mybb_threads` (
   `deletedposts` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `attachmentcount` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `deletetime` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_threads`
@@ -7911,7 +7914,7 @@ CREATE TABLE `mybb_threadsread` (
   `tid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `uid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_threadsread`
@@ -7934,7 +7937,7 @@ CREATE TABLE `mybb_threadsubscriptions` (
   `tid` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `notification` tinyint(1) NOT NULL DEFAULT 0,
   `dateline` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -7944,7 +7947,7 @@ CREATE TABLE `mybb_threadsubscriptions` (
 
 CREATE TABLE `mybb_threadviews` (
   `tid` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -7959,7 +7962,7 @@ CREATE TABLE `mybb_userfields` (
   `fid3` text NOT NULL,
   `fid4` text DEFAULT NULL,
   `fid5` text DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_userfields`
@@ -8067,7 +8070,7 @@ CREATE TABLE `mybb_usergroups` (
   `canbanusers` tinyint(1) NOT NULL DEFAULT 0,
   `canviewwarnlogs` tinyint(1) NOT NULL DEFAULT 0,
   `canuseipsearch` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_usergroups`
@@ -8181,7 +8184,7 @@ CREATE TABLE `mybb_users` (
   `loginlockoutexpiry` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `usernotes` text NOT NULL,
   `sourceeditor` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_users`
@@ -8203,7 +8206,7 @@ CREATE TABLE `mybb_usertitles` (
   `title` varchar(250) NOT NULL DEFAULT '',
   `stars` smallint(4) UNSIGNED NOT NULL DEFAULT 0,
   `starimage` varchar(120) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `mybb_usertitles`
@@ -8226,7 +8229,7 @@ CREATE TABLE `mybb_warninglevels` (
   `lid` int(10) UNSIGNED NOT NULL,
   `percentage` smallint(3) UNSIGNED NOT NULL DEFAULT 0,
   `action` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -8249,7 +8252,7 @@ CREATE TABLE `mybb_warnings` (
   `revokedby` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `revokereason` text NOT NULL,
   `notes` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -8262,7 +8265,7 @@ CREATE TABLE `mybb_warningtypes` (
   `title` varchar(120) NOT NULL DEFAULT '',
   `points` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `expirationtime` int(10) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
