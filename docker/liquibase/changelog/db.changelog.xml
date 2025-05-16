@@ -3160,4 +3160,26 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
   <changeSet id="1737906077487-1" author="Anna Podlasek">
     <sql>INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Link w spisie treści','','\\[link=(.*?)\\](.*?)\\[/link\\]','&lt;a href=\"$1\" class=\"mycode_url\"&gt;$2&lt;/a&gt;',1,0);</sql>
   </changeSet>
+  <changeSet id="1737906077488-1" author="Anna Podlasek">
+    <sql>INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Link w spisie treści','','\\[link=(.*?)\\](.*?)\\[/link\\]','&lt;a href=\"$1\" class=\"mycode_url\"&gt;$2&lt;/a&gt;',1,0);
+UPDATE mybb_mycode SET `title`='Ramka 3D', `description`='', `regex`='\\[ramka=3D\\](.*?)\\[/ramka\\]', `replacement`='&lt;div class=\"frame_3D\"&gt;$1&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='36';
+UPDATE mybb_mycode SET `title`='Link w spisie treści', `description`='', `regex`='\\[link=(.*?)\\](.*?)\\[/link\\]', `replacement`='&lt;a href=\"$1\" class=\"mycode_link\"&gt;$2&lt;/a&gt;', `active`=1, `parseorder`=0 WHERE cid='46';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Kolor brązowy','','\\[c\\](.*?)\\[/c\\]','&lt;i class=\"brown\"&gt;$1&lt;/i&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Brązowy HR','','\\[hr=b\\]','&lt;hr class=\"mycode_line\"&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka brązowa','','\\[ramka=b\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_solid_b\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Brązowy','','\\[infobox=b\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_solid_brown\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka dashed brown','','\\[ramka=dashedb\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_dashed_b\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Dashed Brązowy','','\\[infobox=dashedb\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_dashed_brown\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka dotted brown','','\\[ramka=dottedb\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_dotted_b\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Dotted Brązowy','','\\[infobox=dottedb\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_dotted_brown\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka double brown','',' \\[ramka=doubleb\\](.*?)\\[/double\\]','&lt;div class=\"frame_double_b\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Double Brązowy','','\\[infobox=doubleb\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_double_brown\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka 3D brown','','\\[ramka=3Db\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_3D_b\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box 3D Brązowy','','\\[infobox=3Db\\](.*?)\\[/infobox\\]','&lt;div class=\"frame_3D_brown\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box in brązowy','','\\[infobox=inb\\](.*?)\\[/infobox\\]','&lt;div class=\"notif_in_brown\"&gt;$1&lt;/div&gt;',1,0);
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Out Brązowy','','\\[infobox=outb\\](.*?)\\[/infobox\\]','&lt;div class=\"notif_out_brown\"&gt;$1&lt;/div&gt;',1,0);
+UPDATE mybb_mycode SET `title`='Ramka double brown', `description`='', `regex`=' \\[ramka=doubleb\\](.*?)\\[/ramka\\]', `replacement`='&lt;div class=\"frame_double_b\"&gt;$1&lt;/div&gt;', `active`=1, `parseorder`=0 WHERE cid='55';
+DELETE FROM mybb_mycode WHERE cid='55';
+INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka double brown','','\\[ramka=doubleb\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_double_b\"&gt;$1&lt;/div&gt;',1,0);</sql>
+  </changeSet>
 </databaseChangeLog>
