@@ -101,6 +101,11 @@ div > div.post_content > div > form > button {
     margin-bottom: 5px;
 }
 
+.no_indent {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .br {
 	margin-top: 15px;
 	margin-bottom: 15px;
@@ -109,7 +114,7 @@ div > div.post_content > div > form > button {
 h1 {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	background-image: var(--gradient);
+	background-image: var(--brown-gradient);
 	display: flex;
 	justify-content: center;
 	text-indent: 0;

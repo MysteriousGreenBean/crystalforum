@@ -3,25 +3,25 @@
 }
 
 .mycode_u {
-	color: var(--mycode-color);
+	color: var(--accent-color);
 }
 
 .mycode_i {
-	color: var(--mycode-color);
+	color: var(--accent-color);
 }
 
 .mycode_s {
-	color: var(--mycode-color);
+	color: var(--accent-color);
 }
 
 .mycode_url {
-	color: var(--mycode-color) !important;
+	color: var(--accent-color) !important;
 	border-bottom: 1px dashed var(--mycode-color);
 	transition: all 0.5s ease;
 }
 
 .mycode_url:hover {
-	color: var(--mycode-color) !important;
+	color: var(--accent-color) !important;
 	letter-spacing: 3px;
 	transition: all 0.5s ease;
 }
@@ -64,15 +64,12 @@
 	text-shadow: var(--main-shadow);
 }
 
-.mycode_quote {
-}
-
 blockquote {
 	background: rgb(40, 40, 40) none repeat scroll 0% 0%;
 	margin: 10px;
 	padding: 10px;
-	border-left: 3px solid var(--mycode-color);
-	border-right: 3px solid var(--mycode-color);
+	border-left: 3px solid var(--accent-color);
+	border-right: 3px solid var(--accent-color);
 	box-shadow: var(--main-shadow);
 	text-indent: 0px;
 }
@@ -102,8 +99,8 @@ blockquote cite span.highlight {
 
 .codeblock {
 	background: rgb(40, 40, 40) none repeat scroll 0% 0%;
-	border-left: 3px solid var(--mycode-color);
-	border-right: 3px solid var(--mycode-color);
+	border-left: 3px solid var(--accent-color);
+	border-right: 3px solid var(--accent-color);
 	border-radius: 10px;
 	padding: 10px;
 	color: var(--main-font-color);
