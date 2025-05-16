@@ -3157,4 +3157,7 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
       INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H2 ID','H2 z ID','\\[h2 id=(.*?)\\](.*?)\\[/h2\\]','&lt;h2 id=\"$1\"&gt;$2&lt;/h2&gt;',1,0);
       INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('H3 ID','H3 z ID','\\[h3 id=(.*?)\\](.*?)\\[/h3\\]','&lt;h3 id=\"$1\"&gt;$2&lt;/h3&gt;',1,0);</sql>
   </changeSet>
+  <changeSet id="1737906077487-1" author="Anna Podlasek">
+    <sql>INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Link w spisie treści','','\\[link=(.*?)\\](.*?)\\[/link\\]','&lt;a href=\"$1\" class=\"mycode_url\"&gt;$2&lt;/a&gt;',1,0);</sql>
+  </changeSet>
 </databaseChangeLog>

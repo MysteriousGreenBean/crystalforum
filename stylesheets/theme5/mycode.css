@@ -21,7 +21,7 @@
 }
 
 .mycode_url:hover {
-	color: var(--mycode-color) !important!;
+	color: var(--mycode-color) !important;
 	letter-spacing: 3px;
 	transition: all 0.5s ease;
 }
