@@ -26,8 +26,27 @@
 	transition: all 0.5s ease;
 }
 
+.mycode_link {
+	color: var(--accent-color) !important;
+	transition: all 0.5s ease;
+}
+
+.mycode_link:hover {
+	color: var(--accent-color) !important;
+	letter-spacing: 3px;
+	transition: all 0.5s ease;
+}
+
 .mycode_hr {
 	background: radial-gradient(circle, #1f4132, #1c3e2f, #193a2c, #173729, #143426) !important;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 12px;
+	box-shadow: var(--main-shadow);
+}
+
+.mycode_line {
+	background: var(--brown-gradient) !important;
 	padding: 10px;
 	margin-top: 10px;
 	margin-bottom: 12px;
