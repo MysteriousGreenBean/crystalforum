@@ -1,5 +1,5 @@
 {
-  "name": "My Codespace",
+  "name": "Crystal Codespace",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -10,5 +10,13 @@
       }
     }
   },
-  "postCreateCommand": "pwsh"  // optional: test PowerShell on start
+  "postCreateCommand": "pwsh",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest"
+    }
+  },
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
 }
