@@ -302,5 +302,22 @@ if (isset($_GET['cleanup']) && $_GET['cleanup'] == "true") {
     echo "Deleted stylesheets directory".$endline;
 }
 
+if (isset($_GET['rebuild']) && $_GET['rebuild'] == "cache") {
+    $cache->update_default_theme();
+    echo "Updated default theme cache".$endline;
+    $cache->reload_plugins();
+    echo "Reloaded plugins cache".$endline;
+    $cache->update_profilefields();
+    echo "Updated profile fields cache".$endline;
+    $cache->update_forumsdisplay();
+    echo "Updated forums display cache".$endline;
+    $cache->update_mycode();
+    echo "Updated MyCode cache".$endline;
+    $cache->update_forumpermissions();
+    echo "Updated forum permissions cache".$endline;
+    $cache->update_usergroups();
+    echo "Updated user groups cache".$endline;
+}
+
 $settings = $settingsBackup;
 ?>

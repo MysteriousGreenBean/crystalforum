@@ -108,6 +108,19 @@
                 "${workspaceFolder}/scripts.ps1",
                 "database-dumpChanges"
             ]
+        },
+        {
+            "label": "Refresh cache",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts.ps1",
+                "refresh-cache"
+            ]
         }
     ]
 }
