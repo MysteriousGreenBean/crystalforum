@@ -53,6 +53,23 @@ class templates
 		}
 	}
 
+	function get_dev_folder($templateset) {
+		if (isset($this->cache[$templateset])) {
+			$foundFolder = $this->cache[$templateset];
+			return $foundFolder;
+		}
+
+		$templates_path = MYBB_ROOT . "templates/";
+		$pattern = $templates_path . $templateset . "_*";
+		$folders = glob($pattern, GLOB_ONLYDIR);
+
+		if (!empty($folders)) {
+			$foundFolder = $folders[0];
+			$this->cache[$templateset] = $foundFolder;
+			return $foundFolder;
+		}
+	}
+
 	/**
 	 * Gets templates.
 	 *
@@ -68,13 +85,14 @@ class templates
 		if($mybb->settings['developermode'] == '1'){
 			$templateset = $theme['templateset'];
 
-			$filepath = $this->tryToGetFilePath($title, $templateset);
+			$templateset_path = $this->get_dev_folder($templateset);
+			$filepath = $this->tryToGetFilePath($title, $templateset_path);
 
 			if (empty($filepath)) {
-				$filepath = $this->tryToGetFilePath($title, "global_templates");
+				$filepath = $this->tryToGetFilePath($title, MYBB_ROOT . "/templates/global_templates");
 			}
 			if (empty($filepath)) {
-				$filepath = $this->tryToGetFilePath($title, "master_templates");
+				$filepath = $this->tryToGetFilePath($title, MYBB_ROOT . "/templates/master_templates");
 			}
 
 			if (!empty($filepath)) {
@@ -132,16 +150,13 @@ class templates
 		return $template;
 	}
 
-	function tryToGetFilePath($title, $templates_folder_name) {
-		$templateset_path = MYBB_ROOT . "templates/";
-
+	function tryToGetFilePath($title, $templateset_path) {
 		$folder_name = $this->get_folder_name($title);
+		$folderPath = $templateset_path  . '/' . $folder_name;
 
-		if (is_dir($templateset_path . $templates_folder_name . '/' . $folder_name)) {
-			$folderPath = $templateset_path . $templates_folder_name . '/' . $folder_name;
-		} else {
-			$folderPath = $templateset_path . $templates_folder_name . '/ungrouped';
-		}
+		if (!is_dir($folderPath)) {
+			$folderPath = $templateset_path . '/ungrouped';
+		} 
 
 		if (file_exists($folderPath . '/' . $title . '.html')) {
 			$filepath = $folderPath . '/' . $title . '.html';

@@ -327,36 +327,74 @@ if(!isset($theme['tid']) || isset($theme['tid']) && !$theme['tid'])
 	$theme = $db->fetch_array($query);
 }
 $theme = @array_merge($theme, my_unserialize($theme['properties']));
-
 $isDevMode = $mybb->settings['developermode'] == '1';
 
 if ($isDevMode) {
-	$theme_stylesheet_path = MYBB_ROOT . 'stylesheets/theme'.$theme['tid'].'/';
+		// Scan stylesheets directory for folders with _stylesheets.dev.json and matching themeId, with caching
+		$theme_stylesheet_file = '_stylesheets.dev.json';
+		$theme_stylesheet_path = '';
+		$stylesheets_dir = MYBB_ROOT . 'stylesheets/';
+		$cache_file = MYBB_ROOT . 'cache/theme_stylesheet_map.php';
 
-	$theme_stylesheet_file = '';
-	if ($handle = opendir($theme_stylesheet_path)) {
-		while (false !== ($entry = readdir($handle))) {
-			if ($entry[0] === '_' && substr($entry, -5) === '.json') {
-				$theme_stylesheet_file = $entry;
-				break;
+		// Try to load cache
+		$theme_stylesheet_map = array();
+		if (file_exists($cache_file)) {
+			$theme_stylesheet_map = @include($cache_file);
+			if (!is_array($theme_stylesheet_map)) {
+				$theme_stylesheet_map = array();
 			}
 		}
-		closedir($handle);
-	}
-	
+
+		// If cached, use it
+		if (isset($theme_stylesheet_map[$theme['tid']])) {
+			$theme_stylesheet_path = $theme_stylesheet_map[$theme['tid']]['path'];
+			$theme_stylesheet_file = $theme_stylesheet_map[$theme['tid']]['file'];
+		} else {
+			// Not cached, scan directories
+			if (is_dir($stylesheets_dir)) {
+				$dir_handle = opendir($stylesheets_dir);
+				while (($entry = readdir($dir_handle)) !== false) {
+					if ($entry === '.' || $entry === '..') continue;
+					$folder = $stylesheets_dir . $entry . '/';
+					
+					if (is_dir($folder) && file_exists($folder . '_properties.json')) {
+				
+						$json = file_get_contents($folder . '_properties.json');
+						$data = json_decode($json, true);
+						if (isset($data['themeId'])) {
+							$theme_stylesheet_map[$data['themeId']] = array(
+								'path' => $folder,
+								'file' => $theme_stylesheet_file
+							);
+			
+							// If this is the theme we want, use it
+							if ($data['themeId'] == $theme['tid']) {
+							
+								$theme_stylesheet_path = $folder;
+							}
+						}
+					}
+				}
+				closedir($dir_handle);
+				// Save cache
+				$cache_content = "<?php\nreturn " . var_export($theme_stylesheet_map, true) . ";\n";
+				@file_put_contents($cache_file, $cache_content);
+			}
+		}
+															
 	if ($theme_stylesheet_file) {
 		$theme_stylesheet_content = file_get_contents($theme_stylesheet_path . $theme_stylesheet_file);
 		$decoded = json_decode($theme_stylesheet_content, true);
-
 		if (json_last_error() !== JSON_ERROR_NONE) {
-			error('Invalid JSON in the stylesheet theme'.$theme['tid'].' folder.');
+			error('Invalid JSON in '.$theme_stylesheet_path . $theme_stylesheet_file);
 		}
+
 		$theme['stylesheets'] = my_serialize($decoded);
 	} else {
-		error('No JSON file starting with "_" found in the theme'.$theme['tid'].' folder.');
+		error("Couldn't find file with path: ".$theme_stylesheet_path . $theme_stylesheet_file);
 	}
 }
-
+		
 // Fetch all necessary stylesheets
 $stylesheets = '';
 $theme['stylesheets'] = my_unserialize($theme['stylesheets']);
@@ -394,14 +432,10 @@ foreach($stylesheet_scripts as $stylesheet_script)
 				if(strpos($page_stylesheet, 'css.php') !== false)
 				{
 					$stylesheet_url = $mybb->settings['bburl'] . '/' . $page_stylesheet;
-					if ($isDevMode)
-						$stylesheet_url = str_replace('cache/themes', 'stylesheets', $stylesheet_url);
 				}
 				else
 				{
 					$stylesheet_url = $mybb->get_asset_url($page_stylesheet);
-					if ($isDevMode)
-						$stylesheet_url = str_replace('cache/themes', 'stylesheets', $stylesheet_url);
 					if (file_exists(MYBB_ROOT.$page_stylesheet))
 					{
 						$stylesheet_url .= "?t=".filemtime(MYBB_ROOT.$page_stylesheet);

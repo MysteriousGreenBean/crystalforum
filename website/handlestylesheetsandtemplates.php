@@ -1,7 +1,15 @@
 <?php
 define("IN_MYBB", 1);
+
+
+require_once "./inc/init.php";
+$settingsBackup = $settings;
+$settings['showthemeselect'] = "0";
 require_once "./global.php";
 require_once MYBB_ROOT."admin/inc/functions_themes.php";
+
+global $isForDev;
+$isForDev = isset($_GET['dev']) && $_GET['dev'] == "true";
 
 global $endline;
 $endline = "<br>";
@@ -59,63 +67,106 @@ function rebuild_templates_in_category($category, $sid) {
     }
 
     $db->insert_query_multiple("templates", $templateInserts);
+}   
+
+function get_template_name_from_directory($templatesDirectory) {
+    $templateName = basename($templatesDirectory);
+    $templateName = preg_replace('/^\d+/', '', $templateName);
+    $templateName = str_replace(array("_", "-"), " ", $templateName);
+    return ucwords($templateName);
 }
 
 function rebuild_templates_in_directory($directory, $sid) {
-    $templateCategories = array_diff(scandir($directory), array(".", ".."));
-    foreach ($templateCategories as $templateCategory) {
-        rebuild_templates_in_category($directory."/".$templateCategory, $sid);
-    }
-}
-
-function rebuild_stylesheets_in_directory($directory, $tid) {
     global $db;
-    global $endline;
+    global $isForDev;
 
-    echo "Rebuilding stylesheets in directory: $directory with tid: $tid".$endline;
-    $files = array_diff(scandir($directory), array(".", ".."));
-    $jsonFile = null;
-
-    foreach ($files as $file) {
-        if (preg_match('/^_.*\.json$/', $file)) {
-            $jsonFile = $file;
-            break;
+    if (!$isForDev) {
+        $templateCategories = array_diff(scandir($directory), array(".", ".."));
+        foreach ($templateCategories as $templateCategory) {
+            rebuild_templates_in_category($directory."/".$templateCategory, $sid);
         }
     }
 
-    if ($jsonFile) {
-        echo "Found JSON file: $jsonFile".$endline;
+    if ($sid != -1 && $sid != -2) {
+        $templateSetName = get_template_name_from_directory($directory);
+        $db->insert_query("templatesets", array(
+            'sid' => $sid,
+            'title' => $templateSetName
+        ));
+    }
+}
+
+function read_json_file($filePath) {
+    global $endline;
+    if (!file_exists($filePath)) {
+        echo "File does not exist: $filePath".$endline;
+        return null;
+    }
+
+    $jsonContents = file_get_contents($filePath);
+    $jsonData = json_decode($jsonContents, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        error('Invalid JSON in .'.$filePath);
+    }
+    return $jsonData;
+}
+
+function get_theme_id($propertiesData) {
+    if (isset($propertiesData["themeId"])) {
+        return $propertiesData["themeId"];
     } else {
-        echo "No JSON file found in directory: $directory".$endline;
+        return -100;
+    }
+}
+
+
+function rebuild_stylesheets_in_directory($directory) {
+    global $db;
+    global $endline;
+    global $isForDev;
+    
+    echo "Rebuilding stylesheets in directory: $directory".$endline;
+
+    $propertiesData = read_json_file($directory . "/" . '_properties.json');
+    $tid = get_theme_id($propertiesData);
+    if ($tid == -100) {
+        echo "No theme ID found in _properties.json, skipping directory: $directory".$endline;
         return;
     }
+    echo "Theme ID: $tid".$endline;
 
-    $jsonFilePath = $directory . "/" . $jsonFile;
-    $jsonContents = file_get_contents($jsonFilePath);
-    $stylesheetsData = json_decode($jsonContents, true);
+    $stylesheetsData = read_json_file($directory . "/" . '_stylesheets.json');
 
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        error('Invalid JSON in the stylesheet theme'.$tid.' folder.');
-    }
+    if (!$isForDev) {    
+        $stylsheetfiles = array_diff(scandir($directory), array(".", "..", '_stylesheets.json', '_properties.json'));
+        $stylesheetInserts = array();
 
-    $stylsheetfiles = array_diff(scandir($directory), array(".", "..", $jsonFile));
-    $stylesheetInserts = array();
-
-    foreach ($stylsheetfiles as $stylesheetFile) {
-        $stylesheetFilePath = $directory."/".$stylesheetFile;
-        if (is_file($stylesheetFilePath)) {
-            $stylesheetInserts[] = array(
-                'name' => $stylesheetFile,
-                'tid' => $tid,
-                'attachedto' => gather_attached_to($stylesheetsData, $stylesheetFile),
-                'stylesheet' => $db->escape_string(file_get_contents($stylesheetFilePath)),
-                'cachefile' => $stylesheetFile,
-                'lastmodified' => TIME_NOW,
-            );
+        foreach ($stylsheetfiles as $stylesheetFile) {
+            $stylesheetFilePath = $directory."/".$stylesheetFile;
+            if (is_file($stylesheetFilePath)) {
+                $stylesheetInserts[] = array(
+                    'name' => $stylesheetFile,
+                    'tid' => $tid,
+                    'attachedto' => gather_attached_to($stylesheetsData, $stylesheetFile),
+                    'stylesheet' => $db->escape_string(file_get_contents($stylesheetFilePath)),
+                    'cachefile' => $stylesheetFile,
+                    'lastmodified' => TIME_NOW,
+                );
+            }
         }
     }
 
     $db->insert_query_multiple("themestylesheets", $stylesheetInserts);
+
+    $db->insert_query("themes", array(
+        'tid' => $tid,
+        'name' => $propertiesData["name"],
+        'pid' => $propertiesData["parentId"],
+        'def' => $propertiesData["isDefault"],
+        'properties' => my_serialize($propertiesData),
+        'stylesheets' => my_serialize($stylesheetsData),
+        'allowedgroups' => "all",
+    ));
 }
 
 function gather_attached_to($stylesheetsData, $fileName) {
@@ -147,18 +198,7 @@ function entry_contains_file($stylesheetEntry, $fileName) {
     return false;
 }
 
-function get_sid_from_directory($directory) {
-    if ($directory == 'global_templates')
-        return -1;
-    if ($directory == 'master_templates')
-        return -2;
-
-    $pattern = '/(\d+)/';
-    preg_match($pattern, $directory, $matches);
-    return $matches[1];
-}
-
-function get_tid_from_directory($directory) {
+function get_template_id_from_directory($directory) {
     if ($directory == 'global_templates')
         return -1;
     if ($directory == 'master_templates')
@@ -180,18 +220,21 @@ function rebuild_all_templates() {
             echo "Skipping non-directory: $directory".$endline;
             continue;
         }
-       rebuild_templates_in_directory($fullPath, get_tid_from_directory($directory));
+       rebuild_templates_in_directory($fullPath, get_template_id_from_directory($directory));
     }
 }
 
 function rebuild_all_stylesheets() {
+    global $isForDev;
+
     $stylesheetsDirectory = __DIR__."/stylesheets/";
     $directories = array_diff(scandir($stylesheetsDirectory), array(".", ".."));
     foreach ($directories as $directory) {
-        rebuild_stylesheets_in_directory($stylesheetsDirectory.$directory, get_tid_from_directory($directory));
+        rebuild_stylesheets_in_directory($stylesheetsDirectory.$directory);
     }
     
-    rebuild_stylesheets_cache_for_all_themes();
+    if (!$isForDev)
+        rebuild_stylesheets_cache_for_all_themes();
 }
 
 function deleteDirectory($dir) {
@@ -220,8 +263,11 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
         rebuild_stylesheet_cache_for_specific_theme($_GET['themeid'], $_GET['cachefile']);
     } else {
         $db->delete_query("themestylesheets", "1=1");
+        $db->delete_query("themes", "1=1");
         $db->write_query("ALTER TABLE mybb_themestylesheets AUTO_INCREMENT = 1");
-        rebuild_all_stylesheets();
+        $db->write_query("ALTER TABLE mybb_themes AUTO_INCREMENT = 1");
+        rebuild_all_stylesheets(isset($_GET['dev']) && $_GET['dev'] == "true");
+        $cache->update_default_theme();
     }
 }
 
@@ -233,8 +279,10 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
         echo "Force rebuild templates $endline";
         $db->delete_query("templates", "1=1");
         $db->write_query("ALTER TABLE mybb_templates AUTO_INCREMENT = 1");
+        $db->delete_query("templatesets", "1=1");
+        $db->write_query("ALTER TABLE mybb_templatesets AUTO_INCREMENT = 1");
         echo "Cleared templates table, rebuilding templates...".$endline;
-        rebuild_all_templates();
+        rebuild_all_templates(isset($_GET['dev']) && $_GET['dev'] == "true");
         echo "Rebuilding templates finished successfully".$endline;
     } else {
         if ($db->fetch_array($query)) {
@@ -253,4 +301,6 @@ if (isset($_GET['cleanup']) && $_GET['cleanup'] == "true") {
     deleteDirectory(__DIR__."/stylesheets");
     echo "Deleted stylesheets directory".$endline;
 }
+
+$settings = $settingsBackup;
 ?>

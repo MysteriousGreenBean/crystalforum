@@ -4,3 +4,4 @@ docker/liquibase/database_before.sql
 docker/liquibase/database_after.sql
 docker/liquibase/changes.sql
 docker/liquibase/database_snapshot.json
+stylesheets/**/_stylesheets.dev.json

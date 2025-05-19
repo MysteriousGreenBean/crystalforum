@@ -2,6 +2,21 @@ function Start-Containers {
     docker-compose up -d
     Wait-For-Containers
     Database-Snapshot
+    Initialize-Environment
+}
+
+function Initialize-Environment {
+    if (Test-Path "website/cache/theme_stylesheet_map.php") {
+        Remove-Item "website/cache/theme_stylesheet_map.php" -Force
+    }
+    Get-ChildItem -Path "stylesheets" -Recurse -Filter "_stylesheets.json" | ForEach-Object {
+        $devPath = Join-Path $_.Directory.FullName "_stylesheets.dev.json"
+        Copy-Item -Path $_.FullName -Destination $devPath -Force
+        (Get-Content -Path $devPath -Raw) -replace 'cache/themes/theme\d+', "stylesheets/$($_.Directory.Name)" | Set-Content -Path $devPath
+    }
+
+    Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=stylesheets&force=true&dev=true' -UseBasicParsing | Out-Null
+    Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=templates&force=true&dev=true' -UseBasicParsing | Out-Null
 }
 
 function Wait-For-Containers {
