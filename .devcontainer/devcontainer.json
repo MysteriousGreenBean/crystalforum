@@ -10,12 +10,10 @@
       }
     }
   },
-  "features": {
+ "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
-      "version": "latest"
+      "version": "latest",
+      "mountDockerSocket": true
     }
-  },
-  "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-  ]
+  }
 }
