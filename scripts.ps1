@@ -82,7 +82,7 @@ function Process-BinlogChanges {
 
     docker cp mybb_mariadb:binlogDump.sql ./docker/liquibase/binlogDump.sql
 
-    $content = Get-Content "./docker/liquibase/binlogDump.sql" -Raw
+    $content = Get-Content "./docker/liquibase/binlogDump.sql" -Raw -Encoding UTF8
 
     $delimiter = "/*!*/;"
     $statements = $content -split [regex]::Escape($delimiter)
@@ -103,9 +103,9 @@ function Process-BinlogChanges {
 
     # Append the final content to the file without overriding
     if ($append) {
-        Add-Content -Path $inputPath -Value $finalContent
+        Add-Content -Path $inputPath -Value $finalContent -Encoding UTF8
     } else {
-        Set-Content -Path $inputPath -Value $finalContent
+        Set-Content -Path $inputPath -Value $finalContent -Encoding UTF8
     }
 
     Remove-Item -Path "./docker/liquibase/binlogDump.sql"
