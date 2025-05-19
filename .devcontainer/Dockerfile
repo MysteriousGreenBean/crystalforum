@@ -23,5 +23,7 @@ RUN apt-get update && \
     apt-get install -y docker-ce-cli docker-compose-plugin && \
     apt-get clean
 
+RUN usermod -aG docker vscode
+
 # Optional: set PowerShell as default shell
 ENV SHELL=/usr/bin/pwsh
