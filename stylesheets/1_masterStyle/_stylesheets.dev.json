@@ -1,0 +1,42 @@
+{
+  "global": {
+    "global": [
+      "stylesheets/1_masterStyle/global.css",
+      "stylesheets/1_masterStyle/css3.css",
+      "stylesheets/1_masterStyle/avatarep.css"
+    ]
+  },
+  "usercp.php": {
+    "global": [
+      "stylesheets/1_masterStyle/usercp.css",
+      "stylesheets/1_masterStyle/thread_status.css"
+    ]
+  },
+  "private.php": {
+    "global": [
+      "stylesheets/1_masterStyle/usercp.css"
+    ]
+  },
+  "modcp.php": {
+    "global": [
+      "stylesheets/1_masterStyle/modcp.css"
+    ]
+  },
+  "forumdisplay.php": {
+    "global": [
+      "stylesheets/1_masterStyle/star_ratings.css",
+      "stylesheets/1_masterStyle/thread_status.css"
+    ]
+  },
+  "showthread.php": {
+    "global": [
+      "stylesheets/1_masterStyle/star_ratings.css",
+      "stylesheets/1_masterStyle/showthread.css"
+    ]
+  },
+  "search.php": {
+    "global": [
+      "stylesheets/1_masterStyle/thread_status.css"
+    ]
+  }
+}

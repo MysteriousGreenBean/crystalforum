@@ -1,0 +1,74 @@
+{
+  "global": {
+    "global": [
+      "stylesheets/crystallicumDark/footer.css",
+      "stylesheets/crystallicumDark/css3.css",
+      "stylesheets/crystallicumDark/extra.css",
+      "stylesheets/crystallicumDark/global.css",
+      "stylesheets/crystallicumDark/latestposts.css",
+      "stylesheets/crystallicumDark/avatarep.css",
+      "stylesheets/crystallicumDark/mycode.css",
+      "stylesheets/crystallicumDark/variables.css"
+    ]
+  },
+  "modcp.php": {
+    "global": [
+      "stylesheets/crystallicumDark/modcp.css"
+    ]
+  },
+  "showthread.php": {
+    "global": [
+      "stylesheets/crystallicumDark/showthread.css",
+      "stylesheets/crystallicumDark/star_ratings.css"
+    ]
+  },
+  "usercp.php": {
+    "global": [
+      "stylesheets/crystallicumDark/usercp.css",
+      "stylesheets/crystallicumDark/thread_status.css"
+    ]
+  },
+  "usercp2.php": {
+    "global": [
+      "stylesheets/crystallicumDark/usercp.css"
+    ]
+  },
+  "private.php": {
+    "global": [
+      "stylesheets/crystallicumDark/usercp.css"
+    ]
+  },
+  "forumdisplay.php": {
+    "global": [
+      "stylesheets/crystallicumDark/thread_status.css",
+      "stylesheets/crystallicumDark/star_ratings.css"
+    ]
+  },
+  "search.php": {
+    "global": [
+      "stylesheets/crystallicumDark/thread_status.css"
+    ]
+  },
+  "newpost.php": {
+    "global": [
+      "stylesheets/crystallicumDark/responsivity.css"
+    ]
+  },
+  "newthread.php": {
+    "global": [
+      "stylesheets/crystallicumDark/responsivity.css"
+    ]
+  },
+  "editpost.php": {
+    "global": [
+      "stylesheets/crystallicumDark/responsivity.css",
+      "stylesheets/crystallicumDark/showthread.css"
+    ]
+  },
+  "newreply.php": {
+    "global": [
+      "stylesheets/crystallicumDark/responsivity.css",
+      "stylesheets/crystallicumDark/showthread.css"
+    ]
+  }
+}
