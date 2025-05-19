@@ -366,7 +366,7 @@ if ($isDevMode) {
 								'path' => $folder,
 								'file' => $theme_stylesheet_file
 							);
-								echo "tid found: ".$data['themeId']." | ".$theme['tid']."<br>";
+			
 							// If this is the theme we want, use it
 							if ($data['themeId'] == $theme['tid']) {
 							

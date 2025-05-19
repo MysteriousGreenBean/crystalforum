@@ -61,7 +61,7 @@ services:
       LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
     networks:
       - mybb_network
-    command: ["sh", "-c", "liquibase update && curl -s 'http://mybb_forum/handlestylesheetsandtemplates.php?rebuild=stylesheets&force=true&dev=true' && curl -s 'http://mybb_forum/handlestylesheetsandtemplates.php?rebuild=templates&force=true&dev=true' && tail -f /dev/null"]
+    command: ["sh", "-c", "liquibase update"]
 
 networks:
   mybb_network:
