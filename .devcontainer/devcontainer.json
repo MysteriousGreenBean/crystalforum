@@ -1,0 +1,14 @@
+{
+  "name": "My Codespace",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "PowerShell"
+      }
+    }
+  },
+  "postCreateCommand": "pwsh"  // optional: test PowerShell on start
+}
