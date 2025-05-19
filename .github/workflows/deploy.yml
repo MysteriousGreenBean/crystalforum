@@ -121,9 +121,19 @@ jobs:
         run: |
           curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true&fromconsole=true"
 
+  refresh-cache:
+    needs: [update-stylesheets, update-templates]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Refresh cache
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?refreshcache=true&fromconsole=true"
 
   cleanup:
-    needs: [update-stylesheets, update-templates]
+    needs: [refresh-cache]
     runs-on: ubuntu-latest
     steps:
       - name: Install lftp

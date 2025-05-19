@@ -90,5 +90,16 @@
                 "panel": "shared"
             }
         },
+        {
+            "name": "Refresh cache",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Refresh cache",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
     ]
 }
