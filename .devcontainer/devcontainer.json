@@ -3,17 +3,11 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "customizations": {
-    "vscode": {
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "PowerShell"
-      }
-    }
-  },
  "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "version": "latest",
       "mountDockerSocket": true
     }
-  }
+  },
+  "postCreateCommand": "pwsh ./.devcontainer/initializeEnvironment.ps1"
 }
