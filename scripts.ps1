@@ -212,5 +212,5 @@ switch ($args[0]) {
     "database-snapshot" { Database-Snapshot }
     "database-dumpChanges" { Database-diffChangeLog }
     "refresh-cache" { Refresh-Cache }
-    default { Write-Host "Usage: crystal {start|stop|restart|logs|database-update|database-snapshot|database-dumpChanges}" }
+    default { Write-Host "Usage: scripts {start|stop|restart|logs|database-update|database-snapshot|database-dumpChanges}" }
 }
