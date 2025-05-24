@@ -1206,7 +1206,9 @@ class UserDataHandler extends DataHandler
 			"suspendposting" => 0,
 			"suspensiontime" => 0,
 			"coppauser" => (int)$user['coppa_user'],
-			"usernotes" => ''
+			"usernotes" => '',
+			"AccountType" => $user['AccountType'],
+			"ParentUid" => $user['ParentUid']
 		);
 
 		if($user['options']['dstcorrection'] == 1)

@@ -957,6 +957,11 @@ else if($mybb->input['action'] == "username_availability")
 	require_once MYBB_ROOT."inc/functions_user.php";
 	$username = $mybb->get_input('username');
 
+	if(empty($username))
+	{
+		$username = $mybb->get_input('characterName');
+	}
+
 	// Fix bad characters
 	$username = trim_blank_chrs($username);
 	$username = str_replace(array(unichr(160), unichr(173), unichr(0xCA), dec_to_utf8(8238), dec_to_utf8(8237), dec_to_utf8(8203)), array(" ", "-", "", "", "", ""), $username);
