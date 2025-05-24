@@ -68,7 +68,7 @@
 .av_menu {
     display: none;
     position: absolute;
-    top: 110%; /* Position below the nav item */
+    top: 109%; /* Position below the nav item */
     right: -16px;
     background: var(--background-color);
     border-radius: 5px;
