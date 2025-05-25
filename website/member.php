@@ -1586,7 +1586,7 @@ if($mybb->input['action'] == "do_lostpw" && $mybb->request_method == "post")
 		}
 	}
 
-	$query = $db->simple_select("users", "*", "email='".$db->escape_string($mybb->get_input('email'))."'");
+	$query = $db->simple_select("users", "*", "email='".$db->escape_string($mybb->get_input('email'))."' AND AccountType='Player'");
 	$numusers = $db->num_rows($query);
 	if($numusers < 1)
 	{
