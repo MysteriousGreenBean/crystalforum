@@ -64,6 +64,72 @@ switch($mybb->input['action'])
 	case "emailuser":
 		add_breadcrumb($lang->nav_emailuser);
 		break;
+	case "do_add_character":
+	case "add_character":
+		add_breadcrumb($lang->add_character);
+		break;
+}
+
+if ($mybb->input['action'] == "do_add_character") {
+	$usergroup = 2;
+	// Set up user handler.
+	require_once MYBB_ROOT."inc/datahandlers/user.php";
+	$userhandler = new UserDataHandler("insert");
+
+	$coppauser = 0;
+	if(isset($mybb->cookies['coppauser']))
+	{
+		$coppauser = (int)$mybb->cookies['coppauser'];
+	}
+
+	$randomPassword = random_str(8);
+	$parentUid = $mybb->user['ParentUid'] == 0 ? $mybb->user['uid'] : $mybb->user['ParentUid'];
+	// Set the data for the new user.
+	$user = array(
+		"username" => $mybb->get_input('characterName'),
+		"usergroup" => $usergroup,
+		"password" => $randomPassword,
+		"password2" => $randomPassword,
+		"email" => $mybb->user['email'],
+		"email2" => $mybb->user['email'],
+		"timezone" => $mybb->user['timezoneoffset'],
+		"language" => $mybb->user['language'],
+		"regip" => $session->packedip,
+		"AccountType" => 'Character',
+		"ParentUid" => $parentUid,
+	);
+
+	$userhandler->set_data($user);
+
+	$errors = array();
+
+	if(!$userhandler->validate_user())
+	{
+		$errors = $userhandler->get_friendly_errors();
+	}
+
+	$regerrors = '';
+	if(!empty($errors)) {
+		$regerrors = inline_error($errors);
+		$mybb->input['action'] = "add_character";
+	}
+	else {
+		$user_info = $userhandler->insert_user();
+				
+		my_setcookie("mybbuser", $user_info['uid']."_".$user_info['loginkey'], null, true, "lax");
+
+		$lang->redirect_registered = $lang->sprintf($lang->redirect_registered, $mybb->settings['bbname'], htmlspecialchars_uni($user_info['username']));
+		redirect("index.php", $lang->redirect_registered);
+	}
+}
+
+if ($mybb->input['action'] == "add_character") {
+	if ($mybb->user['uid'] == 0) {
+		error($lang->error_not_logged_in);
+	}
+
+	eval("\$add_character = \"".$templates->get("member_add_character")."\";");
+	output_page($add_character);
 }
 
 if(($mybb->input['action'] == "register" || $mybb->input['action'] == "do_register") && $mybb->usergroup['cancp'] != 1)
@@ -177,7 +243,9 @@ if($mybb->input['action'] == "do_register" && $mybb->request_method == "post")
 		"coppa_user" => $coppauser,
 		"regcheck1" => $mybb->get_input('regcheck1'),
 		"regcheck2" => $mybb->get_input('regcheck2'),
-		"registration" => true
+		"registration" => true,
+		"AccountType" => 'Player',
+		"ParentUid" => 0
 	);
 
 	// Do we have a saved COPPA DOB?

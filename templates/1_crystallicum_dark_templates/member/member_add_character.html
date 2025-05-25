@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <title>{$mybb->settings['bbname']} - {$lang->add_character}</title>
+    {$headerinclude}
+</head>
+
+<body>
+    {$header}
+    <script type="text/javascript" src="{$mybb->asset_url}/jscripts/validate/jquery.validate.min.js?ver=1821"></script>
+    <form action="member.php" method="post" id="add_character_form">
+        {$regerrors}
+        <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+            <tr>
+                <td class="thead" colspan="2"><strong>{$lang->add_character}</strong></td>
+            </tr>
+            <tr>
+                <td class="trow1" valign="top">
+                    <fieldset class="trow2">
+                        <table cellspacing="0" cellpadding="{$theme['tablespace']}" width="100%">
+                            <td style="width: 10%"><span class="smalltext"><label
+                                        for="characterName">{$lang->character_name}:</label></span>
+                            </td>
+                            <td><input type="text" class="textbox" name="characterName" id="characterName"
+                                    style="width: 100%" value="{$username}" /></td>
+                        </table>
+                    </fieldset>
+                </td>
+            </tr>
+
+        </table>
+        <br />
+        <div align="center">
+            <input type="hidden" name="regtime" value="{$time}" />
+            <input type="hidden" name="step" value="registration" />
+            <input type="hidden" name="action" value="do_add_character" />
+            <input type="submit" class="button" name="addcharsubmit" value="{$lang->add_character}" />
+        </div>
+    </form>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#add_character_form").validate({
+            rules: {
+                characterName: {
+                    required: true,
+                    minlength: {$mybb->settings['minnamelength']},
+                    maxlength: {$mybb->settings['maxnamelength']},
+                    remote: {
+                        url: "xmlhttp.php?action=username_availability",
+                        type: "post",
+                        dataType: "json",
+                        data:
+                        {
+                            my_post_key: my_post_key
+                        },
+                    },
+                },
+            },
+            messages: {
+                characterName: {
+                    required: "{$lang->js_validator_no_character_name}",
+                    minlength: "{$lang->js_validator_username_length}",
+                    maxlength: "{$lang->js_validator_username_length}",
+                }
+            },
+            errorPlacement: function(error, element) {
+                if(element.is(':checkbox') || element.is(':radio'))
+                    error.insertAfter($('input[name="' + element.attr('name') + '"]').last().next('span'));
+                else
+                    error.insertAfter(element);
+            }
+        });
+
+        {$validator_extra}
+    });
+</script>
+    {$footer}
+</body>
+
+</html>

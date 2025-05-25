@@ -241,6 +241,7 @@ $l['js_validator_password_length'] = "Hasło musi zawierać przynajmniej {1} zna
 $l['js_validator_bad_password_security'] = 'Podane hasło jest podobne do nazwy użytkownika lub adresu e-mail. Wprowadź mocniejsze hasło.';
 $l['js_validator_not_empty'] = "Nie możesz pozostawić tego pola pustego";
 $l['js_validator_username_length'] = "Login musi zawierać od {1} do {2} znaków";
+$l['js_validator_no_character_name'] = "Musisz podać imię postaci";
 
 $l['security_question'] = "Pytanie zabezpieczające";
 $l['question_note'] = "Udziel odpowiedzi na pytanie. Proces ten ma na celu zapobieżenie automatycznym rejestracjom.";
@@ -267,3 +268,4 @@ Nazwa użytkownika: {3}
 
 Dziękujemy,
 Ekipa {2}";
+$l['error_not_logged_in'] = 'Nie jesteś zalogowany. Tylko zalogowani użytkownicy mogą dodawać postacie do swojego profilu.';
