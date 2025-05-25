@@ -58,6 +58,15 @@ function defaultavatarfix()
 	 {
 		$mybb->user['avatar'] = $mybb->settings['useravatar'];
 	 }
+
+    if(!$mybb->user['parent']['avatar'] && !empty($mybb->settings['useravatar'])) {
+        $mybb->user['parent']['avatar'] = $mybb->settings['useravatar'];
+    }
+
+    foreach ($mybb->user['characters'] as &$character) {
+        if(!$character['avatar'] && !empty($mybb->settings['useravatar']))
+            $character['avatar'] = $mybb->settings['useravatar'];
+    }
 }
 $plugins->add_hook("global_start", "defaultavatarfix");
 ?>
