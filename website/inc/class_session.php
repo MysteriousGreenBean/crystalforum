@@ -145,6 +145,24 @@ class session
 		");
 		$mybb->user = $db->fetch_array($query);
 
+		// Load parent account
+		if ($mybb->user['AccountType'] == 'Player') {
+			$mybb->user['parent'] = $mybb->user;
+		} else {
+			$mybb->user['parent'] = $db->fetch_array(
+				$db->simple_select('users', '*', 'uid='.(int)$mybb->user['ParentUid'])
+			);
+		}
+
+		// Load other character accounts
+		$uidForFilter = $mybb->user['AccountType'] == 'Player' ? $mybb->user['uid'] : $mybb->user['ParentUid'];
+
+		$mybb->user['characters'] = array();
+		$query = $db->simple_select('users', '*', 'ParentUid=' . (int)$uidForFilter, array('order_by' => 'uid'));
+		while ($character = $db->fetch_array($query)) {
+			$mybb->user['characters'][] = $character;
+		}
+
 		// Check the password if we're not using a session
 		if(!$mybb->user || empty($loginkey) || $loginkey !== $mybb->user['loginkey'])
 		{

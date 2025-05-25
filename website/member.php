@@ -114,12 +114,11 @@ if ($mybb->input['action'] == "do_add_character") {
 		$mybb->input['action'] = "add_character";
 	}
 	else {
+		require_once MYBB_ROOT."inc/functions_accountswitcher.php";
 		$user_info = $userhandler->insert_user();
 				
-		my_setcookie("mybbuser", $user_info['uid']."_".$user_info['loginkey'], null, true, "lax");
-
-		$lang->redirect_registered = $lang->sprintf($lang->redirect_registered, $mybb->settings['bbname'], htmlspecialchars_uni($user_info['username']));
-		redirect("index.php", $lang->redirect_registered);
+		$mybb->user['parent'] = $user_info;
+		login_as_account($mybb->user, $user_info['uid'], "index.php");
 	}
 }
 
@@ -130,6 +129,12 @@ if ($mybb->input['action'] == "add_character") {
 
 	eval("\$add_character = \"".$templates->get("member_add_character")."\";");
 	output_page($add_character);
+}
+
+if ($mybb->input['action'] == 'change_character') {
+	require_once MYBB_ROOT."inc/functions_accountswitcher.php";
+
+	login_as_account($mybb->user, $mybb->get_input('uid', MyBB::INPUT_INT), $_SERVER['HTTP_REFERER']);
 }
 
 if(($mybb->input['action'] == "register" || $mybb->input['action'] == "do_register") && $mybb->usergroup['cancp'] != 1)
@@ -1586,7 +1591,7 @@ if($mybb->input['action'] == "do_lostpw" && $mybb->request_method == "post")
 		}
 	}
 
-	$query = $db->simple_select("users", "*", "email='".$db->escape_string($mybb->get_input('email'))."'");
+	$query = $db->simple_select("users", "*", "email='".$db->escape_string($mybb->get_input('email'))."' AND AccountType='Player'");
 	$numusers = $db->num_rows($query);
 	if($numusers < 1)
 	{

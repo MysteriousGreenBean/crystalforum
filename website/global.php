@@ -656,6 +656,9 @@ if($mybb->user['uid'] != 0)
 		eval('$pmslink = "'.$templates->get('header_welcomeblock_member_pms').'";');
 	}
 
+	require_once MYBB_ROOT.'inc/functions_accountswitcher.php';
+	$navigation_characters = get_characters_for_navigation($mybb->user, $templates);
+
 	eval('$welcomeblock = "'.$templates->get('header_welcomeblock_member').'";');
 }
 // Otherwise, we have a guest
