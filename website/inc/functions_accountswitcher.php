@@ -84,7 +84,7 @@ function get_accounts_for_user_profile($user, $type) {
     $characterOutput = '';
     $linkTemplate = $mybb->settings['bburl'] . '/member.php?action=profile&uid=';
     foreach($user['characters'] as $character) {
-        if ($user['uid'] != $character['uid'] && $character['AccountType'] == $type) {
+        if ($character['AccountType'] == $type) {
             $characterOutput .= '<a href="'.$linkTemplate.$character['uid'].'">'.format_name($character['username'], $character['usergroup'], $character['displaygroup'], true).'</a>, ';
         }
     }

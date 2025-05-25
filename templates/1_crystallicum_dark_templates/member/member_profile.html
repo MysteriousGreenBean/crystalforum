@@ -374,9 +374,11 @@
 						<fieldset class="profile_field">
 							<legend>Triggery</legend>No wpisz tu co cię triggeruje
 						</fieldset>
-						<fieldset class="profile_field">
-							<legend>Postacie w grze</legend>{$linkedCharacters}
-						</fieldset>
+						<if $linkedCharacters then>
+							<fieldset class="profile_field">
+								<legend>Postacie w grze</legend>{$linkedCharacters}
+							</fieldset>
+						</if>
 						<if $linkedGM then>
 							<fieldset class="profile_field">
 								<legend>Konto MG</legend>{$linkedGM}
