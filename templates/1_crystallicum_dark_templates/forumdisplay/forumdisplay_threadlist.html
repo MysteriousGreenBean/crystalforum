@@ -8,7 +8,7 @@
 	<tr>
 		<td class="thead" colspan="{$colspan}">
 			<div class="float_right">
-				<span class="smalltext desktop"><strong><a href="misc.php?action=markread&amp;fid={$fid}{$post_code_string}"><i class="cp cp-check-mark"></i> {$lang->markforum_read}</a> <br> <a href="usercp2.php?action={$add_remove_subscription}subscription&amp;type=forum&amp;fid={$fid}&amp;my_post_key={$mybb->post_code}"><i class="cp cp-bookmark"></i> {$add_remove_subscription_text}</a>{$clearstoredpass}</strong></span>
+				<span class="smalltext desktop"><strong><a href="misc.php?action=markread&amp;fid={$fid}{$post_code_string}"><i class="cp cp-check-mark"></i> {$lang->markforum_read}</a> <br> <a href="usercp.php?action={$add_remove_subscription}subscription&amp;type=forum&amp;fid={$fid}&amp;my_post_key={$mybb->post_code}"><i class="cp cp-bookmark"></i> {$add_remove_subscription_text}</a>{$clearstoredpass}</strong></span>
 			</div>
 			<div>
 				<strong>{$foruminfo['name']}</strong>
@@ -61,7 +61,7 @@
 	
 </table>
 <div class="float_left"><br/>
-	<span class="smalltext mobile"><strong><a href="misc.php?action=markread&amp;fid={$fid}{$post_code_string}"><i class="cp cp-check-mark"></i> {$lang->markforum_read}</a> <br/> <a href="usercp2.php?action={$add_remove_subscription}subscription&amp;type=forum&amp;fid={$fid}&amp;my_post_key={$mybb->post_code}"><i class="cp cp-bookmark"></i> {$add_remove_subscription_text}</a>{$clearstoredpass}</strong></span><br/>
+	<span class="smalltext mobile"><strong><a href="misc.php?action=markread&amp;fid={$fid}{$post_code_string}"><i class="cp cp-check-mark"></i> {$lang->markforum_read}</a> <br/> <a href="usercp.php?action={$add_remove_subscription}subscription&amp;type=forum&amp;fid={$fid}&amp;my_post_key={$mybb->post_code}"><i class="cp cp-bookmark"></i> {$add_remove_subscription_text}</a>{$clearstoredpass}</strong></span><br/>
 	{$multipage}
 </div>
 <div class="float_right" style="margin-top: 4px;">
