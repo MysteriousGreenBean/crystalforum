@@ -68,6 +68,27 @@ function login_as_account($user, $accountUid, $redirectPage) {
     }
 
     my_setcookie("mybbuser", $targetUser['uid']."_".$targetUser['loginkey'], null, true, "lax");
-    $lang->redirect_registered = $lang->sprintf($lang->redirect_registered, $mybb->settings['bbname'], htmlspecialchars_uni($user_info['username']));
+    $lang->redirect_registered = $lang->sprintf($lang->redirect_registered, $mybb->settings['bbname'], htmlspecialchars_uni($user['username']));
     redirect($redirectPage, $lang->redirect_registered);
+}
+
+/**
+ * Get a list of formatted account names with links for a user profile, filtered by account type
+ * @param user User data containing characters
+ * @param type Type of account to filter by (e.g., 'Player', 'NPC')
+ * @return string HTML output of accounts for the user profile, delimited by commas
+ */
+function get_accounts_for_user_profile($user, $type) {
+    global $mybb;
+
+    $characterOutput = '';
+    $linkTemplate = $mybb->settings['bburl'] . '/member.php?action=profile&uid=';
+    foreach($user['characters'] as $character) {
+        if ($user['uid'] != $character['uid'] && $character['AccountType'] == $type) {
+            $characterOutput .= '<a href="'.$linkTemplate.$character['uid'].'">'.format_name($character['username'], $character['usergroup'], $character['displaygroup'], true).'</a>, ';
+        }
+    }
+
+    $characterOutput = rtrim($characterOutput, ', ');
+    return $characterOutput;
 }
