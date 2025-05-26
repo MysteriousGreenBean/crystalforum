@@ -1,5 +1,6 @@
 function Start-Containers {
-    docker-compose up -d
+    docker-compose --profile devEnvironment up -d
+    docker-compose run --rm npm npm install 
     Wait-For-Containers
     Database-Snapshot
     Initialize-Environment
@@ -44,6 +45,9 @@ function Restart-Containers {
 }
 
 function Purge-Containers {
+    docker-compose --profile devEnvironment down
+    docker container prune -f
+    docker volume prune -f
     docker-compose down --rmi all --volumes --remove-orphans
 }
 
@@ -52,7 +56,7 @@ function View-Logs {
 }
 
 function Database-Update {
-    docker-compose run liquibase update --changelog-file "./docker/liquibase/changelog/db.changelog.xml"
+    docker-compose run --rm liquibase update --changelog-file "./docker/liquibase/changelog/db.changelog.xml"
 }
 
 function Database-Snapshot {
