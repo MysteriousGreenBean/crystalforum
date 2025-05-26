@@ -1,0 +1,25 @@
+name: Prettier check
+
+on:
+    pull_request:
+        branches:
+            - main
+            - 'feature/*'
+
+jobs:
+    prettier:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run Prettier check
+              run: npx prettier --check "**/*.{js,css,html,php,json,md}"
