@@ -63,6 +63,14 @@ services:
       - mybb_network
     command: ["sh", "-c", "liquibase update"]
 
+    
+  npm:
+    container_name: npm
+    image: node:latest
+    volumes:
+      - ./:/liquibase/resources:rw
+    command: ["sh", "-c", "npm install"]
+
 networks:
   mybb_network:
     driver: bridge

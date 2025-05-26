@@ -18,5 +18,8 @@
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/MysteriousGreenBean/crystalforum/issues"
+    },
+    "lint-staged": {
+        "*.{js,css,md,php,html,json}": "prettier --check"
     }
 }
