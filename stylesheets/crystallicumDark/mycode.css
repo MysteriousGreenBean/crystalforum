@@ -22,7 +22,7 @@
 
 .mycode_url:hover {
 	color: var(--accent-color) !important;
-	letter-spacing: 3px;
+	letter-spacing: 1px;
 	transition: all 0.5s ease;
 }
 
@@ -33,7 +33,7 @@
 
 .mycode_link:hover {
 	color: var(--accent-color) !important;
-	letter-spacing: 3px;
+	letter-spacing: 0.5px;
 	transition: all 0.5s ease;
 }
 
