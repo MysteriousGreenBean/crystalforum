@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "bmewburn.vscode-intelephense-client"
+    ],
+    "unwantedRecommendations": [
+        "vscode.php-language-features"
+    ]
+}

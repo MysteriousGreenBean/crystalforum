@@ -1,0 +1,22 @@
+{
+    "name": "crystalforum",
+    "version": "1.0.0",
+    "devDependencies": {
+        "@prettier/plugin-php": "^0.22.4",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.0.0",
+        "prettier": "^3.5.3"
+    },
+    "scripts": {
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MysteriousGreenBean/crystalforum.git"
+    },
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MysteriousGreenBean/crystalforum/issues"
+    }
+}
