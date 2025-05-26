@@ -2367,7 +2367,7 @@ if($mybb->input['action'] == "profile")
 		}
 	}
 
-	$memregdate = my_date($mybb->settings['dateformat'], $memprofile['regdate']);
+	$memregdate = my_date($mybb->settings['dateformat'], $memprofile['parent']['regdate']);
 	$memlocaldate = gmdate($mybb->settings['dateformat'], TIME_NOW + ($memprofile['timezone'] * 3600));
 	$memlocaltime = gmdate($mybb->settings['timeformat'], TIME_NOW + ($memprofile['timezone'] * 3600));
 
@@ -2545,7 +2545,7 @@ if($mybb->input['action'] == "profile")
 
 			if($memprofile['timeonline'] > 0)
 			{
-				$timeonline = nice_time($memprofile['timeonline']);
+				$timeonline = nice_time($memprofile['parent']['timeonline']);
 			}
 
 			// Online?
@@ -2578,7 +2578,7 @@ if($mybb->input['action'] == "profile")
 		$bg_color = alt_trow();
 
 		$uid = (int) $memprofile['uid'];
-		$referral_count = $memprofile['referrals'];
+		$referral_count = $memprofile['parent']['referrals'];
 		if ($referral_count > 0) {
 			eval("\$memprofile['referrals'] = \"".$templates->get('member_referrals_link')."\";");
 		}
@@ -2591,11 +2591,11 @@ if($mybb->input['action'] == "profile")
 	if($memperms['usereputationsystem'] == 1 && $mybb->settings['enablereputation'] == 1)
 	{
 		$bg_color = alt_trow();
-		$reputation = get_reputation($memprofile['reputation']);
+		$reputation = get_reputation($memprofile['parent']['reputation']);
 
 		// If this user has permission to give reputations show the vote link
 		$vote_link = '';
-		if($mybb->usergroup['cangivereputations'] == 1 && $memprofile['uid'] != $mybb->user['uid'] && ($mybb->settings['posrep'] || $mybb->settings['neurep'] || $mybb->settings['negrep']))
+		if($mybb->usergroup['cangivereputations'] == 1 && $memprofile['parent']['uid'] != $mybb->user['parent']['uid'] && ($mybb->settings['posrep'] || $mybb->settings['neurep'] || $mybb->settings['negrep']))
 		{
 			eval("\$vote_link = \"".$templates->get("member_profile_reputation_vote")."\";");
 		}
@@ -2604,7 +2604,7 @@ if($mybb->input['action'] == "profile")
 	}
 
 	$warning_level = '';
-	if($mybb->settings['enablewarningsystem'] != 0 && $memperms['canreceivewarnings'] != 0 && ($mybb->usergroup['canwarnusers'] != 0 || ($mybb->user['uid'] == $memprofile['uid'] && $mybb->settings['canviewownwarning'] != 0)))
+	if($mybb->settings['enablewarningsystem'] != 0 && $memperms['canreceivewarnings'] != 0 && ($mybb->usergroup['canwarnusers'] != 0 || ($mybb->user['parent']['uid'] == $memprofile['parent']['uid'] && $mybb->settings['canviewownwarning'] != 0)))
 	{
 		$bg_color = alt_trow();
 
@@ -2725,6 +2725,12 @@ if($mybb->input['action'] == "profile")
 	$lang->tpd_percent_total = $lang->sprintf($lang->tpd_percent_total, my_number_format($tpd), $thread_percent);
 
 	$formattedname = format_name($memprofile['username'], $memprofile['usergroup'], $memprofile['displaygroup']);
+	$formattedparentname = format_name($memprofile['parent']['username'], $memprofile['parent']['usergroup'], $memprofile['parent']['displaygroup'], true);
+
+	require_once MYBB_ROOT."/inc/functions_accountswitcher.php";
+	$linkedCharacters = get_accounts_for_user_profile($memprofile, 'Character');
+	$linkedGM = get_accounts_for_user_profile($memprofile, 'GM');
+
 
 	$bannedbit = '';
 	if($memperms['isbannedgroup'] == 1 && $mybb->usergroup['canbanusers'] == 1)
@@ -2871,7 +2877,7 @@ if($mybb->input['action'] == "profile")
 
 	$add_remove_options = array();
 	$buddy_options = $ignore_options = $report_options = '';
-	if($mybb->user['uid'] != $memprofile['uid'] && $mybb->user['uid'] != 0)
+	if($mybb->user['parent']['uid'] != $memprofile['parent']['uid'] && $mybb->user['parent']['uid'] != 0)
 	{
 		$buddy_list = explode(',', $mybb->user['buddylist']);
 		$ignore_list = explode(',', $mybb->user['ignorelist']);
@@ -2882,7 +2888,7 @@ if($mybb->input['action'] == "profile")
 		}
 		else
 		{
-			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;add_username=".urlencode($memprofile['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_buddy_button', 'lang' => $lang->add_to_buddy_list);
+			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;add_username=".urlencode($memprofile['parent']['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_buddy_button', 'lang' => $lang->add_to_buddy_list);
 		}
 
 		if(!in_array($uid, $ignore_list))
@@ -2896,7 +2902,7 @@ if($mybb->input['action'] == "profile")
 		}
 		else
 		{
-			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;manage=ignored&amp;add_username=".urlencode($memprofile['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_ignore_button', 'lang' => $lang->add_to_ignore_list);
+			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;manage=ignored&amp;add_username=".urlencode($memprofile['parent']['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_ignore_button', 'lang' => $lang->add_to_ignore_list);
 		}
 
 		if(!in_array($uid, $buddy_list))
@@ -2907,19 +2913,19 @@ if($mybb->input['action'] == "profile")
 		if(isset($memperms['canbereported']) && $memperms['canbereported'] == 1)
 		{
 			$reportable = true;
-			$query = $db->simple_select("reportedcontent", "reporters", "reportstatus != '1' AND id = '{$memprofile['uid']}' AND type = 'profile'");
+			$query = $db->simple_select("reportedcontent", "reporters", "reportstatus != '1' AND id = '{$memprofile['parent']['uid']}' AND type = 'profile'");
 			if($db->num_rows($query))
 			{
 				$report = $db->fetch_array($query);
 				$report['reporters'] = my_unserialize($report['reporters']);
-				if(is_array($report['reporters']) && in_array($mybb->user['uid'], $report['reporters']))
+				if(is_array($report['reporters']) && in_array($mybb->user['parent']['uid'], $report['reporters']))
 				{
 					$reportable = false;
 				}
 			}
 			if($reportable)
 			{
-				$add_remove_options = array('url' => "javascript:Report.reportUser({$memprofile['uid']});", 'class' => 'report_user_button', 'lang' => $lang->report_user);
+				$add_remove_options = array('url' => "javascript:Report.reportUser({$memprofile['parent']['uid']});", 'class' => 'report_user_button', 'lang' => $lang->report_user);
 				eval("\$report_options = \"".$templates->get("member_profile_addremove")."\";"); // Report User
 			}
 		}

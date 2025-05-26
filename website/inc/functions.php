@@ -349,10 +349,10 @@ function my_date($format, $stamp=0, $offset="", $ty=1, $adodb=false)
 
 	if(!$offset && $offset != '0')
 	{
-		if(isset($mybb->user['uid']) && $mybb->user['uid'] != 0 && array_key_exists("timezone", $mybb->user))
+		if(isset($mybb->user['parent']['uid']) && $mybb->user['parent']['uid'] != 0 && array_key_exists("timezone", $mybb->user))
 		{
-			$offset = (float)$mybb->user['timezone'];
-			$dstcorrection = $mybb->user['dst'];
+			$offset = (float)$mybb->user['parent']['timezone'];
+			$dstcorrection = $mybb->user['parent']['dst'];
 		}
 		else
 		{
@@ -6650,11 +6650,58 @@ function get_user($uid)
 	elseif($uid > 0)
 	{
 		$query = $db->simple_select("users", "*", "uid = '{$uid}'");
+
 		$user_cache[$uid] = $db->fetch_array($query);
+
+		if ($user_cache[$uid]['AccountType'] == 'Player') {
+			$user_cache[$uid]['parent'] = $user_cache[$uid];
+		} else {
+			$user_cache[$uid]['parent'] = $db->fetch_array(
+				$db->simple_select('users', '*', 'uid='.(int)$user_cache[$uid]['ParentUid'])
+			);
+		}
+
+		// Load other character accounts
+		$uidForFilter = $user_cache[$uid]['AccountType'] == 'Player' ? $user_cache[$uid]['uid'] : $user_cache[$uid]['ParentUid'];
+
+		$user_cache[$uid]['characters'] = array();
+		$query = $db->simple_select('users', '*', 'ParentUid=' . (int)$uidForFilter, array('order_by' => 'uid'));
+		while ($character = $db->fetch_array($query)) {
+			$user_cache[$uid]['characters'][] = $character;
+		}
+
+		$user_cache[$uid] = fix_default_avatars($user_cache[$uid]);
 
 		return $user_cache[$uid];
 	}
 	return array();
+}
+
+/**
+ * Fixes the default avatar for users and characters.
+ *
+ * @param array $user The user data array.
+ * @return array The user data array with fixed avatar.
+ */
+function fix_default_avatars($user)
+{
+	 global $mybb;
+	 
+	 if(!$user['avatar'] && !empty($mybb->settings['useravatar']))
+	 {
+		$user['avatar'] = $mybb->settings['useravatar'];
+	 }
+
+    if(!$user['parent']['avatar'] && !empty($mybb->settings['useravatar'])) {
+        $user['parent']['avatar'] = $mybb->settings['useravatar'];
+    }
+
+    foreach ($user['characters'] as &$character) {
+        if(!$character['avatar'] && !empty($mybb->settings['useravatar']))
+            $character['avatar'] = $mybb->settings['useravatar'];
+    }
+
+	return $user;
 }
 
 /**
