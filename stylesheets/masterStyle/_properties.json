@@ -1,22 +1,22 @@
 {
-  "themeId": 1,
-  "templateset": -2,
-  "name": "MyBB Master Style",
-  "parentId": 0,
-  "isDefault": 0,
-  "imgdir": "images",
-  "logo": "images/logo.png",
-  "tablespace": "5",
-  "borderwidth": "0",
-  "editortheme": "mybb.css",
-  "disporder": {
-    "global.css": 1,
-    "usercp.css": 2,
-    "modcp.css": 3,
-    "star_ratings.css": 4,
-    "showthread.css": 5,
-    "thread_status.css": 6,
-    "css3.css": 7,
-    "avatarep.css": 8
-  }
+    "themeId":  1,
+    "templateset":  -2,
+    "name":  "MyBB Master Style",
+    "parentId":  0,
+    "isDefault":  0,
+    "imgdir":  "images",
+    "logo":  "images/logo.png",
+    "tablespace":  "5",
+    "borderwidth":  "0",
+    "editortheme":  "mybb.css",
+    "disporder":  {
+                      "avatarep.css":  1,
+                      "css3.css":  2,
+                      "global.css":  3,
+                      "modcp.css":  4,
+                      "showthread.css":  5,
+                      "star_ratings.css":  6,
+                      "thread_status.css":  7,
+                      "usercp.css":  8
+                  }
 }

@@ -100,6 +100,17 @@
                 "reveal": "always",
                 "panel": "shared"
             }
+        },
+        {
+            "name": "Refresh stylesheets",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Refresh stylesheets",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
         }
     ]
 }
