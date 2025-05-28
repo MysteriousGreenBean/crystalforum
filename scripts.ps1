@@ -2,10 +2,38 @@ function Start-Containers {
     docker-compose up -d
     Wait-For-Containers
     Database-Snapshot
-    Initialize-Environment
+    Refresh-Stylesheets
 }
 
-function Initialize-Environment {
+function Refresh-Cache {
+    $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=cache&fromconsole=true' -UseBasicParsing
+    Write-Host $response.Content
+}
+
+function Refresh-Stylesheets {
+
+    Get-ChildItem -Path "stylesheets" -Directory | ForEach-Object {
+        $subfolder = $_.FullName
+        $propertiesPath = Join-Path $subfolder "_properties.json"
+        if (Test-Path $propertiesPath) {
+            $properties = Get-Content $propertiesPath -Raw | ConvertFrom-Json
+
+            $cssFiles = Get-ChildItem -Path $subfolder -Filter "*.css" | Sort-Object Name
+            $disporderMap = [ordered]@{}
+            $order = 1
+            foreach ($css in $cssFiles) {
+                $disporderMap[$css.Name] = $order
+                $order++
+            }
+            $properties.disporder = $disporderMap
+
+            $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
+            $resultJson = $properties | ConvertTo-Json -Depth 10
+            [System.IO.File]::WriteAllLines($propertiesPath, $resultJson, $Utf8NoBomEncoding)
+        }
+    }
+
+
     if (Test-Path "website/cache/theme_stylesheet_map.php") {
         Remove-Item "website/cache/theme_stylesheet_map.php" -Force
     }
@@ -20,11 +48,6 @@ function Initialize-Environment {
     $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=templates&force=true&dev=true&fromconsole=true' -UseBasicParsing | Out-Null
     Write-Host $response.Content
     Refresh-Cache
-}
-
-function Refresh-Cache {
-    $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=cache&fromconsole=true' -UseBasicParsing
-    Write-Host $response.Content
 }
 
 function Wait-For-Containers {
@@ -212,5 +235,6 @@ switch ($args[0]) {
     "database-snapshot" { Database-Snapshot }
     "database-dumpChanges" { Database-diffChangeLog }
     "refresh-cache" { Refresh-Cache }
+    "refresh-stylesheets" { Refresh-Stylesheets }
     default { Write-Host "Usage: scripts {start|stop|restart|logs|database-update|database-snapshot|database-dumpChanges}" }
 }
