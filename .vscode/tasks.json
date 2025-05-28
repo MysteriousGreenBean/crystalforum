@@ -121,6 +121,19 @@
                 "${workspaceFolder}/scripts.ps1",
                 "refresh-cache"
             ]
+        },
+        {
+            "label": "Refresh stylesheets",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/scripts.ps1",
+                "refresh-stylesheets"
+            ]
         }
     ]
 }
