@@ -18,14 +18,45 @@ function Refresh-Stylesheets {
         if (Test-Path $propertiesPath) {
             $properties = Get-Content $propertiesPath -Raw | ConvertFrom-Json
 
-            $cssFiles = Get-ChildItem -Path $subfolder -Filter "*.css" | Sort-Object Name
-            $disporderMap = [ordered]@{}
-            $order = 1
-            foreach ($css in $cssFiles) {
-                $disporderMap[$css.Name] = $order
-                $order++
+            $disporder = $properties.disporder
+
+            if (-not $disporder) {
+                $disporder = @{}
             }
-            $properties.disporder = $disporderMap
+
+            # Remove disporder entries for missing .css files and adjust order
+            $cssFileNames = (Get-ChildItem -Path $subfolder -Filter "*.css").Name
+            $disporderKeys = $disporder.PSObject.Properties.Name
+
+            foreach ($key in $disporderKeys) {
+                if ($cssFileNames -notcontains $key) {
+                    $removedOrder = [int]$disporder.$key
+                    $disporder.PSObject.Properties.Remove($key)
+                    # Decrease disporder values higher than the removed one
+                    foreach ($prop in $disporder.PSObject.Properties) {
+                        if ([int]$prop.Value -gt $removedOrder) {
+                            $disporder.$($prop.Name) = [int]$prop.Value - 1
+                        }
+                    }
+                }
+            }
+
+            $cssFiles = Get-ChildItem -Path $subfolder -Filter "*.css" | Sort-Object Name
+            $existingOrders = @()
+            if ($disporder.PSObject.Properties.Count -gt 0) {
+                $existingOrders = $disporder.PSObject.Properties | ForEach-Object { [int]$_.Value }
+            }
+            $maxOrder = if ($existingOrders.Count -gt 0) { ($existingOrders | Measure-Object -Maximum).Maximum } else { 0 }
+
+            foreach ($css in $cssFiles) {
+                if (-not ($disporder.PSObject.Properties.Name -contains $css.Name)) {
+                    $maxOrder++
+                    $disporder | Add-Member -MemberType NoteProperty -Name $css.Name -Value $maxOrder
+                }
+            }
+            $properties.disporder = $disporder
+
+
 
             $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
             $resultJson = $properties | ConvertTo-Json -Depth 10
