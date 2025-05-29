@@ -23,9 +23,10 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
 class Horde_Text_Diff_Mapped extends Horde_Text_Diff
@@ -44,11 +45,16 @@ class Horde_Text_Diff_Mapped extends Horde_Text_Diff
      */
     public function __construct($engine, $params)
     {
-        list($from_lines, $to_lines, $mapped_from_lines, $mapped_to_lines) = $params;
+        list(
+            $from_lines,
+            $to_lines,
+            $mapped_from_lines,
+            $mapped_to_lines,
+        ) = $params;
         assert(count($from_lines) == count($mapped_from_lines));
         assert(count($to_lines) == count($mapped_to_lines));
 
-        parent::__construct($engine, array($mapped_from_lines, $mapped_to_lines));
+        parent::__construct($engine, [$mapped_from_lines, $mapped_to_lines]);
 
         $xi = $yi = 0;
         for ($i = 0; $i < count($this->_edits); $i++) {

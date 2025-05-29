@@ -1,142 +1,155 @@
 /*! SCEditor | (C) 2011-2013, Sam Clarke | sceditor.com/license */
-html, body, p, code:before, table {
-	margin: 0;
-	padding: 0px;
-	font-family: Tahoma, Verdana, Arial, Sans-Serif;
-	font-size: 14px;
-	color: #a3a3a3;
+html,
+body,
+p,
+code:before,
+table {
+    margin: 0;
+    padding: 0px;
+    font-family: Tahoma, Verdana, Arial, Sans-Serif;
+    font-size: 14px;
+    color: #a3a3a3;
 }
 
 html {
-	/* Needed so the cursor will be placed at the end of the content
+    /* Needed so the cursor will be placed at the end of the content
 	   when the there isn't enought content to fill the full viewport */
-	height: 100%;
+    height: 100%;
 
-	/* Needed for iOS scrolling bug fix */
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
+    /* Needed for iOS scrolling bug fix */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
-	/* Needed for iOS scrolling bug fix */
-	position: relative;
-	overflow: auto;
+    /* Needed for iOS scrolling bug fix */
+    position: relative;
+    overflow: auto;
 
-	/* Needed so the cursor will be placed at the end of the content
+    /* Needed so the cursor will be placed at the end of the content
 	   when the there isn't enought content to fill the full viewport */
-	min-height: 100%;
-	word-wrap: break-word;
+    min-height: 100%;
+    word-wrap: break-word;
 }
 
-table, td {
-	border: 1px dotted #000;
+table,
+td {
+    border: 1px dotted #000;
 
-	/* Show empty cells so they can be edited */
-	empty-cells: show;
+    /* Show empty cells so they can be edited */
+    empty-cells: show;
 }
 
 code {
-	font-family: Monaco, Consolas, Courier, monospace;
-	font-size: 13px !important;
-	padding: 10px;
-	position: relative;
-	background: #141311d6;
-	color: #a3a3a3 !important;
-	margin: .5em .05em;
-	white-space: pre-wrap;
-	display: block;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
+    font-family: Monaco, Consolas, Courier, monospace;
+    font-size: 13px !important;
+    padding: 10px;
+    position: relative;
+    background: #141311d6;
+    color: #a3a3a3 !important;
+    margin: 0.5em 0.05em;
+    white-space: pre-wrap;
+    display: block;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
-.ie6 code, .ie7 code {
-	margin-top: 0;
+.ie6 code,
+.ie7 code {
+    margin-top: 0;
 }
 
-code:before, code {
-	display: block;
-	text-align: left;
+code:before,
+code {
+    display: block;
+    text-align: left;
 }
 
 blockquote {
-	position: relative;
-	background: #141311d6;
-	margin: .5em .05em 0 0;
-	margin-bottom: .5em;
+    position: relative;
+    background: #141311d6;
+    margin: 0.5em 0.05em 0 0;
+    margin-bottom: 0.5em;
 
-	padding: 10px;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
-	border: 1px solid #00000008;
+    padding: 10px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #00000008;
 }
 
 blockquote cite {
-	font-weight: bold;
-	font-style: normal;
-	display: block;
-	font-size: 1em;
-	border-bottom: 2px solid #00000008;
-	margin-bottom: 10px;
-	padding-bottom: 3px;
-	color:#a3a3a3;
+    font-weight: bold;
+    font-style: normal;
+    display: block;
+    font-size: 1em;
+    border-bottom: 2px solid #00000008;
+    margin-bottom: 10px;
+    padding-bottom: 3px;
+    color: #a3a3a3;
 }
 
 a {
-    color:#a3a3a3;
-    text-decoration:underline;
+    color: #a3a3a3;
+    text-decoration: underline;
 }
 
 hr {
-	opacity: .3
+    opacity: 0.3;
 }
 
 /* prevent divs from being collapsed */
 div {
-	min-height: 1.25em;
+    min-height: 1.25em;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	padding: 0;
-	margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding: 0;
+    margin: 0;
 }
 
-ul, ol {
-	margin-top: 0;
-	margin-bottom: 0;
-	padding-top: 0;
-	padding-bottom: 0;
+ul,
+ol {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 img {
-	max-width: 100%;
+    max-width: 100%;
 }
 
-font[size="1"] {
+font[size='1'] {
     font-size: xx-small;
 }
 
-font[size="2"] {
+font[size='2'] {
     font-size: x-small;
 }
 
-font[size="3"] {
+font[size='3'] {
     font-size: small;
 }
 
-font[size="4"] {
+font[size='4'] {
     font-size: medium;
 }
 
-font[size="5"] {
+font[size='5'] {
     font-size: large;
 }
 
-font[size="6"] {
+font[size='6'] {
     font-size: x-large;
 }
 
-font[size="7"] {
+font[size='7'] {
     font-size: xx-large;
 }

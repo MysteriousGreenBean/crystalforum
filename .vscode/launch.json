@@ -1,7 +1,6 @@
 {
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "Start containers",
             "type": "node",
@@ -68,7 +67,7 @@
                 "panel": "shared"
             }
         },
-        { 
+        {
             "name": "Database update",
             "type": "node",
             "request": "launch",

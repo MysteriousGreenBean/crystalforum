@@ -5,90 +5,73 @@
 }
 .thread_status.dot_folder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\ec9f"
+    opacity: 0.4;
+    content: '\ec9f';
 }
 .thread_status.dot_hotfolder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\ea53"
+    opacity: 0.4;
+    content: '\ea53';
 }
 .thread_status.dot_hotlockfolder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\eb6a"
+    opacity: 0.4;
+    content: '\eb6a';
 }
 .thread_status.dot_lockfolder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\eb6a"
+    opacity: 0.4;
+    content: '\eb6a';
 }
 .thread_status.dot_newfolder:before {
     color: var(--new-status-icon-color);
-    content: "\ec9b"
+    content: '\ec9b';
 }
 .thread_status.dot_newhotfolder:before {
     color: var(--new-status-icon-color);
-    content: "\ea52"
+    content: '\ea52';
 }
 .thread_status.dot_newhotlockfolder:before {
     color: var(--new-status-icon-color);
-    content: "\eb69"
+    content: '\eb69';
 }
 .thread_status.dot_newlockfolder:before {
     color: var(--new-status-icon-color);
-    content: "\eb69"
+    content: '\eb69';
 }
 .thread_status.folder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\ead6"
+    opacity: 0.4;
+    content: '\ead6';
 }
 .thread_status.hotfolder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\ea53"
+    opacity: 0.4;
+    content: '\ea53';
 }
 .thread_status.hotlockfolder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\eb6a"
+    opacity: 0.4;
+    content: '\eb6a';
 }
 .thread_status.lockfolder:before {
     color: var(--status-icon-color);
-	opacity:0.4;
-    content: "\eb6a"
+    opacity: 0.4;
+    content: '\eb6a';
 }
 .thread_status.newfolder:before {
     color: var(--new-status-icon-color);
-    content: "\ead5"
+    content: '\ead5';
 }
 .thread_status.newhotfolder:before {
     color: var(--new-status-icon-color);
-    content: "\ea52"
+    content: '\ea52';
 }
 .thread_status.newhotlockfolder:before {
     color: var(--new-status-icon-color);
-    content: "\eb69"
+    content: '\eb69';
 }
 .thread_status.newlockfolder:before {
     color: var(--new-status-icon-color);
-    content: "\eb69"
+    content: '\eb69';
 }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		

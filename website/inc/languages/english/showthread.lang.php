@@ -52,13 +52,16 @@ $l['remove_subscriptions'] = 'Remove All Subscriptions';
 $l['poll'] = 'Poll:';
 $l['show_results'] = 'Show Results';
 $l['edit_poll'] = 'Edit poll';
-$l['public_note'] = '<i class="bi bi-info-circle"></i> <span class="text-muted">This is a public poll, other users will be able to see what you voted for.</span>';
+$l['public_note'] =
+    '<i class="bi bi-info-circle"></i> <span class="text-muted">This is a public poll, other users will be able to see what you voted for.</span>';
 $l['total'] = 'Total';
 $l['vote'] = 'Vote!';
 $l['total_votes'] = '{1} vote(s)';
 $l['you_voted'] = '* You voted for this item.';
-$l['poll_closed'] = '<span class="text-danger"><i class="bi bi-info-circle"></i> This poll is closed.</span>';
-$l['poll_closes'] = 'This poll will close on <span class="text-muted">{1}</span>';
+$l['poll_closed'] =
+    '<span class="text-danger"><i class="bi bi-info-circle"></i> This poll is closed.</span>';
+$l['poll_closes'] =
+    'This poll will close on <span class="text-muted">{1}</span>';
 $l['already_voted'] = 'You have already voted in this poll.';
 $l['no_voting_permission'] = 'You do not have permission to vote in this poll.';
 $l['undo_vote'] = 'Undo vote';
@@ -99,9 +102,12 @@ $l['inline_go'] = 'Go';
 $l['clear'] = 'Clear';
 $l['thread_closed'] = 'Thread Closed';
 $l['no_subject'] = 'No subject';
-$l['error_nonextnewest'] = 'There are no threads that are newer than the one you were previously viewing.';
-$l['error_nonextoldest'] = 'There are no threads that are older than the one you were previously viewing.';
-$l['quickreply_multiquote_selected'] = 'You have selected one or more posts to quote.';
+$l['error_nonextnewest'] =
+    'There are no threads that are newer than the one you were previously viewing.';
+$l['error_nonextoldest'] =
+    'There are no threads that are older than the one you were previously viewing.';
+$l['quickreply_multiquote_selected'] =
+    'You have selected one or more posts to quote.';
 $l['quickreply_multiquote_now'] = 'Quote these posts now';
 $l['or'] = 'or';
 $l['quickreply_multiquote_deselect'] = 'deselect them';

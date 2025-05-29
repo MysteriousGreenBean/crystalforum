@@ -13,46 +13,44 @@
  * @param array $max_expiration_times Return variable. The maximum expiration time
  * @param array $check_levels Return variable. Whether those "levels" were checked
  */
-function find_warnlevels_to_check($query, &$max_expiration_times, &$check_levels)
-{
-	global $db;
+function find_warnlevels_to_check(
+    $query,
+    &$max_expiration_times,
+    &$check_levels
+) {
+    global $db;
 
-	// we have some warning levels we need to revoke
-	$max_expiration_times = array(
-		1 => -1,	// Ban
-		2 => -1,	// Revoke posting
-		3 => -1		// Moderate posting
-	);
-	$check_levels = array(
-		1 => false,	// Ban
-		2 => false,	// Revoke posting
-		3 => false	// Moderate posting
-	);
-	while($warn_level = $db->fetch_array($query))
-	{
-		// revoke actions taken at this warning level
-		$action = my_unserialize($warn_level['action']);
-		if($action['type'] < 1 || $action['type'] > 3)	// prevent any freak-ish cases
-		{
-			continue;
-		}
+    // we have some warning levels we need to revoke
+    $max_expiration_times = [
+        1 => -1, // Ban
+        2 => -1, // Revoke posting
+        3 => -1, // Moderate posting
+    ];
+    $check_levels = [
+        1 => false, // Ban
+        2 => false, // Revoke posting
+        3 => false, // Moderate posting
+    ];
+    while ($warn_level = $db->fetch_array($query)) {
+        // revoke actions taken at this warning level
+        $action = my_unserialize($warn_level['action']);
+        if ($action['type'] < 1 || $action['type'] > 3) {
+            // prevent any freak-ish cases
+            continue;
+        }
 
-		$check_levels[$action['type']] = true;
+        $check_levels[$action['type']] = true;
 
-		$max_exp_time = &$max_expiration_times[$action['type']];
-		if($action['length'] && $max_exp_time != 0)
-		{
-			$expiration = $action['length'];
-			if($expiration > $max_exp_time)
-			{
-				$max_exp_time = $expiration;
-			}
-		}
-		else
-		{
-			$max_exp_time = 0;
-		}
-	}
+        $max_exp_time = &$max_expiration_times[$action['type']];
+        if ($action['length'] && $max_exp_time != 0) {
+            $expiration = $action['length'];
+            if ($expiration > $max_exp_time) {
+                $max_exp_time = $expiration;
+            }
+        } else {
+            $max_exp_time = 0;
+        }
+    }
 }
 
 /**
@@ -63,26 +61,17 @@ function find_warnlevels_to_check($query, &$max_expiration_times, &$check_levels
  */
 function fetch_friendly_expiration($time)
 {
-	if($time == 0 || $time == -1)
-	{
-		return array("period" => "never");
-	}
-	else if($time % 2592000 == 0)
-	{
-		return array("time" => $time/2592000, "period" => "months");
-	}
-	else if($time % 604800 == 0)
-	{
-		return array("time" => $time/604800, "period" => "weeks");
-	}
-	else if($time % 86400 == 0)
-	{
-		return array("time" => $time/86400, "period" => "days");
-	}
-	else
-	{
-		return array("time" => ceil($time/3600), "period" => "hours");
-	}
+    if ($time == 0 || $time == -1) {
+        return ['period' => 'never'];
+    } elseif ($time % 2592000 == 0) {
+        return ['time' => $time / 2592000, 'period' => 'months'];
+    } elseif ($time % 604800 == 0) {
+        return ['time' => $time / 604800, 'period' => 'weeks'];
+    } elseif ($time % 86400 == 0) {
+        return ['time' => $time / 86400, 'period' => 'days'];
+    } else {
+        return ['time' => ceil($time / 3600), 'period' => 'hours'];
+    }
 }
 
 /**
@@ -94,32 +83,21 @@ function fetch_friendly_expiration($time)
  */
 function fetch_time_length($time, $period)
 {
-	$time = (int)$time;
+    $time = (int) $time;
 
-	if($period == "hours")
-	{
-		$time = $time*3600;
-	}
-	else if($period == "days")
-	{
-		$time = $time*86400;
-	}
-	else if($period == "weeks")
-	{
-		$time = $time*604800;
-	}
-	else if($period == "months")
-	{
-		$time = $time*2592000;
-	}
-	else if($period == "never" && $time == 0)
-	{
-		// User is permanentely banned
-		$time = "-1";
-	}
-	else
-	{
-		$time = 0;
-	}
-	return $time;
+    if ($period == 'hours') {
+        $time = $time * 3600;
+    } elseif ($period == 'days') {
+        $time = $time * 86400;
+    } elseif ($period == 'weeks') {
+        $time = $time * 604800;
+    } elseif ($period == 'months') {
+        $time = $time * 2592000;
+    } elseif ($period == 'never' && $time == 0) {
+        // User is permanentely banned
+        $time = '-1';
+    } else {
+        $time = 0;
+    }
+    return $time;
 }

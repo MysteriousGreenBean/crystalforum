@@ -17,9 +17,10 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
 class Horde_Text_Diff
@@ -48,27 +49,26 @@ class Horde_Text_Diff
             $engine = Horde_String::ucfirst(basename($engine));
         }
 
-		// Fugly; Include operational classes required for Text_Diff
-		$classes = array(
-			'String.php',
-			"Engine/{$engine}.php",
-			'Renderer/Inline.php',
-			'Op/Base.php',
-			'Op/Copy.php',
-			'Op/Change.php',
-			'Op/Add.php',
-			'Op/Delete.php'
-		);
+        // Fugly; Include operational classes required for Text_Diff
+        $classes = [
+            'String.php',
+            "Engine/{$engine}.php",
+            'Renderer/Inline.php',
+            'Op/Base.php',
+            'Op/Copy.php',
+            'Op/Change.php',
+            'Op/Add.php',
+            'Op/Delete.php',
+        ];
 
-		foreach($classes as $class)
-		{
-			require_once MYBB_ROOT."inc/3rdparty/diff/Diff/{$class}";
-		}
+        foreach ($classes as $class) {
+            require_once MYBB_ROOT . "inc/3rdparty/diff/Diff/{$class}";
+        }
 
         $class = 'Horde_Text_Diff_Engine_' . $engine;
         $diff_engine = new $class();
 
-        $this->_edits = call_user_func_array(array($diff_engine, 'diff'), $params);
+        $this->_edits = call_user_func_array([$diff_engine, 'diff'], $params);
     }
 
     /**
@@ -88,8 +88,10 @@ class Horde_Text_Diff
     {
         $count = 0;
         foreach ($this->_edits as $edit) {
-            if ($edit instanceof Horde_Text_Diff_Op_Add ||
-                $edit instanceof Horde_Text_Diff_Op_Change) {
+            if (
+                $edit instanceof Horde_Text_Diff_Op_Add ||
+                $edit instanceof Horde_Text_Diff_Op_Change
+            ) {
                 $count += $edit->nfinal();
             }
         }
@@ -105,8 +107,10 @@ class Horde_Text_Diff
     {
         $count = 0;
         foreach ($this->_edits as $edit) {
-            if ($edit instanceof Horde_Text_Diff_Op_Delete ||
-                $edit instanceof Horde_Text_Diff_Op_Change) {
+            if (
+                $edit instanceof Horde_Text_Diff_Op_Delete ||
+                $edit instanceof Horde_Text_Diff_Op_Change
+            ) {
                 $count += $edit->norig();
             }
         }
@@ -130,11 +134,11 @@ class Horde_Text_Diff
     public function reverse()
     {
         if (version_compare(zend_version(), '2', '>')) {
-            $rev = clone($this);
+            $rev = clone $this;
         } else {
             $rev = $this;
         }
-        $rev->_edits = array();
+        $rev->_edits = [];
         foreach ($this->_edits as $edit) {
             $rev->_edits[] = $edit->reverse();
         }
@@ -183,7 +187,7 @@ class Horde_Text_Diff
      */
     public function getOriginal()
     {
-        $lines = array();
+        $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->orig) {
                 array_splice($lines, count($lines), 0, $edit->orig);
@@ -201,7 +205,7 @@ class Horde_Text_Diff
      */
     public function getFinal()
     {
-        $lines = array();
+        $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->final) {
                 array_splice($lines, count($lines), 0, $edit->final);
@@ -219,7 +223,7 @@ class Horde_Text_Diff
      */
     public static function trimNewlines(&$line, $key)
     {
-        $line = str_replace(array("\n", "\r"), '', $line);
+        $line = str_replace(["\n", "\r"], '', $line);
     }
 
     /**
@@ -247,7 +251,7 @@ class Horde_Text_Diff
         $prevtype = null;
         foreach ($this->_edits as $edit) {
             if ($prevtype == get_class($edit)) {
-                trigger_error("Edit sequence is non-optimal", E_USER_ERROR);
+                trigger_error('Edit sequence is non-optimal', E_USER_ERROR);
             }
             $prevtype = get_class($edit);
         }

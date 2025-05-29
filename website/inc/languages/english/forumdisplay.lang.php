@@ -21,8 +21,10 @@
 
 $l['post_thread'] = 'Post Thread';
 $l['moderated_by'] = 'Moderated By:';
-$l['nothreads'] = 'Sorry, but there are currently no threads in this forum with the specified date and time limiting options.';
-$l['nopermission'] = 'Sorry, but you must <a href="member.php?action=register">create an account</a> to view threads in this forum.';
+$l['nothreads'] =
+    'Sorry, but there are currently no threads in this forum with the specified date and time limiting options.';
+$l['nopermission'] =
+    'Sorry, but you must <a href="member.php?action=register">create an account</a> to view threads in this forum.';
 $l['search_forum'] = 'Search Forum';
 $l['thread'] = 'Thread';
 $l['author'] = 'Author';
@@ -36,7 +38,8 @@ $l['prefix_any'] = 'Prefix: Any Prefix';
 $l['prefix_none'] = 'Prefix: No Prefix';
 $l['markforum_read'] = 'Mark Read';
 $l['subscribe_forum'] = '<i class="bi bi-bell-fill"></i> &nbsp;Subscribe';
-$l['unsubscribe_forum'] = '<i class="bi bi-bell-slash-fill text-danger"></i> &nbsp;Unsubscribe';
+$l['unsubscribe_forum'] =
+    '<i class="bi bi-bell-slash-fill text-danger"></i> &nbsp;Unsubscribe';
 $l['clear_stored_password'] = 'Clear stored forum password';
 $l['sort_by_subject'] = 'Sort by: Subject';
 $l['sort_by_lastpost'] = 'Sort by: Last Post';
@@ -98,16 +101,25 @@ $l['icon_close'] = ' Closed thread.';
 $l['attachment_count'] = 'This thread contains 1 attachment.';
 $l['attachment_count_multiple'] = 'This thread contains {1} attachments.';
 $l['rss_discovery_forum'] = 'Latest Threads in {1}';
-$l['forum_unapproved_posts_count'] = 'There are currently {1} unapproved posts in this forum.';
-$l['forum_unapproved_post_count'] = 'There is currently 1 unapproved post in this forum.';
-$l['forum_unapproved_threads_count'] = 'There are currently {1} unapproved threads in this forum.';
-$l['forum_unapproved_thread_count'] = 'There is currently 1 unapproved thread in this forum.';
-$l['thread_unapproved_posts_count'] = 'There are currently {1} unapproved posts in this thread.';
-$l['thread_unapproved_post_count'] = 'There is currently 1 unapproved post in this thread.';
-$l['page_selected'] = 'All <strong>{1}</strong> threads on this page are selected.';
-$l['all_selected'] = 'All <strong>{1}</strong> threads in this forum are selected.';
+$l['forum_unapproved_posts_count'] =
+    'There are currently {1} unapproved posts in this forum.';
+$l['forum_unapproved_post_count'] =
+    'There is currently 1 unapproved post in this forum.';
+$l['forum_unapproved_threads_count'] =
+    'There are currently {1} unapproved threads in this forum.';
+$l['forum_unapproved_thread_count'] =
+    'There is currently 1 unapproved thread in this forum.';
+$l['thread_unapproved_posts_count'] =
+    'There are currently {1} unapproved posts in this thread.';
+$l['thread_unapproved_post_count'] =
+    'There is currently 1 unapproved post in this thread.';
+$l['page_selected'] =
+    'All <strong>{1}</strong> threads on this page are selected.';
+$l['all_selected'] =
+    'All <strong>{1}</strong> threads in this forum are selected.';
 $l['select_all'] = 'Select all threads in this forum?';
 $l['clear_selection'] = 'Clear Selection.';
 $l['deleted_thread'] = 'Deleted Thread';
-$l['error_containsnoforums'] = 'Sorry, but the forum you are currently viewing does not contain any child forums.';
+$l['error_containsnoforums'] =
+    'Sorry, but the forum you are currently viewing does not contain any child forums.';
 $l['inline_edit_description'] = '(Click and hold to edit)';

@@ -3,5 +3,7 @@
     "tabWidth": 4,
     "semi": false,
     "singleQuote": true,
-    "plugins": ["@prettier/plugin-php"]
+    "plugins": ["@prettier/plugin-php"],
+    "htmlWhitespaceSensitivity": "ignore",
+    "vueIndentScriptAndStyle": true
 }

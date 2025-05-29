@@ -10,18 +10,19 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
 class Horde_Text_Diff_ThreeWay_Op_Base
 {
     public function __construct($orig = false, $final1 = false, $final2 = false)
     {
-        $this->orig = $orig ? $orig : array();
-        $this->final1 = $final1 ? $final1 : array();
-        $this->final2 = $final2 ? $final2 : array();
+        $this->orig = $orig ? $orig : [];
+        $this->final1 = $final1 ? $final1 : [];
+        $this->final2 = $final2 ? $final2 : [];
     }
 
     public function merged()

@@ -3,7 +3,5 @@
         "esbenp.prettier-vscode",
         "bmewburn.vscode-intelephense-client"
     ],
-    "unwantedRecommendations": [
-        "vscode.php-language-features"
-    ]
+    "unwantedRecommendations": ["vscode.php-language-features"]
 }

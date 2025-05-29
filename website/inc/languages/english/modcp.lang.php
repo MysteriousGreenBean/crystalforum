@@ -52,11 +52,16 @@ $l['report_time'] = 'Reported';
 $l['mark_read'] = 'Mark Selected as Read';
 $l['no_reports'] = 'There are currently no unread reports.';
 $l['no_logs'] = 'No moderator actions are currently logged.';
-$l['error_noselected_reports'] = 'Sorry, but you did not select any reported content to mark as read.';
-$l['error_missing_ipaddress'] = 'Sorry, but you did not enter in an IP Address to find.';
-$l['error_no_results'] = 'Sorry, there were no results found with the criteria you selected.';
-$l['redirect_reportsmarked'] = 'The selected reported content have been marked as read.';
-$l['redirect_allreportsmarked'] = 'All reported content has been marked as read.';
+$l['error_noselected_reports'] =
+    'Sorry, but you did not select any reported content to mark as read.';
+$l['error_missing_ipaddress'] =
+    'Sorry, but you did not enter in an IP Address to find.';
+$l['error_no_results'] =
+    'Sorry, there were no results found with the criteria you selected.';
+$l['redirect_reportsmarked'] =
+    'The selected reported content have been marked as read.';
+$l['redirect_allreportsmarked'] =
+    'All reported content has been marked as read.';
 $l['redirect_modnotes'] = 'The moderator notes have been updated.';
 $l['for'] = 'For';
 $l['report_info'] = 'Reported Content';
@@ -65,12 +70,15 @@ $l['report_count'] = '# of Reports';
 $l['report_lastpost'] = 'Last Reported';
 $l['report_reason_other'] = 'Other Reason';
 $l['report_info_post'] = 'A <a href="{1}">Post</a> by {2}';
-$l['report_info_post_thread'] = '<br /><span class="smalltext">In <a href="{1}">{2}</a></span>';
+$l['report_info_post_thread'] =
+    '<br /><span class="smalltext">In <a href="{1}">{2}</a></span>';
 $l['report_info_profile'] = 'Profile of {1}';
 $l['report_info_reputation'] = '<a href="{1}">Reputation</a> from {2}';
-$l['report_info_rep_profile'] = '<br /><span class="smalltext">On {1}\'s profile</span>';
+$l['report_info_rep_profile'] =
+    '<br /><span class="smalltext">On {1}\'s profile</span>';
 $l['report_info_lastreporter'] = '{1}<br />by {2}';
-$l['page_selected'] = 'All <strong>{1}</strong> unread reports on this page are selected.';
+$l['page_selected'] =
+    'All <strong>{1}</strong> unread reports on this page are selected.';
 $l['all_selected'] = 'All <strong>{1}</strong> unread reports are selected.';
 $l['select_all'] = 'Select all <strong>{1}</strong> unread reports.';
 $l['clear_selection'] = 'Clear Selection.';
@@ -122,14 +130,16 @@ $l['asc'] = 'Ascending';
 $l['desc'] = 'Descending';
 $l['per_page'] = 'Results Per Page';
 $l['filter_logs'] = 'Filter Logs';
-$l['error_no_log_results'] = 'Sorry, there were no results found with the criteria you selected.';
+$l['error_no_log_results'] =
+    'Sorry, there were no results found with the criteria you selected.';
 $l['find_users'] = 'Search for Users';
 $l['users'] = 'Users';
 $l['regdate'] = 'Joined';
 $l['lastvisit'] = 'Last seen';
 $l['postnum'] = 'Posts';
 $l['username_contains'] = 'Username contains';
-$l['no_user_results'] = 'No users were found with the specified search criteria.';
+$l['no_user_results'] =
+    'No users were found with the specified search criteria.';
 $l['edit_profile'] = 'Edit Profile of {1}';
 $l['birthday'] = 'Date of Birth';
 $l['title'] = 'Title';
@@ -141,12 +151,15 @@ $l['birthdate'] = 'Birthdate';
 $l['icq_number'] = 'ICQ';
 $l['skype_id'] = 'Skype ID';
 $l['google_id'] = 'Google ID';
-$l['away_notice'] = 'This option will allow you to select whether you are away or not.';
+$l['away_notice'] =
+    'This option will allow you to select whether you are away or not.';
 $l['additional_information'] = 'Additional Information';
 $l['update_profile'] = 'Update Profile';
 $l['custom_usertitle'] = 'Custom User Title';
-$l['new_custom_usertitle'] = 'New Custom User Title: (leave blank to use existing)';
-$l['custom_usertitle_note'] = 'Here you can assign a custom user title which will overwrite the one based on users display group.';
+$l['new_custom_usertitle'] =
+    'New Custom User Title: (leave blank to use existing)';
+$l['custom_usertitle_note'] =
+    'Here you can assign a custom user title which will overwrite the one based on users display group.';
 $l['default_usertitle'] = 'Default User Title:';
 $l['current_custom_usertitle'] = 'Current Custom User Title:';
 $l['revert_usertitle'] = 'Revert to group default';
@@ -154,16 +167,20 @@ $l['additional_contact_details'] = 'Additional Contact Details';
 $l['current_username'] = 'Username';
 $l['away_information'] = 'Away Information';
 $l['away_status'] = 'Away Status';
-$l['away_status_desc'] = 'Allows you to leave an away message if you are going away for a while.';
+$l['away_status_desc'] =
+    'Allows you to leave an away message if you are going away for a while.';
 $l['im_away'] = 'I\'m away';
 $l['im_here'] = 'I\'m here';
 $l['away_reason'] = 'Away Reason';
-$l['away_reason_desc'] = 'Allows you to enter a small description of why you are away  (max 200 characters).';
+$l['away_reason_desc'] =
+    'Allows you to enter a small description of why you are away  (max 200 characters).';
 $l['return_date'] = 'Return Date';
-$l['return_date_desc'] = 'If you know when you will be back, you can enter your return date here.';
+$l['return_date_desc'] =
+    'If you know when you will be back, you can enter your return date here.';
 $l['error_modcp_return_date_past'] = 'You cannot return in the past!';
 $l['usergroup'] = 'Primary Group';
-$l['redirect_user_updated'] = 'The users profile has successfully been updated.';
+$l['redirect_user_updated'] =
+    'The users profile has successfully been updated.';
 $l['posts_awaiting_moderation'] = 'Posts Awaiting Moderation';
 $l['threads_awaiting_moderation'] = 'Threads Awaiting Moderation';
 $l['attachments_awaiting_moderation'] = 'Attachments Awaiting Moderation';
@@ -192,14 +209,21 @@ $l['ban_liftafter'] = 'Lift Ban';
 $l['no_banned'] = 'There are currently no banned users.';
 $l['no_banned_group'] = 'There are currently no banned groups.';
 $l['redirect_banuser'] = 'The user has successfully been banned.';
-$l['redirect_banuser_updated'] = 'The user\'s ban has successfully been updated.';
-$l['invalid_username'] = 'The username you entered was invalid. Please ensure you enter a valid username.';
-$l['error_useralreadybanned'] = 'This user is already banned. You cannot ban a user more than once.';
-$l['error_cannotbanuser'] = 'You cannot ban this user because they have higher permissions than you. Please contact your administrator if you wish to ban this user.';
-$l['error_cannotbanself'] = 'You cannot ban yourself. Please enter another username.';
+$l['redirect_banuser_updated'] =
+    'The user\'s ban has successfully been updated.';
+$l['invalid_username'] =
+    'The username you entered was invalid. Please ensure you enter a valid username.';
+$l['error_useralreadybanned'] =
+    'This user is already banned. You cannot ban a user more than once.';
+$l['error_cannotbanuser'] =
+    'You cannot ban this user because they have higher permissions than you. Please contact your administrator if you wish to ban this user.';
+$l['error_cannotbanself'] =
+    'You cannot ban yourself. Please enter another username.';
 $l['error_no_perm_to_ban'] = 'You do not have permission to ban this user.';
-$l['error_nobanreason'] = 'You did not enter a reason for this ban. Please enter a valid reason below.';
-$l['error_nobangroup'] = 'You did not select a valid group to move this user to.';
+$l['error_nobanreason'] =
+    'You did not enter a reason for this ban. Please enter a valid reason below.';
+$l['error_nobangroup'] =
+    'You did not select a valid group to move this user to.';
 $l['edit_ban'] = 'Edit Ban';
 $l['lift_ban'] = 'Lift Ban';
 $l['ban'] = 'Ban';
@@ -211,12 +235,15 @@ $l['mark_all_approved'] = 'Mark all as approved';
 $l['meta_forum'] = 'Forum:';
 $l['meta_thread'] = 'Thread:';
 $l['mod_queue_empty'] = 'All of the moderation queues are currently empty.';
-$l['mod_queue_threads_empty'] = 'The thread moderation queue is currently empty.';
+$l['mod_queue_threads_empty'] =
+    'The thread moderation queue is currently empty.';
 $l['mod_queue_posts_empty'] = 'The posts moderation queue is currently empty.';
-$l['mod_queue_attachments_empty'] = 'The attachment moderation queue is currently empty.';
+$l['mod_queue_attachments_empty'] =
+    'The attachment moderation queue is currently empty.';
 $l['redirect_threadsmoderated'] = 'The selected threads have been moderated.';
 $l['redirect_postsmoderated'] = 'The selected posts have been moderated.';
-$l['redirect_attachmentsmoderated'] = 'The selected attachments have been moderated.';
+$l['redirect_attachmentsmoderated'] =
+    'The selected attachments have been moderated.';
 $l['multi_approve_posts'] = 'Selected Posts Approved';
 $l['multi_delete_posts'] = 'Selected Posts Deleted Permanently';
 $l['multi_soft_delete_posts'] = 'Selected Posts Soft Deleted';
@@ -254,16 +281,26 @@ $l['moderate_posts'] = 'Moderate this user\'s posts';
 $l['suspend_posts'] = 'Suspend this user\'s posting privileges';
 $l['modpost_length'] = 'Moderate for';
 $l['suspost_length'] = 'Suspend for';
-$l['moderateposts_for'] = 'Moderated until {1}.<br />Untick this option to remove, or extend below.';
-$l['suspendposting_for'] = 'Suspended until {1}.<br />Untick this option to remove, or extend below.';
-$l['suspendsignature_for'] = 'Suspended until {1}.<br />Untick this option to remove, or extend below.';
-$l['suspendposting_perm'] = 'Suspended permanently.<br />Untick this option to remove, or change below.';
-$l['moderateposts_perm'] = 'Moderated permanently.<br />Untick this option to remove, or change below.';
-$l['suspendsignature_perm'] = 'Suspended permanently.<br />Untick this option to remove, or change below.';
-$l['suspendsignature_error'] = 'You selected to suspend this user\'s signature, but didn\'t enter a valid time period. Please enter a valid time to continue or untick the option to cancel.';
-$l['moderateposting_error'] = 'You selected to moderate this user\'s posts, but didn\'t enter a valid time period. Please enter a valid time to continue or untick the option to cancel.';
-$l['suspendposting_error'] = 'You selected to suspend this user\'s posts, but didn\'t enter a valid time period. Please enter a valid time to continue or untick the option to cancel.';
-$l['suspendmoderate_error'] = 'You\'ve selected to suspend and moderate the user\'s posts. Please select only one type of moderation.';
+$l['moderateposts_for'] =
+    'Moderated until {1}.<br />Untick this option to remove, or extend below.';
+$l['suspendposting_for'] =
+    'Suspended until {1}.<br />Untick this option to remove, or extend below.';
+$l['suspendsignature_for'] =
+    'Suspended until {1}.<br />Untick this option to remove, or extend below.';
+$l['suspendposting_perm'] =
+    'Suspended permanently.<br />Untick this option to remove, or change below.';
+$l['moderateposts_perm'] =
+    'Moderated permanently.<br />Untick this option to remove, or change below.';
+$l['suspendsignature_perm'] =
+    'Suspended permanently.<br />Untick this option to remove, or change below.';
+$l['suspendsignature_error'] =
+    'You selected to suspend this user\'s signature, but didn\'t enter a valid time period. Please enter a valid time to continue or untick the option to cancel.';
+$l['moderateposting_error'] =
+    'You selected to moderate this user\'s posts, but didn\'t enter a valid time period. Please enter a valid time to continue or untick the option to cancel.';
+$l['suspendposting_error'] =
+    'You selected to suspend this user\'s posts, but didn\'t enter a valid time period. Please enter a valid time to continue or untick the option to cancel.';
+$l['suspendmoderate_error'] =
+    'You\'ve selected to suspend and moderate the user\'s posts. Please select only one type of moderation.';
 $l['expire_hours'] = 'hour(s)';
 $l['expire_days'] = 'day(s)';
 $l['expire_weeks'] = 'week(s)';
@@ -280,8 +317,10 @@ $l['expired'] = 'Expired';
 $l['edit'] = 'Edit';
 $l['add_announcement'] = 'Add Announcement';
 $l['edit_announcement'] = 'Edit Announcement';
-$l['no_forum_announcements'] = 'There are currently no forum announcements on your board.';
-$l['no_global_announcements'] = 'There are currently no global announcements on your board.';
+$l['no_forum_announcements'] =
+    'There are currently no forum announcements on your board.';
+$l['no_global_announcements'] =
+    'There are currently no global announcements on your board.';
 $l['add_global_announcement'] = 'Add Global Announcement';
 $l['global_announcements'] = 'Global Announcements';
 $l['start_date'] = 'Start Date';
@@ -305,25 +344,35 @@ $l['october'] = 'October';
 $l['november'] = 'November';
 $l['december'] = 'December';
 $l['delete_announcement'] = 'Delete Announcement';
-$l['confirm_delete_announcement'] = 'Are you sure you want to delete this announcement?';
+$l['confirm_delete_announcement'] =
+    'Are you sure you want to delete this announcement?';
 $l['redirect_add_announcement'] = 'The announcement has been created.';
 $l['redirect_edit_announcement'] = 'The announcement has been edited.';
 $l['redirect_delete_announcement'] = 'The announcement has been deleted.';
 $l['error_missing_title'] = 'You did not enter a title.';
 $l['error_missing_message'] = 'You did not enter a message.';
 $l['error_missing_forum'] = 'You did not select a forum.';
-$l['error_invalid_start_date'] = 'The starting date for the announcement is invalid.';
-$l['error_invalid_end_date'] = 'The ending date for the announcement is invalid.';
+$l['error_invalid_start_date'] =
+    'The starting date for the announcement is invalid.';
+$l['error_invalid_end_date'] =
+    'The ending date for the announcement is invalid.';
 $l['error_end_before_start'] = 'The ending date must be after the start date.';
 $l['error_invalid_announcement'] = 'The specified announcement is invalid.';
 $l['announcement_added'] = 'Announcement Added';
 $l['announcement_edited'] = 'Announcement Edited';
 $l['announcement_deleted'] = 'Announcement Deleted';
 $l['preview'] = 'Preview';
-$l['you_cannot_view_mod_logs'] = 'You do not have sufficient permission to view the Moderator Logs.';
-$l['you_cannot_view_reported_posts'] = 'You do not have sufficient permission to view Reported Posts.';
-$l['you_cannot_manage_announcements'] = 'You do not have sufficient permission to manage Announcements.';
-$l['you_cannot_moderate_threads'] = 'You do not have sufficient permission to moderate threads.';
-$l['you_cannot_moderate_posts'] = 'You do not have sufficient permission to moderate posts.';
-$l['you_cannot_moderate_attachments'] = 'You do not have sufficient permission to moderate attachments.';
-$l['you_cannot_use_mod_queue'] = 'You do not have sufficient permission to use the Mod Queue.';
+$l['you_cannot_view_mod_logs'] =
+    'You do not have sufficient permission to view the Moderator Logs.';
+$l['you_cannot_view_reported_posts'] =
+    'You do not have sufficient permission to view Reported Posts.';
+$l['you_cannot_manage_announcements'] =
+    'You do not have sufficient permission to manage Announcements.';
+$l['you_cannot_moderate_threads'] =
+    'You do not have sufficient permission to moderate threads.';
+$l['you_cannot_moderate_posts'] =
+    'You do not have sufficient permission to moderate posts.';
+$l['you_cannot_moderate_attachments'] =
+    'You do not have sufficient permission to moderate attachments.';
+$l['you_cannot_use_mod_queue'] =
+    'You do not have sufficient permission to use the Mod Queue.';

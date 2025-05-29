@@ -6,103 +6,153 @@
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
 
-$l['click_no_wait'] = "Kliknij tutaj, jeśli nie chcesz czekać.";
-$l['redirect_return_forum'] = "<br /><br />Możesz też <a href=\"{1}\">wrócić do działu</a>.";
-$l['redirect_emailsent'] = "E-mail został wysłany.";
-$l['redirect_loggedin'] = "Zalogowano na forum.<br />Teraz nastąpi przeniesienie do poprzedniej lokalizacji.";
+$l['click_no_wait'] = 'Kliknij tutaj, jeśli nie chcesz czekać.';
+$l['redirect_return_forum'] =
+    "<br /><br />Możesz też <a href=\"{1}\">wrócić do działu</a>.";
+$l['redirect_emailsent'] = 'E-mail został wysłany.';
+$l['redirect_loggedin'] =
+    'Zalogowano na forum.<br />Teraz nastąpi przeniesienie do poprzedniej lokalizacji.';
 
- $l['update_confirm'] = "Następujące pliki są już dołączone i zostaną zaktualizowane / zastąpione nowo wybranymi plikami. {1} Czy na pewno?";
-$l['error_invalidpworusername']  = "Wprowadzono nieprawidłowy login i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
-$l['error_invalidpworusername1'] = "Wprowadzono nieprawidłowy adres e-mail i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, aby wygenerować nowe.";
-$l['error_invalidpworusername2'] = "Wprowadzono nieprawidłowy login lub adres e-mail i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, aby wygenerować nowe.";
-$l['error_incompletefields'] = "Nie wypełniono któregoś z wymaganych pól. Wróć i wypełnij wszystkie wymagane pola.";
-$l['error_alreadyuploaded'] = "Plik o nazwie \"{1}\" został już raz wysłany. Zmień nazwę pliku i spróbuj ponownie. Alternatywnie możesz kliknąć na przycisk \"Aktualizuj załącznik\".";
-$l['error_alreadyuploaded_perm'] = "Ten post zawiera już plik o takiej samej nazwie. Usuń poprzedni plik lub zmień nazwę pliku, który próbujesz wysłać, i spróbuj ponownie.";
- $l['error_updatefailed'] = "Plik \"{1}\" nie został jeszcze dodany i nie można go zaktualizować.";
-$l['error_nomessage'] = "Nie podano treści wiadomości. Wróć i wpisz wiadomość.";
-$l['error_invalidemail'] = "Musisz wprowadzić prawidłowy adres e-mail.";
-$l['error_nomember'] = "Podany login jest nieprawidłowy albo nie istnieje.";
-$l['error_maxposts'] = "Przekroczono dzienny limit postów. Zapraszamy jutro.<br /><br />Maksymalna liczba postów dziennie to {1}";
-$l['error_nohostname'] = "Nie można znaleźć nazwy hosta dla wprowadzonego IP.";
-$l['error_invalidthread'] = "Wątek nie istnieje.";
-$l['error_invalidpost'] = "Post nie istnieje.";
-$l['error_invalidannouncement'] = "Ogłoszenie nie istnieje.";
-$l['error_invalidattachment'] = "Załącznik nie istnieje.";
-$l['error_invalidforum'] = "Nieprawidłowy dział";
-$l['error_closedinvalidforum'] = "Nie możesz napisać wątku w zamkniętym dziale ani w zamkniętej kategorii.";
-$l['error_attachtype'] = "Typ pliku, który załączono, nie jest obsługiwany. Usuń załącznik i spróbuj ponownie.";
-$l['error_attachsize'] = "Plik załącznika \"{1}\" jest za duży. Maksymalny rozmiar pliku to {2} kilobajtów.";
+$l['update_confirm'] =
+    'Następujące pliki są już dołączone i zostaną zaktualizowane / zastąpione nowo wybranymi plikami. {1} Czy na pewno?';
+$l['error_invalidpworusername'] =
+    "Wprowadzono nieprawidłowy login i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
+$l['error_invalidpworusername1'] =
+    "Wprowadzono nieprawidłowy adres e-mail i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, aby wygenerować nowe.";
+$l['error_invalidpworusername2'] =
+    "Wprowadzono nieprawidłowy login lub adres e-mail i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, aby wygenerować nowe.";
+$l['error_incompletefields'] =
+    'Nie wypełniono któregoś z wymaganych pól. Wróć i wypełnij wszystkie wymagane pola.';
+$l['error_alreadyuploaded'] =
+    "Plik o nazwie \"{1}\" został już raz wysłany. Zmień nazwę pliku i spróbuj ponownie. Alternatywnie możesz kliknąć na przycisk \"Aktualizuj załącznik\".";
+$l['error_alreadyuploaded_perm'] =
+    'Ten post zawiera już plik o takiej samej nazwie. Usuń poprzedni plik lub zmień nazwę pliku, który próbujesz wysłać, i spróbuj ponownie.';
+$l['error_updatefailed'] =
+    "Plik \"{1}\" nie został jeszcze dodany i nie można go zaktualizować.";
+$l['error_nomessage'] = 'Nie podano treści wiadomości. Wróć i wpisz wiadomość.';
+$l['error_invalidemail'] = 'Musisz wprowadzić prawidłowy adres e-mail.';
+$l['error_nomember'] = 'Podany login jest nieprawidłowy albo nie istnieje.';
+$l['error_maxposts'] =
+    'Przekroczono dzienny limit postów. Zapraszamy jutro.<br /><br />Maksymalna liczba postów dziennie to {1}';
+$l['error_nohostname'] = 'Nie można znaleźć nazwy hosta dla wprowadzonego IP.';
+$l['error_invalidthread'] = 'Wątek nie istnieje.';
+$l['error_invalidpost'] = 'Post nie istnieje.';
+$l['error_invalidannouncement'] = 'Ogłoszenie nie istnieje.';
+$l['error_invalidattachment'] = 'Załącznik nie istnieje.';
+$l['error_invalidforum'] = 'Nieprawidłowy dział';
+$l['error_closedinvalidforum'] =
+    'Nie możesz napisać wątku w zamkniętym dziale ani w zamkniętej kategorii.';
+$l['error_attachtype'] =
+    'Typ pliku, który załączono, nie jest obsługiwany. Usuń załącznik i spróbuj ponownie.';
+$l['error_attachsize'] =
+    "Plik załącznika \"{1}\" jest za duży. Maksymalny rozmiar pliku to {2} kilobajtów.";
 $l['error_uploadempty'] = "Plik \"{1}\" jest pusty.";
-$l['error_uploadsize'] = "Plik, który próbujesz załączyć jest za duży.";
-$l['error_uploadfailed'] = "Plik nie został załadowany. Wybierz prawidłowy plik i spróbuj ponownie. ";
-$l['error_uploadfailed_detail'] = "Szczegóły błędu: ";
-$l['error_uploadfailed_php1'] = "Błąd PHP: Wysyłany plik przekracza rozmiar upload_max_filesize podany w php.ini. Skontaktuj się z administratorem forum.";
-$l['error_uploadfailed_php2'] = "Plik przekracza maksymalny rozmiar.";
-$l['error_uploadfailed_php3'] = "Plik częściowo wysłany.";
-$l['error_uploadfailed_php4'] = "Nie wysłano pliku.";
-$l['error_uploadfailed_php6'] = "Błąd PHP: Folder docelowy nie istnieje. Skontaktuj się z administratorem forum.";
-$l['error_uploadfailed_php7'] = "Błąd PHP: Błąd zapisu. Skontaktuj się z administratorem forum.";
-$l['error_uploadfailed_phpx'] = "PHP zwróciło numer błędu: {1}. Skontaktuj się z administratorem forum, podaj szczegóły i numer błędu.";
-$l['error_uploadfailed_nothingtomove'] = "Nieprawidłowy plik. Wysyłany plik nie może zostać przeniesiony do katalogu docelowego.";
-$l['error_uploadfailed_movefailed'] = "Wystąpił problem przy przenoszeniu pliku.";
-$l['error_uploadfailed_lost'] = "Załącznik nie mógł zostać znaleziony na serwerze.";
-$l['error_emailmismatch'] = "Wprowadzone adresy e-mail nie są identyczne. Wróć i spróbuj ponownie";
-$l['error_nopassword'] = "Musisz wprowadzić hasło.";
-$l['error_usernametaken'] = "Użytkownik o takim loginie już istnieje. Jeśli posiadasz już konto na tym forum, <a href=\"member.php?action=login\">zaloguj się</a>.";
-$l['error_nousername'] = "Musisz wprowadzić login.";
-$l['error_invalidusername'] = "Użytkownik z takim loginem nie istnieje.";
-$l['error_invalidpassword'] = "Wprowadzone hasło jest niepoprawne. Jeśli nie pamiętasz hasła, kliknij <a href=\"member.php?action=lostpw\">tutaj</a>, albo wróć i spróbuj ponownie.";
-$l['error_postflooding'] = "Nie możesz teraz napisać posta, ponieważ od publikacji przez Ciebie ostatniego posta musi minąć {1} sekund.";
-$l['error_nopermission_guest_1'] = "Nie nastąpiło zalogowanie, lub nie masz dostępu do tej części forum. Możliwe powody takiej sytuacji:";
-$l['error_nopermission_guest_2'] = "Nie zalogowano lub nie zarejestrowano się na forum. Zaloguj się na nowo i spróbuj ponownie";
-$l['error_nopermission_guest_3'] = "Możesz nie mieć uprawnień do oglądania tej strony.";
-$l['error_nopermission_guest_4'] = "Twoje konto może być nieaktywne albo zablokowane.";
-$l['error_nopermission_guest_5'] = "Odwiedzono tę stronę wpisując jej adres bezpośrednio w pasek adresu przeglądarki zamiast użyć odpowiedniego formularza lub odnośnika.";
-$l['login'] = "Zaloguj się";
-$l['need_reg'] = "Rejestracja";
-$l['forgot_password'] = "Nie pamiętam hasła";
-$l['error_nopermission_user_1'] = "Nie masz uprawnień, aby przeglądać tę stronę. Możliwe powody takiej sytuacji:";
-$l['error_nopermission_user_ajax'] = "Nie masz uprawnień do przeglądania tej strony.";
-$l['error_nopermission_user_2'] = "Twoje konto może być zawieszone lub zablokowane.";
-$l['error_nopermission_user_3'] = "Możesz nie mieć uprawnień do oglądania tej strony.";
-$l['error_nopermission_user_4'] = "Twoje konto może być nieaktywne lub moderowane.";
-$l['error_nopermission_user_5'] = "Odwiedzono tę stronę wpisując jej adres bezpośrednio w pasek adresu przeglądarki zamiast użyć odpowiedniego formularza lub odnośnika.";
-$l['error_nopermission_user_resendactivation'] = "Prześlij ponownie kod aktywacyjny";
+$l['error_uploadsize'] = 'Plik, który próbujesz załączyć jest za duży.';
+$l['error_uploadfailed'] =
+    'Plik nie został załadowany. Wybierz prawidłowy plik i spróbuj ponownie. ';
+$l['error_uploadfailed_detail'] = 'Szczegóły błędu: ';
+$l['error_uploadfailed_php1'] =
+    'Błąd PHP: Wysyłany plik przekracza rozmiar upload_max_filesize podany w php.ini. Skontaktuj się z administratorem forum.';
+$l['error_uploadfailed_php2'] = 'Plik przekracza maksymalny rozmiar.';
+$l['error_uploadfailed_php3'] = 'Plik częściowo wysłany.';
+$l['error_uploadfailed_php4'] = 'Nie wysłano pliku.';
+$l['error_uploadfailed_php6'] =
+    'Błąd PHP: Folder docelowy nie istnieje. Skontaktuj się z administratorem forum.';
+$l['error_uploadfailed_php7'] =
+    'Błąd PHP: Błąd zapisu. Skontaktuj się z administratorem forum.';
+$l['error_uploadfailed_phpx'] =
+    'PHP zwróciło numer błędu: {1}. Skontaktuj się z administratorem forum, podaj szczegóły i numer błędu.';
+$l['error_uploadfailed_nothingtomove'] =
+    'Nieprawidłowy plik. Wysyłany plik nie może zostać przeniesiony do katalogu docelowego.';
+$l['error_uploadfailed_movefailed'] =
+    'Wystąpił problem przy przenoszeniu pliku.';
+$l['error_uploadfailed_lost'] =
+    'Załącznik nie mógł zostać znaleziony na serwerze.';
+$l['error_emailmismatch'] =
+    'Wprowadzone adresy e-mail nie są identyczne. Wróć i spróbuj ponownie';
+$l['error_nopassword'] = 'Musisz wprowadzić hasło.';
+$l['error_usernametaken'] =
+    "Użytkownik o takim loginie już istnieje. Jeśli posiadasz już konto na tym forum, <a href=\"member.php?action=login\">zaloguj się</a>.";
+$l['error_nousername'] = 'Musisz wprowadzić login.';
+$l['error_invalidusername'] = 'Użytkownik z takim loginem nie istnieje.';
+$l['error_invalidpassword'] =
+    "Wprowadzone hasło jest niepoprawne. Jeśli nie pamiętasz hasła, kliknij <a href=\"member.php?action=lostpw\">tutaj</a>, albo wróć i spróbuj ponownie.";
+$l['error_postflooding'] =
+    'Nie możesz teraz napisać posta, ponieważ od publikacji przez Ciebie ostatniego posta musi minąć {1} sekund.';
+$l['error_nopermission_guest_1'] =
+    'Nie nastąpiło zalogowanie, lub nie masz dostępu do tej części forum. Możliwe powody takiej sytuacji:';
+$l['error_nopermission_guest_2'] =
+    'Nie zalogowano lub nie zarejestrowano się na forum. Zaloguj się na nowo i spróbuj ponownie';
+$l['error_nopermission_guest_3'] =
+    'Możesz nie mieć uprawnień do oglądania tej strony.';
+$l['error_nopermission_guest_4'] =
+    'Twoje konto może być nieaktywne albo zablokowane.';
+$l['error_nopermission_guest_5'] =
+    'Odwiedzono tę stronę wpisując jej adres bezpośrednio w pasek adresu przeglądarki zamiast użyć odpowiedniego formularza lub odnośnika.';
+$l['login'] = 'Zaloguj się';
+$l['need_reg'] = 'Rejestracja';
+$l['forgot_password'] = 'Nie pamiętam hasła';
+$l['error_nopermission_user_1'] =
+    'Nie masz uprawnień, aby przeglądać tę stronę. Możliwe powody takiej sytuacji:';
+$l['error_nopermission_user_ajax'] =
+    'Nie masz uprawnień do przeglądania tej strony.';
+$l['error_nopermission_user_2'] =
+    'Twoje konto może być zawieszone lub zablokowane.';
+$l['error_nopermission_user_3'] =
+    'Możesz nie mieć uprawnień do oglądania tej strony.';
+$l['error_nopermission_user_4'] =
+    'Twoje konto może być nieaktywne lub moderowane.';
+$l['error_nopermission_user_5'] =
+    'Odwiedzono tę stronę wpisując jej adres bezpośrednio w pasek adresu przeglądarki zamiast użyć odpowiedniego formularza lub odnośnika.';
+$l['error_nopermission_user_resendactivation'] =
+    'Prześlij ponownie kod aktywacyjny';
 $l['error_nopermission_user_username'] = "Zalogowano jako: '{1}'";
-$l['logged_in_user'] = "Zalogowano jako";
-$l['error_too_many_images'] = "Za dużo obrazków";
-$l['error_too_many_images2'] = "Twoja wiadomość zawiera za dużo obrazków. Usuń niektóre obrazki i spróbuj ponownie.";
-$l['error_too_many_images3'] = "<strong>Uwaga:</strong> Maksymalna liczba obrazków w poście to";
-$l['error_attach_file'] = "Błąd podczas załączania pliku";
-$l['please_correct_errors'] = "Popraw następujące błędy:";
-$l['error_reachedattachquota'] = "Nie możesz załączyć plików - przekroczono limit {1}";
-$l['error_maxattachpost'] = "Nie można dodać kolejnego załącznika, ponieważ przekroczono liczbę dozwolonych załączników, która wynosi {1}";
-$l['error_invaliduser'] = "Określony użytkownik nie istnieje.";
-$l['error_invalidaction'] = "Nieprawidłowe polecenie";
-$l['error_messagelength'] = "Twoja wiadomość jest zbyt długa. Skróć wiadomość i spróbuj ponownie.";
-$l['error_message_too_short'] = "Twoja wiadomość jest za krótka.";
-$l['failed_login_wait'] = "Przekroczono limit błędnych logowań. Musisz odczekać {1} godz. {2} min. {3} sek. przed kolejną próbą logowania.";
-$l['failed_login_again'] = "<br/>Pozostało Ci jeszcze <strong>{1}</strong> prób logowania.";
-$l['error_max_emails_day'] = "Nie możesz użyć opcji \"Wyślij wątek do znajomego\" i \"E-mail do użytkownika\" - przekroczono limit {1} wiadomości na dobę.";
-$l['attachments_disabled'] = "Nie możesz dodać załącznika, ponieważ taka możliwość została wyłączona przez administratora.";
-$l['error_attach_filename_length'] = "Nazwa pliku '{1}' przekracza maksymalną długość nazwy pliku {2}. Skróć nazwę pliku i spróbuj ponownie.";
+$l['logged_in_user'] = 'Zalogowano jako';
+$l['error_too_many_images'] = 'Za dużo obrazków';
+$l['error_too_many_images2'] =
+    'Twoja wiadomość zawiera za dużo obrazków. Usuń niektóre obrazki i spróbuj ponownie.';
+$l['error_too_many_images3'] =
+    '<strong>Uwaga:</strong> Maksymalna liczba obrazków w poście to';
+$l['error_attach_file'] = 'Błąd podczas załączania pliku';
+$l['please_correct_errors'] = 'Popraw następujące błędy:';
+$l['error_reachedattachquota'] =
+    'Nie możesz załączyć plików - przekroczono limit {1}';
+$l['error_maxattachpost'] =
+    'Nie można dodać kolejnego załącznika, ponieważ przekroczono liczbę dozwolonych załączników, która wynosi {1}';
+$l['error_invaliduser'] = 'Określony użytkownik nie istnieje.';
+$l['error_invalidaction'] = 'Nieprawidłowe polecenie';
+$l['error_messagelength'] =
+    'Twoja wiadomość jest zbyt długa. Skróć wiadomość i spróbuj ponownie.';
+$l['error_message_too_short'] = 'Twoja wiadomość jest za krótka.';
+$l['failed_login_wait'] =
+    'Przekroczono limit błędnych logowań. Musisz odczekać {1} godz. {2} min. {3} sek. przed kolejną próbą logowania.';
+$l['failed_login_again'] =
+    '<br/>Pozostało Ci jeszcze <strong>{1}</strong> prób logowania.';
+$l['error_max_emails_day'] =
+    "Nie możesz użyć opcji \"Wyślij wątek do znajomego\" i \"E-mail do użytkownika\" - przekroczono limit {1} wiadomości na dobę.";
+$l['attachments_disabled'] =
+    'Nie możesz dodać załącznika, ponieważ taka możliwość została wyłączona przez administratora.';
+$l['error_attach_filename_length'] =
+    "Nazwa pliku '{1}' przekracza maksymalną długość nazwy pliku {2}. Skróć nazwę pliku i spróbuj ponownie.";
 
-$l['emailsubject_lostpw'] = "Zmiana hasła na forum {1}";
-$l['emailsubject_passwordreset'] = "Nowe hasło na forum {1}";
-$l['emailsubject_subscription'] = "Nowa odpowiedź na forum {1}";
-$l['emailsubject_randompassword'] = "Twoje hasło do {1}";
-$l['emailsubject_activateaccount'] = "Aktywacja konta na forum {1}";
-$l['emailsubject_forumsubscription'] = "Nowy wątek na forum {1}";
-$l['emailsubject_reportpost'] = "Zgłoszony post na forum {1}";
-$l['emailsubject_reportprofile'] = "Zgłoszony użytkownik na forum {1}";
-$l['emailsubject_reportreputation'] = "Zgłoszony punkt reputacji na forum {1}";
-$l['emailsubject_reachedpmquota'] = "Przekroczono limit ({1}) PW";
-$l['emailsubject_changeemail'] = "Zmiana e-maila na forum {1}";
-$l['emailsubject_newpm'] = "Nowa prywatna wiadomość na forum {1} - {2}";
-$l['emailsubject_newjoinrequest'] = "Nowa prośba o przyjęcie do grupy na forum {1}";
-$l['emailsubject_sendtofriend'] = "Interesujący wątek na forum {1}";
-$l['emailsubject_changepassword'] = "Zmiana hasła na forum {1}";
-$l['emailbit_viewthread'] = "... (odwiedź ten wątek, by przeczytać pełną treść...)";
+$l['emailsubject_lostpw'] = 'Zmiana hasła na forum {1}';
+$l['emailsubject_passwordreset'] = 'Nowe hasło na forum {1}';
+$l['emailsubject_subscription'] = 'Nowa odpowiedź na forum {1}';
+$l['emailsubject_randompassword'] = 'Twoje hasło do {1}';
+$l['emailsubject_activateaccount'] = 'Aktywacja konta na forum {1}';
+$l['emailsubject_forumsubscription'] = 'Nowy wątek na forum {1}';
+$l['emailsubject_reportpost'] = 'Zgłoszony post na forum {1}';
+$l['emailsubject_reportprofile'] = 'Zgłoszony użytkownik na forum {1}';
+$l['emailsubject_reportreputation'] = 'Zgłoszony punkt reputacji na forum {1}';
+$l['emailsubject_reachedpmquota'] = 'Przekroczono limit ({1}) PW';
+$l['emailsubject_changeemail'] = 'Zmiana e-maila na forum {1}';
+$l['emailsubject_newpm'] = 'Nowa prywatna wiadomość na forum {1} - {2}';
+$l['emailsubject_newjoinrequest'] =
+    'Nowa prośba o przyjęcie do grupy na forum {1}';
+$l['emailsubject_sendtofriend'] = 'Interesujący wątek na forum {1}';
+$l['emailsubject_changepassword'] = 'Zmiana hasła na forum {1}';
+$l['emailbit_viewthread'] =
+    '... (odwiedź ten wątek, by przeczytać pełną treść...)';
 
 $l['email_lostpw'] = "{1},
 
@@ -153,7 +203,6 @@ Kod aktywacji: {5}
 Dziękujemy,
 Ekipa {2}";
 
-
 $l['email_reportpost'] = "{1} z {2} zgłosił post:
 
 {3}
@@ -190,7 +239,7 @@ Ta wiadomość została wysłana do wszystkich moderatorów tego działu (jeśli
 
 Sprawdź ten punkt reputacji";
 
-$l['email_report_comment_extra'] = "{1}: {2}";
+$l['email_report_comment_extra'] = '{1}: {2}';
 
 $l['email_passwordreset'] = "{1},
 
@@ -472,14 +521,14 @@ Aby zaakceptować lub odrzucić prośbę przejdź pod adres:
 Pozdrawiamy,
 Ekipa {4}";
 
-$l['email_contact_subject'] = "Formularz kontaktowy: {1}";
+$l['email_contact_subject'] = 'Formularz kontaktowy: {1}';
 $l['email_contact'] = "E-mail: {1}
 Profil na forum: {2}
 Adres IP: {3}
 Treść wiadomości:
 {4}";
 
-$l['pmsubject_subscription'] = "Nowa odpowiedź w wątku {1}";
+$l['pmsubject_subscription'] = 'Nowa odpowiedź w wątku {1}';
 $l['pm_subscription'] = "{1},
 
 {2} odpowiedział w wątku, który subskrybujesz. Temat wątku: \"{3}\".
@@ -503,8 +552,11 @@ Jeśli nie chcesz otrzymywać informacji o nowych odpowiedziach w tym wątku, pr
 
 ------------------------------------------";
 
-$l['email_broken_task_subject'] = "Na forum {1} wystąpił błąd zaplanowanego zadania";
-$l['email_broken_task'] = "Twoja kopia MyBB uruchomiona na stronie {1} ({2}) odnotowała błąd związany z systemem zaplanowanych zadań.
+$l['email_broken_task_subject'] =
+    'Na forum {1} wystąpił błąd zaplanowanego zadania';
+$l[
+    'email_broken_task'
+] = "Twoja kopia MyBB uruchomiona na stronie {1} ({2}) odnotowała błąd związany z systemem zaplanowanych zadań.
 
 Plik zaplanowanego zadania dla {3} nie został odnaleziony.
 

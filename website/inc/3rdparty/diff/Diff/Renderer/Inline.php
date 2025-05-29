@@ -14,9 +14,10 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
 class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
@@ -98,7 +99,7 @@ class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
     protected function _lines($lines, $prefix = ' ', $encode = true)
     {
         if ($encode) {
-            array_walk($lines, array(&$this, '_encode'));
+            array_walk($lines, [&$this, '_encode']);
         }
 
         if ($this->_split_level == 'lines') {
@@ -110,7 +111,7 @@ class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
 
     protected function _added($lines)
     {
-        array_walk($lines, array(&$this, '_encode'));
+        array_walk($lines, [&$this, '_encode']);
         $lines[0] = $this->_ins_prefix . $lines[0];
         $lines[count($lines) - 1] .= $this->_ins_suffix;
         return $this->_lines($lines, ' ', false);
@@ -118,7 +119,7 @@ class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
 
     protected function _deleted($lines, $words = false)
     {
-        array_walk($lines, array(&$this, '_encode'));
+        array_walk($lines, [&$this, '_encode']);
         $lines[0] = $this->_del_prefix . $lines[0];
         $lines[count($lines) - 1] .= $this->_del_suffix;
         return $this->_lines($lines, ' ', false);
@@ -128,16 +129,18 @@ class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
     {
         /* If we've already split on characters, just display. */
         if ($this->_split_level == 'characters') {
-            return $this->_deleted($orig)
-                . $this->_added($final);
+            return $this->_deleted($orig) . $this->_added($final);
         }
 
         /* If we've already split on words, just display. */
         if ($this->_split_level == 'words') {
             $prefix = '';
-            while ($orig[0] !== false && $final[0] !== false &&
-                   substr($orig[0], 0, 1) == ' ' &&
-                   substr($final[0], 0, 1) == ' ') {
+            while (
+                $orig[0] !== false &&
+                $final[0] !== false &&
+                substr($orig[0], 0, 1) == ' ' &&
+                substr($final[0], 0, 1) == ' '
+            ) {
                 $prefix .= substr($orig[0], 0, 1);
                 $orig[0] = substr($orig[0], 1);
                 $final[0] = substr($final[0], 1);
@@ -152,22 +155,28 @@ class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
         $nl = "\0";
 
         if ($this->_split_characters) {
-            $diff = new Horde_Text_Diff('native',
-                                  array(preg_split('//u', str_replace("\n", $nl, $text1)),
-                                        preg_split('//u', str_replace("\n", $nl, $text2))));
+            $diff = new Horde_Text_Diff('native', [
+                preg_split('//u', str_replace("\n", $nl, $text1)),
+                preg_split('//u', str_replace("\n", $nl, $text2)),
+            ]);
         } else {
             /* We want to split on word boundaries, but we need to preserve
              * whitespace as well. Therefore we split on words, but include
              * all blocks of whitespace in the wordlist. */
-            $diff = new Horde_Text_Diff('native',
-                                  array($this->_splitOnWords($text1, $nl),
-                                        $this->_splitOnWords($text2, $nl)));
+            $diff = new Horde_Text_Diff('native', [
+                $this->_splitOnWords($text1, $nl),
+                $this->_splitOnWords($text2, $nl),
+            ]);
         }
 
         /* Get the diff in inline format. */
-        $renderer = new Horde_Text_Diff_Renderer_Inline
-            (array_merge($this->getParams(),
-                         array('split_level' => $this->_split_characters ? 'characters' : 'words')));
+        $renderer = new Horde_Text_Diff_Renderer_Inline(
+            array_merge($this->getParams(), [
+                'split_level' => $this->_split_characters
+                    ? 'characters'
+                    : 'words',
+            ])
+        );
 
         /* Run the diff and get the output. */
         return str_replace($nl, "\n", $renderer->render($diff)) . "\n";
@@ -178,7 +187,7 @@ class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
         // Ignore \0; otherwise the while loop will never finish.
         $string = str_replace("\0", '', $string);
 
-        $words = array();
+        $words = [];
         $length = strlen($string);
         $pos = 0;
 
@@ -186,7 +195,11 @@ class Horde_Text_Diff_Renderer_Inline extends Horde_Text_Diff_Renderer
             // Eat a word with any preceding whitespace.
             $spaces = strspn(substr($string, $pos), " \n");
             $nextpos = strcspn(substr($string, $pos + $spaces), " \n");
-            $words[] = str_replace("\n", $newlineEscape, substr($string, $pos, $spaces + $nextpos));
+            $words[] = str_replace(
+                "\n",
+                $newlineEscape,
+                substr($string, $pos, $spaces + $nextpos)
+            );
             $pos += $spaces + $nextpos;
         }
 

@@ -22,13 +22,14 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
-class Horde_Text_Diff_Renderer_Unified_Colored
-extends Horde_Text_Diff_Renderer_Unified
+class Horde_Text_Diff_Renderer_Unified_Colored extends
+    Horde_Text_Diff_Renderer_Unified
 {
     /**
      * CLI handler.
@@ -42,7 +43,7 @@ extends Horde_Text_Diff_Renderer_Unified
     /**
      * Constructor.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         if (!isset($params['cli'])) {
             throw new BadMethodCallException('CLI handler is missing');
@@ -54,21 +55,18 @@ extends Horde_Text_Diff_Renderer_Unified
     protected function _blockHeader($xbeg, $xlen, $ybeg, $ylen)
     {
         return $this->_cli->color(
-            'lightmagenta', parent::_blockHeader($xbeg, $xlen, $ybeg, $ylen)
+            'lightmagenta',
+            parent::_blockHeader($xbeg, $xlen, $ybeg, $ylen)
         );
     }
 
     protected function _added($lines)
     {
-        return $this->_cli->color(
-            'lightgreen', parent::_added($lines)
-        );
+        return $this->_cli->color('lightgreen', parent::_added($lines));
     }
 
     protected function _deleted($lines)
     {
-        return $this->_cli->color(
-            'lightred', parent::_deleted($lines)
-        );
+        return $this->_cli->color('lightred', parent::_deleted($lines));
     }
 }

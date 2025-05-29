@@ -20,75 +20,106 @@
  * @return boolean true if updated one or more templates, false if not.
  */
 
-function find_replace_templatesets($title, $find, $replace, $autocreate=1, $sid=false, $limit=-1)
-{
-	global $db, $mybb;
+function find_replace_templatesets(
+    $title,
+    $find,
+    $replace,
+    $autocreate = 1,
+    $sid = false,
+    $limit = -1
+) {
+    global $db, $mybb;
 
-	$return = false;
-	$template_sets = array(-2, -1);
-	
-	// Select all templates with that title (including global) if not working on a specific template set
-	$sqlwhere = '>0 OR sid=-1';
-	$sqlwhere2 = '>0';
+    $return = false;
+    $template_sets = [-2, -1];
 
-	// Otherwise select just templates from that specific set
-	if($sid !== false)
-	{
-		$sid = (int)$sid;
-		$sqlwhere2 = $sqlwhere = "=$sid";
-	}
+    // Select all templates with that title (including global) if not working on a specific template set
+    $sqlwhere = '>0 OR sid=-1';
+    $sqlwhere2 = '>0';
 
-	// Select all other modified templates with that title
-	$query = $db->simple_select("templates", "tid, sid, template", "title = '".$db->escape_string($title)."' AND (sid{$sqlwhere})");
-	while($template = $db->fetch_array($query))
-	{
-		// Keep track of which templates sets have a modified version of this template already
-		$template_sets[] = $template['sid'];
+    // Otherwise select just templates from that specific set
+    if ($sid !== false) {
+        $sid = (int) $sid;
+        $sqlwhere2 = $sqlwhere = "=$sid";
+    }
 
-		// Update the template if there is a replacement term or a change
-		$new_template = preg_replace($find, $replace, $template['template'], $limit);
-		if($new_template == $template['template'])
-		{
-			continue;
-		}
+    // Select all other modified templates with that title
+    $query = $db->simple_select(
+        'templates',
+        'tid, sid, template',
+        "title = '" . $db->escape_string($title) . "' AND (sid{$sqlwhere})"
+    );
+    while ($template = $db->fetch_array($query)) {
+        // Keep track of which templates sets have a modified version of this template already
+        $template_sets[] = $template['sid'];
 
-		// The template is a custom template.  Replace as normal.
-		$updated_template = array(
-			"template" => $db->escape_string($new_template)
-		);
-		$db->update_query("templates", $updated_template, "tid='{$template['tid']}'");
+        // Update the template if there is a replacement term or a change
+        $new_template = preg_replace(
+            $find,
+            $replace,
+            $template['template'],
+            $limit
+        );
+        if ($new_template == $template['template']) {
+            continue;
+        }
 
-		$return = true;
-	}
+        // The template is a custom template.  Replace as normal.
+        $updated_template = [
+            'template' => $db->escape_string($new_template),
+        ];
+        $db->update_query(
+            'templates',
+            $updated_template,
+            "tid='{$template['tid']}'"
+        );
 
-	// Add any new templates if we need to and are allowed to
-	if($autocreate != 0)
-	{
-		// Select our master template with that title
-		$query = $db->simple_select("templates", "title, template", "title='".$db->escape_string($title)."' AND sid='-2'", array('limit' => 1));
-		$master_template = $db->fetch_array($query);
-		$master_template['new_template'] = preg_replace($find, $replace, $master_template['template'], $limit);
+        $return = true;
+    }
 
-		if($master_template['new_template'] != $master_template['template'])
-		{
-			// Update the rest of our template sets that are currently inheriting this template from our master set
-			$query = $db->simple_select("templatesets", "sid", "sid NOT IN (".implode(',', $template_sets).") AND (sid{$sqlwhere2})");
-			while($template = $db->fetch_array($query))
-			{
-				$insert_template = array(
-					"title" => $db->escape_string($master_template['title']),
-					"template" => $db->escape_string($master_template['new_template']),
-					"sid" => $template['sid'],
-					"version" => $mybb->version_code,
-					"status" => '',
-					"dateline" => TIME_NOW
-				);
-				$db->insert_query("templates", $insert_template);
+    // Add any new templates if we need to and are allowed to
+    if ($autocreate != 0) {
+        // Select our master template with that title
+        $query = $db->simple_select(
+            'templates',
+            'title, template',
+            "title='" . $db->escape_string($title) . "' AND sid='-2'",
+            ['limit' => 1]
+        );
+        $master_template = $db->fetch_array($query);
+        $master_template['new_template'] = preg_replace(
+            $find,
+            $replace,
+            $master_template['template'],
+            $limit
+        );
 
-				$return = true;
-			}
-		}
-	}
+        if ($master_template['new_template'] != $master_template['template']) {
+            // Update the rest of our template sets that are currently inheriting this template from our master set
+            $query = $db->simple_select(
+                'templatesets',
+                'sid',
+                'sid NOT IN (' .
+                    implode(',', $template_sets) .
+                    ") AND (sid{$sqlwhere2})"
+            );
+            while ($template = $db->fetch_array($query)) {
+                $insert_template = [
+                    'title' => $db->escape_string($master_template['title']),
+                    'template' => $db->escape_string(
+                        $master_template['new_template']
+                    ),
+                    'sid' => $template['sid'],
+                    'version' => $mybb->version_code,
+                    'status' => '',
+                    'dateline' => TIME_NOW,
+                ];
+                $db->insert_query('templates', $insert_template);
 
-	return $return;
+                $return = true;
+            }
+        }
+    }
+
+    return $return;
 }

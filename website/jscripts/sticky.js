@@ -1,42 +1,42 @@
-document.addEventListener('DOMContentLoaded', function() {
-  function updateAvatarPositions() {
-    const posts = document.querySelectorAll('.post_author');
-    
-    console.debug(`Number of post_author containers: ${posts.length}`);
+document.addEventListener('DOMContentLoaded', function () {
+    function updateAvatarPositions() {
+        const posts = document.querySelectorAll('.post_author')
 
-    posts.forEach(post => {
-      const avatar = post.querySelector('.author_avatar');
+        console.debug(`Number of post_author containers: ${posts.length}`)
 
-      if (!avatar) {
-        console.warn('No avatar found in this post_author container.');
-        return;
-      }
+        posts.forEach((post) => {
+            const avatar = post.querySelector('.author_avatar')
 
-      const containerRect = post.getBoundingClientRect();
-      const avatarRect = avatar.getBoundingClientRect();
+            if (!avatar) {
+                console.warn('No avatar found in this post_author container.')
+                return
+            }
 
-      const containerTop = containerRect.top + window.scrollY;
-      const containerBottom = containerRect.bottom + window.scrollY;
+            const containerRect = post.getBoundingClientRect()
+            const avatarRect = avatar.getBoundingClientRect()
 
-      let avatarTop = window.scrollY - containerTop;
-      if (avatarTop < 0) avatarTop = 0;
+            const containerTop = containerRect.top + window.scrollY
+            const containerBottom = containerRect.bottom + window.scrollY
 
-      if (window.scrollY + avatarRect.height > containerBottom) {
-        avatarTop = containerBottom - containerTop - avatarRect.height;
-      }
+            let avatarTop = window.scrollY - containerTop
+            if (avatarTop < 0) avatarTop = 0
 
-      const containerWidth = containerRect.width;
-      const avatarWidth = avatarRect.width;
-      const avatarLeft = (containerWidth - avatarWidth) / 2;
+            if (window.scrollY + avatarRect.height > containerBottom) {
+                avatarTop = containerBottom - containerTop - avatarRect.height
+            }
 
-      avatar.style.position = 'absolute';
-      avatar.style.top = `${avatarTop}px`;
-      avatar.style.left = `${avatarLeft}px`;
-    });
-  }
+            const containerWidth = containerRect.width
+            const avatarWidth = avatarRect.width
+            const avatarLeft = (containerWidth - avatarWidth) / 2
 
-  window.addEventListener('scroll', updateAvatarPositions);
-  window.addEventListener('resize', updateAvatarPositions);
+            avatar.style.position = 'absolute'
+            avatar.style.top = `${avatarTop}px`
+            avatar.style.left = `${avatarLeft}px`
+        })
+    }
 
-  updateAvatarPositions();
-});
+    window.addEventListener('scroll', updateAvatarPositions)
+    window.addEventListener('resize', updateAvatarPositions)
+
+    updateAvatarPositions()
+})

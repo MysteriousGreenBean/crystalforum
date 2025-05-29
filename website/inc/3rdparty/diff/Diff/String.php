@@ -17,9 +17,10 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
 class Horde_String
@@ -29,14 +30,14 @@ class Horde_String
      *
      * @var array
      */
-    protected static $_lowers = array();
+    protected static $_lowers = [];
 
     /**
      * upper() cache.
      *
      * @var array
      */
-    protected static $_uppers = array();
+    protected static $_uppers = [];
 
     /**
      * Converts a string from one charset to another.
@@ -72,9 +73,11 @@ class Horde_String
         }
 
         if (is_array($input)) {
-            $tmp = array();
+            $tmp = [];
             foreach ($input as $key => $val) {
-                $tmp[self::_convertCharset($key, $from, $to)] = self::convertCharset($val, $from, $to, $force);
+                $tmp[
+                    self::_convertCharset($key, $from, $to)
+                ] = self::convertCharset($val, $from, $to, $force);
             }
             return $tmp;
         }
@@ -83,8 +86,7 @@ class Horde_String
             // PEAR_Error/Exception objects are almost guaranteed to contain
             // recursion, which will cause a segfault in PHP. We should never
             // reach this line, but add a check.
-            if (($input instanceof Exception) ||
-                ($input instanceof PEAR_Error)) {
+            if ($input instanceof Exception || $input instanceof PEAR_Error) {
                 return '';
             }
 
@@ -117,26 +119,36 @@ class Horde_String
         /* Use utf8_[en|de]code() if possible and if the string isn't too
          * large (less than 16 MB = 16 * 1024 * 1024 = 16777216 bytes) - these
          * functions use more memory. */
-        if (Horde_Util::extensionExists('xml') &&
-            ((strlen($input) < 16777216) ||
-             !Horde_Util::extensionExists('iconv') ||
-             !Horde_Util::extensionExists('mbstring'))) {
-            if (($to == 'utf-8') &&
-                in_array($from, array('iso-8859-1', 'us-ascii', 'utf-8'))) {
+        if (
+            Horde_Util::extensionExists('xml') &&
+            (strlen($input) < 16777216 ||
+                !Horde_Util::extensionExists('iconv') ||
+                !Horde_Util::extensionExists('mbstring'))
+        ) {
+            if (
+                $to == 'utf-8' &&
+                in_array($from, ['iso-8859-1', 'us-ascii', 'utf-8'])
+            ) {
                 return utf8_encode($input);
             }
 
-            if (($from == 'utf-8') &&
-                in_array($to, array('iso-8859-1', 'us-ascii', 'utf-8'))) {
+            if (
+                $from == 'utf-8' &&
+                in_array($to, ['iso-8859-1', 'us-ascii', 'utf-8'])
+            ) {
                 return utf8_decode($input);
             }
         }
 
         /* Try UTF7-IMAP conversions. */
-        if (($from == 'utf7-imap') || ($to == 'utf7-imap')) {
+        if ($from == 'utf7-imap' || $to == 'utf7-imap') {
             try {
                 if ($from == 'utf7-imap') {
-                    return self::convertCharset(Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($input), 'UTF-8', $to);
+                    return self::convertCharset(
+                        Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($input),
+                        'UTF-8',
+                        $to
+                    );
                 } else {
                     if ($from == 'utf-8') {
                         $conv = $input;
@@ -164,7 +176,11 @@ class Horde_String
 
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
-            $out = @mb_convert_encoding($input, $to, self::_mbstringCharset($from));
+            $out = @mb_convert_encoding(
+                $input,
+                $to,
+                self::_mbstringCharset($from)
+            );
             if (!empty($out)) {
                 return $out;
             }
@@ -189,9 +205,14 @@ class Horde_String
         if ($locale) {
             if (Horde_Util::extensionExists('mbstring')) {
                 if (is_null($charset)) {
-                    throw new InvalidArgumentException('$charset argument must not be null');
+                    throw new InvalidArgumentException(
+                        '$charset argument must not be null'
+                    );
                 }
-                $ret = @mb_strtolower($string, self::_mbstringCharset($charset));
+                $ret = @mb_strtolower(
+                    $string,
+                    self::_mbstringCharset($charset)
+                );
                 if (!empty($ret)) {
                     return $ret;
                 }
@@ -225,9 +246,14 @@ class Horde_String
         if ($locale) {
             if (Horde_Util::extensionExists('mbstring')) {
                 if (is_null($charset)) {
-                    throw new InvalidArgumentException('$charset argument must not be null');
+                    throw new InvalidArgumentException(
+                        '$charset argument must not be null'
+                    );
                 }
-                $ret = @mb_strtoupper($string, self::_mbstringCharset($charset));
+                $ret = @mb_strtoupper(
+                    $string,
+                    self::_mbstringCharset($charset)
+                );
                 if (!empty($ret)) {
                     return $ret;
                 }
@@ -260,14 +286,19 @@ class Horde_String
     {
         if ($locale) {
             if (is_null($charset)) {
-                throw new InvalidArgumentException('$charset argument must not be null');
+                throw new InvalidArgumentException(
+                    '$charset argument must not be null'
+                );
             }
             $first = self::substr($string, 0, 1, $charset);
             if (self::isAlpha($first, $charset)) {
-                $string = self::upper($first, true, $charset) . self::substr($string, 1, null, $charset);
+                $string =
+                    self::upper($first, true, $charset) .
+                    self::substr($string, 1, null, $charset);
             }
         } else {
-            $string = self::upper(substr($string, 0, 1), false) . substr($string, 1);
+            $string =
+                self::upper(substr($string, 0, 1), false) . substr($string, 1);
         }
 
         return $string;
@@ -307,9 +338,12 @@ class Horde_String
      *
      * @return string  The string's part.
      */
-    public static function substr($string, $start, $length = null,
-                                  $charset = 'UTF-8')
-    {
+    public static function substr(
+        $string,
+        $start,
+        $length = null,
+        $charset = 'UTF-8'
+    ) {
         if (is_null($length)) {
             $length = self::length($string, $charset) - $start;
         }
@@ -322,7 +356,12 @@ class Horde_String
 
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
-            $ret = @mb_substr($string, $start, $length, self::_mbstringCharset($charset));
+            $ret = @mb_substr(
+                $string,
+                $start,
+                $length,
+                self::_mbstringCharset($charset)
+            );
 
             /* mb_substr() returns empty string on failure. */
             if (strlen($ret)) {
@@ -361,9 +400,7 @@ class Horde_String
             $error = true;
         }
 
-        return $error
-            ? ''
-            : substr($string, $start, $length);
+        return $error ? '' : substr($string, $start, $length);
     }
 
     /**
@@ -410,9 +447,11 @@ class Horde_String
      * @return integer  The position of first occurrence.
      */
     public static function pos(
-        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
-    )
-    {
+        $haystack,
+        $needle,
+        $offset = 0,
+        $charset = 'UTF-8'
+    ) {
         return self::_pos($haystack, $needle, $offset, $charset, 'strpos');
     }
 
@@ -430,9 +469,11 @@ class Horde_String
      * @return integer  The position of first case-insensitive occurrence.
      */
     public static function ipos(
-        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
-    )
-    {
+        $haystack,
+        $needle,
+        $offset = 0,
+        $charset = 'UTF-8'
+    ) {
         return self::_pos($haystack, $needle, $offset, $charset, 'stripos');
     }
 
@@ -448,9 +489,11 @@ class Horde_String
      * @return integer  The position of last occurrence.
      */
     public static function rpos(
-        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
-    )
-    {
+        $haystack,
+        $needle,
+        $offset = 0,
+        $charset = 'UTF-8'
+    ) {
         return self::_pos($haystack, $needle, $offset, $charset, 'strrpos');
     }
 
@@ -468,9 +511,11 @@ class Horde_String
      * @return integer  The position of last case-insensitive occurrence.
      */
     public static function ripos(
-        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
-    )
-    {
+        $haystack,
+        $needle,
+        $offset = 0,
+        $charset = 'UTF-8'
+    ) {
         return self::_pos($haystack, $needle, $offset, $charset, 'strripos');
     }
 
@@ -486,14 +531,18 @@ class Horde_String
      * @return integer  The position of occurrence.
      *
      */
-    protected static function _pos(
-        $haystack, $needle, $offset, $charset, $func
-    )
+    protected static function _pos($haystack, $needle, $offset, $charset, $func)
     {
         if (Horde_Util::extensionExists('mbstring')) {
             unset($php_errormsg);
             $track_errors = ini_set('track_errors', 1);
-            $ret = @call_user_func('mb_' . $func, $haystack, $needle, $offset, self::_mbstringCharset($charset));
+            $ret = @call_user_func(
+                'mb_' . $func,
+                $haystack,
+                $needle,
+                $offset,
+                self::_mbstringCharset($charset)
+            );
             ini_set('track_errors', $track_errors);
             if (!isset($php_errormsg)) {
                 return $ret;
@@ -537,9 +586,13 @@ class Horde_String
      *
      * @return string  The padded string.
      */
-    public static function pad($input, $length, $pad = ' ',
-                               $type = STR_PAD_RIGHT, $charset = 'UTF-8')
-    {
+    public static function pad(
+        $input,
+        $length,
+        $pad = ' ',
+        $type = STR_PAD_RIGHT,
+        $charset = 'UTF-8'
+    ) {
         $mb_length = self::length($input, $charset);
         $sb_length = strlen($input);
         $pad_length = self::length($pad, $charset);
@@ -555,23 +608,47 @@ class Horde_String
         }
 
         switch ($type) {
-        case STR_PAD_LEFT:
-            $left = $length - $mb_length;
-            $output = self::substr(str_repeat($pad, ceil($left / $pad_length)), 0, $left, $charset) . $input;
-            break;
+            case STR_PAD_LEFT:
+                $left = $length - $mb_length;
+                $output =
+                    self::substr(
+                        str_repeat($pad, ceil($left / $pad_length)),
+                        0,
+                        $left,
+                        $charset
+                    ) . $input;
+                break;
 
-        case STR_PAD_BOTH:
-            $left = floor(($length - $mb_length) / 2);
-            $right = ceil(($length - $mb_length) / 2);
-            $output = self::substr(str_repeat($pad, ceil($left / $pad_length)), 0, $left, $charset) .
-                $input .
-                self::substr(str_repeat($pad, ceil($right / $pad_length)), 0, $right, $charset);
-            break;
+            case STR_PAD_BOTH:
+                $left = floor(($length - $mb_length) / 2);
+                $right = ceil(($length - $mb_length) / 2);
+                $output =
+                    self::substr(
+                        str_repeat($pad, ceil($left / $pad_length)),
+                        0,
+                        $left,
+                        $charset
+                    ) .
+                    $input .
+                    self::substr(
+                        str_repeat($pad, ceil($right / $pad_length)),
+                        0,
+                        $right,
+                        $charset
+                    );
+                break;
 
-        case STR_PAD_RIGHT:
-            $right = $length - $mb_length;
-            $output = $input . self::substr(str_repeat($pad, ceil($right / $pad_length)), 0, $right, $charset);
-            break;
+            case STR_PAD_RIGHT:
+                $right = $length - $mb_length;
+                $output =
+                    $input .
+                    self::substr(
+                        str_repeat($pad, ceil($right / $pad_length)),
+                        0,
+                        $right,
+                        $charset
+                    );
+                break;
         }
 
         return $output;
@@ -593,9 +670,13 @@ class Horde_String
      *
      * @return string  String containing the wrapped text.
      */
-    public static function wordwrap($string, $width = 75, $break = "\n",
-                                    $cut = false, $line_folding = false)
-    {
+    public static function wordwrap(
+        $string,
+        $width = 75,
+        $break = "\n",
+        $cut = false,
+        $line_folding = false
+    ) {
         $breakRegex = '(?:' . preg_quote($break) . ')';
         $rpos = self::rpos($break, "\n");
         if ($rpos === false) {
@@ -607,18 +688,34 @@ class Horde_String
         $hasWrapped = false;
 
         while (self::length($string, 'UTF-8') > $width) {
-            $line = self::substr($string, 0, $width + ($hasWrapped ? $rpos : 0), 'UTF-8');
-            $string = self::substr($string, self::length($line, 'UTF-8'), null, 'UTF-8');
+            $line = self::substr(
+                $string,
+                0,
+                $width + ($hasWrapped ? $rpos : 0),
+                'UTF-8'
+            );
+            $string = self::substr(
+                $string,
+                self::length($line, 'UTF-8'),
+                null,
+                'UTF-8'
+            );
 
             // Make sure we didn't cut a word, unless we want hard breaks
             // anyway.
-            if (!$cut && preg_match('/^(.+?)((\s|\r?\n).*)/us', $string, $match)) {
+            if (
+                !$cut &&
+                preg_match('/^(.+?)((\s|\r?\n).*)/us', $string, $match)
+            ) {
                 $line .= $match[1];
                 $string = $match[2];
             }
 
             // Wrap at existing line breaks.
-            $regex = '/^(' . ($hasWrapped ? $breakRegex : '') . '.*?)(\r?\n)(.*)$/us';
+            $regex =
+                '/^(' .
+                ($hasWrapped ? $breakRegex : '') .
+                '.*?)(\r?\n)(.*)$/us';
             if (preg_match($regex, $line, $match)) {
                 $wrapped .= $match[1] . $match[2];
                 $string = $match[3] . $string;
@@ -628,8 +725,10 @@ class Horde_String
 
             // Wrap at the last colon or semicolon followed by a whitespace if
             // doing line folding.
-            if ($line_folding &&
-                preg_match('/^(.*?)(;|:)(\s+.*)$/us', $line, $match)) {
+            if (
+                $line_folding &&
+                preg_match('/^(.*?)(;|:)(\s+.*)$/us', $line, $match)
+            ) {
                 $wrapped .= $match[1] . $match[2];
                 $string = $break . $match[3] . $string;
                 $hasWrapped = true;
@@ -643,8 +742,11 @@ class Horde_String
 
             if (preg_match('/^' . $sub . '(\s+)(.*)$/u', $line, $match)) {
                 $wrapped .= $match[1];
-                $string = $break . ($line_folding ? $match[2] : '')
-                    . $match[3] . $string;
+                $string =
+                    $break .
+                    ($line_folding ? $match[2] : '') .
+                    $match[3] .
+                    $string;
                 $hasWrapped = true;
                 continue;
             }
@@ -677,13 +779,16 @@ class Horde_String
      *
      * @return string  String containing the wrapped text.
      */
-    public static function wrap($text, $length = 80, $break_char = "\n",
-                                $quote = false)
-    {
-        $paragraphs = array();
+    public static function wrap(
+        $text,
+        $length = 80,
+        $break_char = "\n",
+        $quote = false
+    ) {
+        $paragraphs = [];
 
         foreach (preg_split('/\r?\n/', $text) as $input) {
-            if ($quote && (strpos($input, '>') === 0)) {
+            if ($quote && strpos($input, '>') === 0) {
                 $line = $input;
             } else {
                 /* We need to handle the Usenet-style signature line
@@ -711,7 +816,7 @@ class Horde_String
      */
     public static function truncate($text, $length = 100)
     {
-        return (self::length($text) > $length)
+        return self::length($text) > $length
             ? rtrim(self::substr($text, 0, $length - 3)) . '...'
             : $text;
     }
@@ -727,8 +832,10 @@ class Horde_String
      */
     public static function abbreviate($text, $length = 20)
     {
-        return (self::length($text) > $length)
-            ? rtrim(self::substr($text, 0, round(($length - 3) / 2))) . '...' . ltrim(self::substr($text, (($length - 3) / 2) * -1))
+        return self::length($text) > $length
+            ? rtrim(self::substr($text, 0, round(($length - 3) / 2))) .
+                    '...' .
+                    ltrim(self::substr($text, (($length - 3) / 2) * -1))
             : $text;
     }
 
@@ -742,9 +849,11 @@ class Horde_String
      */
     public static function common($str1, $str2)
     {
-        for ($result = '', $i = 0;
-             isset($str1[$i]) && isset($str2[$i]) && $str1[$i] == $str2[$i];
-             $i++) {
+        for (
+            $result = '', $i = 0;
+            isset($str1[$i]) && isset($str2[$i]) && $str1[$i] == $str2[$i];
+            $i++
+        ) {
             $result .= $str1[$i];
         }
         return $result;
@@ -790,8 +899,8 @@ class Horde_String
      */
     public static function isLower($string, $charset)
     {
-        return ((self::lower($string, true, $charset) === $string) &&
-                self::isAlpha($string, $charset));
+        return self::lower($string, true, $charset) === $string &&
+            self::isAlpha($string, $charset);
     }
 
     /**
@@ -805,8 +914,8 @@ class Horde_String
      */
     public static function isUpper($string, $charset)
     {
-        return ((self::upper($string, true, $charset) === $string) &&
-                self::isAlpha($string, $charset));
+        return self::upper($string, true, $charset) === $string &&
+            self::isAlpha($string, $charset);
     }
 
     /**
@@ -826,7 +935,7 @@ class Horde_String
             $text = self::convertCharset($text, $charset, 'utf-8');
         }
 
-        $matches = array();
+        $matches = [];
         foreach ($regex as $val) {
             if (preg_match('/' . $val . '/u', $text, $matches)) {
                 break;
@@ -852,7 +961,12 @@ class Horde_String
         $text = strval($text);
 
         // First check for illegal surrogate pair sequences. See RFC 3629.
-        if (preg_match('/\xE0[\x80-\x9F][\x80-\xBF]|\xED[\xA0-\xBF][\x80-\xBF]/S', $text)) {
+        if (
+            preg_match(
+                '/\xE0[\x80-\x9F][\x80-\xBF]|\xED[\xA0-\xBF][\x80-\xBF]/S',
+                $text
+            )
+        ) {
             return false;
         }
 
@@ -872,13 +986,13 @@ class Horde_String
                     return false;
                 }
 
-                if (($i + $j) > $len) {
+                if ($i + $j > $len) {
                     return false;
                 }
 
                 do {
                     $c = ord($text[++$i]);
-                    if (($c < 128) || ($c > 191)) {
+                    if ($c < 128 || $c > 191) {
                         return false;
                     }
                 } while (--$j);
@@ -902,7 +1016,10 @@ class Horde_String
          * example, by various versions of Outlook to send Korean characters.
          * Use UHC (CP949) encoding instead. See, e.g.,
          * http://lists.w3.org/Archives/Public/ietf-charsets/2001AprJun/0030.html */
-        return in_array(self::lower($charset), array('ks_c_5601-1987', 'ks_c_5601-1989'))
+        return in_array(self::lower($charset), [
+            'ks_c_5601-1987',
+            'ks_c_5601-1989',
+        ])
             ? 'UHC'
             : $charset;
     }
@@ -916,9 +1033,8 @@ class Horde_String
      */
     public static function trimUtf8Bom($str)
     {
-        return (substr($str, 0, 3) == pack('CCC', 239, 187, 191))
+        return substr($str, 0, 3) == pack('CCC', 239, 187, 191)
             ? substr($str, 3)
             : $str;
     }
-
 }

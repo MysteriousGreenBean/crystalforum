@@ -1,59 +1,59 @@
 {
-  "global": {
-    "global": [
-      "cache/themes/theme2/footer.css",
-      "cache/themes/theme2/css3.css",
-      "cache/themes/theme2/extra.css",
-      "cache/themes/theme2/global.css",
-      "cache/themes/theme2/latestposts.css",
-      "cache/themes/theme2/avatarep.css",
-      "cache/themes/theme2/mycode.css",
-      "cache/themes/theme2/variables.css"
-    ]
-  },
-  "modcp.php": {
-    "global": ["cache/themes/theme2/modcp.css"]
-  },
-  "showthread.php": {
-    "global": [
-      "cache/themes/theme2/showthread.css",
-      "cache/themes/theme2/star_ratings.css"
-    ]
-  },
-  "usercp.php": {
-    "global": [
-      "cache/themes/theme2/usercp.css",
-      "cache/themes/theme2/thread_status.css"
-    ]
-  },
-  "private.php": {
-    "global": ["cache/themes/theme2/usercp.css"]
-  },
-  "forumdisplay.php": {
-    "global": [
-      "cache/themes/theme2/thread_status.css",
-      "cache/themes/theme2/star_ratings.css"
-    ]
-  },
-  "search.php": {
-    "global": ["cache/themes/theme2/thread_status.css"]
-  },
-  "newpost.php": {
-    "global": ["cache/themes/theme2/responsivity.css"]
-  },
-  "newthread.php": {
-    "global": ["cache/themes/theme2/responsivity.css"]
-  },
-  "editpost.php": {
-    "global": [
-      "cache/themes/theme2/responsivity.css",
-      "cache/themes/theme2/showthread.css"
-    ]
-  },
-  "newreply.php": {
-    "global": [
-      "cache/themes/theme2/responsivity.css",
-      "cache/themes/theme2/showthread.css"
-    ]
-  }
+    "global": {
+        "global": [
+            "cache/themes/theme2/footer.css",
+            "cache/themes/theme2/css3.css",
+            "cache/themes/theme2/extra.css",
+            "cache/themes/theme2/global.css",
+            "cache/themes/theme2/latestposts.css",
+            "cache/themes/theme2/avatarep.css",
+            "cache/themes/theme2/mycode.css",
+            "cache/themes/theme2/variables.css"
+        ]
+    },
+    "modcp.php": {
+        "global": ["cache/themes/theme2/modcp.css"]
+    },
+    "showthread.php": {
+        "global": [
+            "cache/themes/theme2/showthread.css",
+            "cache/themes/theme2/star_ratings.css"
+        ]
+    },
+    "usercp.php": {
+        "global": [
+            "cache/themes/theme2/usercp.css",
+            "cache/themes/theme2/thread_status.css"
+        ]
+    },
+    "private.php": {
+        "global": ["cache/themes/theme2/usercp.css"]
+    },
+    "forumdisplay.php": {
+        "global": [
+            "cache/themes/theme2/thread_status.css",
+            "cache/themes/theme2/star_ratings.css"
+        ]
+    },
+    "search.php": {
+        "global": ["cache/themes/theme2/thread_status.css"]
+    },
+    "newpost.php": {
+        "global": ["cache/themes/theme2/responsivity.css"]
+    },
+    "newthread.php": {
+        "global": ["cache/themes/theme2/responsivity.css"]
+    },
+    "editpost.php": {
+        "global": [
+            "cache/themes/theme2/responsivity.css",
+            "cache/themes/theme2/showthread.css"
+        ]
+    },
+    "newreply.php": {
+        "global": [
+            "cache/themes/theme2/responsivity.css",
+            "cache/themes/theme2/showthread.css"
+        ]
+    }
 }

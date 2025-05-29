@@ -44,7 +44,8 @@ $l['welcome_open_buddy_list'] = 'Open Buddy List';
 $l['welcome_newposts'] = 'Latest Posts';
 $l['welcome_todaysposts'] = 'View Today\'s Posts';
 $l['welcome_pms'] = 'Messages';
-$l['welcome_pms_usage'] = 'Notifications <span class="badge bg-light rounded-pill text-danger">{1}</span>';
+$l['welcome_pms_usage'] =
+    'Notifications <span class="badge bg-light rounded-pill text-danger">{1}</span>';
 $l['welcome_back'] = '<strong>{1}</strong>';
 $l['welcome_guest'] = 'Welcome Back';
 $l['welcome_current_time'] = '<strong>Current time:</strong> {1}';
@@ -68,10 +69,12 @@ $l['viewing_multiple'] = ' ({1} users browsing)';
 $l['by'] = 'by';
 $l['more_subforums'] = 'and {1} more.';
 $l['password_required'] = 'Password Required';
-$l['forum_password_note'] = 'The administrator has required it so that a password is required for access to this forum.';
+$l['forum_password_note'] =
+    'The administrator has required it so that a password is required for access to this forum.';
 $l['enter_password_below'] = 'Please enter the password below:';
 $l['verify_forum_password'] = 'Verify Forum Password';
-$l['wrong_forum_password'] = 'The password you entered is incorrect. Please try again.';
+$l['wrong_forum_password'] =
+    'The password you entered is incorrect. Please try again.';
 $l['reset_button'] = 'Reset';
 $l['username'] = 'Username';
 $l['username1'] = 'Email:';
@@ -83,7 +86,8 @@ $l['login_username2'] = 'Username/Email:';
 $l['login_password'] = 'Password:';
 $l['lost_password'] = 'Forgotten your Password?';
 $l['remember_me'] = 'Remember me';
-$l['remember_me_desc'] = 'If ticked, your login details will be remembered on this computer, otherwise, you will be logged out as soon as you close your browser.';
+$l['remember_me_desc'] =
+    'If ticked, your login details will be remembered on this computer, otherwise, you will be logged out as soon as you close your browser.';
 $l['month_1'] = 'January';
 $l['month_2'] = 'February';
 $l['month_3'] = 'March';
@@ -116,7 +120,8 @@ $l['and'] = 'and';
 $l['date'] = 'Date';
 $l['nobody'] = 'Nobody';
 $l['attachments'] = 'Attachments';
-$l['attachments_desc'] = 'Optionally you may attach one or more attachments to this post. Please select the file on the right and click \'Add Attachment\' to upload it.';
+$l['attachments_desc'] =
+    'Optionally you may attach one or more attachments to this post. Please select the file on the right and click \'Add Attachment\' to upload it.';
 $l['remove_attachment'] = 'Remove';
 $l['approve_attachment'] = 'Approve';
 $l['unapprove_attachment'] = 'Unapprove';
@@ -124,9 +129,12 @@ $l['insert_attachment_post'] = 'Insert Into Post';
 $l['new_attachment'] = 'New Attachment:';
 $l['add_attachment'] = 'Add Attachment';
 $l['update_attachment'] = 'Update Attachment';
-$l['attachment_missing'] = 'Please select one or more files before attempting to attach.';
-$l['attachment_too_many_files'] = 'You can upload a maximum of {1} files at once.';
-$l['attachment_max_allowed_files'] = 'You can attach {1} more file(s) to this post.';
+$l['attachment_missing'] =
+    'Please select one or more files before attempting to attach.';
+$l['attachment_too_many_files'] =
+    'You can upload a maximum of {1} files at once.';
+$l['attachment_max_allowed_files'] =
+    'You can attach {1} more file(s) to this post.';
 $l['attachment_too_big_upload'] = 'You can upload a maximum of {1} MB at once.';
 $l['drop_files'] = 'Click or drop some files here to upload...';
 $l['upload_initiate'] = 'Release to initiate upload...';
@@ -135,11 +143,15 @@ $l['change_user'] = 'change user';
 $l['post_icon'] = 'Post Icon';
 $l['no_post_icon'] = 'no icon';
 $l['thread_subscription_method'] = 'Subscription';
-$l['thread_subscription_method_desc'] = 'Specify the type of notification and thread subscription you\'d like to have to this thread. (Registered users only)';
+$l['thread_subscription_method_desc'] =
+    'Specify the type of notification and thread subscription you\'d like to have to this thread. (Registered users only)';
 $l['no_subscribe'] = 'Do not subscribe to this thread';
-$l['no_subscribe_notification'] = 'Subscribe without receiving any notification of new replies';
-$l['instant_email_subscribe'] = 'Subscribe and receive email notification of new replies';
-$l['instant_pm_subscribe'] = 'Subscribe and receive PM notification of new replies';
+$l['no_subscribe_notification'] =
+    'Subscribe without receiving any notification of new replies';
+$l['instant_email_subscribe'] =
+    'Subscribe and receive email notification of new replies';
+$l['instant_pm_subscribe'] =
+    'Subscribe and receive PM notification of new replies';
 $l['today_rel'] = '<span title="{1}">Today</span>';
 $l['yesterday_rel'] = '<span title="{1}">Yesterday</span>';
 $l['today'] = 'Today';
@@ -170,9 +182,12 @@ $l['editor_removeformatting'] = 'Remove Formatting';
 $l['editor_cut'] = 'Cut';
 $l['editor_copy'] = 'Copy';
 $l['editor_paste'] = 'Paste';
-$l['editor_cutnosupport'] = 'Your browser does not allow the cut command. Please use the keyboard shortcut Ctrl/Cmd-X';
-$l['editor_copynosupport'] = 'Your browser does not allow the copy command. Please use the keyboard shortcut Ctrl/Cmd-C';
-$l['editor_pastenosupport'] = 'Your browser does not allow the paste command. Please use the keyboard shortcut Ctrl/Cmd-V';
+$l['editor_cutnosupport'] =
+    'Your browser does not allow the cut command. Please use the keyboard shortcut Ctrl/Cmd-X';
+$l['editor_copynosupport'] =
+    'Your browser does not allow the copy command. Please use the keyboard shortcut Ctrl/Cmd-C';
+$l['editor_pastenosupport'] =
+    'Your browser does not allow the paste command. Please use the keyboard shortcut Ctrl/Cmd-V';
 $l['editor_pasteentertext'] = 'Paste your text inside the following box:';
 $l['editor_pastetext'] = 'Paste Text';
 $l['editor_numlist'] = 'Numbered list';
@@ -271,9 +286,12 @@ $l['postbit_edit'] = 'Edit this post';
 $l['postbit_multiquote'] = 'Quote this post';
 $l['postbit_quick_edit'] = 'Quick Edit';
 $l['postbit_full_edit'] = 'Full Edit';
-$l['postbit_show_ignored_post'] = '<i class="bi bi-chevron-down"></i> Show Post';
-$l['postbit_currently_ignoring_user'] = 'The contents of this message are hidden because {1} is on your <a href="usercp.php?action=editlists">ignore list</a>.';
-$l['postbit_post_under_moderation'] = 'The post made by you is under moderation and currently not visible publicly. The post will be visible to everyone once a moderator approves it.';
+$l['postbit_show_ignored_post'] =
+    '<i class="bi bi-chevron-down"></i> Show Post';
+$l['postbit_currently_ignoring_user'] =
+    'The contents of this message are hidden because {1} is on your <a href="usercp.php?action=editlists">ignore list</a>.';
+$l['postbit_post_under_moderation'] =
+    'The post made by you is under moderation and currently not visible publicly. The post will be visible to everyone once a moderator approves it.';
 $l['postbit_warning_level'] = 'Warning Level:';
 $l['postbit_warn'] = 'Warn the author for this post';
 $l['postbit_purgespammer'] = 'Purge Spammer';
@@ -315,7 +333,8 @@ $l['smilieinsert'] = 'Smilies';
 $l['smilieinsert_getmore'] = 'get more';
 $l['on'] = 'On';
 $l['off'] = 'Off';
-$l['remote_avatar_disabled_default_avatar'] = 'You are currently using a remote avatar, which has been disabled. The default avatar will be used instead.';
+$l['remote_avatar_disabled_default_avatar'] =
+    'You are currently using a remote avatar, which has been disabled. The default avatar will be used instead.';
 $l['mod_notice'] = 'Awaiting Moderation: {1}.';
 $l['unapproved_thread'] = '1 unapproved thread';
 $l['unapproved_threads'] = '{1} unapproved threads';
@@ -373,7 +392,8 @@ $l['banned_warning'] = 'Your forum account is currently banned.';
 $l['banned_warning2'] = 'Ban Reason';
 $l['banned_warning3'] = 'Ban will be lifted';
 $l['banned_lifted_never'] = 'Never';
-$l['banned_email_warning'] = 'You are currently using an email that is not allowed to be used on this forum. Please reset it before continuing.';
+$l['banned_email_warning'] =
+    'You are currently using an email that is not allowed to be used on this forum. Please reset it before continuing.';
 $l['powered_by'] = 'Powered By';
 $l['copyright'] = 'Copyright';
 $l['attach_quota'] = 'Your allocated attachment usage quota is {1}.';
@@ -397,10 +417,13 @@ $l['with_trout'] = 'around a bit with a large trout.';
 $l['mybb_engine'] = 'NoReply';
 $l['quickdelete_confirm'] = 'Are you sure you want to delete this post?';
 $l['quickrestore_confirm'] = 'Are you sure you want to restore this post?';
-$l['newpm_notice_one'] = '<strong>You have one unread private message</strong> from {1} titled <a href="{2}/private.php?action=read&amp;pmid={3}" style="font-weight: bold;">{4}</a>';
-$l['newpm_notice_multiple'] = '<strong>You have {1} unread private messages.</strong> The most recent is from {2} titled <a href="{3}/private.php?action=read&amp;pmid={4}" style="font-weight: bold;">{5}</a>';
+$l['newpm_notice_one'] =
+    '<strong>You have one unread private message</strong> from {1} titled <a href="{2}/private.php?action=read&amp;pmid={3}" style="font-weight: bold;">{4}</a>';
+$l['newpm_notice_multiple'] =
+    '<strong>You have {1} unread private messages.</strong> The most recent is from {2} titled <a href="{3}/private.php?action=read&amp;pmid={4}" style="font-weight: bold;">{5}</a>';
 $l['deleteevent_confirm'] = 'Are you sure you want to delete this event?';
-$l['removeattach_confirm'] = 'Are you sure you want to remove the selected attachment from this post?';
+$l['removeattach_confirm'] =
+    'Are you sure you want to remove the selected attachment from this post?';
 $l['latest_threads'] = 'Latest Threads';
 $l['folder_inbox'] = 'Inbox';
 $l['folder_unread'] = 'Unread';
@@ -410,12 +433,18 @@ $l['folder_trash'] = 'Trash Can';
 $l['folder_untitled'] = 'Untitled Folder';
 $l['standard_mod_tools'] = 'Standard Tools';
 $l['custom_mod_tools'] = 'Custom Tools';
-$l['error_loadlimit'] = 'The maximum server load limit has been reached.  Please check back later once the server is less busy.';
-$l['error_boardclosed'] = 'This bulletin board is currently closed. The Administrator has specified the reason as to why below.';
-$l['error_banned'] = 'I\'m sorry, but you are banned.  You may not post, read threads, or access the forum.  Please contact your forum administrator should you have any questions.';
-$l['error_cannot_upload_php_post'] = 'Can not upload file - Too large for php post_max_size directive. Please press the back button.';
-$l['error_empty_post_input'] = 'There has been an error due to your post data being empty. This could be due to a browser page refresh or direct access to this page. We recommend you press the browser back button and begin again.';
-$l['error_database_repair'] = 'MyBB is automatically repairing a crashed table.';
+$l['error_loadlimit'] =
+    'The maximum server load limit has been reached.  Please check back later once the server is less busy.';
+$l['error_boardclosed'] =
+    'This bulletin board is currently closed. The Administrator has specified the reason as to why below.';
+$l['error_banned'] =
+    'I\'m sorry, but you are banned.  You may not post, read threads, or access the forum.  Please contact your forum administrator should you have any questions.';
+$l['error_cannot_upload_php_post'] =
+    'Can not upload file - Too large for php post_max_size directive. Please press the back button.';
+$l['error_empty_post_input'] =
+    'There has been an error due to your post data being empty. This could be due to a browser page refresh or direct access to this page. We recommend you press the browser back button and begin again.';
+$l['error_database_repair'] =
+    'MyBB is automatically repairing a crashed table.';
 $l['unknown_user_trigger'] = 'An unknown error has been triggered.';
 $l['warnings'] = 'The following warnings occurred:';
 $l['ajax_loading'] = 'Loading. <br />Please Wait&hellip;';
@@ -423,18 +452,27 @@ $l['saving_changes'] = 'Saving changes&hellip;';
 $l['refresh'] = 'Refresh';
 $l['select_language'] = 'Quick Language Select';
 $l['select_theme'] = 'Quick Theme Select';
-$l['invalid_post_code'] = 'Authorization code mismatch. Are you accessing this function correctly? Please go back and try again.';
-$l['invalid_nocaptcha'] = 'Please solve the reCAPTCHA to verify that you\'re not a robot.';
-$l['invalid_hcaptcha'] = 'Please solve the hCaptcha to verify that you\'re not a robot.';
-$l['invalid_captcha_verify'] = 'The image verification code that you entered was incorrect. Please enter the code exactly how it appears in the image.';
+$l['invalid_post_code'] =
+    'Authorization code mismatch. Are you accessing this function correctly? Please go back and try again.';
+$l['invalid_nocaptcha'] =
+    'Please solve the reCAPTCHA to verify that you\'re not a robot.';
+$l['invalid_hcaptcha'] =
+    'Please solve the hCaptcha to verify that you\'re not a robot.';
+$l['invalid_captcha_verify'] =
+    'The image verification code that you entered was incorrect. Please enter the code exactly how it appears in the image.';
 $l['image_verification'] = 'Image Verification';
 $l['human_verification'] = 'Human Verification';
-$l['verification_note'] = 'Please enter the text contained within the image into the text box below it.';
-$l['verification_note_nocaptcha'] = 'Please tick the checkbox that you see below. This process is used to prevent automated spam bots.';
-$l['verification_note_hcaptcha'] = 'Please tick the checkbox that you see below. This process is used to prevent automated spam bots.';
+$l['verification_note'] =
+    'Please enter the text contained within the image into the text box below it.';
+$l['verification_note_nocaptcha'] =
+    'Please tick the checkbox that you see below. This process is used to prevent automated spam bots.';
+$l['verification_note_hcaptcha'] =
+    'Please tick the checkbox that you see below. This process is used to prevent automated spam bots.';
 $l['verification_subnote'] = '(case insensitive)';
-$l['invalid_nocaptcha_transmit'] = 'An error occurred with the human verification by reCAPTCHA. Please try again.';
-$l['invalid_hcaptcha_transmit'] = 'An error occurred with the human verification by hCaptcha. Please try again.';
+$l['invalid_nocaptcha_transmit'] =
+    'An error occurred with the human verification by reCAPTCHA. Please try again.';
+$l['invalid_hcaptcha_transmit'] =
+    'An error occurred with the human verification by hCaptcha. Please try again.';
 $l['captcha_fetch_failure'] = 'There was an error fetching the new captcha.';
 $l['question_fetch_failure'] = 'There was an error fetching the new question.';
 $l['timezone_gmt_minus_1200'] = '(GMT -12:00) Howland and Baker Islands';
@@ -449,13 +487,19 @@ $l['timezone_gmt_minus_500'] = '(GMT -5:00) Eastern Time, Bogota, Lima, Quito';
 $l['timezone_gmt_minus_450'] = '(GMT -4:30) Caracas';
 $l['timezone_gmt_minus_400'] = '(GMT -4:00) Atlantic Time, La Paz, Halifax';
 $l['timezone_gmt_minus_350'] = '(GMT -3:30) Newfoundland';
-$l['timezone_gmt_minus_300'] = '(GMT -3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.';
-$l['timezone_gmt_minus_200'] = '(GMT -2:00) Mid-Atlantic, South Georgia and the South Sandwich Islands';
+$l['timezone_gmt_minus_300'] =
+    '(GMT -3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.';
+$l['timezone_gmt_minus_200'] =
+    '(GMT -2:00) Mid-Atlantic, South Georgia and the South Sandwich Islands';
 $l['timezone_gmt_minus_100'] = '(GMT -1:00) Azores, Cape Verde Islands';
-$l['timezone_gmt'] = '(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia';
-$l['timezone_gmt_100'] = '(GMT +1:00) Berlin, Bratislava, Brussels, Copenhagen, Madrid, Paris, Prague, Rome, Warsaw';
-$l['timezone_gmt_200'] = '(GMT +2:00) Athens, Istanbul, Cairo, Jerusalem, South Africa';
-$l['timezone_gmt_300'] = '(GMT +3:00) Kaliningrad, Minsk, Baghdad, Riyadh, Nairobi';
+$l['timezone_gmt'] =
+    '(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia';
+$l['timezone_gmt_100'] =
+    '(GMT +1:00) Berlin, Bratislava, Brussels, Copenhagen, Madrid, Paris, Prague, Rome, Warsaw';
+$l['timezone_gmt_200'] =
+    '(GMT +2:00) Athens, Istanbul, Cairo, Jerusalem, South Africa';
+$l['timezone_gmt_300'] =
+    '(GMT +3:00) Kaliningrad, Minsk, Baghdad, Riyadh, Nairobi';
 $l['timezone_gmt_350'] = '(GMT +3:30) Tehran';
 $l['timezone_gmt_400'] = '(GMT +4:00) Moscow, Abu Dhabi, Baku, Muscat, Tbilisi';
 $l['timezone_gmt_450'] = '(GMT +4:30) Kabul';
@@ -465,40 +509,53 @@ $l['timezone_gmt_575'] = '(GMT +5:45) Kathmandu';
 $l['timezone_gmt_600'] = '(GMT +6:00) Almaty, Dhaka, Yekaterinburg';
 $l['timezone_gmt_650'] = '(GMT +6:30) Yangon';
 $l['timezone_gmt_700'] = '(GMT +7:00) Bangkok, Hanoi, Jakarta';
-$l['timezone_gmt_800'] = '(GMT +8:00) Beijing, Hong Kong, Perth, Singapore, Taipei, Manila';
+$l['timezone_gmt_800'] =
+    '(GMT +8:00) Beijing, Hong Kong, Perth, Singapore, Taipei, Manila';
 $l['timezone_gmt_850'] = '(GMT +8:30) Pyongyang';
 $l['timezone_gmt_875'] = '(GMT +8:45) Eucla';
 $l['timezone_gmt_900'] = '(GMT +9:00) Osaka, Sapporo, Seoul, Tokyo, Irkutsk';
 $l['timezone_gmt_950'] = '(GMT +9:30) Adelaide, Darwin';
-$l['timezone_gmt_1000'] = '(GMT +10:00) Melbourne, Papua New Guinea, Sydney, Yakutsk';
+$l['timezone_gmt_1000'] =
+    '(GMT +10:00) Melbourne, Papua New Guinea, Sydney, Yakutsk';
 $l['timezone_gmt_1050'] = '(GMT +10:30) Lord Howe Island';
-$l['timezone_gmt_1100'] = '(GMT +11:00) Magadan, New Caledonia, Solomon Islands, Vladivostok';
+$l['timezone_gmt_1100'] =
+    '(GMT +11:00) Magadan, New Caledonia, Solomon Islands, Vladivostok';
 $l['timezone_gmt_1150'] = '(GMT +11:30) Norfolk Island';
-$l['timezone_gmt_1200'] = '(GMT +12:00) Auckland, Wellington, Fiji, Marshall Islands';
+$l['timezone_gmt_1200'] =
+    '(GMT +12:00) Auckland, Wellington, Fiji, Marshall Islands';
 $l['timezone_gmt_1275'] = '(GMT +12:45) Chatham Islands';
 $l['timezone_gmt_1300'] = '(GMT +13:00) Samoa, Tonga, Tokelau';
 $l['timezone_gmt_1400'] = '(GMT +14:00) Line Islands';
 $l['timezone_gmt_short'] = 'GMT {1}({2})';
 $l['missing_task'] = 'Error: Task file does not exist';
-$l['task_backup_cannot_write_backup'] = 'Error: The database backup task cannot write to backups directory.';
+$l['task_backup_cannot_write_backup'] =
+    'Error: The database backup task cannot write to backups directory.';
 $l['task_backup_ran'] = 'The database backup task successfully ran.';
-$l['task_checktables_ran'] = 'The check tables task successfully ran with no corrupted tables found.';
-$l['task_checktables_ran_found'] = 'Notice: The check tables task successfully ran and repaired the {1} table(s).';
+$l['task_checktables_ran'] =
+    'The check tables task successfully ran with no corrupted tables found.';
+$l['task_checktables_ran_found'] =
+    'Notice: The check tables task successfully ran and repaired the {1} table(s).';
 $l['task_dailycleanup_ran'] = 'The daily cleanup task successfully ran.';
 $l['task_hourlycleanup_ran'] = 'The hourly cleanup task successfully ran.';
-$l['task_logcleanup_ran'] = 'The log cleanup task successfully ran and pruned any old logs.';
+$l['task_logcleanup_ran'] =
+    'The log cleanup task successfully ran and pruned any old logs.';
 $l['task_promotions_ran'] = 'The promotions task successfully ran.';
 $l['task_threadviews_ran'] = 'The thread views task successfully ran.';
 $l['task_usercleanup_ran'] = 'The user cleanup task successfully ran.';
 $l['task_massmail_ran'] = 'The mass mail task successfully ran.';
 $l['task_userpruning_ran'] = 'The user pruning task successfully ran.';
-$l['task_delayedmoderation_ran'] = 'The delayed moderation task successfully ran.';
-$l['task_massmail_ran_errors'] = 'One or more problems occurred sending to "{1}":
+$l['task_delayedmoderation_ran'] =
+    'The delayed moderation task successfully ran.';
+$l[
+    'task_massmail_ran_errors'
+] = 'One or more problems occurred sending to "{1}":
 {2}';
 $l['task_versioncheck_ran'] = 'The version check task successfully ran.';
-$l['task_versioncheck_ran_errors'] = 'Could not connect to MyBB for a version check.';
+$l['task_versioncheck_ran_errors'] =
+    'Could not connect to MyBB for a version check.';
 $l['task_recachestylesheets_ran'] = 'Re-cached {1} stylesheets.';
-$l['task_sendmailqueue_ran'] = 'The send mail queue task sent up to {1} messages.';
+$l['task_sendmailqueue_ran'] =
+    'The send mail queue task sent up to {1} messages.';
 $l['dismiss_notice'] = 'Dismiss this notice';
 $l['next'] = 'Next';
 $l['previous'] = 'Previous';
@@ -514,10 +571,14 @@ $l['debug_sql_queries'] = 'SQL Queries: {1}';
 $l['debug_server_load'] = 'Server Load: {1}';
 $l['debug_memory_usage'] = 'Memory Usage: {1}';
 $l['debug_advanced_details'] = 'Advanced Details';
-$l['error_emailflooding_1_second'] = 'Sorry, but you can only send one email every {1} minutes. Please wait another 1 second before attempting to email again.';
-$l['error_emailflooding_seconds'] = 'Sorry, but you can only send one email every {1} minutes. Please wait another {2} seconds before attempting to email again.';
-$l['error_emailflooding_1_minute'] = 'Sorry, but you can only send one email every {1} minutes. Please wait another 1 minute before attempting to email again.';
-$l['error_emailflooding_minutes'] = 'Sorry, but you can only send one email every {1} minutes. Please wait another {2} minutes before attempting to email again.';
+$l['error_emailflooding_1_second'] =
+    'Sorry, but you can only send one email every {1} minutes. Please wait another 1 second before attempting to email again.';
+$l['error_emailflooding_seconds'] =
+    'Sorry, but you can only send one email every {1} minutes. Please wait another {2} seconds before attempting to email again.';
+$l['error_emailflooding_1_minute'] =
+    'Sorry, but you can only send one email every {1} minutes. Please wait another 1 minute before attempting to email again.';
+$l['error_emailflooding_minutes'] =
+    'Sorry, but you can only send one email every {1} minutes. Please wait another {2} minutes before attempting to email again.';
 $l['error_invalidfromemail'] = 'You did not enter a valid from email address.';
 $l['error_noname'] = 'You did not enter a valid name.';
 $l['your_email'] = 'Your Email';
@@ -536,17 +597,27 @@ $l['september'] = 'September';
 $l['october'] = 'October';
 $l['november'] = 'November';
 $l['december'] = 'December';
-$l['moderation_forum_attachments'] = 'Please note that new attachments in this forum must be approved by a moderator before becoming visible.';
-$l['moderation_forum_posts'] = 'Please note that new posts in this forum must be approved by a moderator before becoming visible.';
-$l['moderation_user_posts'] = 'Please note that new posts you make must be approved by a moderator before becoming visible.';
-$l['moderation_forum_thread'] = 'Please note that new threads in this forum must be approved by a moderator before becoming visible.';
-$l['moderation_forum_edits'] = 'Please note that edited posts in this forum must be approved by a moderator before becoming visible.';
-$l['moderation_forum_edits_quick'] = 'Please note that edited posts in this forum must be approved by a moderator before becoming visible.';
-$l['awaiting_message_link'] = ' <a href="{1}/{2}/index.php?module=user-awaiting_activation">Go to the ACP</a>.';
-$l['awaiting_message_single'] = 'There is 1 account awaiting activation. Please go to your ACP to activate the user.';
-$l['awaiting_message_plural'] = 'There are {1} accounts awaiting activation. Please go to your ACP to activate the users.';
+$l['moderation_forum_attachments'] =
+    'Please note that new attachments in this forum must be approved by a moderator before becoming visible.';
+$l['moderation_forum_posts'] =
+    'Please note that new posts in this forum must be approved by a moderator before becoming visible.';
+$l['moderation_user_posts'] =
+    'Please note that new posts you make must be approved by a moderator before becoming visible.';
+$l['moderation_forum_thread'] =
+    'Please note that new threads in this forum must be approved by a moderator before becoming visible.';
+$l['moderation_forum_edits'] =
+    'Please note that edited posts in this forum must be approved by a moderator before becoming visible.';
+$l['moderation_forum_edits_quick'] =
+    'Please note that edited posts in this forum must be approved by a moderator before becoming visible.';
+$l['awaiting_message_link'] =
+    ' <a href="{1}/{2}/index.php?module=user-awaiting_activation">Go to the ACP</a>.';
+$l['awaiting_message_single'] =
+    'There is 1 account awaiting activation. Please go to your ACP to activate the user.';
+$l['awaiting_message_plural'] =
+    'There are {1} accounts awaiting activation. Please go to your ACP to activate the users.';
 $l['select2_match'] = 'One result is available, press enter to select it.';
-$l['select2_matches'] = '{1} results are available, use up and down arrow keys to navigate.';
+$l['select2_matches'] =
+    '{1} results are available, use up and down arrow keys to navigate.';
 $l['select2_nomatches'] = 'No matches found';
 $l['select2_inputtooshort_single'] = 'Please enter one or more character';
 $l['select2_inputtooshort_plural'] = 'Please enter {1} or more characters';
@@ -556,28 +627,40 @@ $l['select2_selectiontoobig_single'] = 'You can only select one item';
 $l['select2_selectiontoobig_plural'] = 'You can only select {1} items';
 $l['select2_loadmore'] = 'Loading more results&hellip;';
 $l['select2_searching'] = 'Searching&hellip;';
-$l['stopforumspam_error_decoding'] = 'Error decoding data from StopForumSpam.com.';
-$l['stopforumspam_error_retrieving'] = 'Error retrieving data from StopForumSpam.com.';
-$l['stopforumspam_invalid_email'] = 'Invalid email address whilst checking against the StopForumSpam.com API.';
-$l['stopforumspam_invalid_ip_address'] = 'Invalid IP address whilst checking against the StopForumSpam.com API.';
+$l['stopforumspam_error_decoding'] =
+    'Error decoding data from StopForumSpam.com.';
+$l['stopforumspam_error_retrieving'] =
+    'Error retrieving data from StopForumSpam.com.';
+$l['stopforumspam_invalid_email'] =
+    'Invalid email address whilst checking against the StopForumSpam.com API.';
+$l['stopforumspam_invalid_ip_address'] =
+    'Invalid IP address whilst checking against the StopForumSpam.com API.';
 $l['sfs_error_username'] = 'username';
 $l['sfs_error_ip'] = 'IP';
 $l['sfs_error_email'] = 'email';
 $l['sfs_error_or'] = 'or';
 $l['expcol_collapse'] = '';
 $l['expcol_expand'] = '';
-$l['boardclosed_reason'] = 'These forums are currently closed for maintenance. Please check back later';
+$l['boardclosed_reason'] =
+    'These forums are currently closed for maintenance. Please check back later';
 $l['use_default'] = 'Use Default';
-$l['have_account'] = 'Don\'t have an <a data-bs-toggle="modal" data-bs-target="#modal-agree" href="member.php?action=register">account</a>?';
-$l['login_form'] = 'Already have an account? <a href="member.php?action=login">Log in</a>!';
+$l['have_account'] =
+    'Don\'t have an <a data-bs-toggle="modal" data-bs-target="#modal-agree" href="member.php?action=register">account</a>?';
+$l['login_form'] =
+    'Already have an account? <a href="member.php?action=login">Log in</a>!';
 $l['submit_agree'] = 'Accept';
 $l['submit_lostpw'] = 'Submit';
 $l['agreement'] = 'Registration Agreement';
-$l['agreement_1'] = 'Whilst we attempt to edit or remove any messages containing inappropriate, sexually orientated, abusive, hateful, slanderous, or threatening material that could be considered invasive of a person\'s privacy, or which otherwise violate any kind of law, it is impossible for us to review every message posted on this discussion system. <br /><br />For this reason you acknowledge that all messages posted on this discussion system express the views and opinions of the original message author and not necessarily the views of this bulletin board. Therefore we take no responsibility and cannot be held liable for any messages posted. We do not vouch for or warrant the accuracy and completeness of every message.';
-$l['agreement_2'] = 'By registering on this discussion system you agree that you will not post any material which is knowingly false, inaccurate, abusive, hateful, harassing, sexually orientated, threatening or invasive of a person\'s privacy, or any other material which may violate any applicable laws.';
-$l['agreement_3'] = 'Failure to comply with these rules may result in the termination of your account, account suspension, or permanent ban of access to these forums. Your IP Address is recorded with each post you make on this discussion system and is retrievable by the forum staff if need-be. You agree that we have the ability and right to remove, edit, or lock any account or message at any time should it be seen fit. <br /><br />You also agree that any information you enter on this discussion system is stored in a database, and that "cookies" are stored on your computer to save your login information.';
-$l['agreement_4'] = 'Any information you provide on these forums will not be disclosed to any third party without your complete consent, although the staff cannot be held liable for any hacking attempt in which your data is compromised.';
-$l['agreement_5'] = 'By continuing with the registration process you agree to the above rules and any others that the Administrator specifies.';
+$l['agreement_1'] =
+    'Whilst we attempt to edit or remove any messages containing inappropriate, sexually orientated, abusive, hateful, slanderous, or threatening material that could be considered invasive of a person\'s privacy, or which otherwise violate any kind of law, it is impossible for us to review every message posted on this discussion system. <br /><br />For this reason you acknowledge that all messages posted on this discussion system express the views and opinions of the original message author and not necessarily the views of this bulletin board. Therefore we take no responsibility and cannot be held liable for any messages posted. We do not vouch for or warrant the accuracy and completeness of every message.';
+$l['agreement_2'] =
+    'By registering on this discussion system you agree that you will not post any material which is knowingly false, inaccurate, abusive, hateful, harassing, sexually orientated, threatening or invasive of a person\'s privacy, or any other material which may violate any applicable laws.';
+$l['agreement_3'] =
+    'Failure to comply with these rules may result in the termination of your account, account suspension, or permanent ban of access to these forums. Your IP Address is recorded with each post you make on this discussion system and is retrievable by the forum staff if need-be. You agree that we have the ability and right to remove, edit, or lock any account or message at any time should it be seen fit. <br /><br />You also agree that any information you enter on this discussion system is stored in a database, and that "cookies" are stored on your computer to save your login information.';
+$l['agreement_4'] =
+    'Any information you provide on these forums will not be disclosed to any third party without your complete consent, although the staff cannot be held liable for any hacking attempt in which your data is compromised.';
+$l['agreement_5'] =
+    'By continuing with the registration process you agree to the above rules and any others that the Administrator specifies.';
 $l['menu'] = 'Options';
 $l['message_tab'] = 'Message';
 $l['stats_tab'] = 'Stats';

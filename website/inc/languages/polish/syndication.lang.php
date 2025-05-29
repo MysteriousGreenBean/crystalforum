@@ -6,9 +6,8 @@
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
 
-$l['all_forums'] = "Wszystkie działy";
-$l['forum'] = "Dział:";
-$l['posted_by'] = "Napisane przez:";
-$l['on'] = "w";
-$l['portal'] = "Portal";
-
+$l['all_forums'] = 'Wszystkie działy';
+$l['forum'] = 'Dział:';
+$l['posted_by'] = 'Napisane przez:';
+$l['on'] = 'w';
+$l['portal'] = 'Portal';

@@ -1,50 +1,49 @@
 /* Scroll arrows */
 .scrollToTop {
-	background: var(--main-color);
-	color: var(--main-font-color);
-	position: fixed;
-	z-index: 4000;
-	bottom: 143px;
-	right: 20px;
-	border-radius: 2px;
-	padding: 9px 10px;
-	cursor: pointer;
-	display: block;
-	font-size: 18px;
+    background: var(--main-color);
+    color: var(--main-font-color);
+    position: fixed;
+    z-index: 4000;
+    bottom: 143px;
+    right: 20px;
+    border-radius: 2px;
+    padding: 9px 10px;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
 }
 
 .scrollToDown {
-	background: var(--main-color);
-	color: var(--main-font-color);
-	position: fixed;
-	z-index: 4000;
-	bottom: 100px;
-	right: 20px;
-	border-radius: 2px;
-	padding: 9px 10px;
-	cursor: pointer;
-	display: block;
-	font-size: 18px;
+    background: var(--main-color);
+    color: var(--main-font-color);
+    position: fixed;
+    z-index: 4000;
+    bottom: 100px;
+    right: 20px;
+    border-radius: 2px;
+    padding: 9px 10px;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
 }
-
 
 /* Avatar in header */
 #avatarheader {
-	cursor: pointer;
-	position: relative;
-	border-radius: 50%;
-	height: 40px;
-	width: 40px;
-	object-fit: cover;
-	border-radius: 10px;
-	-webkit-filter: sepia(50%);
-	filter: sepia(50%);
-	transition: all 0.6s ease;
+    cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 10px;
+    -webkit-filter: sepia(50%);
+    filter: sepia(50%);
+    transition: all 0.6s ease;
 }
 
 #avatarheader:hover {
-	-webkit-filter: sepia(30%);
-	filter: sepia(30%);
+    -webkit-filter: sepia(30%);
+    filter: sepia(30%);
 }
 
 /* Avatar container */
@@ -53,8 +52,8 @@
     border: 3px solid var(--main-color);
     border-radius: 10px;
     margin-right: 10px;
-	margin-top: 5px;
-	margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     cursor: pointer; /* Makes it clear it's interactive */
 }
 
@@ -74,17 +73,17 @@
     border-radius: 5px;
     min-width: 70px;
     z-index: 999;
-	font-family: var(--main-font);
-	font-size: 1rem;
+    font-family: var(--main-font);
+    font-size: 1rem;
 }
 
 .av_menu .items {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 10px;
-	transition: background 0.6s ease-in-out;
-	gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    transition: background 0.6s ease-in-out;
+    gap: 10px;
 }
 
 /* Show dropdown on hover */
@@ -97,14 +96,14 @@
 /* Dropdown item styling */
 .av_menu a {
     border: 3px solid var(--main-color);
-	border-radius: 10px;
+    border-radius: 10px;
     transition: background 0.6s ease-in-out;
     padding: 10px;
-	width: 40px;
-	height: 40px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .av_menu a:hover {
@@ -112,25 +111,24 @@
     color: var(--main-font-color) !important;
 }
 
-
 /* Navigation */
 .sticky_nav {
-	background: var(--background-color);
-	width: 100%;
-	box-shadow: var(--main-shadow);
-	position: fixed;
-	z-index: 1000;
-	justify-content: space-between;
-	align-items: center;
-	display: flex;
-	font-size: 1rem;
-	font-family: var(--thead-font);
+    background: var(--background-color);
+    width: 100%;
+    box-shadow: var(--main-shadow);
+    position: fixed;
+    z-index: 1000;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    font-size: 1rem;
+    font-family: var(--thead-font);
 }
 
 .member {
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 /* Individual Nav Items */
@@ -140,12 +138,12 @@
     padding: 10px 15px;
     position: relative;
     transition: background 0.3s;
-	cursor: pointer;
+    cursor: pointer;
 }
 
 /* Hover Effect */
 .sticky_nav a:hover {
-	color: var(--link-hover);
+    color: var(--link-hover);
 }
 
 /* Dropdown Container */
@@ -164,8 +162,8 @@
     border-radius: 5px;
     min-width: 200px;
     z-index: 999;
-	font-family: var(--main-font);
-	font-size: 0.8rem;
+    font-family: var(--main-font);
+    font-size: 0.8rem;
 }
 
 .dd_menu .items {
@@ -195,22 +193,27 @@
     align-items: center;
     font-size: 1.75rem;
     color: var(--main-font-color);
-	max-width: 200px;
-	text-shadow: none;
+    max-width: 200px;
+    text-shadow: none;
 }
 
 /* Default icon style */
 .social_icon {
     background: var(--button-bg);
-	background-clip: text;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: -webkit-text-fill-color 0.6s ease-in-out, color 0.6s ease-in-out, background 0.6s ease-in-out;
+    transition:
+        -webkit-text-fill-color 0.6s ease-in-out,
+        color 0.6s ease-in-out,
+        background 0.6s ease-in-out;
 }
 
 /* Fix: Ensure only the hovered <a> changes its icon color */
 .dd_menu .items a:hover .social_icon {
-    -webkit-text-fill-color:var(--main-font-color); /* Changes only the hovered icon */
+    -webkit-text-fill-color: var(
+        --main-font-color
+    ); /* Changes only the hovered icon */
     background: none;
 }
 
@@ -229,86 +232,84 @@
 
 /* PM and hr */
 .unread {
-	background: var(--button-bg);
-	background-clip: text;
-	-webkit-background-clip: text; 
+    background: var(--button-bg);
+    background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-	text-shadow: none;
+    text-shadow: none;
 }
-		
+
 .unread_frame {
-	border: 2px solid var(--main-color);
-	border-radius: 10px;
-	padding: 5px;
-}		
-		
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
+    padding: 5px;
+}
+
 .green {
-	background: var(--button-bg);
-	width: 90%
-}	
+    background: var(--button-bg);
+    width: 90%;
+}
 
 /* Responsiveness */
 
 .mobile_nav {
-	display: none;
+    display: none;
 }
 
 .mobile_member {
-	display: none;
+    display: none;
 }
 
 @media only screen and (max-width: 970px) {
-	.sticky_nav {
-		display: none;
-	}
+    .sticky_nav {
+        display: none;
+    }
 
-	.desktop_member {
-		display: none;
-	}
+    .desktop_member {
+        display: none;
+    }
 
-	.mobile_member {
-		display:flex;
-	}
+    .mobile_member {
+        display: flex;
+    }
 
-	.mobile_nav {
-		background: var(--background-color);
-		width: 100%;
-		box-shadow: var(--main-shadow);
-		position: fixed;
-		z-index: 1000;
-		justify-content: space-between;
-		align-items: center;
-		display: flex;
-		font-size: 1rem;
-		font-family: var(--thead-font);
-	}
+    .mobile_nav {
+        background: var(--background-color);
+        width: 100%;
+        box-shadow: var(--main-shadow);
+        position: fixed;
+        z-index: 1000;
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        font-size: 1rem;
+        font-family: var(--thead-font);
+    }
 
-	/* Individual Nav Items */
-	.mobile_nav a {
-		color: var(--main-font-color);
-		text-decoration: none;
-		padding: 10px 15px;
-		position: relative;
-		transition: background 0.3s;
-		cursor: pointer;
-	}
-	
-	/* Hover Effect */
-	.mobile_nav a:hover {
-		color: var(--link-hover);
-	}
+    /* Individual Nav Items */
+    .mobile_nav a {
+        color: var(--main-font-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        position: relative;
+        transition: background 0.3s;
+        cursor: pointer;
+    }
+
+    /* Hover Effect */
+    .mobile_nav a:hover {
+        color: var(--link-hover);
+    }
 }
 
 @media only screen and (max-width: 480px) {
-	.mobile_nav {
-		font-size: 0.6rem;
-	}
+    .mobile_nav {
+        font-size: 0.6rem;
+    }
 }
 
-
-
 @media only screen and (max-width: 400px) {
-	.mobile_nav {
-		font-size: 0.3rem;
-	}
+    .mobile_nav {
+        font-size: 0.3rem;
+    }
 }
