@@ -3,11 +3,14 @@
     "version": "1.0.0",
     "devDependencies": {
         "@prettier/plugin-php": "^0.22.4",
+        "html-validate": "^9.5.5",
         "prettier": "^3.5.3"
     },
     "scripts": {
         "format": "prettier --write .",
-        "format:check": "prettier --check ."
+        "format:check": "prettier --check .",
+        "validate-html": "html-validate \"**/*.html\"",
+        "beautify": "js-beautify \"**/*.html\" -r"
     },
     "repository": {
         "type": "git",
@@ -19,5 +22,8 @@
     },
     "lint-staged": {
         "*.{js,css,md,php,html,json}": "prettier --check"
+    },
+    "dependencies": {
+        "js-beautify": "^1.15.4"
     }
 }

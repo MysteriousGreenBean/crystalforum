@@ -1,0 +1,10 @@
+{
+    "elements": ["html5"],
+    "extends": ["html-validate:recommended"],
+    "rules": {
+        "no-inline-style": "off",
+        "wcag/h30": "off",
+        "no-deprecated-attr": "off",
+        "void-style": "off"
+    }
+}

@@ -1,15 +1,18 @@
 <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
-<thead>
-</thead>
-<tr>
-<td class="thead{$expthead}" colspan="5"><div class="expcolimage"><i id="cat_{$forum['fid']}_img" class="expander cp cp-minus smalltext" alt="{$expaltext}" title="{$expaltext}" /></i></div>
-<div><strong><a href="{$forum_url}">{$forum['name']}</a></strong><br /><div class="smalltext">{$forum['description']}</div></div>
-</td>
-</tr>
-	<tbody style="{$expdisplay}" id="cat_{$forum['fid']}_e">
-<tr>
-</tr>
-{$sub_forums}
-</tbody>
+  <thead>
+  </thead>
+  <tr>
+    <td class="thead{$expthead}" colspan="5">
+      <div class="expcolimage"><i id="cat_{$forum['fid']}_img" class="expander cp cp-minus smalltext" alt="{$expaltext}" title="{$expaltext}" /></i></div>
+      <div><strong><a href="{$forum_url}">{$forum['name']}</a></strong><br />
+        <div class="smalltext">{$forum['description']}</div>
+      </div>
+    </td>
+  </tr>
+  <tbody style="{$expdisplay}" id="cat_{$forum['fid']}_e">
+    <tr>
+    </tr>
+    {$sub_forums}
+  </tbody>
 </table>
 <br />

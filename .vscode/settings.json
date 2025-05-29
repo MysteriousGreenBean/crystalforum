@@ -9,5 +9,9 @@
     },
     "prettier.bracketSameLine": true,
     "prettier.experimentalTernaries": true,
-    "intelephense.environment.phpVersion": "8.2.27"
+    "intelephense.environment.phpVersion": "8.2.27",
+    "html.autoClosingTags": true,
+    "[html]": {
+        "editor.defaultFormatter": "vsce-toolroom.vscode-beautify"
+    }
 }

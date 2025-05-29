@@ -2,49 +2,51 @@
 <br />
 {$moderation_notice}
 <form method="post" action="newreply.php?tid={$tid}&amp;processed=1" name="quick_reply_form" id="quick_reply_form">
-	<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-	<input type="hidden" name="subject" value="RE: {$reply_subject}" />
-	<input type="hidden" name="action" value="do_newreply" />
-	<input type="hidden" name="posthash" value="{$posthash}" id="posthash" />
-	<input type="hidden" name="quoted_ids" value="" id="quoted_ids" />
-	<input type="hidden" name="lastpid" id="lastpid" value="{$last_pid}" />
-	<input type="hidden" name="from_page" value="{$page}" />
-	<input type="hidden" name="tid" value="{$tid}" />
-	<input type="hidden" name="method" value="quickreply" />
+  <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+  <input type="hidden" name="subject" value="RE: {$reply_subject}" />
+  <input type="hidden" name="action" value="do_newreply" />
+  <input type="hidden" name="posthash" value="{$posthash}" id="posthash" />
+  <input type="hidden" name="quoted_ids" value="" id="quoted_ids" />
+  <input type="hidden" name="lastpid" id="lastpid" value="{$last_pid}" />
+  <input type="hidden" name="from_page" value="{$page}" />
+  <input type="hidden" name="tid" value="{$tid}" />
+  <input type="hidden" name="method" value="quickreply" />
 
-	<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
-		<thead>
-			<tr>
-				<td class="thead" colspan="2">
-					<div class="expcolimage"><i id="quickreply_img" class="expander cp cp-minus smalltext" alt="[-]" title="[-]" /></i></div>
-					<div><strong>{$lang->quick_reply}</strong></div>
-				</td>
-			</tr>
-		</thead>
-		<tbody style="{$collapsed['quickreply_e']}" id="quickreply_e">
-			<tr class="quickreply">
-				<td class="hide_mobile" valign="top" width="110px;"><br/>
-					<img border="0" src="{$mybb->user['avatar']}" alt="{$mybb->user['username']}" height="80" width="80" align="right" class="qr_avatar"/><br />
-				</td>
-				<td>
-					<div style="width: 100%"><br/><div class="post_inside">
-						<textarea style="width: 98%; padding: 4px; margin: 0;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea></div>
-					</div>
-					<div class="editor_control_bar hide_mobile" style="width: 95%; padding: 4px; margin-top: 3px; display: none;" id="quickreply_multiquote">
-						<span class="smalltext">
-							{$lang->quickreply_multiquote_selected} <a href="./newreply.php?tid={$tid}&amp;load_all_quotes=1" onclick="return Thread.loadMultiQuoted();">{$lang->quickreply_multiquote_now}</a> {$lang->or} <a href="javascript:Thread.clearMultiQuoted();">{$lang->quickreply_multiquote_deselect}</a>.
-						</span>
-					</div>
-					<div class="qr_menu">
-					{$option_signature}
-					<label><input type="checkbox" class="checkbox" name="postoptions[disablesmilies]" value="1" />&nbsp;<strong>{$lang->disable_smilies}</strong></label>{$closeoption}</span>
-					</div>
-				</td>
-			</tr>
-			{$captcha}
-			<tr>
-				<td colspan="2" align="center" class="tfoot"><input type="submit" class="button" value="{$lang->post_reply}" tabindex="2" accesskey="s" id="quick_reply_submit" /> <input type="submit" class="button" name="previewpost" value="{$lang->preview_post}" tabindex="3" /></td>
-			</tr>
-		</tbody>
-	</table>
+  <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+    <thead>
+      <tr>
+        <td class="thead" colspan="2">
+          <div class="expcolimage"><i id="quickreply_img" class="expander cp cp-minus smalltext" alt="[-]" title="[-]" /></i></div>
+          <div><strong>{$lang->quick_reply}</strong></div>
+        </td>
+      </tr>
+    </thead>
+    <tbody style="{$collapsed['quickreply_e']}" id="quickreply_e">
+      <tr class="quickreply">
+        <td class="hide_mobile" valign="top" width="110px;"><br />
+          <img border="0" src="{$mybb->user['avatar']}" alt="{$mybb->user['username']}" height="80" width="80" align="right" class="qr_avatar" /><br />
+        </td>
+        <td>
+          <div style="width: 100%"><br />
+            <div class="post_inside">
+              <textarea style="width: 98%; padding: 4px; margin: 0;" rows="8" cols="80" name="message" id="message" tabindex="1"></textarea>
+            </div>
+          </div>
+          <div class="editor_control_bar hide_mobile" style="width: 95%; padding: 4px; margin-top: 3px; display: none;" id="quickreply_multiquote">
+            <span class="smalltext">
+              {$lang->quickreply_multiquote_selected} <a href="./newreply.php?tid={$tid}&amp;load_all_quotes=1" onclick="return Thread.loadMultiQuoted();">{$lang->quickreply_multiquote_now}</a> {$lang->or} <a href="javascript:Thread.clearMultiQuoted();">{$lang->quickreply_multiquote_deselect}</a>.
+            </span>
+          </div>
+          <div class="qr_menu">
+            {$option_signature}
+            <label><input type="checkbox" class="checkbox" name="postoptions[disablesmilies]" value="1" />&nbsp;<strong>{$lang->disable_smilies}</strong></label>{$closeoption}</span>
+          </div>
+        </td>
+      </tr>
+      {$captcha}
+      <tr>
+        <td colspan="2" align="center" class="tfoot"><input type="submit" class="button" value="{$lang->post_reply}" tabindex="2" accesskey="s" id="quick_reply_submit" /> <input type="submit" class="button" name="previewpost" value="{$lang->preview_post}" tabindex="3" /></td>
+      </tr>
+    </tbody>
+  </table>
 </form>

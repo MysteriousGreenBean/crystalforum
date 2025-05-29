@@ -1,45 +1,36 @@
-</div></div><footer class="footer-distributed">
+<!-- [html-validate-disable-next close-order] -->
+</div>
+<!-- [html-validate-disable-next close-order] -->
+</div>
+<footer class="footer-distributed">
+  <div class="footer-left">
+    <p class="footer-links">
+      © Designed by <a style="font-weight: bold; font-family: Noto Sans;" href="https://developement.design/">
+        D&amp;D
+      </a> - Powered by <a style="font-weight: bold; font-family: Noto Sans;" href="http://www.mybb.com"> MyBB
+      </a>
+    </p>
+  </div>
 
-			
-
-			<div class="footer-left">
-
-				
-
-				<p style="" class="footer-links">
-					© Designed by <a style="font-weight: bold; font-family: Noto Sans;" href="https://developement.design/"> D&D </a> - Powered by <a style="font-weight: bold; font-family: Noto Sans;" href="http://www.mybb.com"> MyBB </a>
-				</p>
-
-				
-			</div>
-
-			
-
-			<div style="" class="footer-right">
-
-				
-
-				<div class="footer-icons">
-
-					<a href="#"><i style="margin-top: 6px;" class="fab fa-youtube"></i></a>
-					<a href="#"><i style="margin-top: 6px;" class="fab fa-facebook-f"></i></a>
-					<a href="#"><i style="margin-top: 6px;" class="fab fa-twitter"></i></a>
-					<a href="#"><i style="margin-top: 6px;" class="fab fa-linkedin"></i></a>
-					<a href="#"><i style="margin-top: 6px;" class="fab fa-github"></i></a>
-
-				</div>
-
-			</div>
-		<div style="display: block;" class="scrollToTop"><i class="fa fa-angle-up"></i></div>
-		<div class="scrollToDown"><i class="fa fa-angle-down"></i></div>
-		
-	</footer>
-
+  <div class="footer-right">
+    <div class="footer-icons">
+      <a href="#"><i style="margin-top: 6px;" class="fab fa-youtube"></i></a>
+      <a href="#"><i style="margin-top: 6px;" class="fab fa-facebook-f"></i></a>
+      <a href="#"><i style="margin-top: 6px;" class="fab fa-twitter"></i></a>
+      <a href="#"><i style="margin-top: 6px;" class="fab fa-linkedin"></i></a>
+      <a href="#"><i style="margin-top: 6px;" class="fab fa-github"></i></a>
+    </div>
+  </div>
+  <div style="display: block;" class="scrollToTop"><i class="fa fa-angle-up"></i></div>
+  <div class="scrollToDown"><i class="fa fa-angle-down"></i></div>
+</footer>
 
 <script>
-	if (connected == 0)
-	{ jQuery("#mobile_member").html("<a href='member.php?action=login'>Login</a> - <a href='member.php?action=register'>Register</a>"); }
-	if (connected == 1)
-	{ document.getElementById("mobile_member").innerHTML = '<a title="Inbox" href="private.php">Inbox</a> - <a title="User CP" href="usercp.php">User CP</a> - <a title="Log Out" href="{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}">Logout</a>'; }
+  if (connected == 0) {
+    jQuery("#mobile_member").html("<a href='member.php?action=login'>Login</a> - <a href='member.php?action=register'>Register</a>");
+  }
+  if (connected == 1) {
+    document.getElementById("mobile_member").innerHTML = "<a title=\"Inbox\" href=\"private.php\">Inbox</a> - <a title=\"User CP\" href=\"usercp.php\">User CP</a> - <a title=\"Log Out\" href=\"{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}\">Logout</a>";
+  }
 </script>
 <!-- The following piece of code allows MyBB to run scheduled tasks. DO NOT REMOVE -->{$task_image}<!-- End task image code -->

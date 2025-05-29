@@ -1,7 +1,9 @@
 {
     "recommendations": [
         "esbenp.prettier-vscode",
-        "bmewburn.vscode-intelephense-client"
+        "bmewburn.vscode-intelephense-client",
+        "html-validate.vscode-html-validate",
+        "vsce-toolroom.vscode-beautify"
     ],
     "unwantedRecommendations": ["vscode.php-language-features"]
 }
