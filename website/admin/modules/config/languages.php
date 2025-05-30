@@ -75,7 +75,7 @@ if ($mybb->input['action'] == 'edit_properties') {
 // Sets if the language is RTL (Right to Left) (1 = yes, 0 = no)
 \$langinfo['rtl'] = {$newlanginfo['rtl']};
 
-// Sets the lang in the <html lang="pl"> on all pages
+// Sets the lang in the <html> on all pages
 \$langinfo['htmllang'] = \"{$newlanginfo['htmllang']}\";
 
 // Sets the character set, blank uses the default.
