@@ -1,8 +1,8 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$title}</title>
-  <meta http-equiv="refresh" content="2;URL={$url}" />
+  <meta http-equiv="refresh" content="0;URL={$url}" />
   {$headerinclude}
 </head>
 
@@ -13,14 +13,17 @@
   <br />
   <div style="margin: auto auto; width: {$lang->redirect_width}" align="center">
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead"><strong>{$title}</strong></td>
       </tr>
+
       <tr>
         <td class="trow1" align="center">
           <p>{$message}</p>
         </td>
       </tr>
+
       <tr>
         <td class="trow2" align="right"><a href="{$url}"><span class="smalltext">{$lang->click_no_wait}</span></a></td>
       </tr>

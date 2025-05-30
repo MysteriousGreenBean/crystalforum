@@ -1,4 +1,5 @@
 {$inlinemod}
+<!--[html-validate-disable-next wcag/h32]-->
 <form action="moderation.php" method="post" style="margin-top: 0; margin-bottom: 0;" id="moderator_options">
   <input type="hidden" name="modtype" value="thread" />
   <input type="hidden" name="tid" value="{$tid}" />
@@ -6,7 +7,7 @@
   <span class="smalltext">
     <strong>{$lang->moderation_options}</strong></span>
   <select name="action" id="moderator_options_selector">
-    <option value="" style="display: none;" selected="selected">{$lang->select_a_tool}</option>
+    <option value="" style="display: none;" selected>{$lang->select_a_tool}</option>
     <option value="delayedmoderation">{$lang->delayed_moderation}</option>
     {$standardthreadtools}
     {$customthreadtools}

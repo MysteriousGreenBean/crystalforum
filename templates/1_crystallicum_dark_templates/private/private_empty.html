@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->empty_folders}</title>
@@ -13,20 +13,24 @@
     <div id="content_width" style="width:74%;float:right;">
       <td valign="top">
         <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
           <tr>
             <td class="thead" colspan="3"><strong>{$lang->empty_folders}</strong></td>
           </tr>
+
           <tr>
             <td class="trow1" colspan="3"><span class="smalltext">{$lang->empty_note}</span></td>
           </tr>
+
           <tr>
             <td class="tcat" align="center"><strong>{$lang->export_folder}</strong></td>
             <td class="tcat" align="center"><strong>{$lang->num_messages}</strong></td>
             <td class="tcat" align="center"><strong>{$lang->empty_q}</strong></td>
           </tr>
           {$folderlist}
+
           <tr>
-            <td class="trow2" align="center" colspan="3"><input type="checkbox" class="checkbox" name="keepunread" value="1" checked="checked" /><strong>{$lang->keep_unread}</strong></td>
+            <td class="trow2" align="center" colspan="3"><input type="checkbox" class="checkbox" name="keepunread" value="1" checked /><strong>{$lang->keep_unread}</strong></td>
           </tr>
         </table>
         <br />

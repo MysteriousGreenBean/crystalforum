@@ -1,10 +1,10 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->edit_lists}</title>
   {$headerinclude}
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/usercp.js?ver=1808"></script>
-  <script type="text/javascript">
+  <script src="{$mybb->asset_url}/jscripts/usercp.js?ver=1808"></script>
+  <script>
     lang.remove_buddy = '{$lang->confirm_remove_buddy}';
     lang.remove_ignored = '{$lang->confirm_remove_ignored}';
     lang.adding_buddy = '{$lang->adding_buddy}';
@@ -13,7 +13,7 @@
   </script>
 
   <link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807">
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+  <script src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
 
 </head>
 
@@ -29,9 +29,11 @@
           <input type="hidden" name="manage" value="buddy" />
           <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable ucp_input">
+
             <tr>
               <td class="thead" align="center"><strong>{$lang->edit_buddy_list}</strong></td>
             </tr>
+
             <tr>
               <td class="trow1">
                 <fieldset class="tcat">
@@ -39,7 +41,7 @@
                   <div class="box ucp_padding">
                     <span class="smalltext">{$lang->add_buddies_desc}</span><br />
                     <div style="margin-left: 130px;"><input type="text" name="add_username" id="buddy_add_username" style="width: 60%;" class="textbox" /> <input type="submit" value="{$lang->add_to_buddies}" id="buddy_submit" class="button" /></div>
-                    <script type="text/javascript">
+                    <script>
                       <!--
                       if (use_xmlhttprequest == "1") {
                         MyBB.select2();
@@ -105,9 +107,11 @@
           <input type="hidden" name="manage" value="ignored" />
           <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable ucp_input">
+
             <tr>
               <td class="thead" align="center"><strong>{$lang->edit_ignore_list}</strong></td>
             </tr>
+
             <tr>
               <td class="trow1">
                 <fieldset class="tcat">
@@ -115,7 +119,7 @@
                   <div class="box">
                     <span class="smalltext">{$lang->add_ignored_users_desc}</span><br /><br />
                     <div style="margin-left: 130px;"><input type="text" name="add_username" id="ignored_add_username" style="width: 60%;" class="textbox" /> <input type="submit" value="{$lang->ignore_users}" id="ignored_submit" class="button" /></div>
-                    <script type="text/javascript">
+                    <script>
                       <!--
                       if (use_xmlhttprequest == "1") {
                         MyBB.select2();
@@ -177,6 +181,7 @@
         </form>
         <br />
         <table border="0" style="width: 100%">
+
           <tr>
             <td style="width: 50%; vertical-align: top" id="receivedrequests">
               {$received_requests}

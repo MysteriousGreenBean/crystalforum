@@ -1,6 +1,7 @@
-<html>
+<html lang="pl">
 
 <head>
+  <!--[html-validate-disable-next long-title]-->
   <title>{$thread['threadprefix']} {$thread['subject']} - {$lang->printable_version}</title>
   <meta http-equiv="Content-Type" content="text/html; charset={$charset}" />
   <style type="text/css">
@@ -24,9 +25,11 @@
 
 <body>
   <table width="98%" align="center">
+
     <tr>
       <td valign="top"><a href="index.php"><img src="{$theme['logo']}" alt="{$mybb->settings['bbname']}" title="{$mybb->settings['bbname']}" border="0" /></a></td>
     </tr>
+
     <tr>
       <td>
         <span class="largetext">{$thread['displaystyle']} <a href="{$thread['threadlink']}">{$thread['subject']}</a> - {$lang->printable_version}</span><br />
@@ -38,6 +41,7 @@
         {$multipage}
       </td>
     </tr>
+
     <tr>
       <td><br />
         <hr size="1" />{$postrows}

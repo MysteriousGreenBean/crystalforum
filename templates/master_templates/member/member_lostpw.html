@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->lost_pw}</title>
@@ -10,9 +10,11 @@
   {$errors}
   <form action="member.php" method="post">
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead" colspan="2"><strong>{$lang->lost_pw_form}</strong></td>
       </tr>
+
       <tr>
         <td class="trow1" width="40%"><strong>{$lang->email_address}</strong></td>
         <td class="trow1" width="60%"><input type="text" class="textbox" name="email" value="{$email}" /></td>

@@ -9,6 +9,7 @@
   <input type="hidden" name="do" value="reply" />
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
     <thead>
+
       <tr>
         <td class="thead{$collapsedthead['quickreply']}" colspan="2">
           <div class="expcolimage"><img src="{$theme['imgdir']}/collapse{$collapsedimg['quickreply']}.png" id="quickreply_img" class="expander" alt="{$expaltext}" title="{$expaltext}" /></div>
@@ -17,6 +18,7 @@
       </tr>
     </thead>
     <tbody style="{$collapsed['quickreply_e']}" id="quickreply_e">
+
       <tr>
         <td class="{$trow}" valign="top" width="22%">
           <strong>{$lang->message}</strong><br />
@@ -31,6 +33,7 @@
           </div>
         </td>
       </tr>
+
       <tr>
         <td colspan="2" align="center" class="tfoot"><input type="submit" class="button" value="{$lang->send_message}" tabindex="2" accesskey="s" /> <input type="submit" class="button" name="preview" value="{$lang->preview}" tabindex="3" /></td>
       </tr>

@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->poll_results}</title>
@@ -13,10 +13,12 @@
       <col style="width: 30%" />
       <col style="width: 30%" />
     </colgroup>
+
     <tr>
       <td class="thead" colspan="4" style="text-align: center;"><strong>{$lang->poll} {$poll['question']}</strong><br /><span class="smalltext">{$pollstatus}{$undovote}</span></td>
     </tr>
     {$polloptions}
+
     <tr>
       <td class="tfoot" colspan="2" style="text-align: right;"><strong>{$lang->total}</strong></td>
       <td class="tfoot" style="text-align: center;"><strong>{$lang->total_votes}</strong></td>

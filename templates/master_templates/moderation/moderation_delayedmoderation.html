@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->delayed_moderation}</title>
@@ -10,9 +10,11 @@
   {$display_errors}
   <br />
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
     <tr>
       <td class="thead" colspan="5"><strong>{$lang->delayed_mod_queue}</strong></td>
     </tr>
+
     <tr>
       <td class="tcat" align="center"><strong>{$lang->mod_username}</strong></td>
       <td class="tcat" align="center"><strong>{$lang->time_to_perform_action}</strong></td>
@@ -30,17 +32,21 @@
     <input type="hidden" name="tid" value="{$tid}" />
     <input type="hidden" name="fid" value="{$fid}" />
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead" colspan="2"><strong>{$lang->delayed_moderation}</strong></td>
       </tr>
+
       <tr>
         <td class="tcat" colspan="2"><strong>{$lang->delayed_moderation_desc}</strong></td>
       </tr>
       {$loginbox}
+
       <tr>
         <td class="trow1"><strong>{$lang->threads}</strong></td>
         <td class="trow2">{$threads}</td>
       </tr>
+
       <tr>
         <td class="trow1"><strong>{$lang->run_moderation_time}</strong></td>
         <td class="trow2">
@@ -56,10 +62,11 @@
           - {$lang->time} <input type="text" name="date_time" value="{$datetime}" size="10" class="textbox" />
         </td>
       </tr>
+
       <tr>
         <td class="trow1" style="vertical-align: top;"><strong>{$lang->moderation_action}</strong></td>
         <td class="trow2">
-          <script type="text/javascript">
+          <script>
             <!--
             function toggleType() {
               if ($('#type_merge')) {
@@ -101,7 +108,7 @@
             {$approveunapprovethread}
             {$customthreadtools}
           </dl>
-          <script type="text/javascript">
+          <script>
             <!--
             toggleType();
             // 

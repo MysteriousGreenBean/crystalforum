@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->private_messaging}</title>
@@ -8,12 +8,14 @@
 <body>
   {$header}
   <table width="100%" border="0" align="center">
+
     <tr>
       {$usercpnav}
       <td valign="top">
         <form action="private.php" method="post" name="pmForm">
           <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
             <tr>
               <td class="thead" colspan="7">
                 <div class="float_right">
@@ -24,6 +26,7 @@
                 <strong>{$lang->pm_search_results}</strong>
               </td>
             </tr>
+
             <tr>
               <td class="tcat" align="left" colspan="3"><span class="smalltext"><strong>{$lang->message}</strong></span></td>
               <td class="tcat" align="center" width="10%" style="white-space: nowrap"><span class="smalltext"><strong>{$lang->sender}</strong></span></td>
@@ -32,6 +35,7 @@
               <td class="tcat" align="center" width="1%" style="white-space: nowrap"><span class="smalltext"><input name="allbox" title="{$lang->check_all}" type="checkbox" class="checkbox checkall" value="{$lang->check_all}" /></span></td>
             </tr>
             {$messagelist}
+
             <tr>
               <td class="tfoot" align="right" colspan="7">
                 <input type="submit" class="button" name="moveto" value="{$lang->move_to}" /> {$folderoplist} {$lang->or}

@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->edit_announcement}</title>
@@ -13,19 +13,23 @@
     <input type="hidden" name="fid" value="{$announcement['fid']}" />
     <input type="hidden" name="aid" value="{$aid}" />
     <table width="100%" border="0" align="center">
+
       <tr>
         {$modcp_nav}
         <td valign="top">
           {$errors}
           {$preview}
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
             <tr>
               <td class="thead" colspan="6"><strong>{$lang->edit_announcement}</strong></td>
             </tr>
+
             <tr>
               <td class="trow1" valign="top" width="25%"><strong>{$lang->title}</strong></td>
               <td class="trow1" valign="top" width="75%"><input type="text" class="textbox" name="title" size="40" value="{$title}" /></td>
             </tr>
+
             <tr>
               <td class="trow1" colspan="1" valign="top" width="25%"><strong>{$lang->start_date}</strong></td>
               <td class="trow1" valign="top" width="75%">
@@ -41,6 +45,7 @@
                 - {$lang->time} <input type="text" name="starttime_time" value="{$starttime_time}" size="10" class="textbox" />
               </td>
             </tr>
+
             <tr>
               <td class="trow1" colspan="1" valign="top" width="25%"><strong>{$lang->end_date}</strong></td>
               <td class="trow1" valign="top" width="75%">
@@ -58,15 +63,18 @@
                 <br /><input type="radio" name="endtime_type" value="2" {$end_type_sel['infinite']} /> {$lang->never}
               </td>
             </tr>
+
             <tr>
               <td class="trow1" valign="top" width="25%"><strong>{$lang->announcement}</strong><br />{$smilieinserter}</td>
               <td class="trow1" valign="top" width="75%"><textarea id="message" name="message" rows="20" cols="70">{$message}</textarea>{$codebuttons}</td>
             </tr>
             {$allow_html}
+
             <tr>
               <td class="trow1" valign="top" width="25%"><strong>{$lang->allow_mycode}</strong></td>
               <td class="trow1" valign="top" width="75%"><label><input type="radio" name="allowmycode" value="1" {$mycode_sel['yes']} />&nbsp;{$lang->yes}</label> &nbsp;&nbsp;<label><input type="radio" name="allowmycode" value="0" {$mycode_sel['no']} />&nbsp;{$lang->no}</label></td>
             </tr>
+
             <tr>
               <td class="trow1" valign="top" width="25%"><strong>{$lang->allow_smilies}</strong></td>
               <td class="trow1" valign="top" width="75%"><label><input type="radio" name="allowsmilies" value="1" {$smilies_sel['yes']} />&nbsp;{$lang->yes}</label> &nbsp;&nbsp;<label><input type="radio" name="allowsmilies" value="0" {$smilies_sel['no']} />&nbsp;{$lang->no}</label></td>

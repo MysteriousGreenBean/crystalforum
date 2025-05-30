@@ -2,24 +2,30 @@
   <legend><strong>{$lang->away_information}</strong></legend>
   <div class="box">
     <table cellspacing="0" cellpadding="{$theme['tablespace']}">
+
       <tr>
         <td colspan="2"><span class="smalltext">{$lang->away_status}</span></td>
       </tr>
+
       <tr>
-        <td><span class="smalltext"><input type="radio" class="radio" name="away" value="1" {$awaycheck['1']} /> {$lang->im_away}</span></td>
-        <td><span class="smalltext"><input type="radio" class="radio" name="away" value="0" {$awaycheck['0']} /> {$lang->im_here}</span></td>
+        <td><span class="smalltext"><input type="radio" class="radio" name="away" value="1" checked="{$awaycheck['1']}" /> {$lang->im_away}</span></td>
+        <td><span class="smalltext"><input type="radio" class="radio" name="away" value="0" checked="{$awaycheck['0']}" /> {$lang->im_here}</span></td>
       </tr>
+
       <tr>
         <td colspan="2"><span class="smalltext">{$lang->away_reason}</span></td>
       </tr>
+
       <tr>
         <td colspan="2"><input type="text" class="textbox" name="awayreason" value="{$user['awayreason']}" size="25" maxlength="200" /></td>
       </tr>
     </table>
     <table cellspacing="0" cellpadding="{$theme['tablespace']}">
+
       <tr>
         <td colspan="3"><span class="smalltext">{$lang->return_date}</span></td>
       </tr>
+
       <tr>
         <td>
           <select name="awayday" class="ucp_select">

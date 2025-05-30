@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->calendar} - {$event['name']}</title>
@@ -8,12 +8,15 @@
 <body>
   {$header}
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+
     <tr>
       <td class="thead"><strong>{$event['name']}</strong></td>
     </tr>
+
     <tr>
       <td class="tcat"><strong>{$time_period}</strong></td>
     </tr>
+
     <tr>
       <td class="trow1{$event_class}">
         <div class="float_left">
@@ -30,6 +33,7 @@
         <br class="clear" />
       </td>
     </tr>
+
     <tr>
       <td class="trow2 scaleimages{$event_class}">
         <p>{$event['description']}</p>
@@ -38,11 +42,14 @@
     </tr>
   </table>
   <br />
+  <!--[html-validate-disable-next wcag/h32]-->
   <form action="calendar.php" method="post">
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="trow1">
           <table width="100%" cellspacing="0" cellpadding="0" border="0">
+
             <tr>
               <td valign="top">{$addevent}</td>
               <td align="right">

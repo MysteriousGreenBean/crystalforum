@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->merge_threads}</title>
@@ -10,14 +10,17 @@
   <form action="moderation.php" method="post">
     <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead" colspan="2"><strong>{$lang->merge_threads}</strong></td>
       </tr>
       {$loginbox}
+
       <tr>
         <td class="trow2"><strong>{$lang->new_subject}</strong></td>
         <td class="trow2"><input type="text" class="textbox" name="subject" value="{$thread['subject']}" size="40" /></td>
       </tr>
+
       <tr>
         <td class="trow1"><strong>{$lang->thread_to_merge_with}</strong><br /><span class="smalltext">{$lang->merge_with_note}</span></td>
         <td class="trow1" width="60%"><input type="text" class="textbox" name="threadurl" size="40" />

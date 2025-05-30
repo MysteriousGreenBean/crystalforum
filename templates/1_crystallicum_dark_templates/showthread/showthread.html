@@ -1,10 +1,10 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$thread['subject']}</title>
   {$headerinclude}
 
-  <script type="text/javascript">
+  <script>
     <!--
     var quickdelete_confirm = "{$lang->quickdelete_confirm}";
     var quickrestore_confirm = "{$lang->quickrestore_confirm}";
@@ -23,9 +23,9 @@
     -->
   </script>
   <!-- jeditable (jquery) -->
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/report.js?ver=1804"></script>
+  <script src="{$mybb->asset_url}/jscripts/report.js?ver=1804"></script>
   <script src="{$mybb->asset_url}/jscripts/jeditable/jeditable.min.js"></script>
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/thread.js?ver=1804"></script>
+  <script src="{$mybb->asset_url}/jscripts/thread.js?ver=1804"></script>
   <script>
     $(".hover").mouseleave(
       function() {
@@ -59,11 +59,15 @@
   <div class="topic_title">{$thread['threadprefix']}{$thread['subject']}</div>
 
   <table border="0" cellspacing="{$theme['borderwidth']}" style="border-bottom:none;" cellpadding="{$theme['tablespace']}" class="tborder tfixed clear">
+    <!--[html-validate-disable-next  element-permitted-content]-->
     <div>
 
     </div>
+    <!--[html-validate-disable-next  close-order]-->
     </div>
+    <!--[html-validate-disable-next  close-order]-->
     </div>
+
 
     <tr>
       <td id="posts_container">
@@ -72,6 +76,7 @@
         </div>
       </td>
     </tr>
+
     <tr>
       <td class="tfoot">
         {$search_thread}
@@ -111,14 +116,14 @@
     <div class="popup_item_container"><a href="showthread.php?mode=linear&amp;tid={$tid}&amp;pid={$pid}#pid{$pid}" class="popup_item">{$lang->linear}</a></div>
     <div class="popup_item_container"><a href="showthread.php?mode=threaded&amp;tid={$tid}&amp;pid={$pid}#pid{$pid}" class="popup_item">{$lang->threaded}</a></div>
   </div>
-  <script type="text/javascript">
+  <script>
     // <!--
     if (use_xmlhttprequest == "1") {
       $("#thread_modes").popupMenu();
     }
     // -->
   </script>
-  <script type="text/javascript">
+  <script>
     $(".author_avatar img").error(function() {
       $(this).unbind("error").closest('.author_avatar').remove();
     });

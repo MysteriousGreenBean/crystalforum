@@ -425,9 +425,9 @@ if ($mybb->input['action'] == 'profile') {
         $awaycheck = ['', ''];
         if ($errors) {
             if ($user['away'] == 1) {
-                $awaycheck[1] = "checked=\"checked\"";
+                $awaycheck[1] = 'checked';
             } else {
-                $awaycheck[0] = "checked=\"checked\"";
+                $awaycheck[0] = 'checked';
             }
             $returndate = [];
             $returndate[0] = $mybb->get_input('awayday', MyBB::INPUT_INT);
@@ -443,14 +443,14 @@ if ($mybb->input['action'] == 'profile') {
                     $mybb->settings['dateformat'],
                     $mybb->user['awaydate']
                 );
-                $awaycheck[1] = "checked=\"checked\"";
+                $awaycheck[1] = 'checked';
                 $awaynotice = $lang->sprintf(
                     $lang->away_notice_away,
                     $awaydate
                 );
             } else {
                 $awaynotice = $lang->away_notice;
-                $awaycheck[0] = "checked=\"checked\"";
+                $awaycheck[0] = 'checked';
             }
             $returndate = explode('-', $mybb->user['returndate']);
             if (!isset($returndate[1])) {

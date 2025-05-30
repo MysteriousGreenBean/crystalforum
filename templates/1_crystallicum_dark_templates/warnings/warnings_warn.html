@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->warn_user}</title>
@@ -15,25 +15,30 @@
     <input type="hidden" name="uid" value="{$user['uid']}" />
 
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder clear">
+
       <tr>
         <td class="thead" colspan="2"><strong>{$lang->warn_user}</strong></td>
       </tr>
+
       <tr>
         <td class="tcat" colspan="2"><span class="smalltext"><strong>{$lang->warn_user_desc}</strong></span></td>
       </tr>
+
       <tr>
         <td class="trow1" style="width: 20%;"><strong>{$lang->username}</strong></td>
         <td class="trow1">{$user_link}</td>
       </tr>
       {$post}
+
       <tr>
         <td class="trow1" style="width: 20%; vertical-align: top;"><strong>{$lang->warning_note}</strong></td>
         <td class="trow1"><textarea name="notes" rows="4">{$notes}</textarea></td>
       </tr>
+
       <tr>
         <td class="trow2" style="width: 20%; vertical-align: top;"><strong>{$lang->warning_type}</strong></td>
         <td class="trow2">
-          <script type="text/javascript">
+          <script>
             // <!--
             function checkType(id) {
               var checked = '';
@@ -56,7 +61,7 @@
             {$types}
             {$custom_warning}
           </dl>
-          <script type="text/javascript">
+          <script>
             // <!--
             checkType();
             // -->

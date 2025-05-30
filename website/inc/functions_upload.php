@@ -225,7 +225,7 @@ function create_attachment_index($path)
     $index = @fopen(rtrim($path, '/') . '/index.html', 'w');
     @fwrite(
         $index,
-        '<html>\n<head>\n<title></title>\n</head>\n<body>\n&nbsp;\n</body>\n</html>'
+        '<html lang="pl">\n<head>\n<title></title>\n</head>\n<body>\n&nbsp;\n</body>\n</html>'
     );
     @fclose($index);
 }

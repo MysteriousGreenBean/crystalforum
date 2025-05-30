@@ -35,7 +35,7 @@ $langinfo['admin'] = 1;
 // Sets if the language is RTL (Right to Left) (1 = yes, 0 = no)
 $langinfo['rtl'] = 0;
 
-// Sets the lang in the <html> on all pages
+// Sets the lang in the <html lang="pl"> on all pages
 $langinfo['htmllang'] = 'en';
 
 // Sets the character set, blank uses the default.

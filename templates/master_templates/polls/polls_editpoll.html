@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->edit_poll}</title>
@@ -10,9 +10,11 @@
   <form action="moderation.php" method="post">
     <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead" colspan="3"><strong>{$lang->delete_poll}</strong></td>
       </tr>
+
       <tr>
         <td class="trow1" style="white-space: nowrap"><input type="checkbox" class="checkbox" name="delete" value="1" tabindex="9" /><strong>{$lang->delete_q}</strong></td>
         <td class="trow1" width="100%">{$lang->delete_note}<br /><span class="smalltext">{$lang->delete_note2}</span></td>
@@ -26,18 +28,22 @@
   <form action="polls.php" method="post">
     <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead" colspan="2"><strong>{$lang->edit_poll}</strong></td>
       </tr>
       {$loginbox}
+
       <tr>
         <td class="trow2"><strong>{$lang->question}</strong></td>
         <td class="trow2"><input type="text" class="textbox" name="question" size="40" maxlength="240" value="{$question}" /></td>
       </tr>
+
       <tr>
         <td class="trow1" valign="top"><strong>{$lang->num_options}</strong><br /><span class="smalltext">{$lang->max_options} {$mybb->settings['maxpolloptions']}</span></td>
         <td class="trow1"><input type="text" class="textbox" name="numoptions" size="10" value="{$numoptions}" />&nbsp;&nbsp;<input type="submit" class="button" name="updateoptions" value="{$lang->update_options}" /></td>
       </tr>
+
       <tr>
         <td class="trow2" valign="top"><strong>{$lang->poll_options}</strong></td>
         <td class="trow2"><span class="smalltext">{$lang->poll_options_note}</span>
@@ -46,12 +52,13 @@
           </table>
         </td>
       </tr>
+
       <tr>
         <td class="trow1" valign="top"><strong>{$lang->options}</strong></td>
         <td class="trow1"><span class="smalltext">
             <label><input type="checkbox" class="checkbox" name="postoptions[multiple]" value="1" {$postoptionschecked['multiple']} />&nbsp;{$lang->option_multiple}</label><br />
             <span id="maxOptions" style="display: none"><strong>{$lang->option_multiple_maxoptions}</strong> <input type="text" class="textbox" name="maxoptions" value="{$maxoptions}" /><br /></span>
-            <script type="text/javascript">
+            <script>
               //<!--
               if ($("input[name='postoptions[multiple]']").is(":checked")) {
                 $("#maxOptions").css("display", "");
@@ -71,6 +78,7 @@
           </span>
         </td>
       </tr>
+
       <tr>
         <td class="trow2" valign="top"><strong>{$lang->poll_timeout}</strong><br /><span class="smalltext">{$lang->timeout_note}</span></td>
         <td class="trow2"><input type="text" class="textbox" name="timeout" value="{$timeout}" /> {$lang->days_after} {$polldate}</td>

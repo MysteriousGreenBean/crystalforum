@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$lang->viewing_pm} {$pm['subject']}</title>
@@ -11,12 +11,14 @@
   <div id="content_width" style="width:74%;float:right;">
     <td style="vertical-align: top;">
       <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed clear no_bottom_border">
+
         <tr>
           <td class="thead">
             <strong>{$pm['subject']}</strong>
           </td>
         </tr>
         {$action_time}
+
         <tr>
           <td id="posts_container">
             <div id="posts">
@@ -29,7 +31,7 @@
     </td>
   </div>
   {$footer}
-  <script type="text/javascript">
+  <script>
     $(".author_avatar img").error(function() {
       $(this).unbind("error").closest('.author_avatar').remove();
     });

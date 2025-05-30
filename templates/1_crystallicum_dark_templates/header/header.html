@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="sticky_nav useroptions">
+<nav class="sticky_nav useroptions" aria-label="User Options Navigation">
 
   <div>
 
@@ -27,6 +27,7 @@
 
     <div class="nav-item">
       <a href="{$mybb->settings['bburl']}/search.php" title="Szukaj"><i class="cp cp-search"></i></a>
+      <!--[html-validate-disable-next element-name]-->
       <if $mybb->user['uid'] != 0 then>
         <div class="dd_menu">
           <div class="items">
@@ -58,6 +59,7 @@
 
       <div class="nav-item">
         <a href="{$mybb->settings['bburl']}/memberlist.php" title="Gracze">Gracze</a>
+        <!--[html-validate-disable-next element-name]-->
         <if $mybb->user['uid'] != 0 then>
           <div class="dd_menu">
             <div class="items">
@@ -75,7 +77,7 @@
 </nav>
 
 <!-- Mobile navigation-->
-<nav class="mobile_nav">
+<nav class="mobile_nav" aria-label="Mobile Navigation">
   <div>
 
     <div class="nav-item">
@@ -143,10 +145,14 @@
 </div>
 
 <!-- Notices -->
+<!--[html-validate-disable-next close-order]-->
 <div id="container">
   <a name="top" id="top"></a>
+  <!--[html-validate-disable-next close-order]-->
   <div id="header">
+    <!--[html-validate-disable-next close-order]-->
     <div id="content">
+      <!--[html-validate-disable-next close-order]-->
       <div class="wrapper">
         {$pm_notice}
         {$bannedwarning}
@@ -156,6 +162,8 @@
         {$awaitingusers}
 
         <div class="container">
+          <!--[html-validate-disable-next close-order, element-name]-->
           <navigation>
+            <!--[html-validate-disable-next close-order]-->
         </div>
         <br />

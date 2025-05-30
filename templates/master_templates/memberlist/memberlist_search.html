@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->search_member_list}</title>
@@ -9,12 +9,15 @@
   {$header}
   <form method="post" action="memberlist.php">
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead" colspan="2"><strong>{$lang->search_member_list}</strong></td>
       </tr>
+
       <tr>
         <td class="tcat" colspan="2"><strong>{$lang->search_criteria}</strong></td>
       </tr>
+
       <tr>
         <td class="trow1" style="vertical-align: top;" width="20%"><strong><label for="username">{$lang->username}</label></strong></td>
         <td class="trow1">
@@ -27,6 +30,7 @@
           <input type="text" class="textbox" name="username" id="username" />
         </td>
       </tr>
+
       <tr>
         <td class="trow2" width="20%"><strong><label for="website">{$lang->search_website}</label></strong></td>
         <td class="trow2">
@@ -36,9 +40,11 @@
       {$contact_fields['skype']}
       {$contact_fields['google']}
       {$contact_fields['icq']}
+
       <tr>
         <td class="tcat" colspan="2"><strong>{$lang->search_options}</strong></td>
       </tr>
+
       <tr>
         <td class="trow1" width="20%"><strong><label for="sort">{$lang->sort_by}</label></strong></td>
         <td class="trow1">
@@ -52,10 +58,11 @@
           </select><br />
           <span class="smalltext">
             <input type="radio" class="radio" name="order" id="order_asc" value="asc" /> <label for="order_asc">{$lang->order_asc}</label><br />
-            <input type="radio" class="radio" name="order" id="order_desc" value="desc" checked="checked" /> <label for="order_desc">{$lang->order_desc}</label>
+            <input type="radio" class="radio" name="order" id="order_desc" value="desc" checked /> <label for="order_desc">{$lang->order_desc}</label>
           </span>
         </td>
       </tr>
+
       <tr>
         <td class="trow1" width="20%"><strong><label for="perpage">{$lang->per_page}</label></strong></td>
         <td class="trow1">
@@ -67,8 +74,8 @@
   </form>
   {$footer}
   <link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807">
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
-  <script type="text/javascript">
+  <script src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+  <script>
     <!--
     if (use_xmlhttprequest == "1") {
       MyBB.select2();

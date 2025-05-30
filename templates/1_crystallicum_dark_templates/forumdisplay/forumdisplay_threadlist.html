@@ -5,6 +5,7 @@
   {$newthread}
 </div>
 <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder clear">
+
   <tr>
     <td class="thead" colspan="{$colspan}">
       <div class="float_right">
@@ -15,6 +16,7 @@
       </div>
     </td>
   </tr>
+
   <tr>
     <td class="tcat" colspan="3" width="66%"><span class="smalltext"><strong><a href="{$sorturl}&amp;sortby=subject&amp;order=asc">{$lang->thread}</a> {$orderarrow['subject']} / <a href="{$sorturl}&amp;sortby=starter&amp;order=asc">{$lang->author}</a> {$orderarrow['starter']}</strong></span></td>
     <td id="replies" class="tcat" align="center" width="1"><span class="smalltext"><strong><a href="{$sorturl}&amp;sortby=replies&amp;order=desc">{$lang->replies}</a> {$orderarrow['replies']}</strong></span></td>
@@ -26,6 +28,7 @@
   {$selectall}
   {$announcementlist}
   {$threads}
+
   <tr>
     <td class="trow_sep" colspan="7">
       <div class="float_right">

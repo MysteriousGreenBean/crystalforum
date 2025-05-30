@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->search_results}</title>
@@ -8,16 +8,19 @@
 <body>
   {$header}
   <table width="100%" align="center" border="0">
+
     <tr>
       <td align="right" valign="top">{$multipage}</td>
     </tr>
   </table>
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
     <tr>
       <td colspan="9" class="thead">
         <strong>{$lang->search_results}</strong>
       </td>
     </tr>
+
     <tr>
       <td class="tcat" align="center" colspan="3"><span class="smalltext"><strong><a href="{$sorturl}&amp;sortby=subject&amp;order=asc">{$lang->post}</a> {$orderarrow['subject']}</strong></span></td>
       <td class="tcat hide_mobile" align="center"><span class="smalltext"><strong><a href="{$sorturl}&amp;sortby=starter&amp;order=asc">{$lang->author}</a> {$orderarrow['starter']}</strong></span></td>
@@ -31,6 +34,7 @@
     {$results}
   </table>
   <table width="100%" align="center" border="0">
+
     <tr>
       <td align="left" valign="top">{$multipage}</td>
       <td align="right" valign="top">{$inlinemod}</td>

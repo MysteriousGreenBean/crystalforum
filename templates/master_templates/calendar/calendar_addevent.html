@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->calendar} - {$lang->add_event}</title>
@@ -11,18 +11,21 @@
   <form action="calendar.php" method="post" name="input">
     <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder clear">
+
       <tr>
         <td colspan="2" width="100%" class="thead"><strong>{$lang->add_event}</strong></td>
       </tr>
+
       <tr>
         <td width="20%" class="trow1"><strong>{$lang->event_name}</strong></td>
         <td class="trow1"><input type="text" class="textbox" size="50" name="name" maxlength="120" value="{$name}" /></td>
       </tr>
       {$calendar_select}
+
       <tr>
         <td class="trow2" style="vertical-align: top;"><strong>{$lang->event_date}</strong></td>
         <td class="trow1">
-          <script type="text/javascript">
+          <script>
             <!--
             function toggleType() {
               if ($("#type_single").prop("checked")) {
@@ -76,6 +79,7 @@
             <dt><input type="radio" name="type" value="ranged" {$type_ranged} id="type_ranged" onclick="toggleType();" /> <label for="type_ranged"><strong>{$lang->type_ranged}</strong></label></dt>
             <dd style="margin-top: 4px; width: 100%;" id="ranged_selects">
               <table width="100%">
+
                 <tr>
                   <td class="smalltext" style="padding: 4px; text-align: right;">{$lang->start_time}</td>
                   <td style="padding: 4px;">
@@ -103,6 +107,7 @@
                     <input type="text" class="textbox" name="start_time" value="{$start_time}" size="7" />
                   </td>
                 </tr>
+
                 <tr>
                   <td class="smalltext" style="padding: 4px; text-align: right;">{$lang->end_time}</td>
                   <td style="padding: 4px;">
@@ -130,6 +135,7 @@
                     <input type="text" class="textbox" name="end_time" value="{$end_time}" size="7" />
                   </td>
                 </tr>
+
                 <tr>
                   <td class="smalltext" style="padding: 4px; text-align: right; vertical-align: top;">{$lang->timezone}</td>
                   <td style="padding: 4px;">
@@ -137,6 +143,7 @@
                     <label class="smalltext" style="display: block; padding-top: 4px;"><input type="checkbox" name="ignoretimezone" value="1" {$ignore_timezone} style="vertical-align: middle;" /> {$lang->ignore_timezone} </label>
                   </td>
                 </tr>
+
                 <tr>
                   <td class="smalltext" style="padding: 4px; text-align: right; vertical-align:top;">{$lang->repeats}</td>
                   <td class="smalltext" style="padding: 4px;">
@@ -157,12 +164,14 @@
                       <input type="text" class="textbox" name="repeats_3_weeks" value="{$repeats_3_weeks}" size="2" /> {$lang->week_or_weeks_on}
                       <br />
                       <table style="padding: 4px;">
+
                         <tr>
                           <td style="padding: 2px;" class="smalltext"><label><input type="checkbox" name="repeats_3_days[0]" value="1" {$repeats_3_days[0]} style="vertical-align: middle;" /> {$lang->sunday}</label></td>
                           <td style="padding: 2px;" class="smalltext"><label><input type="checkbox" name="repeats_3_days[1]" value="1" {$repeats_3_days[1]} style="vertical-align: middle;" /> {$lang->monday}</label></td>
                           <td style="padding: 2px;" class="smalltext"><label><input type="checkbox" name="repeats_3_days[2]" value="1" {$repeats_3_days[2]} style="vertical-align: middle;" /> {$lang->tuesday}</label></td>
                           <td style="padding: 2px;" class="smalltext"><label><input type="checkbox" name="repeats_3_days[3]" value="1" {$repeats_3_days[3]} style="vertical-align: middle;" /> {$lang->wednesday}</label></td>
                         </tr>
+
                         <tr>
                           <td style="padding: 2px;" class="smalltext"><label><input type="checkbox" name="repeats_3_days[4]" value="1" {$repeats_3_days[4]} style="vertical-align: middle;" /> {$lang->thursday}</label></td>
                           <td style="padding: 2px;" class="smalltext"><label><input type="checkbox" name="repeats_3_days[5]" value="1" {$repeats_3_days[5]} style="vertical-align: middle;" /> {$lang->friday}</label></td>
@@ -264,7 +273,7 @@
               </table>
             </dd>
           </dl>
-          <script type="text/javascript">
+          <script>
             <!--
             toggleType();
             toggleRepeats();
@@ -273,11 +282,13 @@
           </script>
         </td>
       </tr>
+
       <tr>
         <td valign="top" width="20%" class="trow1"><strong>{$lang->event_details}</strong>{$smilieinserter}</td>
         <td class="trow1"><textarea name="description" id="message" rows="20" cols="70">{$description}</textarea>
           {$codebuttons}</td>
       </tr>
+
       <tr>
         <td width="20%" class="trow2"><strong>{$lang->event_options}</strong></td>
         <td class="trow2">

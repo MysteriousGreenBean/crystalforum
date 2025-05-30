@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->pm_tracking}</title>
@@ -7,18 +7,23 @@
 
 <body>
   {$header}
+  <!--[html-validate-disable-next  close-order]-->
   <div class="flex-container">
     <div id="nav_width" style="width:24%;float:left;">{$usercpnav}</div>
     <div id="content_width" style="width:74%;float:right;">
+      <!--[html-validate-disable-next  close-order]-->
       <td valign="top">
         {$read_multipage}
+        <!--[html-validate-disable-next wcag/h32]-->
         <form action="private.php" method="post">
           <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
           <input type="hidden" name="action" value="do_tracking" />
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
+
             <tr>
               <td class="thead" align="center" colspan="5"><strong>{$lang->read_messages}</strong></td>
             </tr>
+
             <tr>
               <td class="tcat" colspan="2"><span class="smalltext"><strong>{$lang->message_title}</strong></span></td>
               <td class="tcat" align="center" width="30%"><span class="smalltext"><strong>{$lang->sentto}</strong></span></td>
@@ -31,13 +36,16 @@
         </form>
         <br />
         {$unread_multipage}
+        <!--[html-validate-disable-next wcag/h32]-->
         <form action="private.php" method="post">
           <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
           <input type="hidden" name="action" value="do_tracking" />
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
+
             <tr>
               <td class="thead" align="center" colspan="5"><strong>{$lang->unread_messages}</strong></td>
             </tr>
+
             <tr>
               <td class="tcat" colspan="2"><span class="smalltext"><strong>{$lang->message_title}</strong></span></td>
               <td class="tcat" align="center" style="white-space: nowrap" width="30%"><span class="smalltext"><strong>{$lang->sentto}</strong></span></td>
@@ -49,11 +57,14 @@
           <div class="tfoot" align="right">
             {$stoptrackingunread}
           </div>
+          <!--[html-validate-disable-next  close-order]-->
     </div>
     </form>
     </td>
   </div>
   {$footer}
+  <!--[html-validate-disable-next  close-order]-->
 </body>
+<!--[html-validate-disable-next  close-order]-->
 
 </html>

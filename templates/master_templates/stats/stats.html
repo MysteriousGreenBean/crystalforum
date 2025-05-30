@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->board_stats}</title>
@@ -8,13 +8,16 @@
 <body>
   {$header}
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
     <tr>
       <td class="thead" colspan="2"><strong>{$lang->board_stats}</strong></td>
     </tr>
+
     <tr>
       <td class="tcat" width="50%"><strong>{$lang->totals}</strong></td>
       <td class="tcat" width="50%"><strong>{$lang->averages}</strong></td>
     </tr>
+
     <tr>
       <td class="trow1" valign="top">
         {$lang->posts} <strong>{$stats['numposts']}</strong><br />
@@ -30,9 +33,11 @@
         {$lang->rpt} <strong>{$repliesperthread}</strong>
       </td>
     </tr>
+
     <tr>
       <td class="tcat" valign="top"><strong>{$lang->general}</strong></td>
     </tr>
+
     <tr>
       <td class="trow1">
         {$lang->newest_member} {$stats['newest_user']}<br />
@@ -47,13 +52,16 @@
 
   <br />
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
     <tr>
       <td class="thead" colspan="2"><strong>{$lang->most_popular}</strong></td>
     </tr>
+
     <tr>
       <td class="tcat" width="50%"><strong>{$lang->most_replied_threads}</strong></td>
       <td class="tcat" width="50%"><strong>{$lang->most_viewed_threads}</strong></td>
     </tr>
+
     <tr>
       <td class="trow1" valign="top">{$mostreplies}</td>
       <td class="trow1" valign="top">{$mostviews}</td>

@@ -14,6 +14,7 @@
 
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
     <thead>
+
       <tr>
         <td class="thead{$collapsedthead['quickreply']}" colspan="2">
           <div class="expcolimage"><img src="{$theme['imgdir']}/collapse{$collapsedimg['quickreply']}.png" id="quickreply_img" class="expander" alt="{$expaltext}" title="{$expaltext}" /></div>
@@ -22,6 +23,7 @@
       </tr>
     </thead>
     <tbody style="{$collapsed['quickreply_e']}" id="quickreply_e">
+
       <tr>
         <td class="{$trow}" valign="top" width="22%">
           <strong>{$lang->message}</strong><br />
@@ -41,6 +43,7 @@
         </td>
       </tr>
       {$captcha}
+
       <tr>
         <td colspan="2" align="center" class="tfoot"><input type="submit" class="button" value="{$lang->post_reply}" tabindex="2" accesskey="s" id="quick_reply_submit" /> <input type="submit" class="button" name="previewpost" value="{$lang->preview_post}" tabindex="3" /></td>
       </tr>

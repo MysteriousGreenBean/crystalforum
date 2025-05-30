@@ -1,9 +1,9 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$lang->compose_pm}</title>
   {$headerinclude}
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/usercp.js?ver=1827"></script>
+  <script src="{$mybb->asset_url}/jscripts/usercp.js?ver=1827"></script>
 </head>
 
 <body>
@@ -11,18 +11,21 @@
   <form action="private.php" method="post" name="input">
     <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
     <table width="100%" border="0" align="center">
+
       <tr>
         {$usercpnav}
         <td valign="top">
           {$preview}
           {$send_errors}
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
             <tr>
               <td class="thead" colspan="2"><strong>{$lang->compose_pm}</strong></td>
             </tr>
+
             <tr>
               <td class="trow1" valign="top" width="200"><strong>{$lang->compose_to}</strong>
-                <script type="text/javascript">
+                <script>
                   <!--
                   document.write('(<a href="javascript:void(0)" onclick="showBcc(); return false;" title="{$lang->compose_bcc_show_title}">{$lang->compose_bcc_show}<\/a>)');
                   // 
@@ -36,11 +39,13 @@
               <td class="trow2" valign="top"><strong>{$lang->compose_bcc}</strong>{$buddy_select_bcc}</td>
               <td class="trow2"><textarea name="bcc" id="bcc" rows="2" cols="38" tabindex="1" style="width: 450px;">{$bcc}</textarea></td>
             </tr>
+
             <tr>
               <td class="trow1"><strong>{$lang->compose_subject}</strong></td>
               <td class="trow1"><input type="text" class="textbox" name="subject" size="40" maxlength="85" value="{$subject}" tabindex="3" /></td>
             </tr>
             {$posticons}
+
             <tr>
               <td class="trow2" valign="top"><strong>{$lang->compose_message}</strong>{$smilieinserter}</td>
               <td class="trow2">
@@ -48,6 +53,7 @@
                 {$codebuttons}
               </td>
             </tr>
+
             <tr>
               <td class="trow1" valign="top"><strong>{$lang->compose_options}</strong></td>
               <td class="trow1"><span class="smalltext">
@@ -72,7 +78,7 @@
     </table>
   </form>
   {$footer}
-  <script type="text/javascript">
+  <script>
     <!--
     if ($("#bcc_area").length > 0 && $("#bcc").val() == "") {
       $("#bcc_area").css("display", "none");

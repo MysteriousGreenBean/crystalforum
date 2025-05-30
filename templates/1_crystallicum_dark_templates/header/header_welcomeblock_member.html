@@ -1,5 +1,6 @@
 <div>
   <!-- Dropdown for Game Masters -->
+  <!--[html-validate-disable-next element-name]-->
   <if $mybb->user['usergroup'] == 8 || $mybb->user['is_GM'] then>
     <div class="nav-item">
       <a class="desktop_member" title="Narrator">Narrator</a><a class="mobile_member" title="Narrator"><i class="cp cp-book"></i></a>
@@ -13,6 +14,7 @@
   </if>
 
   <!-- Dropdown for Moderators and Administrators -->
+  <!--[html-validate-disable-next element-name]-->
   <if $mybb->user['usergroup'] == 3 || $mybb->user['usergroup'] == 4 || $mybb->user['usergroup'] == 6 || $mybb->user['is_Mod'] then>
     <div class="nav-item">
       <a class="desktop_member" title="Moderacja">Moderacja</a><a class="mobile_member" title="Moderacja"><i class="cp cp-star"></i></a>
@@ -28,8 +30,17 @@
 </div>
 
 <a class="inbox" href="{$mybb->settings['bburl']}/private.php" id="pm_notification" title="Prywatne Wiadomości">
-  <if $mybb->user['pms_unread'] > 0 then><div class="unread_frame"><i class="cp cp-bell unread"></i> {$mybb->user['pms_unread']}</div>
-    <else><i class="cp cp-bell-o"></i></else>
+
+  <!--[html-validate-disable-next element-name]-->
+  <if $mybb->user['pms_unread'] > 0 then>
+    <div class="unread_frame">
+      <i class="cp cp-bell unread"></i>
+      {$mybb->user['pms_unread']}
+    </div>
+    <!--[html-validate-disable-next element-name]-->
+    <else>
+      <i class="cp cp-bell-o"></i>
+    </else>
   </if>
 </a>
 
@@ -37,7 +48,7 @@
 
 <div class="av_bcg desktop_member">
   <a href="{$mybb->settings['bburl']}/member.php?action=profile&uid={$mybb->user['uid']}">
-    <img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
+    <img src="{$mybb->user['avatar']}" id="avatarheader" alt="Konto" title="Konto">
   </a>
   <div class="av_menu">
     <div class="items">
@@ -51,7 +62,8 @@
 
 <div class="av_bcg mobile_member">
   <a>
-    <img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
+    <!--[html-validate-disable-next no-dup-id]-->
+    <img src="{$mybb->user['avatar']}" id="avatarheader" alt="Konto" title="Konto">
   </a>
   <div class="av_menu">
     <div class="items">

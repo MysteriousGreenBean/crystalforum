@@ -1,4 +1,4 @@
-name: Prettier check
+name: Format and validation check
 
 on:
     pull_request:
@@ -22,4 +22,7 @@ jobs:
               run: npm ci
 
             - name: Run Prettier check
-              run: npx prettier --check "**/*.{js,css,html,php,json,md}"
+              run: npm run format:check
+
+            - name: Validate html files
+              run: npm run validate-html

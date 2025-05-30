@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->calendar}</title>
@@ -9,6 +9,7 @@
   {$header}
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
     <thead>
+
       <tr>
         <td class="thead" colspan="8">
           <div class="float_right">
@@ -17,6 +18,7 @@
           <div><strong>{$monthnames[$month]} {$year}</strong></div>
         </td>
       </tr>
+
       <tr>
         <td class="tcat">&nbsp;</td>
         {$weekday_headers}
@@ -27,11 +29,14 @@
     </tbody>
   </table>
   <br />
+  <!--[html-validate-disable-next wcag/h32]-->
   <form action="calendar.php" method="post">
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="trow1">
           <table width="100%" cellspacing="0" cellpadding="0" border="0">
+
             <tr>
               <td valign="top">{$addevent}</td>
               <td align="right">

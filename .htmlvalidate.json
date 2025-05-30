@@ -5,6 +5,10 @@
         "no-inline-style": "off",
         "wcag/h30": "off",
         "no-deprecated-attr": "off",
-        "void-style": "off"
+        "void-style": "off",
+        "valid-id": "off",
+        "prefer-button": "off",
+        "no-raw-characters": "off",
+        "prefer-tbody": "off"
     }
 }

@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->warning_logs}</title>
@@ -11,9 +11,11 @@
   <div id="content_width" style="width:74%;float:right;">
     <td valign="top">
       <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
         <tr>
           <td class="thead" colspan="6"><strong>{$lang->warning_logs}</strong></td>
         </tr>
+
         <tr>
           <td class="tcat" width="15%"><span class="smalltext"><strong>{$lang->warned_user}</strong></span></td>
           <td class="tcat" width="25%"><span class="smalltext"><strong>{$lang->warning}</strong></span></td>
@@ -29,21 +31,26 @@
       <form action="modcp.php" method="get">
         <input type="hidden" name="action" value="warninglogs" />
         <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
           <tr>
             <td class="thead" colspan="2"><strong>{$lang->filter_warning_logs}</strong></td>
           </tr>
+
           <tr>
             <td class="trow1" width="25%"><strong>{$lang->filter_warned_user}</strong></td>
             <td class="trow1" width="75%"><input type="text" name="filter[username]" id="username" value="{$mybb->input['filter']['username']}" class="textbox" /></td>
           </tr>
+
           <tr>
             <td class="trow2" width="25%"><strong>{$lang->filter_issued_by}</strong></td>
             <td class="trow2" width="75%"><input type="text" name="filter[mod_username]" value="{$mybb->input['filter']['mod_username']}" class="textbox" /></td>
           </tr>
+
           <tr>
             <td class="trow1" width="25%"><strong>{$lang->filter_reason}</strong></td>
             <td class="trow1" width="75%"><input type="text" name="filter[reason]" value="{$mybb->input['filter']['reason']}" class="textbox" /></td>
           </tr>
+
           <tr>
             <td class="trow2" width="25%"><strong>{$lang->sort_by}</strong></td>
             <td class="trow2" width="75%">
@@ -61,6 +68,7 @@
               {$lang->order}
             </td>
           </tr>
+
           <tr>
             <td class="trow1" width="25%"><strong>{$lang->per_page}</strong></td>
             <td class="trow1" width="75%"><input type="text" name="filter[per_page]" value="{$per_page}" class="textbox" /></td>
@@ -75,8 +83,8 @@
   </div>
   {$footer}
   <link rel="stylesheet" href="{$mybb->asset_url}/jscripts/select2/select2.css?ver=1807">
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
-  <script type="text/javascript">
+  <script src="{$mybb->asset_url}/jscripts/select2/select2.min.js?ver=1806"></script>
+  <script>
     <!--
     if (use_xmlhttprequest == "1") {
       MyBB.select2();

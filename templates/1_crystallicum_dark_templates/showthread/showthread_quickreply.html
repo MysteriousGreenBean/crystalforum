@@ -14,9 +14,13 @@
 
   <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
     <thead>
+
       <tr>
         <td class="thead" colspan="2">
-          <div class="expcolimage"><i id="quickreply_img" class="expander cp cp-minus smalltext" alt="[-]" title="[-]" /></i></div>
+          <div class="expcolimage">
+            <!--[html-validate-disable-next  no-self-closing]-->
+            <i id="quickreply_img" class="expander cp cp-minus smalltext" alt="[-]" title="[-]" />
+          </div>
           <div><strong>{$lang->quick_reply}</strong></div>
         </td>
       </tr>
@@ -39,11 +43,14 @@
           </div>
           <div class="qr_menu">
             {$option_signature}
-            <label><input type="checkbox" class="checkbox" name="postoptions[disablesmilies]" value="1" />&nbsp;<strong>{$lang->disable_smilies}</strong></label>{$closeoption}</span>
+            <label>
+              <input type="checkbox" class="checkbox" name="postoptions[disablesmilies]" value="1" />
+              &nbsp;<strong>{$lang->disable_smilies}</strong></label>{$closeoption}
           </div>
         </td>
       </tr>
       {$captcha}
+
       <tr>
         <td colspan="2" align="center" class="tfoot"><input type="submit" class="button" value="{$lang->post_reply}" tabindex="2" accesskey="s" id="quick_reply_submit" /> <input type="submit" class="button" name="previewpost" value="{$lang->preview_post}" tabindex="3" /></td>
       </tr>

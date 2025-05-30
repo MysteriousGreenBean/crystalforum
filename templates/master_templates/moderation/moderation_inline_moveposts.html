@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->move_posts}</title>
@@ -10,10 +10,12 @@
   <form action="moderation.php" method="post">
     <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
     <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
       <tr>
         <td class="thead" colspan="2"><strong>{$lang->move_posts}</strong></td>
       </tr>
       {$loginbox}
+
       <tr>
         <td class="trow1"><strong>{$lang->thread_to_move_to}</strong><br /><span class="smalltext">{$lang->move_post_note}</span></td>
         <td class="trow1" width="60%"><input type="text" class="textbox" name="threadurl" size="40" />

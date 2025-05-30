@@ -1,9 +1,9 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$lang->compose_pm}</title>
   {$headerinclude}
-  <script type="text/javascript" src="{$mybb->asset_url}/jscripts/usercp.js?ver=1808"></script>
+  <script src="{$mybb->asset_url}/jscripts/usercp.js?ver=1808"></script>
 </head>
 
 <body>
@@ -17,12 +17,14 @@
           {$preview}
           {$send_errors}
           <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder newreply">
+
             <tr>
               <td class="thead" colspan="2"><strong>{$lang->compose_pm}</strong></td>
             </tr>
+
             <tr>
               <td class="trow1 hide_mobile" valign="top" width="200"><strong>{$lang->compose_to}</strong>
-                <script type="text/javascript">
+                <script>
                   <!--
                   document.write('(<a href="javascript:void(0)" onclick="showBcc(); return false;" title="{$lang->compose_bcc_show_title}">{$lang->compose_bcc_show}<\/a>)');
                   // 
@@ -36,11 +38,13 @@
               <td class="trow2 hide_mobile" valign="top"><strong>{$lang->compose_bcc}</strong>{$buddy_select_bcc}</td>
               <td class="trow2"><textarea name="bcc" id="bcc" rows="2" cols="38" tabindex="1">{$bcc}</textarea></td>
             </tr>
+
             <tr>
               <td class="trow1 hide_mobile"><strong>{$lang->compose_subject}</strong></td>
               <td class="trow1"><input type="text" class="textbox2" name="subject" placeholder="Temat" maxlength="85" value="{$subject}" tabindex="3" /></td>
             </tr>
             {$posticons}
+
             <tr>
               <td class="trow2 hide_mobile" valign="top"><strong>{$lang->compose_message}</strong>{$smilieinserter}</td>
               <td class="trow2">
@@ -50,6 +54,7 @@
                 {$codebuttons}
               </td>
             </tr>
+
             <tr>
               <td class="trow1 hide_mobile" valign="top"><strong>{$lang->compose_options}</strong></td>
               <td class="trow1"><span class="smalltext">
@@ -74,7 +79,7 @@
   </div>
   </form>
   {$footer}
-  <script type="text/javascript">
+  <script>
     <!--
     if ($("#bcc_area").length > 0 && $("#bcc").val() == "") {
       $("#bcc_area").css("display", "none");
@@ -91,7 +96,7 @@
     -->
   </script>
   {$autocompletejs}
-  <script type="text/javascript">
+  <script>
     $(".author_avatar img").error(function() {
       $(this).unbind("error").closest('.author_avatar').remove();
     });

@@ -1,4 +1,4 @@
-<html>
+<html lang="pl">
 
 <head>
   <title>{$mybb->settings['bbname']} - {$lang->modlogs}</title>
@@ -11,9 +11,11 @@
   <div id="content_width" style="width:74%;float:right;">
     <td valign="top">
       <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
         <tr>
           <td class="thead" align="center" colspan="5"><strong>{$lang->modlogs}</strong></td>
         </tr>
+
         <tr>
           <td class="tcat"><span class="smalltext"><strong>{$lang->username}</strong></span></td>
           <td class="tcat" align="center"><span class="smalltext"><strong>{$lang->date}</strong></span></td>
@@ -27,15 +29,18 @@
       <br />
       <form action="modcp.php?action=modlogs" method="post">
         <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+
           <tr>
             <td class="thead" colspan="2"><strong>{$lang->filter_modlogs}</strong></td>
           </tr>
+
           <tr>
             <td class="trow1" width="25%"><strong>{$lang->forum}</strong></td>
             <td class="trow1" width="75%">
               {$forum_select}
             </td>
           </tr>
+
           <tr>
             <td class="trow1" width="25%"><strong>{$lang->from_moderator}</strong></td>
             <td class="trow1" width="75%">
@@ -46,6 +51,7 @@
               </select>
             </td>
           </tr>
+
           <tr>
             <td class="trow1" width="25%"><strong>{$lang->sort_by}</strong></td>
             <td class="trow1" width="75%">
@@ -63,6 +69,7 @@
               {$lang->order}
             </td>
           </tr>
+
           <tr>
             <td class="trow1" width="25%"><strong>{$lang->per_page}</strong></td>
             <td class="trow1" width="75%"><input type="text" name="perpage" value="{$perpage}" size="4" class="textbox" /></td>
