@@ -5,5 +5,8 @@
         "html-validate.vscode-html-validate",
         "vsce-toolroom.vscode-beautify"
     ],
-    "unwantedRecommendations": ["vscode.php-language-features"]
+    "unwantedRecommendations": [
+        "vscode.php-language-features",
+        "ms-vscode-remote.remote-containers"
+    ]
 }
