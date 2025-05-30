@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const AVATAR_OFFSET = 60 // offset to push avatar lower, adjust as needed
+
     function updateAvatarPositions() {
         const posts = document.querySelectorAll('.post_author')
-
-        console.debug(`Number of post_author containers: ${posts.length}`)
 
         posts.forEach((post) => {
             const avatar = post.querySelector('.author_avatar')
 
-            if (!avatar) {
-                console.warn('No avatar found in this post_author container.')
-                return
-            }
+            if (!avatar) return
 
             const containerRect = post.getBoundingClientRect()
             const avatarRect = avatar.getBoundingClientRect()
@@ -18,10 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const containerTop = containerRect.top + window.scrollY
             const containerBottom = containerRect.bottom + window.scrollY
 
-            let avatarTop = window.scrollY - containerTop
+            // Add offset here
+            let avatarTop = window.scrollY - containerTop + AVATAR_OFFSET
             if (avatarTop < 0) avatarTop = 0
 
-            if (window.scrollY + avatarRect.height > containerBottom) {
+            if (
+                window.scrollY + avatarRect.height + AVATAR_OFFSET >
+                containerBottom
+            ) {
                 avatarTop = containerBottom - containerTop - avatarRect.height
             }
 

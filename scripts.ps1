@@ -1,12 +1,70 @@
 function Start-Containers {
-    docker-compose --profile devEnvironment up -d
-    docker-compose run --rm npm npm install 
+    docker-compose up -d
     Wait-For-Containers
     Database-Snapshot
-    Initialize-Environment
+    Refresh-Stylesheets
 }
 
-function Initialize-Environment {
+function Refresh-Cache {
+    $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=cache&fromconsole=true' -UseBasicParsing
+    Write-Host $response.Content
+}
+
+function Refresh-Stylesheets {
+
+    Get-ChildItem -Path "stylesheets" -Directory | ForEach-Object {
+        $subfolder = $_.FullName
+        $propertiesPath = Join-Path $subfolder "_properties.json"
+        if (Test-Path $propertiesPath) {
+            $properties = Get-Content $propertiesPath -Raw | ConvertFrom-Json
+
+            $disporder = $properties.disporder
+
+            if (-not $disporder) {
+                $disporder = @{}
+            }
+
+            # Remove disporder entries for missing .css files and adjust order
+            $cssFileNames = (Get-ChildItem -Path $subfolder -Filter "*.css").Name
+            $disporderKeys = $disporder.PSObject.Properties.Name
+
+            foreach ($key in $disporderKeys) {
+                if ($cssFileNames -notcontains $key) {
+                    $removedOrder = [int]$disporder.$key
+                    $disporder.PSObject.Properties.Remove($key)
+                    # Decrease disporder values higher than the removed one
+                    foreach ($prop in $disporder.PSObject.Properties) {
+                        if ([int]$prop.Value -gt $removedOrder) {
+                            $disporder.$($prop.Name) = [int]$prop.Value - 1
+                        }
+                    }
+                }
+            }
+
+            $cssFiles = Get-ChildItem -Path $subfolder -Filter "*.css" | Sort-Object Name
+            $existingOrders = @()
+            if ($disporder.PSObject.Properties.Count -gt 0) {
+                $existingOrders = $disporder.PSObject.Properties | ForEach-Object { [int]$_.Value }
+            }
+            $maxOrder = if ($existingOrders.Count -gt 0) { ($existingOrders | Measure-Object -Maximum).Maximum } else { 0 }
+
+            foreach ($css in $cssFiles) {
+                if (-not ($disporder.PSObject.Properties.Name -contains $css.Name)) {
+                    $maxOrder++
+                    $disporder | Add-Member -MemberType NoteProperty -Name $css.Name -Value $maxOrder
+                }
+            }
+            $properties.disporder = $disporder
+
+
+
+            $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
+            $resultJson = $properties | ConvertTo-Json -Depth 10
+            [System.IO.File]::WriteAllLines($propertiesPath, $resultJson, $Utf8NoBomEncoding)
+        }
+    }
+
+
     if (Test-Path "website/cache/theme_stylesheet_map.php") {
         Remove-Item "website/cache/theme_stylesheet_map.php" -Force
     }
@@ -21,11 +79,6 @@ function Initialize-Environment {
     $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=templates&force=true&dev=true&fromconsole=true' -UseBasicParsing | Out-Null
     Write-Host $response.Content
     Refresh-Cache
-}
-
-function Refresh-Cache {
-    $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=cache&fromconsole=true' -UseBasicParsing
-    Write-Host $response.Content
 }
 
 function Wait-For-Containers {
@@ -45,9 +98,6 @@ function Restart-Containers {
 }
 
 function Purge-Containers {
-    docker-compose --profile devEnvironment down
-    docker container prune -f
-    docker volume prune -f
     docker-compose down --rmi all --volumes --remove-orphans
 }
 
@@ -56,7 +106,7 @@ function View-Logs {
 }
 
 function Database-Update {
-    docker-compose run --rm liquibase update --changelog-file "./docker/liquibase/changelog/db.changelog.xml"
+    docker-compose run liquibase update --changelog-file "./docker/liquibase/changelog/db.changelog.xml"
 }
 
 function Database-Snapshot {
@@ -216,5 +266,6 @@ switch ($args[0]) {
     "database-snapshot" { Database-Snapshot }
     "database-dumpChanges" { Database-diffChangeLog }
     "refresh-cache" { Refresh-Cache }
+    "refresh-stylesheets" { Refresh-Stylesheets }
     default { Write-Host "Usage: scripts {start|stop|restart|logs|database-update|database-snapshot|database-dumpChanges}" }
 }

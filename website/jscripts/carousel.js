@@ -1,42 +1,51 @@
 // Carousel
 document.addEventListener('DOMContentLoaded', function () {
-    const images = document.querySelectorAll('.carousel-image')
-    const indicatorsContainer = document.querySelector('.carousel-indicators')
-    const nextBtn = document.querySelector('.next-btn')
-    const prevBtn = document.querySelector('.prev-btn')
-    let currentIndex = 0
+    const wrappers = document.querySelectorAll('.carousel-wrapper')
 
-    function showSlide(index) {
-        images.forEach((slide) => slide.classList.remove('active'))
-        images[index].classList.add('active')
-        updateIndicators()
-    }
+    wrappers.forEach((wrapper) => {
+        const carousel = wrapper.querySelector('.carousel')
+        const images = wrapper.querySelectorAll('.carousel-image')
+        const indicatorsContainer = wrapper.querySelector(
+            '.carousel-indicators'
+        )
+        const nextBtn = wrapper.querySelector('.next-btn')
+        const prevBtn = wrapper.querySelector('.prev-btn')
+        let currentIndex = 0
 
-    function updateIndicators() {
-        indicatorsContainer.innerHTML = ''
-        images.forEach((_, i) => {
-            const dot = document.createElement('span')
-            dot.classList.add('dot')
-            if (i === currentIndex) dot.classList.add('active')
-            dot.addEventListener('click', () => {
-                currentIndex = i
-                showSlide(currentIndex)
+        if (images.length === 0) return
+
+        function showSlide(index) {
+            images.forEach((slide) => slide.classList.remove('active'))
+            images[index].classList.add('active')
+            updateIndicators()
+        }
+
+        function updateIndicators() {
+            indicatorsContainer.innerHTML = ''
+            images.forEach((_, i) => {
+                const dot = document.createElement('span')
+                dot.classList.add('dot')
+                if (i === currentIndex) dot.classList.add('active')
+                dot.addEventListener('click', () => {
+                    currentIndex = i
+                    showSlide(currentIndex)
+                })
+                indicatorsContainer.appendChild(dot)
             })
-            indicatorsContainer.appendChild(dot)
+        }
+
+        nextBtn?.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length
+            showSlide(currentIndex)
         })
-    }
 
-    nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % images.length
+        prevBtn?.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length
+            showSlide(currentIndex)
+        })
+
         showSlide(currentIndex)
     })
-
-    prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length
-        showSlide(currentIndex)
-    })
-
-    showSlide(currentIndex)
 })
 
 // Content list
