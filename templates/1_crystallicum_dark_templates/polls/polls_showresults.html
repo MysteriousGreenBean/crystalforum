@@ -1,28 +1,33 @@
-<html>
+<html lang="pl">
+
 <head>
-<title>{$mybb->settings['bbname']} - {$lang->poll_results}</title>
-{$headerinclude}
+  <title>{$mybb->settings['bbname']} - {$lang->poll_results}</title>
+  {$headerinclude}
 </head>
+
 <body>
-{$header}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 30%" />
-<col style="width: 30%" />
-</colgroup>
-<tr>
-<td class="thead" colspan="4" style="text-align: center;"><strong>{$lang->poll} {$poll['question']}</strong><br /><span class="smalltext">{$pollstatus}{$undovote}</span></td>
-</tr>
-{$polloptions}
-<tr>
-<td class="tfoot" colspan="2" style="text-align: right;"><strong>{$lang->total}</strong></td>
-<td class="tfoot" style="text-align: center;"><strong>{$lang->total_votes}</strong></td>
-<td class="tfoot" style="text-align: center;"><strong>{$totpercent}</strong></td>
-</tr>
-</table>
-<table cellspacing="0" cellpadding="2" border="0" style="width: 100%; text-align: center;">
-</table>
-{$footer}
+  {$header}
+  <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder tfixed">
+    <colgroup>
+      <col style="width: 10%" />
+      <col style="width: 30%" />
+      <col style="width: 30%" />
+    </colgroup>
+
+    <tr>
+      <td class="thead" colspan="4" style="text-align: center;"><strong>{$lang->poll} {$poll['question']}</strong><br /><span class="smalltext">{$pollstatus}{$undovote}</span></td>
+    </tr>
+    {$polloptions}
+
+    <tr>
+      <td class="tfoot" colspan="2" style="text-align: right;"><strong>{$lang->total}</strong></td>
+      <td class="tfoot" style="text-align: center;"><strong>{$lang->total_votes}</strong></td>
+      <td class="tfoot" style="text-align: center;"><strong>{$totpercent}</strong></td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="2" border="0" style="width: 100%; text-align: center;">
+  </table>
+  {$footer}
 </body>
+
 </html>

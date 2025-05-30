@@ -1,31 +1,35 @@
 <center>
-	<if $post['signature'] != "&nbsp;" then>
+  <if $post['signature'] !="&nbsp;" then>
     <div class="signature scaleimages">
-        <div class="sig_shadow">
-			<if $post['fid1'] then>
-            <div class="sig_img" style="background-image: url('{$post['fid1']}');"></div>
-			</if>
-            <div class="sig_text_container">
-                <i class="cp cp-quote up-down sig_quote"></i>
-                <div class="sig_text">{$post['signature']}</div>
-                <i class="cp cp-quote sig_quote"></i>
-            </div>
+      <div class="sig_shadow">
+        <if $post['fid1'] then>
+          <div class="sig_img" style="background-image: url('{$post['fid1']}');"></div>
+        </if>
+        <div class="sig_text_container">
+          <i class="cp cp-quote up-down sig_quote"></i>
+          <div class="sig_text">{$post['signature']}</div>
+          <i class="cp cp-quote sig_quote"></i>
         </div>
+      </div>
     </div>
-		<div class="sig_urls"><if $post['fid5'] then><a href="{$post['fid5']}"><i class="cp cp-music-note"></i></a></if></div>
-		<else/> 
+    <div class="sig_urls">
+      <if $post['fid5'] then><a href="{$post['fid5']}"><i class="cp cp-music-note"></i></a></if>
+    </div>
+    <else />
     <div class="signature2 scaleimages">
-        <div class="sig_shadow">
-			<if $post['fid1'] then>
-            <div class="sig_img" style="background-image: url('{$post['fid']}');"></div>
-			</if>
-            <div class="sig_text_container">
-                <div class="sig_text">{$post['signature']}</div>
-            </div>
+      <div class="sig_shadow">
+        <if $post['fid1'] then>
+          <div class="sig_img" style="background-image: url('{$post['fid']}');"></div>
+        </if>
+        <div class="sig_text_container">
+          <div class="sig_text">{$post['signature']}</div>
         </div>
+      </div>
     </div>
-    <div class="sig_urls"><if $post['fid5'] then><a href="{$post['fid5']}"><i class="cp cp-music-note"></i></a></if></div>
-	</if>
+    <div class="sig_urls">
+      <if $post['fid5'] then><a href="{$post['fid5']}"><i class="cp cp-music-note"></i></a></if>
+    </div>
+  </if>
 </center>
 
 

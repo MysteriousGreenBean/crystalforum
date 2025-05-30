@@ -16,12 +16,17 @@ $l['contact_subject_desc'] = 'Wpisz temat wiadomości.';
 $l['contact_message'] = 'Treść';
 $l['contact_message_desc'] = 'Opisz w szczegółach swoje przemyślenia.';
 $l['contact_email'] = 'Adres e-mail';
-$l['contact_email_desc'] = 'Wpisz adres e-mail, aby administrator mógł odpowiedzieć na twoją wiadomość.';
+$l['contact_email_desc'] =
+    'Wpisz adres e-mail, aby administrator mógł odpowiedzieć na twoją wiadomość.';
 $l['contact_send'] = 'Wyślij';
-$l['subject_too_long'] = 'Temat wiadomości jest zbyt długi. Wpisz temat nie dłuższy niż {1} znaków (aktualna długość to {2} znaków).';
-$l['message_too_short'] = 'Treść wiadomości jest zbyt krótka. Wpisz treść nie krótszą niż {1} znaków (aktualna długość to {2} znaków).';
-$l['message_too_long'] = 'Treść wiadomości jest zbyt długa. Wpisz treść nie dłuższą niż {1} znaków (aktualna długość to {2} znaków).';
+$l['subject_too_long'] =
+    'Temat wiadomości jest zbyt długi. Wpisz temat nie dłuższy niż {1} znaków (aktualna długość to {2} znaków).';
+$l['message_too_short'] =
+    'Treść wiadomości jest zbyt krótka. Wpisz treść nie krótszą niż {1} znaków (aktualna długość to {2} znaków).';
+$l['message_too_long'] =
+    'Treść wiadomości jest zbyt długa. Wpisz treść nie dłuższą niż {1} znaków (aktualna długość to {2} znaków).';
 
-$l['error_stop_forum_spam_spammer'] = 'Twój {1} znajduje się w bazie znanych spamerów. Z tego powodu próba kontaktu została zablokowana.';
-$l['error_stop_forum_spam_fetching'] = 'Nie mogliśmy upewnić sie, że nie jesteś spamerem. Prawdopodobnie jest to spowodowane problemami z połączeniem z bazą danych. Spróbuj ponownie później.';
-
+$l['error_stop_forum_spam_spammer'] =
+    'Twój {1} znajduje się w bazie znanych spamerów. Z tego powodu próba kontaktu została zablokowana.';
+$l['error_stop_forum_spam_fetching'] =
+    'Nie mogliśmy upewnić sie, że nie jesteś spamerem. Prawdopodobnie jest to spowodowane problemami z połączeniem z bazą danych. Spróbuj ponownie później.';

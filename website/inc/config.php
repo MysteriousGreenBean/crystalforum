@@ -101,14 +101,14 @@ $config['database']['encoding'] = 'utf8';
  *  If you set the value to 0, the logs will not be pruned.
  */
 
-$config['log_pruning'] = array(
-	'admin_logs' => 365, // Administrator logs
-	'mod_logs' => 365, // Moderator logs
-	'task_logs' => 30, // Scheduled task logs
-	'mail_logs' => 180, // Mail error logs
-	'user_mail_logs' => 180, // User mail logs
-	'promotion_logs' => 180 // Promotion logs
-);
+$config['log_pruning'] = [
+    'admin_logs' => 365, // Administrator logs
+    'mod_logs' => 365, // Moderator logs
+    'task_logs' => 30, // Scheduled task logs
+    'mail_logs' => 180, // Mail error logs
+    'user_mail_logs' => 180, // User mail logs
+    'promotion_logs' => 180, // Promotion logs
+];
 
 /**
  * Disallowed Remote Hosts
@@ -119,9 +119,7 @@ $config['log_pruning'] = array(
  *  Forgery attacks.
  */
 
-$config['disallowed_remote_hosts'] = array(
-	'localhost',
-);
+$config['disallowed_remote_hosts'] = ['localhost'];
 
 /**
  * Disallowed Remote Addresses
@@ -134,13 +132,13 @@ $config['disallowed_remote_hosts'] = array(
  *  function.
  */
 
-$config['disallowed_remote_addresses'] = array(
-	'0.0.0.0',
-	'127.0.0.0/8',
-	'10.0.0.0/8',
-	'172.16.0.0/12',
-	'192.168.0.0/16',
-);
+$config['disallowed_remote_addresses'] = [
+    '0.0.0.0',
+    '127.0.0.0/8',
+    '10.0.0.0/8',
+    '172.16.0.0/12',
+    '192.168.0.0/16',
+];
 
 /**
  * Admin CP Secret PIN

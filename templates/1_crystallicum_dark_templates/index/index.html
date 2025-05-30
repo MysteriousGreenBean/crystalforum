@@ -1,16 +1,18 @@
-<html>
+<html lang="pl">
+
 <head>
-<title>{$mybb->settings['bbname']}</title>
-{$headerinclude}
-<script type="text/javascript">
-<!--
-lang.no_new_posts = "{$lang->no_new_posts}";
-lang.click_mark_read = "{$lang->click_mark_read}";
-// -->
-</script>
-	
-<!-- Hiding announcements -->	
-<script>
+  <title>{$mybb->settings['bbname']}</title>
+  {$headerinclude}
+  <script>
+    <!--
+    lang.no_new_posts = "{$lang->no_new_posts}";
+    lang.click_mark_read = "{$lang->click_mark_read}";
+    // 
+    -->
+  </script>
+
+  <!-- Hiding announcements -->
+  <script>
     document.addEventListener("DOMContentLoaded", function() {
       const toggleButton = document.getElementById("announcement");
       const forumsDiv = document.querySelector(".announcements");
@@ -19,45 +21,48 @@ lang.click_mark_read = "{$lang->click_mark_read}";
         forumsDiv.classList.toggle("hide");
       });
     });
-	
   </script>
 </head>
+
 <body>
-{$header}
-	
-	
-	<div class="thead">Ogłoszenie<div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
-	<div class="forums announcements">hehe</div><br/><br/>
-	
-	<div class ="container">
-		<div class="background">
-		<div class="forum">{$forums}
-			
-			<div class="legend">
-				<div class="forum_stats"> Tu będzie obrazek i statystyki
-					<div class="groups_descriptions">tutaj będą opisy grup</div>
-				</div>
-			</div>
+  {$header}
 
-			<!-- TEST KOLORÓW GRUP -->
-			<div style="color: var(--registered);">Zarejestrowani</div>
-			<div style="color: var(--not-active);">Nieaktywni</div>
-			<div style="color: var(--banned);">Zbanowani</div>
-			<div style="color: var(--npc);">NPC</div>
-			<div style="color: var(--opal);">1 - Opal</div>
-			<div style="color: var(--citrine);">2 - Citrine</div>
-			<div style="color: var(--aventurine);">3 - Aventurine</div>
-			<div style="color: var(--sapphire);">4 - Sapphire</div>
-			<div style="color: var(--amethyst);">5 - Amethyst</div>
-			<div style="color: var(--rose-quartz);">6 - Rose quartz</div>
-			<div style="color: var(--ruby);">7 - Ruby</div>
-			<div style="color: var(--amber);">8 - Inni - Amber</div>
-			
-			{$boardstats}</div>
-		</div>
-	</div>
 
-<br class="clear" />
-{$footer}
+  <div class="thead">Ogłoszenie<div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext"></i></div>
+  </div>
+  <div class="forums announcements">hehe</div><br /><br />
+
+  <div class="container">
+    <div class="background">
+      <div class="forum">{$forums}
+
+        <div class="legend">
+          <div class="forum_stats"> Tu będzie obrazek i statystyki
+            <div class="groups_descriptions">tutaj będą opisy grup</div>
+          </div>
+        </div>
+
+        <!-- TEST KOLORÓW GRUP -->
+        <div style="color: var(--registered);">Zarejestrowani</div>
+        <div style="color: var(--not-active);">Nieaktywni</div>
+        <div style="color: var(--banned);">Zbanowani</div>
+        <div style="color: var(--npc);">NPC</div>
+        <div style="color: var(--opal);">1 - Opal</div>
+        <div style="color: var(--citrine);">2 - Citrine</div>
+        <div style="color: var(--aventurine);">3 - Aventurine</div>
+        <div style="color: var(--sapphire);">4 - Sapphire</div>
+        <div style="color: var(--amethyst);">5 - Amethyst</div>
+        <div style="color: var(--rose-quartz);">6 - Rose quartz</div>
+        <div style="color: var(--ruby);">7 - Ruby</div>
+        <div style="color: var(--amber);">8 - Inni - Amber</div>
+
+        {$boardstats}
+      </div>
+    </div>
+  </div>
+
+  <br class="clear" />
+  {$footer}
 </body>
+
 </html>

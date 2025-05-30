@@ -6,5 +6,6 @@
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
 
-$l['php_info'] = "PHP Info";
-$l['browser_no_iframe_support'] = "Twoja przeglądarka nie obsługuje ramek IFRAME";
+$l['php_info'] = 'PHP Info';
+$l['browser_no_iframe_support'] =
+    'Twoja przeglądarka nie obsługuje ramek IFRAME';

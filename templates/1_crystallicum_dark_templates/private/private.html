@@ -1,55 +1,70 @@
-<html>
+<html lang="pl">
+
 <head>
-<title>{$mybb->settings['bbname']} - {$lang->private_messaging}</title>
-{$headerinclude}
+  <title>{$mybb->settings['bbname']} - {$lang->private_messaging}</title>
+  {$headerinclude}
 </head>
+
 <body>
-{$header}
-<form action="private.php" method="post" name="pmForm">
-<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-<div class="flex-container">
-<div id="nav_width" style="width:24%;float:left;">{$usercpnav}</div>
-<div id="content_width" style="width:74%;float:right;">
-<td valign="top">
-<fieldset>
-  {$pmspacebar}<span class="smalltext"><a href="private.php">{$lang->inbox}</a>{$composelink} | <a  href="private.php?action=folders">{$lang->manage_folders}</a>{$emptyexportlink}</span>
-</fieldset>
-<br />
-{$limitwarning}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
-<tr>
-<td class="thead" colspan="6">
-	<div class="float_right">
-	<input type="text" name="keywords" value="{$lang->enter_keywords}" onfocus="if(this.value == '{$lang->enter_keywords}') { this.value = ''; }" onblur="if(this.value=='') { this.value='{$lang->enter_keywords}'; }" class="textbox" size="25" />
-	<input type="submit" class="button" name="quick_search" value="{$lang->search_pms}" />
-	<span class="ucp_find">(<a href="private.php?action=advanced_search"><i class="cp cp-search"></i> {$lang->advanced_search}</a>)</span></div>
-	<strong>{$foldername}</strong></td>
-</tr>
-<tr>
-<td class="tcat" align="center" colspan="3"><span class="smalltext"><strong><a href="private.php?fid={$folder}&amp;sortby=subject&amp;order=asc">{$lang->message_title}</a> {$orderarrow['subject']}</strong></span></td>
-<td class="tcat" align="center" width="30%" style="white-space: nowrap"><span class="smalltext"><strong><a href="private.php?fid={$folder}&amp;sortby=username&amp;order=asc">{$sender}</a> {$orderarrow['username']}</strong></span></td>
-<td class="tcat hide_mobile" align="right"  width="20%" style="white-space: nowrap"><span class="smalltext"><strong><a href="private.php?fid={$folder}&amp;sortby=dateline&amp;order=desc">{$lang->date_sent}</a> {$orderarrow['dateline']}</strong></span></td>
-<td class="tcat" align="center" width="1%" style="white-space: nowrap"><span class="smalltext"><input name="allbox" title="{$lang->check_all}" type="checkbox" class="checkbox checkall" value="{$lang->check_all}" /></span></td>
-</tr>
-{$messagelist}
-</table>
-<div class="tfoot" align="right">
-<input type="submit" class="button" name="moveto" value="{$lang->move_to}" /> {$folderoplist} {$lang->or}
-<input type="submit" class="button" name="delete" value="{$lang->delete}" /> {$lang->selected_messages}
-</div>
-<br/>
-<div class="float_left">{$multipage}</div>
-<div class="float_right">
-<span class="smalltext">
-<strong>{$lang->jump_folder} {$folderjump}
-<input type="submit" class="button" name="hop" value="{$lang->go}" />
-</strong>
-</span>
-</div>
-</td>
-	</div>
-<input type="hidden" name="action" value="do_stuff" />
-	</form></div>
-{$footer}
+  {$header}
+  <form action="private.php" method="post" name="pmForm">
+    <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+    <!--[html-validate-disable-next  close-order]-->
+    <div class="flex-container">
+      <div id="nav_width" style="width:24%;float:left;">{$usercpnav}</div>
+      <div id="content_width" style="width:74%;float:right;">
+        <td valign="top">
+          <!--[html-validate-disable-next  wcag/h71]-->
+          <fieldset>
+            {$pmspacebar}<span class="smalltext">
+              <a href="private.php">{$lang->inbox}</a>{$composelink} | <a href="private.php?action=folders">{$lang->manage_folders}</a>
+              {$emptyexportlink}</span>
+          </fieldset>
+          <br />
+          {$limitwarning}
+          <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
+
+            <tr>
+              <td class="thead" colspan="6">
+                <div class="float_right">
+                  <input type="text" name="keywords" value="{$lang->enter_keywords}" onfocus="if(this.value == '{$lang->enter_keywords}') { this.value = ''; }" onblur="if(this.value=='') { this.value='{$lang->enter_keywords}'; }" class="textbox" size="25" />
+                  <input type="submit" class="button" name="quick_search" value="{$lang->search_pms}" />
+                  <span class="ucp_find">(<a href="private.php?action=advanced_search"><i class="cp cp-search"></i> {$lang->advanced_search}</a>)</span>
+                </div>
+                <strong>{$foldername}</strong>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="tcat" align="center" colspan="3"><span class="smalltext"><strong><a href="private.php?fid={$folder}&amp;sortby=subject&amp;order=asc">{$lang->message_title}</a> {$orderarrow['subject']}</strong></span></td>
+              <td class="tcat" align="center" width="30%" style="white-space: nowrap"><span class="smalltext"><strong><a href="private.php?fid={$folder}&amp;sortby=username&amp;order=asc">{$sender}</a> {$orderarrow['username']}</strong></span></td>
+              <td class="tcat hide_mobile" align="right" width="20%" style="white-space: nowrap"><span class="smalltext"><strong><a href="private.php?fid={$folder}&amp;sortby=dateline&amp;order=desc">{$lang->date_sent}</a> {$orderarrow['dateline']}</strong></span></td>
+              <td class="tcat" align="center" width="1%" style="white-space: nowrap"><span class="smalltext"><input name="allbox" title="{$lang->check_all}" type="checkbox" class="checkbox checkall" value="{$lang->check_all}" /></span></td>
+            </tr>
+            {$messagelist}
+          </table>
+          <div class="tfoot" align="right">
+            <input type="submit" class="button" name="moveto" value="{$lang->move_to}" /> {$folderoplist} {$lang->or}
+            <input type="submit" class="button" name="delete" value="{$lang->delete}" /> {$lang->selected_messages}
+          </div>
+          <br />
+          <div class="float_left">{$multipage}</div>
+          <div class="float_right">
+            <span class="smalltext">
+              <strong>{$lang->jump_folder} {$folderjump}
+                <input type="submit" class="button" name="hop" value="{$lang->go}" />
+              </strong>
+            </span>
+          </div>
+        </td>
+      </div>
+      <input type="hidden" name="action" value="do_stuff" />
+      <!--[html-validate-disable-next  close-order]-->
+  </form>
+  </div>
+  {$footer}
+  <!--[html-validate-disable-next  close-order]-->
 </body>
+<!--[html-validate-disable-next  close-order]-->
+
 </html>

@@ -1,40 +1,41 @@
 <div class="modal">
   <div style="overflow-y: auto; max-height: 400px;" class="modal_{$id}">
-  <form action="report.php" method="post" class="reportData_{$id}" onsubmit="return Report.submitReport({$id});">
-<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-<input type="hidden" name="action" value="do_report" />
-<input type="hidden" name="type" value="{$report_type}" />
-<input type="hidden" name="pid" value="{$id}" />
-<input type="hidden" name="no_modal" value="1" />
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
-<tr>
-	<td class="thead" colspan="2"><strong>{$report_title}</strong></td>
-</tr>
-<tr>
-	<td class="tcat" colspan="2">{$lang->report_to_mod}</td>
-</tr>
-{$report_reasons}
-</table>
-</form>
+    <!--[html-validate-disable-next wcag/h32]-->
+    <form action="report.php" method="post" class="reportData_{$id}" onsubmit="return Report.submitReport({$id});">
+      <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+      <input type="hidden" name="action" value="do_report" />
+      <input type="hidden" name="type" value="{$report_type}" />
+      <input type="hidden" name="pid" value="{$id}" />
+      <input type="hidden" name="no_modal" value="1" />
+      <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
 
-<script type="text/javascript">
-<!--
-	if($("#report_reason option:selected").attr('data-extra') != 1)
-	{
-		$("#reason").hide();
-	}
+        <tr>
+          <td class="thead" colspan="2"><strong>{$report_title}</strong></td>
+        </tr>
 
-	$("#report_reason").on('change', function()
-	{
-		if($(this).find("option:selected").attr('data-extra') == 1)
-		{
-			$("#reason").show();
-			return;
-		}
+        <tr>
+          <td class="tcat" colspan="2">{$lang->report_to_mod}</td>
+        </tr>
+        {$report_reasons}
+      </table>
+    </form>
 
-		$("#reason").hide();
-	});
-// -->
-</script>
-</div>
+    <script>
+      <!--
+      if ($("#report_reason option:selected").attr('data-extra') != 1) {
+        $("#reason").hide();
+      }
+
+      $("#report_reason").on('change', function() {
+        if ($(this).find("option:selected").attr('data-extra') == 1) {
+          $("#reason").show();
+          return;
+        }
+
+        $("#reason").hide();
+      });
+      // 
+      -->
+    </script>
+  </div>
 </div>

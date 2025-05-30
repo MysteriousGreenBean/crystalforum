@@ -1,441 +1,375 @@
 var inlineModeration = {
-	init: function()
-	{
-		$(function(){
-			if($("#inlinemoderation_options_selector").length !== 0) {
-				$("#inlinemoderation_options_selector").on('change', function() {
-					$("#inlinemoderation_options").trigger('submit');
-				});
+    init: function () {
+        $(function () {
+            if ($('#inlinemoderation_options_selector').length !== 0) {
+                $('#inlinemoderation_options_selector').on(
+                    'change',
+                    function () {
+                        $('#inlinemoderation_options').trigger('submit')
+                    }
+                )
 
-				$("#inlinemoderation_options").on('submit', function(){
-					if($("#inlinemoderation_options_selector").val() == "") {
-						$.jGrowl(lang.select_tool, {theme:'jgrowl_error'});
-						return false;
-					} else if($('input[name^="inlinemod_"]:checked').length === 0) {
-						$.jGrowl(lang.selected_nil, {theme:'jgrowl_error'});
-						return false;
-					}
-				});
-			}
-		});
-		
-		if(!inlineType || !inlineId)
-		{
-			return false;
-		}
+                $('#inlinemoderation_options').on('submit', function () {
+                    if ($('#inlinemoderation_options_selector').val() == '') {
+                        $.jGrowl(lang.select_tool, { theme: 'jgrowl_error' })
+                        return false
+                    } else if (
+                        $('input[name^="inlinemod_"]:checked').length === 0
+                    ) {
+                        $.jGrowl(lang.selected_nil, { theme: 'jgrowl_error' })
+                        return false
+                    }
+                })
+            }
+        })
 
-		inlineModeration.cookieName = 'inlinemod_'+inlineType+inlineId;
-		var inputs = $('input');
+        if (!inlineType || !inlineId) {
+            return false
+        }
 
-		if(!inputs.length)
-		{
-			return false;
-		}
+        inlineModeration.cookieName = 'inlinemod_' + inlineType + inlineId
+        var inputs = $('input')
 
-		var inlineIds = inlineModeration.getCookie(inlineModeration.cookieName);
-		var removedIds = inlineModeration.getCookie(inlineModeration.cookieName+'_removed');
-		var allChecked = true;
+        if (!inputs.length) {
+            return false
+        }
 
-		$(inputs).each(function() {
-			var element = $(this);
-			if((element.attr('name') != 'allbox') && (element.attr('type') == 'checkbox') && (element.attr('id')) && (element.attr('id').split('_')[0] == 'inlinemod'))
-			{
-				$(element).on('click', inlineModeration.checkItem);
-			}
+        var inlineIds = inlineModeration.getCookie(inlineModeration.cookieName)
+        var removedIds = inlineModeration.getCookie(
+            inlineModeration.cookieName + '_removed'
+        )
+        var allChecked = true
 
-			if(element.attr('id'))
-			{
-				var inlineCheck = element.attr('id').split('_');
-				var id = inlineCheck[1];
+        $(inputs).each(function () {
+            var element = $(this)
+            if (
+                element.attr('name') != 'allbox' &&
+                element.attr('type') == 'checkbox' &&
+                element.attr('id') &&
+                element.attr('id').split('_')[0] == 'inlinemod'
+            ) {
+                $(element).on('click', inlineModeration.checkItem)
+            }
 
-				if(inlineCheck[0] == 'inlinemod')
-				{
-					if(inlineIds.indexOf(id) != -1 || (inlineIds.indexOf('ALL') != -1 && removedIds.indexOf(id) == -1))
-					{
-						element.prop('checked', true);
-						var post = element.parents('.post');
-						var thread = element.parents('.inline_row');
-						var fieldset = element.parents('fieldset');
-						if(post.length)
-						{
-							post.addClass('trow_selected');
-						}
-						else if(thread.length)
-						{
-							thread.addClass('trow_selected');
-						}
-						
-						if(fieldset.length)
-						{
-							fieldset.addClass('inline_selected');
-						}
+            if (element.attr('id')) {
+                var inlineCheck = element.attr('id').split('_')
+                var id = inlineCheck[1]
 
-					}
-					else
-					{
-						element.prop('checked', false);
-						var post = element.parents('.post');
-						var thread = element.parents('.inline_row');
-						if(post.length)
-						{
-							post.removeClass('trow_selected');
-						}
-						else if(thread.length)
-						{
-							thread.removeClass('trow_selected');
-						}
-					}
-					allChecked = false;
-				}
-			}
-		});
+                if (inlineCheck[0] == 'inlinemod') {
+                    if (
+                        inlineIds.indexOf(id) != -1 ||
+                        (inlineIds.indexOf('ALL') != -1 &&
+                            removedIds.indexOf(id) == -1)
+                    ) {
+                        element.prop('checked', true)
+                        var post = element.parents('.post')
+                        var thread = element.parents('.inline_row')
+                        var fieldset = element.parents('fieldset')
+                        if (post.length) {
+                            post.addClass('trow_selected')
+                        } else if (thread.length) {
+                            thread.addClass('trow_selected')
+                        }
 
-		inlineModeration.updateCookies(inlineIds, removedIds);
+                        if (fieldset.length) {
+                            fieldset.addClass('inline_selected')
+                        }
+                    } else {
+                        element.prop('checked', false)
+                        var post = element.parents('.post')
+                        var thread = element.parents('.inline_row')
+                        if (post.length) {
+                            post.removeClass('trow_selected')
+                        } else if (thread.length) {
+                            thread.removeClass('trow_selected')
+                        }
+                    }
+                    allChecked = false
+                }
+            }
+        })
 
-		if(inlineIds.indexOf('ALL') != -1 && removedIds.length == 0)
-		{
-			var allSelectedRow = $('#allSelectedrow');
-			if(allSelectedRow)
-			{
-				allSelectedRow.show();
-			}
-		}
-		else if(inlineIds.indexOf('ALL') == -1 && allChecked == true)
-		{
-			var selectRow = $('#selectAllrow');
-			if(selectRow)
-			{
-				selectRow.show();
-			}
-		}
-		return true;
-	},
+        inlineModeration.updateCookies(inlineIds, removedIds)
 
-	checkItem: function()
-	{
-		var element = $(this);
+        if (inlineIds.indexOf('ALL') != -1 && removedIds.length == 0) {
+            var allSelectedRow = $('#allSelectedrow')
+            if (allSelectedRow) {
+                allSelectedRow.show()
+            }
+        } else if (inlineIds.indexOf('ALL') == -1 && allChecked == true) {
+            var selectRow = $('#selectAllrow')
+            if (selectRow) {
+                selectRow.show()
+            }
+        }
+        return true
+    },
 
-		if(!element || !element.attr('id'))
-		{
-			return false;
-		}
+    checkItem: function () {
+        var element = $(this)
 
-		var inlineCheck = element.attr('id').split('_');
-		var id = inlineCheck[1];
+        if (!element || !element.attr('id')) {
+            return false
+        }
 
-		if(!id)
-		{
-			return false;
-		}
+        var inlineCheck = element.attr('id').split('_')
+        var id = inlineCheck[1]
 
-		var inlineIds = inlineModeration.getCookie(inlineModeration.cookieName);
-		var removedIds = inlineModeration.getCookie(inlineModeration.cookieName+'_removed');
+        if (!id) {
+            return false
+        }
 
-		if(element.prop('checked') == true)
-		{
-			if(inlineIds.indexOf('ALL') == -1)
-			{
-				inlineIds = inlineModeration.addId(inlineIds, id);
-			}
-			else
-			{
-				removedIds = inlineModeration.removeId(removedIds, id);
-				if(removedIds.length == 0)
-				{
-					var allSelectedRow = $('#allSelectedrow');
-					if(allSelectedRow)
-					{
-						allSelectedRow.show();
-					}
-				}
-			}
-			var post = element.parents('.post');
-			var thread = element.parents('.inline_row');
-			if(post.length)
-			{
-				post.addClass('trow_selected');
-			}
-			else if(thread.length)
-			{
-				thread.addClass('trow_selected');
-			}
-		}
-		else
-		{
-			if(inlineIds.indexOf('ALL') == -1)
-			{
-				inlineIds = inlineModeration.removeId(inlineIds, id);
-				var selectRow = $('#selectAllrow');
-				if(selectRow)
-				{
-					selectRow.hide();
-				}
-			}
-			else
-			{
-				removedIds = inlineModeration.addId(removedIds, id);
-				var allSelectedRow = $('#allSelectedrow');
-				if(allSelectedRow)
-				{
-					allSelectedRow.hide();
-				}
-			}
-			var post = element.parents('.post');
-			var thread = element.parents('.inline_row');
-			if(post.length)
-			{
-				post.removeClass('trow_selected');
-			}
-			else if(thread.length)
-			{
-				thread.removeClass('trow_selected');
-			}
-		}
+        var inlineIds = inlineModeration.getCookie(inlineModeration.cookieName)
+        var removedIds = inlineModeration.getCookie(
+            inlineModeration.cookieName + '_removed'
+        )
 
-		inlineModeration.updateCookies(inlineIds, removedIds);
+        if (element.prop('checked') == true) {
+            if (inlineIds.indexOf('ALL') == -1) {
+                inlineIds = inlineModeration.addId(inlineIds, id)
+            } else {
+                removedIds = inlineModeration.removeId(removedIds, id)
+                if (removedIds.length == 0) {
+                    var allSelectedRow = $('#allSelectedrow')
+                    if (allSelectedRow) {
+                        allSelectedRow.show()
+                    }
+                }
+            }
+            var post = element.parents('.post')
+            var thread = element.parents('.inline_row')
+            if (post.length) {
+                post.addClass('trow_selected')
+            } else if (thread.length) {
+                thread.addClass('trow_selected')
+            }
+        } else {
+            if (inlineIds.indexOf('ALL') == -1) {
+                inlineIds = inlineModeration.removeId(inlineIds, id)
+                var selectRow = $('#selectAllrow')
+                if (selectRow) {
+                    selectRow.hide()
+                }
+            } else {
+                removedIds = inlineModeration.addId(removedIds, id)
+                var allSelectedRow = $('#allSelectedrow')
+                if (allSelectedRow) {
+                    allSelectedRow.hide()
+                }
+            }
+            var post = element.parents('.post')
+            var thread = element.parents('.inline_row')
+            if (post.length) {
+                post.removeClass('trow_selected')
+            } else if (thread.length) {
+                thread.removeClass('trow_selected')
+            }
+        }
 
-		return true;
-	},
+        inlineModeration.updateCookies(inlineIds, removedIds)
 
-	clearChecked: function()
-	{
-		$('#selectAllrow').hide();
-		$('#allSelectedrow').hide();
+        return true
+    },
 
-		var inputs = $('input');
+    clearChecked: function () {
+        $('#selectAllrow').hide()
+        $('#allSelectedrow').hide()
 
-		if(!inputs.length)
-		{
-			return false;
-		}
+        var inputs = $('input')
 
-		$(inputs).each(function() {
-			var element = $(this);
-			if(!element.val()) return;
-			if(element.attr('type') == 'checkbox' && ((element.attr('id') && element.attr('id').split('_')[0] == 'inlinemod') || element.attr('name') == 'allbox'))
-			{
-				element.prop('checked', false);
-			}
-		});
+        if (!inputs.length) {
+            return false
+        }
 
-		$('.trow_selected').each(function() {
-			$(this).removeClass('trow_selected');
-		});
+        $(inputs).each(function () {
+            var element = $(this)
+            if (!element.val()) return
+            if (
+                element.attr('type') == 'checkbox' &&
+                ((element.attr('id') &&
+                    element.attr('id').split('_')[0] == 'inlinemod') ||
+                    element.attr('name') == 'allbox')
+            ) {
+                element.prop('checked', false)
+            }
+        })
 
-		$('fieldset.inline_selected').each(function() {
-			$(this).removeClass('inline_selected');
-		});
+        $('.trow_selected').each(function () {
+            $(this).removeClass('trow_selected')
+        })
 
-		$('#inline_go').val(go_text+' (0)');
-		Cookie.unset(inlineModeration.cookieName);
-		Cookie.unset(inlineModeration.cookieName + '_removed');
+        $('fieldset.inline_selected').each(function () {
+            $(this).removeClass('inline_selected')
+        })
 
-		return true;
-	},
+        $('#inline_go').val(go_text + ' (0)')
+        Cookie.unset(inlineModeration.cookieName)
+        Cookie.unset(inlineModeration.cookieName + '_removed')
 
-	checkAll: function(master)
-	{
-		inputs = $('input');
-		master = $(master);
+        return true
+    },
 
-		if(!inputs.length)
-		{
-			return false;
-		}
+    checkAll: function (master) {
+        inputs = $('input')
+        master = $(master)
 
-		var inlineIds = inlineModeration.getCookie(inlineModeration.cookieName);
-		var removedIds = inlineModeration.getCookie(inlineModeration.cookieName+'_removed');
+        if (!inputs.length) {
+            return false
+        }
 
-		var newIds = new Array();
-		$(inputs).each(function() {
-			var element = $(this);
-			if(!element.val() || !element.attr('id')) return;
-			inlineCheck = element.attr('id').split('_');
-			if((element.attr('name') != 'allbox') && (element.attr('type') == 'checkbox') && (inlineCheck[0] == 'inlinemod'))
-			{
-				var id = inlineCheck[1];
-				var changed = (element.prop('checked') != master.prop('checked'));
+        var inlineIds = inlineModeration.getCookie(inlineModeration.cookieName)
+        var removedIds = inlineModeration.getCookie(
+            inlineModeration.cookieName + '_removed'
+        )
 
-				var post = element.parents('.post');
-				var fieldset = element.parents('fieldset');
-				var thread = element.parents('.inline_row');
-				if(post.length)
-				{
-					if(master.prop('checked') == true)
-					{
-						post.addClass('trow_selected');
-					}
-					else
-					{
-						post.removeClass('trow_selected');
-					}
-				}
-				else if(thread.length)
-				{
-					if(master.prop('checked') == true)
-					{
-						thread.addClass('trow_selected');
-					}
-					else
-					{
-						thread.removeClass('trow_selected');
-					}
-				}
-				
-				if(fieldset.length)
-				{
-					if(master.prop('checked') == true)
-					{
-						fieldset.addClass('inline_selected');
-					}
-					else
-					{
-						fieldset.removeClass('inline_selected');
-					}
-				}
+        var newIds = new Array()
+        $(inputs).each(function () {
+            var element = $(this)
+            if (!element.val() || !element.attr('id')) return
+            inlineCheck = element.attr('id').split('_')
+            if (
+                element.attr('name') != 'allbox' &&
+                element.attr('type') == 'checkbox' &&
+                inlineCheck[0] == 'inlinemod'
+            ) {
+                var id = inlineCheck[1]
+                var changed = element.prop('checked') != master.prop('checked')
 
-				if(changed)
-				{
-					element.trigger('click');
-					
-					if(master.prop('checked') == true)
-					{
-						if(inlineIds.indexOf('ALL') == -1)
-						{
-							inlineIds = inlineModeration.addId(inlineIds, id);
-						}
-						else
-						{
-							removedIds = inlineModeration.removeId(removedIds, id);
-						}
-					}
-					else
-					{
-						if(inlineIds.indexOf('ALL') == -1)
-						{
-							inlineIds = inlineModeration.removeId(inlineIds, id);
-						}
-						else
-						{
-							removedIds = inlineModeration.addId(removedIds, id);
-						}
-					}
-				}
-			}
-		});
+                var post = element.parents('.post')
+                var fieldset = element.parents('fieldset')
+                var thread = element.parents('.inline_row')
+                if (post.length) {
+                    if (master.prop('checked') == true) {
+                        post.addClass('trow_selected')
+                    } else {
+                        post.removeClass('trow_selected')
+                    }
+                } else if (thread.length) {
+                    if (master.prop('checked') == true) {
+                        thread.addClass('trow_selected')
+                    } else {
+                        thread.removeClass('trow_selected')
+                    }
+                }
 
-		var count = inlineModeration.updateCookies(inlineIds, removedIds);
+                if (fieldset.length) {
+                    if (master.prop('checked') == true) {
+                        fieldset.addClass('inline_selected')
+                    } else {
+                        fieldset.removeClass('inline_selected')
+                    }
+                }
 
-		if(count < all_text)
-		{
-			var selectRow = $('#selectAllrow');
-			if(selectRow.length)
-			{
-				if(master.prop('checked') == true)
-				{
-					selectRow.show();
-				}
-				else
-				{
-					selectRow.hide();
-				}
-			}
-		}
+                if (changed) {
+                    element.trigger('click')
 
-		if(inlineIds.indexOf('ALL') == -1 || removedIds.length != 0)
-		{
-			$('#allSelectedrow').hide();
-		}
-		else if(inlineIds.indexOf('ALL') != -1 && removedIds.length == 0)
-		{
-			$('#allSelectedrow').show();
-		}
-	},
+                    if (master.prop('checked') == true) {
+                        if (inlineIds.indexOf('ALL') == -1) {
+                            inlineIds = inlineModeration.addId(inlineIds, id)
+                        } else {
+                            removedIds = inlineModeration.removeId(
+                                removedIds,
+                                id
+                            )
+                        }
+                    } else {
+                        if (inlineIds.indexOf('ALL') == -1) {
+                            inlineIds = inlineModeration.removeId(inlineIds, id)
+                        } else {
+                            removedIds = inlineModeration.addId(removedIds, id)
+                        }
+                    }
+                }
+            }
+        })
 
-	selectAll: function()
-	{
-		inlineModeration.updateCookies(new Array('ALL'), new Array());
+        var count = inlineModeration.updateCookies(inlineIds, removedIds)
 
-		$('#selectAllrow').hide();
-		$('#allSelectedrow').show();
-	},
+        if (count < all_text) {
+            var selectRow = $('#selectAllrow')
+            if (selectRow.length) {
+                if (master.prop('checked') == true) {
+                    selectRow.show()
+                } else {
+                    selectRow.hide()
+                }
+            }
+        }
 
-	getCookie: function(name)
-	{
-		var inlineCookie = Cookie.get(name);
+        if (inlineIds.indexOf('ALL') == -1 || removedIds.length != 0) {
+            $('#allSelectedrow').hide()
+        } else if (inlineIds.indexOf('ALL') != -1 && removedIds.length == 0) {
+            $('#allSelectedrow').show()
+        }
+    },
 
-		var ids = new Array();
-		if(inlineCookie)
-		{
-			var inlineIds = inlineCookie.split('|');
-			$.each(inlineIds, function(index, item) {
-				if(item != '' && item != null)
-				{
-					ids.push(item);
-				}
-			});
-		}
-		return ids;
-	},
+    selectAll: function () {
+        inlineModeration.updateCookies(new Array('ALL'), new Array())
 
-	setCookie: function(name, array)
-	{
-		if(array.length != 0)
-		{
-			var data = '|'+array.join('|')+'|';
-			Cookie.set(name, data, 60 * 60 * 1000);
-		}
-		else
-		{
-			Cookie.unset(name);
-		}
-	},
+        $('#selectAllrow').hide()
+        $('#allSelectedrow').show()
+    },
 
-	updateCookies: function(inlineIds, removedIds)
-	{
-		if(inlineIds.indexOf('ALL') != -1)
-		{
-			var count = all_text - removedIds.length;
-		}
-		else
-		{
-			var count = inlineIds.length;
-		}
-		if(count < 0)
-		{
-			count = 0;
-		}
-		$('#inline_go').val(go_text+' ('+count+')');
-		if(count == 0)
-		{
-			inlineModeration.clearChecked();
-		}
-		else
-		{
-			inlineModeration.setCookie(inlineModeration.cookieName, inlineIds);
-			inlineModeration.setCookie(inlineModeration.cookieName+'_removed', removedIds);
-		}
-		return count;
-	},
+    getCookie: function (name) {
+        var inlineCookie = Cookie.get(name)
 
-	addId: function(array, id)
-	{
-		if(array.indexOf(id) == -1)
-		{
-			array.push(id);
-		}
-		return array;
-	},
+        var ids = new Array()
+        if (inlineCookie) {
+            var inlineIds = inlineCookie.split('|')
+            $.each(inlineIds, function (index, item) {
+                if (item != '' && item != null) {
+                    ids.push(item)
+                }
+            })
+        }
+        return ids
+    },
 
-	removeId: function(array, id)
-	{
-		var position = array.indexOf(id);
-		if(position != -1)
-		{
-			array.splice(position, 1);
-		}
-		return array;
-	}
-};
+    setCookie: function (name, array) {
+        if (array.length != 0) {
+            var data = '|' + array.join('|') + '|'
+            Cookie.set(name, data, 60 * 60 * 1000)
+        } else {
+            Cookie.unset(name)
+        }
+    },
 
-$(inlineModeration.init);
+    updateCookies: function (inlineIds, removedIds) {
+        if (inlineIds.indexOf('ALL') != -1) {
+            var count = all_text - removedIds.length
+        } else {
+            var count = inlineIds.length
+        }
+        if (count < 0) {
+            count = 0
+        }
+        $('#inline_go').val(go_text + ' (' + count + ')')
+        if (count == 0) {
+            inlineModeration.clearChecked()
+        } else {
+            inlineModeration.setCookie(inlineModeration.cookieName, inlineIds)
+            inlineModeration.setCookie(
+                inlineModeration.cookieName + '_removed',
+                removedIds
+            )
+        }
+        return count
+    },
+
+    addId: function (array, id) {
+        if (array.indexOf(id) == -1) {
+            array.push(id)
+        }
+        return array
+    },
+
+    removeId: function (array, id) {
+        var position = array.indexOf(id)
+        if (position != -1) {
+            array.splice(position, 1)
+        }
+        return array
+    },
+}
+
+$(inlineModeration.init)

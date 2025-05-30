@@ -1,53 +1,71 @@
-<html>
+<html lang="pl">
+
 <head>
-<title>{$mybb->settings['bbname']} - {$lang->edit_sig}</title>
-{$headerinclude}
+  <title>{$mybb->settings['bbname']} - {$lang->edit_sig}</title>
+  {$headerinclude}
 </head>
+
 <body>
-{$header}
-<form action="usercp.php" method="post">
-<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-<div class="flex-container">
-<div id="nav_width">{$usercpnav}</div>
-<div id="content_width">
-<td valign="top">
-{$error}
-{$signature}
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder newreply">
-<tr>
-<td class="thead" colspan="2"><strong>{$lang->edit_sig}</strong></td>
-</tr>
-<tr>
-<td class="trow1 hide_mobile" valign="top" width="20%"><span class="smalltext">{$lang->edit_sig_note}</span>
-{$smilieinserter}</td>
-<td class="trow1" width="80%">
-	<div class="post_inside">
-<textarea rows="15" cols="70" id="signature" name="signature">{$sig}</textarea>
-{$codebuttons}
-</td>
-</tr>
-<tr>
-<td class="trow2 hide_mobile">
-<span class="smalltext">{$lang->edit_sig_note2}</span>
-</td>
-<td class="trow2 hide_mobile">
-<span class="smalltext">
-<label><input type="radio" class="radio" name="updateposts" value="enable" />&nbsp;{$lang->enable_sig_posts}</label><br />
-<label><input type="radio" class="radio" name="updateposts" value="disable" />&nbsp;{$lang->disable_sig_posts}</label><br />
-<label><input type="radio" class="radio" name="updateposts" value="0" checked="checked" />&nbsp;{$lang->leave_sig_settings}</label></span>
-</td>
-</tr>
-</table>
-<br />
-<div align="center">
-<input type="hidden" name="action" value="do_editsig" />
-<input type="submit" class="button" name="submit" value="{$lang->update_sig}" />
-<input type="submit" class="button" name="preview" value="{$lang->preview}" />
-</div>
-</td>
-	</div>
-	</div>
-</form>
-{$footer}
+  {$header}
+  <form action="usercp.php" method="post">
+    <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+    <!--[html-validate-disable-next close-order]-->
+    <div class="flex-container">
+      <div id="nav_width">{$usercpnav}</div>
+      <div id="content_width">
+        <!--[html-validate-disable-next close-order, no-implicit-close]-->
+        <td valign="top">
+          {$error}
+          {$signature}
+          <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder newreply">
+            <tr>
+              <td class="thead" colspan="2"><strong>{$lang->edit_sig}</strong></td>
+            </tr>
+            <!--[html-validate-disable-next  no-implicit-close]-->
+            <tr>
+              <td class="trow1 hide_mobile" valign="top" width="20%"><span class="smalltext">{$lang->edit_sig_note}</span>
+                {$smilieinserter}</td>
+              <!--[html-validate-disable-next  no-implicit-close]-->
+              <td class="trow1" width="80%">
+                <!--[html-validate-disable-next  close-order]-->
+                <div class="post_inside">
+                  <textarea rows="15" cols="70" id="signature" name="signature">{$sig}</textarea>
+                  {$codebuttons}
+                  <!--[html-validate-disable-next  close-order]-->
+              </td>
+              <!--[html-validate-disable-next  close-order]-->
+            </tr>
+
+            <!--[html-validate-disable-next  element-permitted-content]-->
+            <tr>
+              <td class="trow2 hide_mobile">
+                <span class="smalltext">{$lang->edit_sig_note2}</span>
+              </td>
+              <td class="trow2 hide_mobile">
+                <span class="smalltext">
+                  <label><input type="radio" class="radio" name="updateposts" value="enable" />&nbsp;{$lang->enable_sig_posts}</label><br />
+                  <label><input type="radio" class="radio" name="updateposts" value="disable" />&nbsp;{$lang->disable_sig_posts}</label><br />
+                  <label><input type="radio" class="radio" name="updateposts" value="0" checked />&nbsp;{$lang->leave_sig_settings}</label></span>
+              </td>
+            </tr>
+            <!--[html-validate-disable-next  close-order]-->
+          </table>
+          <br />
+          <div align="center">
+            <input type="hidden" name="action" value="do_editsig" />
+            <input type="submit" class="button" name="submit" value="{$lang->update_sig}" />
+            <input type="submit" class="button" name="preview" value="{$lang->preview}" />
+          </div>
+          <!--[html-validate-disable-next  close-order]-->
+        </td>
+      </div>
+      <!--[html-validate-disable-next  close-order]-->
+    </div>
+    <!--[html-validate-disable-next  close-order]-->
+  </form>
+  {$footer}
+  <!--[html-validate-disable-next  close-order]-->
 </body>
+<!--[html-validate-disable-next  close-order]-->
+
 </html>

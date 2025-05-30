@@ -6,10 +6,14 @@
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
 
-$l['logindata_invalidpwordusername'] = "Wprowadzono nieprawidłowy login i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
-$l['logindata_invalidpwordusernameemail'] = "Wprowadzono nieprawidłowy adres e-mail i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
-$l['logindata_invalidpwordusernamecombo'] = "Wprowadzono nieprawidłowy login i/lub hasło albo adres e-mail i/lub hasło. <br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
+$l['logindata_invalidpwordusername'] =
+    "Wprowadzono nieprawidłowy login i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
+$l['logindata_invalidpwordusernameemail'] =
+    "Wprowadzono nieprawidłowy adres e-mail i/lub hasło.<br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
+$l['logindata_invalidpwordusernamecombo'] =
+    "Wprowadzono nieprawidłowy login i/lub hasło albo adres e-mail i/lub hasło. <br /><br />Jeżeli nie pamiętasz swojego hasła, <a href=\"member.php?action=lostpw\">kliknij tutaj</a>, by wygenerować nowe.";
 
-$l['logindata_regimageinvalid'] = "Wprowadzony kod z obrazka jest nieprawidłowy. Przepisz kod identyczny jak ten na obrazku.";
-$l['logindata_regimagerequired'] = "Uzupełnij kod weryfikujący aby kontynuować proces logowania. Przepisz kod identyczny jak ten na obrazku.";
-
+$l['logindata_regimageinvalid'] =
+    'Wprowadzony kod z obrazka jest nieprawidłowy. Przepisz kod identyczny jak ten na obrazku.';
+$l['logindata_regimagerequired'] =
+    'Uzupełnij kod weryfikujący aby kontynuować proces logowania. Przepisz kod identyczny jak ten na obrazku.';

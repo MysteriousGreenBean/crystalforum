@@ -1,291 +1,370 @@
-<html>
+<html lang="pl">
+
 <head>
-<title>{$mybb->settings['bbname']} - {$lang->profile}</title>
-{$headerinclude}
-<script type="text/javascript" src="{$mybb->asset_url}/jscripts/report.js?ver=1804"></script>
-<script>
+  <title>{$mybb->settings['bbname']} - {$lang->profile}</title>
+  {$headerinclude}
+  <script src="{$mybb->asset_url}/jscripts/report.js?ver=1804"></script>
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const tabButtons = document.querySelectorAll(".tab-button");
-        const tabContents = document.querySelectorAll(".tab-content");
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabContents = document.querySelectorAll(".tab-content");
 
-        tabButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                // Remove active class from all buttons and content
-                tabButtons.forEach(btn => btn.classList.remove("active"));
-                tabContents.forEach(content => content.classList.remove("active"));
+      tabButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          // Remove active class from all buttons and content
+          tabButtons.forEach(btn => btn.classList.remove("active"));
+          tabContents.forEach(content => content.classList.remove("active"));
 
-                // Add active class to the clicked button and its corresponding content
-                button.classList.add("active");
-                const tabId = button.getAttribute("data-tab");
-                document.getElementById(tabId).classList.add("active");
-            });
+          // Add active class to the clicked button and its corresponding content
+          button.classList.add("active");
+          const tabId = button.getAttribute("data-tab");
+          document.getElementById(tabId).classList.add("active");
         });
+      });
     });
-</script>
+  </script>
 
 
 </head>
+
 <body>
-{$header}
-<div class="post classic">
-<div class="character_nick"><center>{$formattedname}</center></div>
-<div class="profile_container">
-	<div class="left_profile">
-		<!-- Avatar or other content -->
-		<div class="user_title_space"><div class="user_title">{$usertitle}</div>
-			<div class="profile_avatar_container profile_avatar">{$avatar}</div>
-			<div class="user_title"><img src="{$displaygroup['image']}" alt="" title="{$displaygroup['title']}" class='groupImage'/></div>
-		</div>
-		<div class="profile_extras">
-			
-			{$awaybit}{$bannedbit}
-			<div class="profile_extras_links">
-				<div class="profile_links">
-					<a href="private.php?action=send&amp;uid={$memprofile['uid']}"><i class="cp cp-envelope" title="Wyślij wiadomość prywatną"></i></a>
-					<a href="javascript:MyBB.reputation({$memprofile['uid']});"><i class="cp cp-star" title="Dodaj punkty reputacji"></i></a>
-					<if $userfields['fid2'] then><a href="{$userfields['fid2']}"><i class="cp cp-feather" title="Korespondencja"></i></a></if>
-					<if $userfields['fid3'] then><a href="{$userfields['fid3']}"><i class="cp cp-home" title="Miejsce zamieszkania"></i></a></if>
-					<if $userfields['fid4'] then><a href="{$userfields['fid4']}"><i class="cp cp-clover" title="Aktualizacje mechaniczne"></i></a></if>
-					<if $userfields['fid5'] then><a href="{$userfields['fid5']}"><i class="cp cp-music-note" title="Playlista"></i></a></if>
-					<a href="search.php?action=finduserthreads&amp;uid={$uid}"><i class="cp cp-folder" title="Wszystkie tematy: {$memprofile['threadnum']}"></i></a>
-					<a href="search.php?action=finduser&amp;uid={$uid}"><i class="cp cp-document" title="Wszystkie posty: {$memprofile['postnum']}"></i></a>
-					<a href="reputation.php?uid={$memprofile['uid']}" title="Reputacja"><div class="reputacja">{$reputation}</div></a>
-					{$online_status}
-				</div>
-					
-			</div>
-			<div class="online-location">
-				({$location} @ {$location_time})
-			</div>
-		</div>
-	</div>
-	
+  {$header}
+  <div class="post classic">
+    <div class="character_nick">
+      <center>{$formattedname}</center>
+    </div>
+    <div class="profile_container">
+      <div class="left_profile">
+        <!-- Avatar or other content -->
+        <div class="user_title_space">
+          <div class="user_title">{$usertitle}</div>
+          <div class="profile_avatar_container profile_avatar">{$avatar}</div>
+          <div class="user_title"><img src="{$displaygroup['image']}" alt="" title="{$displaygroup['title']}" class='groupImage' /></div>
+        </div>
+        <div class="profile_extras">
 
-<div class="right_profile">
+          {$awaybit}{$bannedbit}
+          <div class="profile_extras_links">
+            <div class="profile_links">
+              <a href="private.php?action=send&amp;uid={$memprofile['uid']}"><i class="cp cp-envelope" title="Wyślij wiadomość prywatną"></i></a>
+              <a href="javascript:MyBB.reputation({$memprofile['uid']});"><i class="cp cp-star" title="Dodaj punkty reputacji"></i></a>
+              <if $userfields['fid2'] then><a href="{$userfields['fid2']}"><i class="cp cp-feather" title="Korespondencja"></i></a></if>
+              <if $userfields['fid3'] then><a href="{$userfields['fid3']}"><i class="cp cp-home" title="Miejsce zamieszkania"></i></a></if>
+              <if $userfields['fid4'] then><a href="{$userfields['fid4']}"><i class="cp cp-clover" title="Aktualizacje mechaniczne"></i></a></if>
+              <if $userfields['fid5'] then><a href="{$userfields['fid5']}"><i class="cp cp-music-note" title="Playlista"></i></a></if>
+              <a href="search.php?action=finduserthreads&amp;uid={$uid}"><i class="cp cp-folder" title="Wszystkie tematy: {$memprofile['threadnum']}"></i></a>
+              <a href="search.php?action=finduser&amp;uid={$uid}"><i class="cp cp-document" title="Wszystkie posty: {$memprofile['postnum']}"></i></a>
+              <a href="reputation.php?uid={$memprofile['uid']}" title="Reputacja">
+                <div class="reputacja">{$reputation}</div>
+              </a>
+              {$online_status}
+            </div>
 
-<!-- Profile for Admins -->
-<if $memprofile['usergroup'] == "4" then>
-	<div class="tabs">
-		<div class="tab-buttons">
-			<button class="tab-button active" data-tab="tab1">Konto Administracyjne</button>
-			<button class="tab-button" data-tab="tab2">Statystyki</button>
-		</div>
-		<div class="tab-content active" id="tab1">
-			<br/>
-			<div class="profile_header">Kilka słów o Administracji</div>
-			<div class="profile_frame">
-				<div class="profile_details">
-					Jakieś info, kontakt, etc
-				</div>
-			</div><br/>
-		</div>
-		<div class="tab-content" id="tab2">
-			<br/>
-			<div class="profile_header">Informacje o koncie {$memprofile['username']}</div>
-			<div class="profile_frame">
-				<div class="profile_details">
-				<fieldset class="profile_field"><legend>{$lang->joined}</legend>{$memregdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->lastvisit}</legend>{$memlastvisitdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->timeonline}</legend>{$timeonline}</br></fieldset>
-				{$referrals}<br/>
-				</div>
-			</div><br/>
-		</div>
-	</div>
-</div>
-
-<!-- Profile for Game Masters -->
- <elseif $memprofile['usergroup'] == "8" then>
-	<div class="tabs">
-		<div class="tab-buttons">
-			<button class="tab-button active" data-tab="tab1">Karta Mistrza Gry</button>
-			<button class="tab-button" data-tab="tab2">Dziennik sesji</button>
-			<button class="tab-button" data-tab="tab3">Osiągnięcia</button>
-			<button class="tab-button" data-tab="tab4">Gracz</button>
-		</div>
-		<div class="tab-content active" id="tab1">
-			<br/>
-			<div class="profile_header">Informacje o Mistrzu Gry</div>
-			<div class="profile_frame">
-				<div class="profile_details">Jakieś info o Mistrzu gry? Jakie sesje lubi? cokolwiek lol </div>
-			</div><br/>
-
-			<div class="profile_header">Statystyki Mistrza Gry</div>
-			<div class="profile_frame">
-				<div class="profile_details">
-				<fieldset class="profile_field"><legend>{$lang->joined}</legend>{$memregdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->lastvisit}</legend>{$memlastvisitdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->timeonline}</legend>{$timeonline}</br></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->reputation}</legend> <a href="reputation.php?uid={$memprofile['uid']}" title="{$lang->reputation_details}">{$reputation}</a></fieldset>
-				{$myawards} <!-- this might be needed for awards later -->
-				</div>
-			</div><br/>
-
-		</div>
-		<div class="tab-content" id="tab2">
-			<h1>Sesje przeprowadzone przez {$memprofile['username']}</h1>
-			<p>Obowiązkowo sesje z mg, można też inne. Najlepiej by było mieć na to jakiś plugin dla graczy, żeby nie musieli tego wpisywać kodem.</p>
-		</div>
-		<div class="tab-content" id="tab3">
-			<h1>Kategoria osiągnięć</h1>
-			<p>Osięgnięcia</p>
-		</div>
-		<div class="tab-content" id="tab4">
-			<br/>
-			<div class="profile_header">Informacje o graczu</div>
-			<div class="profile_frame">
-				<!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
-				<div class="profile_details">
-					<div class="player_avatar_container player_avatar"><img src="https://i.imgur.com/uiHysm9.png"></div>
-					<fieldset class="profile_field"><legend>Zwrot</legend>XYZ</fieldset>
-					<fieldset class="profile_field"><legend>Discord</legend>eloziomek</fieldset>
-					<fieldset class="profile_field"><legend>Triggery</legend>No wpisz tu co cię triggeruje</fieldset>
-					<fieldset class="profile_field"><legend>Postacie w grze</legend>Lista multikont z linkami do nich hehe</fieldset>
-				</div>
-			</div><br/>
-			<div class="profile_details">{$report_options}</div></br>
-		</div>
-	</div>
-</div>
-
-<!-- Profile for Players -->
-<elseif $memprofile['usergroup'] == "18" then>
-	<div class="tabs">
-		<div class="tab-buttons">
-			<button class="tab-button active" data-tab="tab1">Gracz</button>
-			<button class="tab-button" data-tab="tab2">Dziennik</button>
-			<button class="tab-button" data-tab="tab3">Osiągnięcia</button>
-			<button class="tab-button" data-tab="tab4">Statystyki</button>
-		</div>
-		<div class="tab-content active" id="tab1">
-			<br/>
-			<div class="profile_header">Informacje o graczu</div>
-			<div class="profile_frame">
-				<!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
-				<div class="profile_details">
-					<fieldset class="profile_field"><legend>Zwrot</legend>XYZ</fieldset>
-					<fieldset class="profile_field"><legend>Discord</legend>eloziomek</fieldset>
-					<fieldset class="profile_field"><legend>Triggery</legend>No wpisz tu co cię triggeruje</fieldset>
-					<fieldset class="profile_field"><legend>Postacie w grze</legend>Lista multikont z linkami do nich hehe</fieldset>
-				</div>
-			</div>
-		</div>
-		<div class="tab-content" id="tab2">
-			<h1>Kalendarium wydarzeń</h1>
-			<p>Sesje grane dodatkowo postaciami NPC/Universal Person?</p>
-		</div>
-		<div class="tab-content" id="tab3">
-			<h1>Kategoria osiągnięć</h1>
-			<p>Osięgnięcia</p>
-		</div>
-		<div class="tab-content" id="tab4"><br/>
-			<div class="profile_header">Informacje o koncie {$memprofile['username']}</div>
-			<div class="profile_frame">
-				<div class="profile_details">
-				<fieldset class="profile_field"><legend>{$lang->joined}</legend>{$memregdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->lastvisit}</legend>{$memlastvisitdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->timeonline}</legend>{$timeonline}</br></fieldset>
-				{$referrals}<br/>
-				<fieldset class="profile_field"><legend>{$lang->reputation}</legend> <a href="reputation.php?uid={$memprofile['uid']}" title="{$lang->reputation_details}">{$reputation}</a></fieldset>
-				{$warning_level}
-				{$myawards} <!-- this might be needed for awards later -->
-				</div>
-			</div><br/>
-			<div class="profile_details">{$ignore_options}{$report_options}</div></br>
-		</div>
-	</div>
-</div>
-
-<!-- Profile for characters -->
-<else>		
-	<div class="tabs">
-		<div class="tab-buttons">
-			<button class="tab-button active" data-tab="tab1">Karta</button>
-			<button class="tab-button" data-tab="tab2">Mechanika</button>
-			<button class="tab-button" data-tab="tab3">Dziennik</button>
-			<button class="tab-button" data-tab="tab4">Relacje</button>
-			<button class="tab-button" data-tab="tab5">Osiągnięcia</button>
-			<button class="tab-button" data-tab="tab6">Gracz</button>
-		</div>
-		<div class="tab-content active" id="tab1">
-
-			<h1>Informacje o postaci</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porttitor aliquet ornare. Sed feugiat libero facilisis auctor lobortis. Integer eu risus augue. Duis ullamcorper eleifend tortor. Praesent faucibus facilisis ultricies. Donec nibh erat, venenatis eget leo eu, facilisis accumsan neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas interdum mauris in mollis convallis. Pellentesque rutrum mi nec tortor pharetra pretium. Integer eleifend pretium turpis in efficitur. Integer iaculis ut eros et commodo. Aliquam rhoncus aliquam lacus in lobortis. Proin quam tellus, posuere vitae euismod ac, consequat at erat. Fusce congue laoreet libero, vitae rhoncus lacus. Praesent non vehicula odio.
-
-				Curabitur aliquam lectus ex, in tristique felis pulvinar a. Fusce id dolor sit amet quam finibus cursus vel facilisis lorem. Proin convallis condimentum augue at laoreet. Ut quis metus ligula. Sed quis laoreet arcu. Fusce in aliquet eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam ac sem finibus, condimentum magna eget, pellentesque orci. Aliquam vitae lobortis felis, quis sagittis risus.
-				
-				Phasellus sodales dolor venenatis sem volutpat condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi id tincidunt nulla. Vivamus ut libero maximus, porta sem eget, rutrum justo. Nunc at accumsan tortor. Donec commodo massa metus, sit amet porttitor ligula placerat et. Fusce sapien elit, lobortis eget risus luctus, facilisis pretium sem. Sed faucibus vulputate convallis. Suspendisse in fermentum orci.
-				
-				Pellentesque eu lorem arcu. Morbi finibus, ipsum ac aliquam ullamcorper, metus ligula sodales elit, sed tincidunt turpis lacus a quam. Ut ultricies id neque a tincidunt. Donec et fermentum nunc. Integer vulputate sollicitudin ante, quis tempus tortor accumsan at. Pellentesque euismod, arcu non vehicula varius, lorem lacus aliquam ex, nec venenatis mi sem non felis. In vitae ante quis dolor pretium congue.
-				
-				Nulla faucibus lorem eget nibh sagittis, id cursus magna facilisis. Donec molestie, enim ac viverra sagittis, nibh tortor ultrices lorem, et placerat nisl mi nec orci. Mauris mollis molestie aliquet. Aliquam vulputate, dolor sed laoreet volutpat, arcu turpis condimentum massa, eu venenatis justo elit non libero. Quisque vulputate at eros eu faucibus. Nunc ut iaculis nunc, et tincidunt ante. Nulla venenatis, velit et sodales auctor, sapien ipsum cursus magna, et tempus nunc est id sem. Pellentesque posuere risus vel mauris viverra porttitor. Sed a blandit nisl. Sed vitae commodo ligula, sit amet aliquet libero. Nulla eu augue blandit mauris feugiat tincidunt. Nulla aliquet, lectus eu vehicula dapibus, erat dui congue nunc, a laoreet purus arcu at sem.</p>
-		</div>
-		<div class="tab-content" id="tab2">
-			<h1>Mechanika</h1>
-			<p>Różne staty i inne duperele</p>
-			<p>{$userfields['fid5']}</p>
-		</div>
-		<div class="tab-content" id="tab3">
-			<h1>Kalendarium wydarzeń</h1>
-			<p>Obowiązkowo sesje z mg, można też inne. Najlepiej by było mieć na to jakiś plugin dla graczy, żeby nie musieli tego wpisywać kodem.</p>
-		</div>
-		<div class="tab-content" id="tab4">
-			<h1>Rodzina</h1>
-			<p>Relacje z pluginu</p>
-			<h1>Przyjaciele i znajomi</h1>
-			<p>Relacje z pluginu</p>
-			<h1>Inne</h1>
-			<p>Relacje z pluginu</p>
-		</div>
-		<div class="tab-content" id="tab5">
-			<h1>Kategoria osiągnięć</h1>
-			<p>Osięgnięcia</p>
-		</div>
-		<div class="tab-content" id="tab6">
-			<br/>
-			<div class="profile_header">Informacje o graczu</div>
-			<div class="profile_frame">
-				<!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
-				<div class="profile_details">
-					<div class="player_avatar_container player_avatar"><img src="https://i.imgur.com/uiHysm9.png"></div>
-					<fieldset class="profile_field"><legend>Zwrot</legend>XYZ</fieldset>
-					<fieldset class="profile_field"><legend>Discord</legend>eloziomek</fieldset>
-					<fieldset class="profile_field"><legend>Triggery</legend>No wpisz tu co cię triggeruje</fieldset>
-					<fieldset class="profile_field"><legend>Postacie w grze</legend>Lista multikont z linkami do nich hehe</fieldset>
-				</div>
-			</div><br/>
-			<div class="profile_header">Informacje o koncie {$memprofile['username']}</div>
-			<div class="profile_frame">
-				<div class="profile_details">
-				<fieldset class="profile_field"><legend>{$lang->joined}</legend>{$memregdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->lastvisit}</legend>{$memlastvisitdate}</fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a></fieldset>
-				<fieldset class="profile_field"><legend>{$lang->timeonline}</legend>{$timeonline}</br></fieldset>
-				{$referrals}<br/>
-				<fieldset class="profile_field"><legend>{$lang->reputation}</legend> <a href="reputation.php?uid={$memprofile['uid']}" title="{$lang->reputation_details}">{$reputation}</a></fieldset>
-				{$warning_level}
-				{$myawards} <!-- this might be needed for awards later -->
-				</div>
-			</div><br/>
-			<div class="profile_details">{$buddy_options}{$ignore_options}{$report_options}</div></br>
-		</div>
-	</div>
-</div>
-</else>	
-</if>
-</div></div>
-<br/>
-	{$modoptions}
-	{$adminoptions}
+          </div>
+          <div class="online-location">
+            ({$location} @ {$location_time})
+          </div>
+        </div>
+      </div>
 
 
-{$footer}
+      <div class="right_profile">
+
+        <!-- Profile for Admins -->
+        <if $memprofile['usergroup']=="4" then>
+          <div class="tabs">
+            <div class="tab-buttons">
+              <button class="tab-button active" data-tab="tab1">Konto Administracyjne</button>
+              <button class="tab-button" data-tab="tab2">Statystyki</button>
+            </div>
+            <div class="tab-content active" id="tab1">
+              <br />
+              <div class="profile_header">Kilka słów o Administracji</div>
+              <div class="profile_frame">
+                <div class="profile_details">
+                  Jakieś info, kontakt, etc
+                </div>
+              </div><br />
+            </div>
+            <div class="tab-content" id="tab2">
+              <br />
+              <div class="profile_header">Informacje o koncie {$memprofile['username']}</div>
+              <div class="profile_frame">
+                <div class="profile_details">
+                  <fieldset class="profile_field">
+                    <legend>{$lang->joined}</legend>{$memregdate}
+                  </fieldset>
+                  <fieldset class="profile_field">
+                    <legend>{$lang->lastvisit}</legend>{$memlastvisitdate}
+                  </fieldset>
+                  <fieldset class="profile_field">
+                    <legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a>
+                  </fieldset>
+                  <fieldset class="profile_field">
+                    <legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a>
+                  </fieldset>
+                  <fieldset class="profile_field">
+                    <legend>{$lang->timeonline}</legend>{$timeonline}</br>
+                  </fieldset>
+                  {$referrals}<br />
+                </div>
+              </div><br />
+            </div>
+          </div>
+      </div>
+
+      <!-- Profile for Game Masters -->
+      <elseif $memprofile['usergroup']=="8" then>
+        <div class="tabs">
+          <div class="tab-buttons">
+            <button class="tab-button active" data-tab="tab1">Karta Mistrza Gry</button>
+            <button class="tab-button" data-tab="tab2">Dziennik sesji</button>
+            <button class="tab-button" data-tab="tab3">Osiągnięcia</button>
+            <button class="tab-button" data-tab="tab4">Gracz</button>
+          </div>
+          <div class="tab-content active" id="tab1">
+            <br />
+            <div class="profile_header">Informacje o Mistrzu Gry</div>
+            <div class="profile_frame">
+              <div class="profile_details">Jakieś info o Mistrzu gry? Jakie sesje lubi? cokolwiek lol </div>
+            </div><br />
+
+            <div class="profile_header">Statystyki Mistrza Gry</div>
+            <div class="profile_frame">
+              <div class="profile_details">
+                <fieldset class="profile_field">
+                  <legend>{$lang->joined}</legend>{$memregdate}
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>{$lang->lastvisit}</legend>{$memlastvisitdate}
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a>
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a>
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>{$lang->timeonline}</legend>{$timeonline}</br>
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>{$lang->reputation}</legend> <a href="reputation.php?uid={$memprofile['uid']}" title="{$lang->reputation_details}">{$reputation}</a>
+                </fieldset>
+                {$myawards} <!-- this might be needed for awards later -->
+              </div>
+            </div><br />
+
+          </div>
+          <div class="tab-content" id="tab2">
+            <h1>Sesje przeprowadzone przez {$memprofile['username']}</h1>
+            <p>Obowiązkowo sesje z mg, można też inne. Najlepiej by było mieć na to jakiś plugin dla graczy, żeby nie musieli tego wpisywać kodem.</p>
+          </div>
+          <div class="tab-content" id="tab3">
+            <h1>Kategoria osiągnięć</h1>
+            <p>Osięgnięcia</p>
+          </div>
+          <div class="tab-content" id="tab4">
+            <br />
+            <div class="profile_header">Informacje o graczu</div>
+            <div class="profile_frame">
+              <!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
+              <div class="profile_details">
+                <div class="player_avatar_container player_avatar"><img src="https://i.imgur.com/uiHysm9.png"></div>
+                <fieldset class="profile_field">
+                  <legend>Zwrot</legend>XYZ
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>Discord</legend>eloziomek
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>Triggery</legend>No wpisz tu co cię triggeruje
+                </fieldset>
+                <fieldset class="profile_field">
+                  <legend>Postacie w grze</legend>Lista multikont z linkami do nich hehe
+                </fieldset>
+              </div>
+            </div><br />
+            <div class="profile_details">{$report_options}</div></br>
+          </div>
+        </div>
+    </div>
+
+    <!-- Profile for Players -->
+    <elseif $memprofile['usergroup']=="18" then>
+      <div class="tabs">
+        <div class="tab-buttons">
+          <button class="tab-button active" data-tab="tab1">Gracz</button>
+          <button class="tab-button" data-tab="tab2">Dziennik</button>
+          <button class="tab-button" data-tab="tab3">Osiągnięcia</button>
+          <button class="tab-button" data-tab="tab4">Statystyki</button>
+        </div>
+        <div class="tab-content active" id="tab1">
+          <br />
+          <div class="profile_header">Informacje o graczu</div>
+          <div class="profile_frame">
+            <!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
+            <div class="profile_details">
+              <fieldset class="profile_field">
+                <legend>Zwrot</legend>XYZ
+              </fieldset>
+              <fieldset class="profile_field">
+                <legend>Discord</legend>eloziomek
+              </fieldset>
+              <fieldset class="profile_field">
+                <legend>Triggery</legend>No wpisz tu co cię triggeruje
+              </fieldset>
+              <fieldset class="profile_field">
+                <legend>Postacie w grze</legend>Lista multikont z linkami do nich hehe
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="tab2">
+          <h1>Kalendarium wydarzeń</h1>
+          <p>Sesje grane dodatkowo postaciami NPC/Universal Person?</p>
+        </div>
+        <div class="tab-content" id="tab3">
+          <h1>Kategoria osiągnięć</h1>
+          <p>Osięgnięcia</p>
+        </div>
+        <div class="tab-content" id="tab4"><br />
+          <div class="profile_header">Informacje o koncie {$memprofile['username']}</div>
+          <div class="profile_frame">
+            <div class="profile_details">
+              <fieldset class="profile_field">
+                <legend>{$lang->joined}</legend>{$memregdate}
+              </fieldset>
+              <fieldset class="profile_field">
+                <legend>{$lang->lastvisit}</legend>{$memlastvisitdate}
+              </fieldset>
+              <fieldset class="profile_field">
+                <legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a>
+              </fieldset>
+              <fieldset class="profile_field">
+                <legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a>
+              </fieldset>
+              <fieldset class="profile_field">
+                <legend>{$lang->timeonline}</legend>{$timeonline}</br>
+              </fieldset>
+              {$referrals}<br />
+              <fieldset class="profile_field">
+                <legend>{$lang->reputation}</legend> <a href="reputation.php?uid={$memprofile['uid']}" title="{$lang->reputation_details}">{$reputation}</a>
+              </fieldset>
+              {$warning_level}
+              {$myawards} <!-- this might be needed for awards later -->
+            </div>
+          </div><br />
+          <div class="profile_details">{$ignore_options}{$report_options}</div></br>
+        </div>
+      </div>
+  </div>
+
+  <!-- Profile for characters -->
+  <else>
+    <div class="tabs">
+      <div class="tab-buttons">
+        <button class="tab-button active" data-tab="tab1">Karta</button>
+        <button class="tab-button" data-tab="tab2">Mechanika</button>
+        <button class="tab-button" data-tab="tab3">Dziennik</button>
+        <button class="tab-button" data-tab="tab4">Relacje</button>
+        <button class="tab-button" data-tab="tab5">Osiągnięcia</button>
+        <button class="tab-button" data-tab="tab6">Gracz</button>
+      </div>
+      <div class="tab-content active" id="tab1">
+
+        <h1>Informacje o postaci</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce porttitor aliquet ornare. Sed feugiat libero facilisis auctor lobortis. Integer eu risus augue. Duis ullamcorper eleifend tortor. Praesent faucibus facilisis ultricies. Donec nibh erat, venenatis eget leo eu, facilisis accumsan neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas interdum mauris in mollis convallis. Pellentesque rutrum mi nec tortor pharetra pretium. Integer eleifend pretium turpis in efficitur. Integer iaculis ut eros et commodo. Aliquam rhoncus aliquam lacus in lobortis. Proin quam tellus, posuere vitae euismod ac, consequat at erat. Fusce congue laoreet libero, vitae rhoncus lacus. Praesent non vehicula odio.
+
+          Curabitur aliquam lectus ex, in tristique felis pulvinar a. Fusce id dolor sit amet quam finibus cursus vel facilisis lorem. Proin convallis condimentum augue at laoreet. Ut quis metus ligula. Sed quis laoreet arcu. Fusce in aliquet eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam ac sem finibus, condimentum magna eget, pellentesque orci. Aliquam vitae lobortis felis, quis sagittis risus.
+
+          Phasellus sodales dolor venenatis sem volutpat condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi id tincidunt nulla. Vivamus ut libero maximus, porta sem eget, rutrum justo. Nunc at accumsan tortor. Donec commodo massa metus, sit amet porttitor ligula placerat et. Fusce sapien elit, lobortis eget risus luctus, facilisis pretium sem. Sed faucibus vulputate convallis. Suspendisse in fermentum orci.
+
+          Pellentesque eu lorem arcu. Morbi finibus, ipsum ac aliquam ullamcorper, metus ligula sodales elit, sed tincidunt turpis lacus a quam. Ut ultricies id neque a tincidunt. Donec et fermentum nunc. Integer vulputate sollicitudin ante, quis tempus tortor accumsan at. Pellentesque euismod, arcu non vehicula varius, lorem lacus aliquam ex, nec venenatis mi sem non felis. In vitae ante quis dolor pretium congue.
+
+          Nulla faucibus lorem eget nibh sagittis, id cursus magna facilisis. Donec molestie, enim ac viverra sagittis, nibh tortor ultrices lorem, et placerat nisl mi nec orci. Mauris mollis molestie aliquet. Aliquam vulputate, dolor sed laoreet volutpat, arcu turpis condimentum massa, eu venenatis justo elit non libero. Quisque vulputate at eros eu faucibus. Nunc ut iaculis nunc, et tincidunt ante. Nulla venenatis, velit et sodales auctor, sapien ipsum cursus magna, et tempus nunc est id sem. Pellentesque posuere risus vel mauris viverra porttitor. Sed a blandit nisl. Sed vitae commodo ligula, sit amet aliquet libero. Nulla eu augue blandit mauris feugiat tincidunt. Nulla aliquet, lectus eu vehicula dapibus, erat dui congue nunc, a laoreet purus arcu at sem.</p>
+      </div>
+      <div class="tab-content" id="tab2">
+        <h1>Mechanika</h1>
+        <p>Różne staty i inne duperele</p>
+        <p>{$userfields['fid5']}</p>
+      </div>
+      <div class="tab-content" id="tab3">
+        <h1>Kalendarium wydarzeń</h1>
+        <p>Obowiązkowo sesje z mg, można też inne. Najlepiej by było mieć na to jakiś plugin dla graczy, żeby nie musieli tego wpisywać kodem.</p>
+      </div>
+      <div class="tab-content" id="tab4">
+        <h1>Rodzina</h1>
+        <p>Relacje z pluginu</p>
+        <h1>Przyjaciele i znajomi</h1>
+        <p>Relacje z pluginu</p>
+        <h1>Inne</h1>
+        <p>Relacje z pluginu</p>
+      </div>
+      <div class="tab-content" id="tab5">
+        <h1>Kategoria osiągnięć</h1>
+        <p>Osięgnięcia</p>
+      </div>
+      <div class="tab-content" id="tab6">
+        <br />
+        <div class="profile_header">Informacje o graczu</div>
+        <div class="profile_frame">
+          <!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
+          <div class="profile_details">
+            <div class="player_avatar_container player_avatar"><img src="https://i.imgur.com/uiHysm9.png"></div>
+            <fieldset class="profile_field">
+              <legend>Zwrot</legend>XYZ
+            </fieldset>
+            <fieldset class="profile_field">
+              <legend>Discord</legend>eloziomek
+            </fieldset>
+            <fieldset class="profile_field">
+              <legend>Triggery</legend>No wpisz tu co cię triggeruje
+            </fieldset>
+            <fieldset class="profile_field">
+              <legend>Postacie w grze</legend>Lista multikont z linkami do nich hehe
+            </fieldset>
+          </div>
+        </div><br />
+        <div class="profile_header">Informacje o koncie {$memprofile['username']}</div>
+        <div class="profile_frame">
+          <div class="profile_details">
+            <fieldset class="profile_field">
+              <legend>{$lang->joined}</legend>{$memregdate}
+            </fieldset>
+            <fieldset class="profile_field">
+              <legend>{$lang->lastvisit}</legend>{$memlastvisitdate}
+            </fieldset>
+            <fieldset class="profile_field">
+              <legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}" title="{$lang->ppd_percent_total}">{$memprofile['postnum']}</a>
+            </fieldset>
+            <fieldset class="profile_field">
+              <legend>{$lang->total_threads}</legend><a href="search.php?action=finduserthreads&amp;uid={$uid}" title="{$lang->tpd_percent_total}">{$memprofile['threadnum']}</a>
+            </fieldset>
+            <fieldset class="profile_field">
+              <legend>{$lang->timeonline}</legend>{$timeonline}</br>
+            </fieldset>
+            {$referrals}<br />
+            <fieldset class="profile_field">
+              <legend>{$lang->reputation}</legend> <a href="reputation.php?uid={$memprofile['uid']}" title="{$lang->reputation_details}">{$reputation}</a>
+            </fieldset>
+            {$warning_level}
+            {$myawards} <!-- this might be needed for awards later -->
+          </div>
+        </div><br />
+        <div class="profile_details">{$buddy_options}{$ignore_options}{$report_options}</div></br>
+      </div>
+    </div>
+    </div>
+  </else>
+  </if>
+  </div>
+  </div>
+  <br />
+  {$modoptions}
+  {$adminoptions}
+
+
+  {$footer}
 </body>
+
 </html>

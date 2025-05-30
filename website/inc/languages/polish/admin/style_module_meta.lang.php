@@ -6,12 +6,10 @@
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
 
-$l['templates_and_style'] = "Style i szablony";
+$l['templates_and_style'] = 'Style i szablony';
 
-$l['themes'] = "Style";
-$l['templates'] = "Szablony";
+$l['themes'] = 'Style';
+$l['templates'] = 'Szablony';
 
-$l['can_manage_themes'] = "Może zarządzać stylami?";
-$l['can_manage_templates'] = "Może zarządzać szablonami?";
-
-
+$l['can_manage_themes'] = 'Może zarządzać stylami?';
+$l['can_manage_templates'] = 'Może zarządzać szablonami?';

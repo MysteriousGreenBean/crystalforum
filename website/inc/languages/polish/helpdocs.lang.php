@@ -6,50 +6,61 @@
  * See readme.html for copyright information. | Zapoznaj sie z plikiem czytaj_to.html.
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
- 
 
 // Help Document 1
-$l['d1_name'] = "Rejestracja";
-$l['d1_desc'] = "Obowiązki i przywileje zarejestrowanych";
-$l['d1_document'] = "Większość funkcji forum jest dostępne tylko dla osób zarejestrowanych. Rejestracja jest darmowa i trwa niecałe 5 minut.
+$l['d1_name'] = 'Rejestracja';
+$l['d1_desc'] = 'Obowiązki i przywileje zarejestrowanych';
+$l[
+    'd1_document'
+] = "Większość funkcji forum jest dostępne tylko dla osób zarejestrowanych. Rejestracja jest darmowa i trwa niecałe 5 minut.
 <br/><br/>Po rejestracji możesz pisać wiadomości, ustawiać opcje dotyczące wyglądu i zarządzać swoim profilem.
 <br/><br/>Do korzystania z niektórych funkcji wymagana jest rejestracja - są to: subskrypcje, zmienianie stylów, dostęp do prywatnego notatnika, pisanie prywatnych wiadomości do innych użytkowników.";
 
 // Help Document 2
-$l['d2_name'] = "Aktualizowanie profilu";
-$l['d2_desc'] = "Zmienianie ustawień w profilu";
-$l['d2_document'] = "Po rejestracji na forum, możesz zmieniać informacje osobiste w profilu, takie jak: komunikatory, hasło, lub - jeśli potrzeba - adres e-mail. Wszystkie z tych informacji i ustawień można ustawić w [panelu użytkownika] znajdującym się u góry po lewej. Następnie kliknij [Edytuj profil] i aktualizuj swoje ustawienia. Pamiętaj o kliknięciu w przycisk [Zatwierdź], aby zmiany zostały zachowane.";
+$l['d2_name'] = 'Aktualizowanie profilu';
+$l['d2_desc'] = 'Zmienianie ustawień w profilu';
+$l['d2_document'] =
+    'Po rejestracji na forum, możesz zmieniać informacje osobiste w profilu, takie jak: komunikatory, hasło, lub - jeśli potrzeba - adres e-mail. Wszystkie z tych informacji i ustawień można ustawić w [panelu użytkownika] znajdującym się u góry po lewej. Następnie kliknij [Edytuj profil] i aktualizuj swoje ustawienia. Pamiętaj o kliknięciu w przycisk [Zatwierdź], aby zmiany zostały zachowane.';
 
 // Help Document 3
-$l['d3_name'] = "Ciasteczka w MyBB";
-$l['d3_desc'] = "MyBB używa ciasteczek do przechowywania Twoich informacji o zalogowaniu";
-$l['d3_document'] = "MyBulletinBoard tworzy ciasteczka (cookies), w których przechowuje informacje o zalogowaniu.
+$l['d3_name'] = 'Ciasteczka w MyBB';
+$l['d3_desc'] =
+    'MyBB używa ciasteczek do przechowywania Twoich informacji o zalogowaniu';
+$l[
+    'd3_document'
+] = "MyBulletinBoard tworzy ciasteczka (cookies), w których przechowuje informacje o zalogowaniu.
 <br/><br/>Ciasteczka to małe pliki przechowywane na Twoim komputerze; ciasteczka utworzone przez daną stronę działają tylko na tej stronie.
 <br/><br/>Ciasteczka MyBB sprawdzają kiedy ostatnio i czy w ogóle przeczytano poszczególne wątki.
 <br/><br/>Aby wyczyścić wszystkie ciasteczka, kliknij <a href=\"misc.php?action=clearcookies&amp;my_post_key={1}\">tutaj</a>.";
 
 // Help Document 4
-$l['d4_name'] = "Logowanie i wylogowywanie";
-$l['d4_desc'] = "Jak się zalogować i wylogować";
-$l['d4_document'] = "Gdy się zalogujesz, ciasteczka na komputerze zostaną ustawione tak, aby można było przeglądać forum jako zalogowany użytkownik bez ciągłej potrzeby logowania. Wylogowanie czyści ciasteczka dotyczące logowania.
+$l['d4_name'] = 'Logowanie i wylogowywanie';
+$l['d4_desc'] = 'Jak się zalogować i wylogować';
+$l[
+    'd4_document'
+] = "Gdy się zalogujesz, ciasteczka na komputerze zostaną ustawione tak, aby można było przeglądać forum jako zalogowany użytkownik bez ciągłej potrzeby logowania. Wylogowanie czyści ciasteczka dotyczące logowania.
 <br/><br/>Aby się zalogować, kliknij [Logowanie] u góry, pod nawigacją. Aby się wylogować, kliknij [Wyloguj] w tym samym miejscu. Wyczyszczenie ciasteczek w Twojej przeglądarce da ten sam efekt.";
 
 // Help Document 5
-$l['d5_name'] = "Pisanie nowego wątku";
-$l['d5_desc'] = "Rozpoczynanie wątku na forum";
-$l['d5_document'] = "Jeśli chcesz utworzyć nowy wątek na forum, wybierz dział w którym chcesz go napisać, a następnie kliknij na przycisk [Nowy wątek]. Jeśli zobaczysz komunikat \"Nie masz uprawnień\" oznacza to, że nie masz uprawnień do pisania w danym dziale.";
+$l['d5_name'] = 'Pisanie nowego wątku';
+$l['d5_desc'] = 'Rozpoczynanie wątku na forum';
+$l['d5_document'] =
+    "Jeśli chcesz utworzyć nowy wątek na forum, wybierz dział w którym chcesz go napisać, a następnie kliknij na przycisk [Nowy wątek]. Jeśli zobaczysz komunikat \"Nie masz uprawnień\" oznacza to, że nie masz uprawnień do pisania w danym dziale.";
 
 // Help Document 6
-$l['d6_name'] = "Odpowiadanie w wątku";
-$l['d6_desc'] = "Odpowiadanie na forum";
-$l['d6_document'] = "Wybierz wątek, w którym chcesz odpowiedzieć. Kliknij na przycisk [Odpowiedz] znajdujący się u góry ekranu. Pamiętaj również, że administrator mógł nałożyć restrykcje, więc możliwe, że nie będziesz mieć możliwości odpowiadania w niektórych działach.
+$l['d6_name'] = 'Odpowiadanie w wątku';
+$l['d6_desc'] = 'Odpowiadanie na forum';
+$l[
+    'd6_document'
+] = "Wybierz wątek, w którym chcesz odpowiedzieć. Kliknij na przycisk [Odpowiedz] znajdujący się u góry ekranu. Pamiętaj również, że administrator mógł nałożyć restrykcje, więc możliwe, że nie będziesz mieć możliwości odpowiadania w niektórych działach.
 <br/><br/>Moderator może usunąć wątek, w którym przez określony czas nie będzie odpowiedzi.";
 
-
 // Help Document 7
-$l['d7_name'] = "MyCode";
-$l['d7_desc'] = "Wszystko o MyCode";
-$l['d7_document'] = "Możesz użyć MyCode, znanego również jako BB Codes, aby dodać efekty lub formatowanie do swoich postów. MyCodes to uproszczona wersja HTML i jest używana w formacie podobnym do tagów HTML, które być może już znasz.
+$l['d7_name'] = 'MyCode';
+$l['d7_desc'] = 'Wszystko o MyCode';
+$l[
+    'd7_document'
+] = "Możesz użyć MyCode, znanego również jako BB Codes, aby dodać efekty lub formatowanie do swoich postów. MyCodes to uproszczona wersja HTML i jest używana w formacie podobnym do tagów HTML, które być może już znasz.
 <br /><br />Poniższa tabela jest krótkim przewodnikiem po dostępnych MyCodes:
 <br /><br />
 <table class=\"tborder\" cellspacing=\"0\" cellpadding=\"5\" border=\"0\" style=\"width:90%\">

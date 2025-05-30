@@ -1,8 +1,9 @@
 <div class="theme">
-<form method="POST" action="{$theme_redirect_url['location']}" id="theme_select">
-	{$theme_redirect_url['form_html']}
-	<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-	{$theme_options}
-	{$gobutton}
-</form>
+  <!--[html-validate-disable-next wcag/h32]-->
+  <form method="POST" action="{$theme_redirect_url['location']}" id="theme_select">
+    {$theme_redirect_url['form_html']}
+    <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
+    {$theme_options}
+    {$gobutton}
+  </form>
 </div>

@@ -14,9 +14,10 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
 class Horde_Text_Diff_Renderer
@@ -40,7 +41,7 @@ class Horde_Text_Diff_Renderer
     /**
      * Constructor.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         foreach ($params as $param => $value) {
             $v = '_' . $param;
@@ -57,7 +58,7 @@ class Horde_Text_Diff_Renderer
      */
     public function getParams()
     {
-        $params = array();
+        $params = [];
         foreach (get_object_vars($this) as $k => $v) {
             if ($k[0] == '_') {
                 $params[substr($k, 1)] = $v;
@@ -78,7 +79,7 @@ class Horde_Text_Diff_Renderer
     {
         $xi = $yi = 1;
         $block = false;
-        $context = array();
+        $context = [];
 
         $nlead = $this->_leading_context_lines;
         $ntrail = $this->_trailing_context_lines;
@@ -95,7 +96,8 @@ class Horde_Text_Diff_Renderer
                 if (is_array($block)) {
                     /* How many lines to keep as context from the copy
                      * block. */
-                    $keep = $i == count($diffs) - 1 ? $ntrail : $nlead + $ntrail;
+                    $keep =
+                        $i == count($diffs) - 1 ? $ntrail : $nlead + $ntrail;
                     if (count($edit->orig) <= $keep) {
                         /* We have less lines in the block than we want for
                          * context => keep the whole block. */
@@ -108,9 +110,13 @@ class Horde_Text_Diff_Renderer
                             $block[] = new Horde_Text_Diff_Op_Copy($context);
                         }
                         /* @todo */
-                        $output .= $this->_block($x0, $ntrail + $xi - $x0,
-                                                 $y0, $ntrail + $yi - $y0,
-                                                 $block);
+                        $output .= $this->_block(
+                            $x0,
+                            $ntrail + $xi - $x0,
+                            $y0,
+                            $ntrail + $yi - $y0,
+                            $block
+                        );
                         $block = false;
                     }
                 }
@@ -123,7 +129,7 @@ class Horde_Text_Diff_Renderer
                     $context = array_slice($context, count($context) - $nlead);
                     $x0 = $xi - count($context);
                     $y0 = $yi - count($context);
-                    $block = array();
+                    $block = [];
                     if ($context) {
                         $block[] = new Horde_Text_Diff_Op_Copy($context);
                     }
@@ -140,9 +146,7 @@ class Horde_Text_Diff_Renderer
         }
 
         if (is_array($block)) {
-            $output .= $this->_block($x0, $xi - $x0,
-                                     $y0, $yi - $y0,
-                                     $block);
+            $output .= $this->_block($x0, $xi - $x0, $y0, $yi - $y0, $block);
         }
 
         return $output . $this->_endDiff();
@@ -150,25 +154,27 @@ class Horde_Text_Diff_Renderer
 
     protected function _block($xbeg, $xlen, $ybeg, $ylen, &$edits)
     {
-        $output = $this->_startBlock($this->_blockHeader($xbeg, $xlen, $ybeg, $ylen));
+        $output = $this->_startBlock(
+            $this->_blockHeader($xbeg, $xlen, $ybeg, $ylen)
+        );
 
         foreach ($edits as $edit) {
             switch (get_class($edit)) {
-            case 'Horde_Text_Diff_Op_Copy':
-                $output .= $this->_context($edit->orig);
-                break;
+                case 'Horde_Text_Diff_Op_Copy':
+                    $output .= $this->_context($edit->orig);
+                    break;
 
-            case 'Horde_Text_Diff_Op_Add':
-                $output .= $this->_added($edit->final);
-                break;
+                case 'Horde_Text_Diff_Op_Add':
+                    $output .= $this->_added($edit->final);
+                    break;
 
-            case 'Horde_Text_Diff_Op_Delete':
-                $output .= $this->_deleted($edit->orig);
-                break;
+                case 'Horde_Text_Diff_Op_Delete':
+                    $output .= $this->_deleted($edit->orig);
+                    break;
 
-            case 'Horde_Text_Diff_Op_Change':
-                $output .= $this->_changed($edit->orig, $edit->final);
-                break;
+                case 'Horde_Text_Diff_Op_Change':
+                    $output .= $this->_changed($edit->orig, $edit->final);
+                    break;
             }
         }
 

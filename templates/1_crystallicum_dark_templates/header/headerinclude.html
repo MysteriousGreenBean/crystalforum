@@ -5,16 +5,16 @@
 <link rel="alternate" type="application/atom+xml" title="{$lang->latest_threads} (Atom 1.0)" href="{$mybb->settings['bburl']}/syndication.php?type=atom1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset={$charset}" />
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
-<script type="text/javascript" src="{$mybb->asset_url}/jscripts/jquery.js?ver=1804"></script>
-<script type="text/javascript" src="{$mybb->asset_url}/jscripts/jquery.plugins.min.js?ver=1804"></script>
-<script type="text/javascript" src="{$mybb->asset_url}/jscripts/general.js?ver=1804"></script>
+<script src="{$mybb->asset_url}/jscripts/jquery.js?ver=1804"></script>
+<script src="{$mybb->asset_url}/jscripts/jquery.plugins.min.js?ver=1804"></script>
+<script src="{$mybb->asset_url}/jscripts/general.js?ver=1804"></script>
 <script src="//pull.cappuccicons.com/cpf.js"></script>
 
 
 <!-- Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,116 +37,120 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {$stylesheets}
-<script type="text/javascript">
-	lang.unknown_error = "{$lang->unknown_error}";
+<script>
+  lang.unknown_error = "{$lang->unknown_error}";
 
-	lang.select2_match = "{$lang->select2_match}";
-	lang.select2_matches = "{$lang->select2_matches}";
-	lang.select2_nomatches = "{$lang->select2_nomatches}";
-	lang.select2_inputtooshort_single = "{$lang->select2_inputtooshort_single}";
-	lang.select2_inputtooshort_plural = "{$lang->select2_inputtooshort_plural}";
-	lang.select2_inputtoolong_single = "{$lang->select2_inputtoolong_single}";
-	lang.select2_inputtoolong_plural = "{$lang->select2_inputtoolong_plural}";
-	lang.select2_selectiontoobig_single = "{$lang->select2_selectiontoobig_single}";
-	lang.select2_selectiontoobig_plural = "{$lang->select2_selectiontoobig_plural}";
-	lang.select2_loadmore = "{$lang->select2_loadmore}";
-	lang.select2_searching = "{$lang->select2_searching}";
+  lang.select2_match = "{$lang->select2_match}";
+  lang.select2_matches = "{$lang->select2_matches}";
+  lang.select2_nomatches = "{$lang->select2_nomatches}";
+  lang.select2_inputtooshort_single = "{$lang->select2_inputtooshort_single}";
+  lang.select2_inputtooshort_plural = "{$lang->select2_inputtooshort_plural}";
+  lang.select2_inputtoolong_single = "{$lang->select2_inputtoolong_single}";
+  lang.select2_inputtoolong_plural = "{$lang->select2_inputtoolong_plural}";
+  lang.select2_selectiontoobig_single = "{$lang->select2_selectiontoobig_single}";
+  lang.select2_selectiontoobig_plural = "{$lang->select2_selectiontoobig_plural}";
+  lang.select2_loadmore = "{$lang->select2_loadmore}";
+  lang.select2_searching = "{$lang->select2_searching}";
 
-	var cookieDomain = "{$mybb->settings['cookiedomain']}";
-	var cookiePath = "{$mybb->settings['cookiepath']}";
-	var cookiePrefix = "{$mybb->settings['cookieprefix']}";
-	var cookieSecureFlag = "{$mybb->settings['cookiesecureflag']}";
-	var deleteevent_confirm = "{$lang->deleteevent_confirm}";
-	var removeattach_confirm = "{$lang->removeattach_confirm}";
-	var loading_text = '{$lang->ajax_loading}';
-	var saving_changes = '{$lang->saving_changes}';
-	var use_xmlhttprequest = "{$mybb->settings['use_xmlhttprequest']}";
-	var my_post_key = "{$mybb->post_code}";
-	var rootpath = "{$mybb->settings['bburl']}";
-	var imagepath = "{$theme['imgdir']}";
-  	var yes_confirm = "{$lang->yes}";
-	var no_confirm = "{$lang->no}";
-	var MyBBEditor = null;
-	var spinner_image = "{$theme['imgdir']}/spinner.gif";
-	var spinner = "<img src='" + spinner_image +"' alt='' />";
-	var modal_zindex = 9999;
+  var cookieDomain = "{$mybb->settings['cookiedomain']}";
+  var cookiePath = "{$mybb->settings['cookiepath']}";
+  var cookiePrefix = "{$mybb->settings['cookieprefix']}";
+  var cookieSecureFlag = "{$mybb->settings['cookiesecureflag']}";
+  var deleteevent_confirm = "{$lang->deleteevent_confirm}";
+  var removeattach_confirm = "{$lang->removeattach_confirm}";
+  var loading_text = '{$lang->ajax_loading}';
+  var saving_changes = '{$lang->saving_changes}';
+  var use_xmlhttprequest = "{$mybb->settings['use_xmlhttprequest']}";
+  var my_post_key = "{$mybb->post_code}";
+  var rootpath = "{$mybb->settings['bburl']}";
+  var imagepath = "{$theme['imgdir']}";
+  var yes_confirm = "{$lang->yes}";
+  var no_confirm = "{$lang->no}";
+  var MyBBEditor = null;
+  var spinner_image = "{$theme['imgdir']}/spinner.gif";
+  var spinner = "<img src='" + spinner_image + "' alt='' />";
+  var modal_zindex = 9999;
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
 <script>
-	$(document).ready(function(){
-	
-	//Check to see if the window is top if not then display button
-	$(window).scroll(function(){
-		if ($(this).scrollTop() > 100) {
-			$('.scrollToTop').fadeIn();
-		} else {
-			$('.scrollToTop').fadeOut();
-		}
-	});
-	
-	//Click event to scroll to top
-	$('.scrollToTop').click(function(){
-		$('html, body').animate({scrollTop : 0},800);
-		return false;
-	});
-	
-	$('.scrollToDown').click(function(){
-		$('html, body').animate({scrollTop:$(document).height()},800);
-		return false;
-	});
-	
-});
+  $(document).ready(function() {
+
+    //Check to see if the window is top if not then display button
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 100) {
+        $('.scrollToTop').fadeIn();
+      } else {
+        $('.scrollToTop').fadeOut();
+      }
+    });
+
+    //Click event to scroll to top
+    $('.scrollToTop').click(function() {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 800);
+      return false;
+    });
+
+    $('.scrollToDown').click(function() {
+      $('html, body').animate({
+        scrollTop: $(document).height()
+      }, 800);
+      return false;
+    });
+
+  });
 </script>
 
 <!--- Minus to plus after clicking --->
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-      const iconElements = document.querySelectorAll(".expander");
+  document.addEventListener("DOMContentLoaded", function() {
+    const iconElements = document.querySelectorAll(".expander");
 
-      iconElements.forEach(function(iconElement) {
-        iconElement.addEventListener("click", function(event) {
-          const theadElement = iconElement.closest(".thead");
+    iconElements.forEach(function(iconElement) {
+      iconElement.addEventListener("click", function(event) {
+        const theadElement = iconElement.closest(".thead");
 
-          iconElement.classList.toggle("cp-minus");
-          iconElement.classList.toggle("cp-plus");
-          theadElement.classList.toggle("hide");
+        iconElement.classList.toggle("cp-minus");
+        iconElement.classList.toggle("cp-plus");
+        theadElement.classList.toggle("hide");
 
-          // Prevent the event from propagating to other elements
-          event.stopPropagation();
-        });
+        // Prevent the event from propagating to other elements
+        event.stopPropagation();
       });
     });
-  </script>
+  });
+</script>
 
 <!--- Scrollbar --->
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const updateScrollbarRadius = () => {
-                const scrollTop = window.scrollY;
-                const scrollHeight = document.documentElement.scrollHeight;
-                const clientHeight = window.innerHeight;
+  document.addEventListener('DOMContentLoaded', function() {
+    const updateScrollbarRadius = () => {
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
 
-                let radius = '6px'; // Default border-radius
+      let radius = '6px'; // Default border-radius
 
-                if (scrollTop === 0) {
-                    // At the top of the page
-                    radius = '0 0 6px 6px'; // Bottom corners rounded
-                } else if (scrollTop + clientHeight >= scrollHeight) {
-                    // At the bottom of the page
-                    radius = '6px 6px 0 0'; // Top corners rounded
-                }
+      if (scrollTop === 0) {
+        // At the top of the page
+        radius = '0 0 6px 6px'; // Bottom corners rounded
+      } else if (scrollTop + clientHeight >= scrollHeight) {
+        // At the bottom of the page
+        radius = '6px 6px 0 0'; // Top corners rounded
+      }
 
-                // Apply the border-radius to the scrollbar thumb
-                document.documentElement.style.setProperty('--scrollbar-radius', radius);
-            };
+      // Apply the border-radius to the scrollbar thumb
+      document.documentElement.style.setProperty('--scrollbar-radius', radius);
+    };
 
-            // Initial call
-            updateScrollbarRadius();
+    // Initial call
+    updateScrollbarRadius();
 
-            // Update on scroll
-            window.addEventListener('scroll', updateScrollbarRadius);
-        });
-    </script>
+    // Update on scroll
+    window.addEventListener('scroll', updateScrollbarRadius);
+  });
+</script>

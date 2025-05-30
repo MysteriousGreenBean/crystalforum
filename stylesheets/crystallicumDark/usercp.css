@@ -1,96 +1,194 @@
-.cp_options td:first-child{width:230px;}.usercp_options{margin:0;padding:0;list-style:none outside none;}
-
-.usercp_options>li{
-        margin:0;        padding:8px 0px;}
-
-.usercp_options>li>span{
-        display:inline-block;        text-align:right;}
-
-.usercp_nav_item{display:block;}
-
-.usercp_nav_item:before{
-font-size: 16px;font-family: 'Font Awesome 5 Free';font-weight:900;width: 28px;margin-right: 3px;text-align: center;display: inline-block;padding: 2px 0px;color: var(--mycode-color);}
-
-
-.usercp_nav_location:before {content:"\f011";}
-
-.usercp_nav_ustyle:before {content:"\f005";}
-
-.usercp_nav_emailservice:before {content:"\f0e0";}
-
-.usercp_nav_composepm:before{content:"\f1d8";}
-
-.usercp_nav_pmfolder:before{content:"\f07c";}
-
-.usercp_nav_sub_pmfolder:before{content:"\f07b";}
-
-.usercp_nav_trash_pmfolder:before{content:"\f1f8";}
-
-.usercp_nav_pmtracking:before{content:"\f024";}
-
-.usercp_nav_pmfolders:before{content:"\f07b";}
-
-.usercp_nav_profile:before{content:"\f007";}
-
-.usercp_nav_email:before{content:"\f0e0";}
-
-.usercp_nav_password:before{content:"\f084";}
-
-.usercp_nav_username:before{content:"\f111";}
-
-.usercp_nav_editsig:before{content:"\f573";}
-
-.usercp_nav_avatar:before{content:"\f03e";}
-
-.usercp_nav_options:before{content:"\f085";}
-
-.usercp_nav_usergroups:before{content:"\f0c0";}
-
-.usercp_nav_editlists:before{content:"\f004";}
-
-.usercp_nav_attachments:before{content:"\f0c6";}
-
-.usercp_nav_drafts:before{content:"\f0c7";}
-
-.usercp_nav_subscriptions:before{content:"\f02e";}
-
-.usercp_nav_fsubscriptions:before{content:"\f03a";}
-
-.usercp_nav_notepad:before{content:"\f02d";}
-
-.usercp_nav_viewprofile:before{content:"\f007";}
-
-.usercp_nav_home:before{content:"\f015";}
-
-.usercp_nav_status:before{content:"\f118";}
-
-.usercp_nav_myalerts:before{content:"\f0f3";}
-
-.usercp_nav_myalerts_delete_all:before{content:"\f058";}
-
-.usercp_nav_myalerts_delete_read:before{content:"\f05c";}
-
-.usercp_nav_award:before{content:"\f091";}
-
-.usercp_notepad{width:99%;}
-
-#usercpalerts_e td[class^="trow"],#usercppms_e td[class^="trow"],#usercpprofile_e td[class^="trow"],#usercpmisc_e td[class^="trow"]{border:none;padding:0px;}
-
-.pagination{padding:3px 0px;}
-
-.usercp_notepad{
-        width:95%;
-        background: transparent;
-        border: none;
-        padding: 10px;
+.cp_options td:first-child {
+    width: 230px;
+}
+.usercp_options {
+    margin: 0;
+    padding: 0;
+    list-style: none outside none;
 }
 
-.usercp_container{margin:5px;padding:8px;}
+.usercp_options > li {
+    margin: 0;
+    padding: 8px 0px;
+}
 
-td[class^=trow]{border:none;}
+.usercp_options > li > span {
+    display: inline-block;
+    text-align: right;
+}
 
-#usercppms_e tr td a, #usercpprofile_e tr td a, #usercpmisc_e tr td a {
-	padding:4px 10px;
+.usercp_nav_item {
+    display: block;
+}
+
+.usercp_nav_item:before {
+    font-size: 16px;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    width: 28px;
+    margin-right: 3px;
+    text-align: center;
+    display: inline-block;
+    padding: 2px 0px;
+    color: var(--mycode-color);
+}
+
+.usercp_nav_location:before {
+    content: '\f011';
+}
+
+.usercp_nav_ustyle:before {
+    content: '\f005';
+}
+
+.usercp_nav_emailservice:before {
+    content: '\f0e0';
+}
+
+.usercp_nav_composepm:before {
+    content: '\f1d8';
+}
+
+.usercp_nav_pmfolder:before {
+    content: '\f07c';
+}
+
+.usercp_nav_sub_pmfolder:before {
+    content: '\f07b';
+}
+
+.usercp_nav_trash_pmfolder:before {
+    content: '\f1f8';
+}
+
+.usercp_nav_pmtracking:before {
+    content: '\f024';
+}
+
+.usercp_nav_pmfolders:before {
+    content: '\f07b';
+}
+
+.usercp_nav_profile:before {
+    content: '\f007';
+}
+
+.usercp_nav_email:before {
+    content: '\f0e0';
+}
+
+.usercp_nav_password:before {
+    content: '\f084';
+}
+
+.usercp_nav_username:before {
+    content: '\f111';
+}
+
+.usercp_nav_editsig:before {
+    content: '\f573';
+}
+
+.usercp_nav_avatar:before {
+    content: '\f03e';
+}
+
+.usercp_nav_options:before {
+    content: '\f085';
+}
+
+.usercp_nav_usergroups:before {
+    content: '\f0c0';
+}
+
+.usercp_nav_editlists:before {
+    content: '\f004';
+}
+
+.usercp_nav_attachments:before {
+    content: '\f0c6';
+}
+
+.usercp_nav_drafts:before {
+    content: '\f0c7';
+}
+
+.usercp_nav_subscriptions:before {
+    content: '\f02e';
+}
+
+.usercp_nav_fsubscriptions:before {
+    content: '\f03a';
+}
+
+.usercp_nav_notepad:before {
+    content: '\f02d';
+}
+
+.usercp_nav_viewprofile:before {
+    content: '\f007';
+}
+
+.usercp_nav_home:before {
+    content: '\f015';
+}
+
+.usercp_nav_status:before {
+    content: '\f118';
+}
+
+.usercp_nav_myalerts:before {
+    content: '\f0f3';
+}
+
+.usercp_nav_myalerts_delete_all:before {
+    content: '\f058';
+}
+
+.usercp_nav_myalerts_delete_read:before {
+    content: '\f05c';
+}
+
+.usercp_nav_award:before {
+    content: '\f091';
+}
+
+.usercp_notepad {
+    width: 99%;
+}
+
+#usercpalerts_e td[class^='trow'],
+#usercppms_e td[class^='trow'],
+#usercpprofile_e td[class^='trow'],
+#usercpmisc_e td[class^='trow'] {
+    border: none;
+    padding: 0px;
+}
+
+.pagination {
+    padding: 3px 0px;
+}
+
+.usercp_notepad {
+    width: 95%;
+    background: transparent;
+    border: none;
+    padding: 10px;
+}
+
+.usercp_container {
+    margin: 5px;
+    padding: 8px;
+}
+
+td[class^='trow'] {
+    border: none;
+}
+
+#usercppms_e tr td a,
+#usercpprofile_e tr td a,
+#usercpmisc_e tr td a {
+    padding: 4px 10px;
 }
 
 .ucp_nick {
@@ -102,155 +200,139 @@ td[class^=trow]{border:none;}
 }
 
 .ucp_avatar {
-	border-radius: 100px;
-	border: var(--main-border);
-	border: 1px solid var(--main-nt-color) /* var(--main-border)*/;
-	background: var(--main-nt-color);
-	box-shadow: var(--main-shadow);
+    border-radius: 100px;
+    border: var(--main-border);
+    border: 1px solid var(--main-nt-color) /* var(--main-border)*/;
+    background: var(--main-nt-color);
+    box-shadow: var(--main-shadow);
 }
 
-.ucp_avatar img{
-	width: 156px;
-	height: 250px;
-	border-radius: 100px;
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
-	-webkit-filter: sepia(50%); /* Safari 6.0 - 9.0 */
-	filter: sepia(50%);
+.ucp_avatar img {
+    width: 156px;
+    height: 250px;
+    border-radius: 100px;
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+    -webkit-filter: sepia(50%); /* Safari 6.0 - 9.0 */
+    filter: sepia(50%);
 }
 
 .ucp_table {
-	background: var(--category-image) !important;
-	background-size: cover;
-	background-repeat: no-repeat;
+    background: var(--category-image) !important;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .ucp_table tr {
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
 }
 
 .ucp_table hr {
-	color: var(--main-nt-color);
-	background: var(--main-nt-color);
-	height: 5px;
-	margin-bottom: 20px;
+    color: var(--main-nt-color);
+    background: var(--main-nt-color);
+    height: 5px;
+    margin-bottom: 20px;
 }
 
 .ucp_table .trow1 {
-	background: none;
+    background: none;
 }
 
 .ucp_table .trow2 {
-	background: none;
+    background: none;
 }
 
 .ucp_find {
-	font-family: var(--thead-font);
-	font-optical-sizing: auto;
-	font-weight: 200;
-	font-style: normal;
-        font-size: 12px;
+    font-family: var(--thead-font);
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 12px;
 }
 
 .ucp_thread tr {
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
 }
 
 .ucp_avinfo {
-	background: var(--new-status-icon-color);
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
-	padding: 10px;
-	margin: 10px;
+    background: var(--new-status-icon-color);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+    padding: 10px;
+    margin: 10px;
 }
-		
+
 .ucp_avimg {
-	background: var(--main-nt-color);
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
-	border-radius: 100%;
+    background: var(--main-nt-color);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+    border-radius: 100%;
 }
 
 .tcat2 {
-	padding: 10px;
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-top: 0px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 0px;
 }
 
 .av_padding {
-	padding: 10px;
-	margin: 10px;
-	border: var(--main-border);
+    padding: 10px;
+    margin: 10px;
+    border: var(--main-border);
 }
 
 .ucp_avtable {
-	border: var(--main-border);
-	box-shadow: var(--main-shadow);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
 }
 
 legend {
-	font-size: 25px;
-	font-family: var(--nick-font);
+    font-size: 25px;
+    font-family: var(--nick-font);
 }
-	
-.ucp_input input[type="radio"]{
-	appearance: none;
-	width: 15px;
-	height: 15px;
-	background: var(--box-background);
+
+.ucp_input input[type='radio'] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--box-background);
     border: var(--radio-border);
     box-shadow: var(--main-shadow);
-	border-radius: 100%;
+    border-radius: 100%;
 }
 
-.ucp_input input[type="radio"]:checked {
-	appearance: none;
-	width: 15px;
-	height: 15px;
-	background: var(--main-color);
+.ucp_input input[type='radio']:checked {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--main-color);
     border: var(--radio-border);
 }
 
-.ucp_input input[type="radio"]:checked::before{
-	appearance: none;
-	width: 15px;
-	height: 15px;
-	background: var(--main-color);
+.ucp_input input[type='radio']:checked::before {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--main-color);
     border: var(--radio-border);
 }
 
 .ucp_input .textbox {
-	background: var(--main-color);
+    background: var(--main-color);
     border: var(--main-border);
     box-shadow: var(--main-shadow);
 }
 
 .ucp_select {
-	background: var(--main-color);
+    background: var(--main-color);
     border: var(--main-border);
     box-shadow: var(--main-shadow);
 }
-		
+
 .ucp_padding {
-	padding: 10px;
+    padding: 10px;
 }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		

@@ -1,71 +1,84 @@
 services:
-  mysql:
-    build:
-      context: ./docker/mysql
-    container_name: mybb_mariadb
-    restart: always
-    ports:
-      - "3306:3306"
-    networks:
-      mybb_network:
-        ipv4_address: 172.28.1.2
-    healthcheck:
-      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-      start_period: 10s
-      start_interval: 3s
-      interval: 10s
-      timeout: 5s
-      retries: 3
+    mysql:
+        build:
+            context: ./docker/mysql
+        container_name: mybb_mariadb
+        restart: always
+        ports:
+            - '3306:3306'
+        networks:
+            mybb_network:
+                ipv4_address: 172.28.1.2
+        healthcheck:
+            test: ['CMD', 'healthcheck.sh', '--connect', '--innodb_initialized']
+            start_period: 10s
+            start_interval: 3s
+            interval: 10s
+            timeout: 5s
+            retries: 3
+        profiles: [devEnvironment, utility]
 
-  mybb:
-    container_name: mybb_forum
-    build:
-      context: ./docker/mybb
-    restart: always
-    ports:
-      - "80:80"
-    volumes:
-      - ./website:/var/www/html:rw
-      - ./stylesheets:/var/www/html/stylesheets:ro
-      - ./templates:/var/www/html/templates:ro
-    networks:
-      - mybb_network
-    depends_on:
-      mysql:
-        condition: service_healthy
+    mybb:
+        container_name: mybb_forum
+        build:
+            context: ./docker/mybb
+        restart: always
+        ports:
+            - '80:80'
+        volumes:
+            - ./website:/var/www/html:rw
+            - ./stylesheets:/var/www/html/stylesheets:ro
+            - ./templates:/var/www/html/templates:ro
+        networks:
+            - mybb_network
+        depends_on:
+            mysql:
+                condition: service_healthy
+        profiles: [devEnvironment]
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: mybb_phpmyadmin
-    restart: always
-    ports:
-      - "8080:80"
-    environment:
-      PMA_HOST: mysql
-    networks:
-      - mybb_network
-    depends_on:
-      - mysql
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: mybb_phpmyadmin
+        restart: always
+        ports:
+            - '8080:80'
+        environment:
+            PMA_HOST: mysql
+        networks:
+            - mybb_network
+        depends_on:
+            - mysql
+        profiles: [devEnvironment]
 
-  liquibase:
-    container_name: liquibase
-    image: liquibase:latest
-    depends_on:
-      mysql:
-        condition: service_healthy
-    volumes:
-      - ./docker/liquibase:/liquibase/resources:rw
-      - ./docker/liquibase/changelog:/liquibase/changelog:rw
-    environment:
-      LIQUIBASE_HOME: /liquibase
-      LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
-    networks:
-      - mybb_network
-    command: ["sh", "-c", "liquibase update"]
+    liquibase:
+        container_name: liquibase
+        image: liquibase:latest
+        depends_on:
+            mysql:
+                condition: service_healthy
+        volumes:
+            - ./docker/liquibase:/liquibase/resources:rw
+            - ./docker/liquibase/changelog:/liquibase/changelog:rw
+        environment:
+            LIQUIBASE_HOME: /liquibase
+            LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
+        networks:
+            - mybb_network
+        command: ['sh', '-c', 'liquibase update']
+        profiles: [utility]
+
+    npm:
+        container_name: npm
+        image: node:20
+        volumes:
+            - ./:/var/www:rw
+        working_dir: /var/www
+        command: ['sh', '-c', 'npm install']
+        profiles: [utility]
 
 networks:
-  mybb_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.28.0.0/16
+    mybb_network:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 172.28.0.0/16

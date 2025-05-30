@@ -1,14 +1,19 @@
 <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder clear">
-<thead>
-<tr>
-<td class="thead{$expthead}"><div class="expcolimage"><i id="sid_{$section['sid']}_img" class="fa fa-window-minimize expander"></i></div><div><strong>{$section['name']}</strong></div></td>
-</tr>
-</thead>
-<tbody style="{$expdisplay}" id="sid_{$section['sid']}_e">
-<tr>
-<td class="tcat"><span class="smalltext"><strong>{$section['description']}</strong></span></td>
-</tr>
-{$helpbits}
-</tbody>
+  <thead>
+
+    <tr>
+      <td class="thead{$expthead}">
+        <div class="expcolimage"><i id="sid_{$section['sid']}_img" class="fa fa-window-minimize expander"></i></div>
+        <div><strong>{$section['name']}</strong></div>
+      </td>
+    </tr>
+  </thead>
+  <tbody style="{$expdisplay}" id="sid_{$section['sid']}_e">
+
+    <tr>
+      <td class="tcat"><span class="smalltext"><strong>{$section['description']}</strong></span></td>
+    </tr>
+    {$helpbits}
+  </tbody>
 </table>
 <br />

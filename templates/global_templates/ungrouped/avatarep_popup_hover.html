@@ -1,25 +1,25 @@
 <div class="modal_avatar_hover">
-	<div class="thead">
-		<span class="avatarep_tavatar_hov">
-				{$memprofile['avatar']}
-		</span>
-		<span class="avatarep_usern_hov">
-			<a href="member.php?action=profile&amp;uid={$uid}">
-				<span class="avatarep_uname">{$formattedname}</span>
-			</a>
-		</span>
-	</div>
-	<div class="trow2 avatarep_divisor_hov">
-		<div class="avatarep_uprofile_hov">
-			<span class="avatarep_data">
-				<span class="avatarep_data_item">{$lang->registration_date} {$memregdate}</span>
-				<span class="avatarep_data_item">{$lang->reputation} {$memprofile['reputation']}</span>
-				<span class="avatarep_data_item">{$lang->total_threads} {$memprofile['threadnum']}</span>
-				<span class="avatarep_data_item">{$lang->total_posts} {$memprofile['postnum']}</span>
-				<span class="avatarep_data_item">{$lang->lastvisit} {$memlastvisitdate} {$memlastvisittime}</span>
-				<span class="avatarep_data_item">{$lang->warning_level} <a href="{$warning_link}">{$warning_level} %</a></span>
-				<span style="float:right;">{$lang->postbit_status} {$online_status}</span>	
-			</span>
-		</div>
-	</div>
+  <div class="thead">
+    <span class="avatarep_tavatar_hov">
+      {$memprofile['avatar']}
+    </span>
+    <span class="avatarep_usern_hov">
+      <a href="member.php?action=profile&amp;uid={$uid}">
+        <span class="avatarep_uname">{$formattedname}</span>
+      </a>
+    </span>
+  </div>
+  <div class="trow2 avatarep_divisor_hov">
+    <div class="avatarep_uprofile_hov">
+      <span class="avatarep_data">
+        <span class="avatarep_data_item">{$lang->registration_date} {$memregdate}</span>
+        <span class="avatarep_data_item">{$lang->reputation} {$memprofile['reputation']}</span>
+        <span class="avatarep_data_item">{$lang->total_threads} {$memprofile['threadnum']}</span>
+        <span class="avatarep_data_item">{$lang->total_posts} {$memprofile['postnum']}</span>
+        <span class="avatarep_data_item">{$lang->lastvisit} {$memlastvisitdate} {$memlastvisittime}</span>
+        <span class="avatarep_data_item">{$lang->warning_level} <a href="{$warning_link}">{$warning_level} %</a></span>
+        <span style="float:right;">{$lang->postbit_status} {$online_status}</span>
+      </span>
+    </div>
+  </div>
 </div>

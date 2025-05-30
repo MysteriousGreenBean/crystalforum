@@ -1,20 +1,23 @@
-<html>
+<html lang="pl">
+
 <head>
-<title>{$mybb->settings['bbname']} - {$lang->group_memberships}</title>
-{$headerinclude}
+  <title>{$mybb->settings['bbname']} - {$lang->group_memberships}</title>
+  {$headerinclude}
 </head>
+
 <body>
-{$header}
-<div class="flex-container">
-<div id="nav_width">{$usercpnav}</div>
-<div id="content_width">
-<td valign="top">
-{$leadinggroups}
-{$joinablegroups}
-{$membergroups}
-</td>
-	</div>
-	</div>
-{$footer}
+  {$header}
+  <div class="flex-container">
+    <div id="nav_width">{$usercpnav}</div>
+    <div id="content_width">
+      <td valign="top">
+        {$leadinggroups}
+        {$joinablegroups}
+        {$membergroups}
+      </td>
+    </div>
+  </div>
+  {$footer}
 </body>
+
 </html>

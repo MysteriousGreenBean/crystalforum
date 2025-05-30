@@ -10,9 +10,10 @@
  */
 
 // Disallow direct access to this file for security reasons
-if(!defined("IN_MYBB"))
-{
-	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
+if (!defined('IN_MYBB')) {
+    die(
+        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
+    );
 }
 
 class Horde_Text_Diff_ThreeWay_BlockBuilder
@@ -53,7 +54,11 @@ class Horde_Text_Diff_ThreeWay_BlockBuilder
         if ($this->isEmpty()) {
             return false;
         } else {
-            $edit = new Horde_Text_Diff_ThreeWay_Op_Base($this->orig, $this->final1, $this->final2);
+            $edit = new Horde_Text_Diff_ThreeWay_Op_Base(
+                $this->orig,
+                $this->final1,
+                $this->final2
+            );
             $this->_init();
             return $edit;
         }
@@ -61,7 +66,7 @@ class Horde_Text_Diff_ThreeWay_BlockBuilder
 
     protected function _init()
     {
-        $this->orig = $this->final1 = $this->final2 = array();
+        $this->orig = $this->final1 = $this->final2 = [];
     }
 
     protected function _append(&$array, $lines)

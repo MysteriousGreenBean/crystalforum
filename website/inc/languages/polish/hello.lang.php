@@ -12,7 +12,6 @@
  * See readme.html for copyright information. | Zapoznaj sie z plikiem czytaj_to.html.
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
- 
 
 $l['hello'] = 'Hello World!';
 $l['hello_add'] = 'Dodaj';

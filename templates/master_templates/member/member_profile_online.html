@@ -1,28 +1,27 @@
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let toggleButton = document.querySelector(".online-toggle");
-        let locationDiv = document.querySelector(".online-location");
-    
-        if (!toggleButton || !locationDiv) {
-            return;
-        }
-    
-    
-        toggleButton.onclick = function(event) {
-            event.stopPropagation(); // Prevents event bubbling
-            event.preventDefault(); // Prevents unexpected behavior
-    
-    
-            if (window.getComputedStyle(locationDiv).display === "none") {
-                locationDiv.style.display = "block";
-            } else {
-                locationDiv.style.display = "none";
-            }
-        };
-    });
-</script>
-    
-<a href="javascript:void(0);" class="online-toggle">
-        <i class="cp cp-plug online" title="Online"></i>
-</a>
+  document.addEventListener("DOMContentLoaded", function() {
+    let toggleButton = document.querySelector(".online-toggle");
+    let locationDiv = document.querySelector(".online-location");
 
+    if (!toggleButton || !locationDiv) {
+      return;
+    }
+
+
+    toggleButton.onclick = function(event) {
+      event.stopPropagation(); // Prevents event bubbling
+      event.preventDefault(); // Prevents unexpected behavior
+
+
+      if (window.getComputedStyle(locationDiv).display === "none") {
+        locationDiv.style.display = "block";
+      } else {
+        locationDiv.style.display = "none";
+      }
+    };
+  });
+</script>
+
+<a href="javascript:void(0);" class="online-toggle">
+  <i class="cp cp-plug online" title="Online"></i>
+</a>
