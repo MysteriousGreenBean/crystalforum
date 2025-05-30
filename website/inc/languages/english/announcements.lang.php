@@ -25,5 +25,4 @@ $l['forum_announcement'] = '{1}';
 $l['error_invalidannouncement'] = 'The announcement specified is invalid.';
 $l['announcement_edit'] = 'Edit this announcement';
 $l['announcement_qdelete'] = 'Delete this announcement';
-$l['announcement_quickdelete_confirm'] =
-    'Are you sure you want to delete this announcement?';
+$l['announcement_quickdelete_confirm'] = 'Are you sure you want to delete this announcement?';

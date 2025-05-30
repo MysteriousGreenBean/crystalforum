@@ -1,192 +1,185 @@
 .mycode_b {
-    color: var(--mycode-color);
+	color: var(--mycode-color);
 }
 
 .mycode_u {
-    color: var(--accent-color);
+	color: var(--accent-color);
 }
 
 .mycode_i {
-    color: var(--accent-color);
+	color: var(--accent-color);
 }
 
 .mycode_s {
-    color: var(--accent-color);
+	color: var(--accent-color);
 }
 
 .mycode_url {
-    color: var(--accent-color) !important;
-    border-bottom: 1px dashed var(--mycode-color);
-    transition: all 0.5s ease;
+	color: var(--accent-color) !important;
+	border-bottom: 1px dashed var(--mycode-color);
+	transition: all 0.5s ease;
 }
 
 .mycode_url:hover {
-    color: var(--accent-color) !important;
-    letter-spacing: 1px;
-    transition: all 0.5s ease;
+	color: var(--accent-color) !important;
+	letter-spacing: 1px;
+	transition: all 0.5s ease;
 }
 
 .mycode_link {
-    color: var(--accent-color) !important;
-    transition: all 0.5s ease;
+	color: var(--accent-color) !important;
+	transition: all 0.5s ease;
 }
 
 .mycode_link:hover {
-    color: var(--accent-color) !important;
-    letter-spacing: 0.5px;
-    transition: all 0.5s ease;
+	color: var(--accent-color) !important;
+	letter-spacing: 0.5px;
+	transition: all 0.5s ease;
 }
 
 .mycode_hr {
-    background: radial-gradient(
-        circle,
-        #1f4132,
-        #1c3e2f,
-        #193a2c,
-        #173729,
-        #143426
-    ) !important;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 12px;
-    box-shadow: var(--main-shadow);
+	background: radial-gradient(circle, #1f4132, #1c3e2f, #193a2c, #173729, #143426) !important;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 12px;
+	box-shadow: var(--main-shadow);
 }
 
 .mycode_line {
-    background: var(--brown-gradient) !important;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 12px;
-    box-shadow: var(--main-shadow);
+	background: var(--brown-gradient) !important;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 12px;
+	box-shadow: var(--main-shadow);
 }
 
 .mycode_list {
-    text-indent: 5px;
+	text-indent: 5px;
 }
 
 .mycode_list li::marker {
-    color: var(--mycode-color);
-    font-weight: bold;
-    font-size: 15px;
-    text-shadow: var(--main-shadow);
+	color: var(--mycode-color);
+	font-weight: bold;
+	font-size: 15px;
+	text-shadow: var(--main-shadow);
 }
 
 blockquote {
-    background: rgb(40, 40, 40) none repeat scroll 0% 0%;
-    margin: 10px;
-    padding: 10px;
-    border-left: 3px solid var(--accent-color);
-    border-right: 3px solid var(--accent-color);
-    box-shadow: var(--main-shadow);
-    text-indent: 0px;
+	background: rgb(40, 40, 40) none repeat scroll 0% 0%;
+	margin: 10px;
+	padding: 10px;
+	border-left: 3px solid var(--accent-color);
+	border-right: 3px solid var(--accent-color);
+	box-shadow: var(--main-shadow);
+	text-indent: 0px;
 }
 
 blockquote cite {
-    display: block;
-    padding-bottom: 3px;
-    margin: 0 0 10px 0;
-    color: var(--main-font-color);
-    border-bottom: 1px solid var(--mycode-color);
-    font-style: normal;
-    font-weight: bold;
+	display: block;
+	padding-bottom: 3px;
+	margin: 0 0 10px 0;
+	color: var(--main-font-color);
+	border-bottom: 1px solid var(--mycode-color);
+	font-style: normal;
+	font-weight: bold;
 }
 
 blockquote cite span {
-    float: right;
-    font-weight: normal;
-    font-size: 12px;
-    color: var(--main-font-color);
+	float: right;
+	font-weight: normal;
+	font-size: 12px;
+	color: var(--main-font-color);
 }
 
 blockquote cite span.highlight {
-    float: none;
-    font-weight: bold;
-    padding-bottom: 0;
+	float: none;
+	font-weight: bold;
+	padding-bottom: 0;
 }
 
 .codeblock {
-    background: rgb(40, 40, 40) none repeat scroll 0% 0%;
-    border-left: 3px solid var(--accent-color);
-    border-right: 3px solid var(--accent-color);
-    border-radius: 10px;
-    padding: 10px;
-    color: var(--main-font-color);
-    text-indent: 0px;
-    box-shadow: var(--main-shadow);
-    margin-top: 10px;
-    margin-bottom: 10px;
+	background: rgb(40, 40, 40) none repeat scroll 0% 0%;
+	border-left: 3px solid var(--accent-color);
+	border-right: 3px solid var(--accent-color);
+	border-radius: 10px;
+	padding: 10px;
+	color: var(--main-font-color);
+	text-indent: 0px;
+	box-shadow: var(--main-shadow);
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .codeblock .title {
-    color: var(--main-font-color);
-    border-bottom: 1px solid var(--mycode-color);
-    padding-bottom: 3px;
-    margin: 0 0 10px 0;
-    font-weight: bold;
-    font-size: 14px;
-    text-shadow: var(--main-shadow);
+	color: var(--main-font-color);
+	border-bottom: 1px solid var(--mycode-color);
+	padding-bottom: 3px;
+	margin: 0 0 10px 0;
+	font-weight: bold;
+	font-size: 14px;
+	text-shadow: var(--main-shadow);
 }
 
 .codeblock code {
-    overflow: auto;
-    height: auto;
-    max-height: 200px;
-    display: block;
-    font-family: Monaco, Consolas, Courier, monospace;
-    font-size: 13px;
-    background-color: var(--box-background);
-    padding: 10px;
-    box-shadow: var(--main-shadow);
+	overflow: auto;
+	height: auto;
+	max-height: 200px;
+	display: block;
+	font-family: Monaco, Consolas, Courier, monospace;
+	font-size: 13px;
+	background-color: var(--box-background);
+	padding: 10px;
+	box-shadow: var(--main-shadow);
 }
 
 .copy-button {
-    margin-top: 20px;
-    margin-bottom: 10px;
+	margin-top: 20px;
+	margin-bottom: 10px;
 }
 
-.spoiler {
-    text-indent: 0px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.spoiler{
+	text-indent: 0px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .spoiler button {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: var(--main-shadow);
-    transition: all 0.8s ease;
-    padding: 5px;
+	width: 100%;
+	border-radius: 10px;
+	box-shadow: var(--main-shadow);
+	transition: all 0.8s ease;
+	padding: 5px;
 }
 
 .spoiler button.open {
-    width: 100%;
-    border-radius: 10px 10px 0px 0px !important;
-    transition: all 0.8s ease;
+	width: 100%;
+	border-radius: 10px 10px 0px 0px !important;
+	transition: all 0.8s ease;
 }
 
 .spoiler .spoiler_content {
-    background: rgb(40, 40, 40) none repeat scroll 0% 0%;
-    box-shadow: var(--main-shadow);
-    border-radius: 0px 0px 10px 10px;
-    transition: all 0.8s ease;
-    padding: 10px;
-    opacity: 0;
+	background: rgb(40, 40, 40) none repeat scroll 0% 0%;
+	box-shadow: var(--main-shadow);
+	border-radius: 0px 0px 10px 10px;
+	transition: all 0.8s ease;
+	padding: 10px;
+	opacity: 0;
 }
 .spoiler .spoiler_content .open {
-    transition: all 0.8s ease;
+	transition: all 0.8s ease;
 }
 
 .spoiler .no_indent {
-    text-indent: 0px;
+	text-indent: 0px;
 }
 
 .mycode_img {
-    margin: 10px;
-    border: 2px solid var(--main-color);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    margin-top: 10px;
-    max-height: 350px;
+	margin: 10px;
+	border: 2px solid var(--main-color);
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	margin-top: 10px;
+	max-height: 350px;
 }

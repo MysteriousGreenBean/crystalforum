@@ -134,12 +134,6 @@
                 "${workspaceFolder}/scripts.ps1",
                 "refresh-stylesheets"
             ]
-        },
-        {
-            "label": "Format and validate",
-            "type": "shell",
-            "command": "npm",
-            "args": ["run", "check-format-and-validate"]
         }
     ]
 }

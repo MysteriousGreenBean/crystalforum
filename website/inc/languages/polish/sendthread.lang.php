@@ -6,12 +6,14 @@
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
 
-$l['nav_sendthread'] = 'Wyślij ten wątek znajomemu';
+$l['nav_sendthread'] = "Wyślij ten wątek znajomemu";
 
-$l['send_thread'] = 'Wyślij do znajomego';
-$l['recipient'] = 'Odbiorca:';
-$l['recipient_note'] = 'Wpisz adres e-mail odbiorcy.';
-$l['subject'] = 'Temat:';
-$l['message'] = 'Wiadomość:';
-$l['error_nosubject'] = 'Musisz podać temat wiadomości.';
-$l['error_nomessage'] = 'Musisz podać treść wiadomości.';
+$l['send_thread'] = "Wyślij do znajomego";
+$l['recipient'] = "Odbiorca:";
+$l['recipient_note'] = "Wpisz adres e-mail odbiorcy.";
+$l['subject'] = "Temat:";
+$l['message'] = "Wiadomość:";
+$l['error_nosubject'] = "Musisz podać temat wiadomości.";
+$l['error_nomessage'] = "Musisz podać treść wiadomości.";
+
+

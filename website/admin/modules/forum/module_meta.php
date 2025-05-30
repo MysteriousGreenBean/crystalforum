@@ -9,10 +9,9 @@
  */
 
 // Disallow direct access to this file for security reasons
-if (!defined('IN_MYBB')) {
-    die(
-        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
-    );
+if(!defined("IN_MYBB"))
+{
+	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
 }
 
 /**
@@ -20,41 +19,19 @@ if (!defined('IN_MYBB')) {
  */
 function forum_meta()
 {
-    global $page, $lang, $plugins;
+	global $page, $lang, $plugins;
 
-    $sub_menu = [];
-    $sub_menu['10'] = [
-        'id' => 'management',
-        'title' => $lang->forum_management,
-        'link' => 'index.php?module=forum-management',
-    ];
-    $sub_menu['20'] = [
-        'id' => 'announcements',
-        'title' => $lang->forum_announcements,
-        'link' => 'index.php?module=forum-announcements',
-    ];
-    $sub_menu['30'] = [
-        'id' => 'moderation_queue',
-        'title' => $lang->moderation_queue,
-        'link' => 'index.php?module=forum-moderation_queue',
-    ];
-    $sub_menu['40'] = [
-        'id' => 'attachments',
-        'title' => $lang->attachments,
-        'link' => 'index.php?module=forum-attachments',
-    ];
+	$sub_menu = array();
+	$sub_menu['10'] = array("id" => "management", "title" => $lang->forum_management, "link" => "index.php?module=forum-management");
+	$sub_menu['20'] = array("id" => "announcements", "title" => $lang->forum_announcements, "link" => "index.php?module=forum-announcements");
+	$sub_menu['30'] = array("id" => "moderation_queue", "title" => $lang->moderation_queue, "link" => "index.php?module=forum-moderation_queue");
+	$sub_menu['40'] = array("id" => "attachments", "title" => $lang->attachments, "link" => "index.php?module=forum-attachments");
 
-    $sub_menu = $plugins->run_hooks('admin_forum_menu', $sub_menu);
+	$sub_menu = $plugins->run_hooks("admin_forum_menu", $sub_menu);
 
-    $page->add_menu_item(
-        $lang->forums_and_posts,
-        'forum',
-        'index.php?module=forum',
-        20,
-        $sub_menu
-    );
+	$page->add_menu_item($lang->forums_and_posts, "forum", "index.php?module=forum", 20, $sub_menu);
 
-    return true;
+	return true;
 }
 
 /**
@@ -64,35 +41,29 @@ function forum_meta()
  */
 function forum_action_handler($action)
 {
-    global $page, $plugins;
+	global $page, $plugins;
 
-    $page->active_module = 'forum';
+	$page->active_module = "forum";
 
-    $actions = [
-        'moderation_queue' => [
-            'active' => 'moderation_queue',
-            'file' => 'moderation_queue.php',
-        ],
-        'announcements' => [
-            'active' => 'announcements',
-            'file' => 'announcements.php',
-        ],
-        'attachments' => [
-            'active' => 'attachments',
-            'file' => 'attachments.php',
-        ],
-        'management' => ['active' => 'management', 'file' => 'management.php'],
-    ];
+	$actions = array(
+		'moderation_queue' => array('active' => 'moderation_queue', 'file' => 'moderation_queue.php'),
+		'announcements' => array('active' => 'announcements', 'file' => 'announcements.php'),
+		'attachments' => array('active' => 'attachments', 'file' => 'attachments.php'),
+		'management' => array('active' => 'management', 'file' => 'management.php')
+	);
 
-    $actions = $plugins->run_hooks('admin_forum_action_handler', $actions);
+	$actions = $plugins->run_hooks("admin_forum_action_handler", $actions);
 
-    if (isset($actions[$action])) {
-        $page->active_action = $actions[$action]['active'];
-        return $actions[$action]['file'];
-    } else {
-        $page->active_action = 'management';
-        return 'management.php';
-    }
+	if(isset($actions[$action]))
+	{
+		$page->active_action = $actions[$action]['active'];
+		return $actions[$action]['file'];
+	}
+	else
+	{
+		$page->active_action = "management";
+		return "management.php";
+	}
 }
 
 /**
@@ -100,23 +71,17 @@ function forum_action_handler($action)
  */
 function forum_admin_permissions()
 {
-    global $lang, $plugins;
+	global $lang, $plugins;
 
-    $admin_permissions = [
-        'management' => $lang->can_manage_forums,
-        'announcements' => $lang->can_manage_forum_announcements,
-        'moderation_queue' => $lang->can_moderate,
-        'attachments' => $lang->can_manage_attachments,
-    ];
+	$admin_permissions = array(
+		"management" => $lang->can_manage_forums,
+		"announcements" => $lang->can_manage_forum_announcements,
+		"moderation_queue" => $lang->can_moderate,
+		"attachments" => $lang->can_manage_attachments,
+	);
 
-    $admin_permissions = $plugins->run_hooks(
-        'admin_forum_permissions',
-        $admin_permissions
-    );
+	$admin_permissions = $plugins->run_hooks("admin_forum_permissions", $admin_permissions);
 
-    return [
-        'name' => $lang->forums_and_posts,
-        'permissions' => $admin_permissions,
-        'disporder' => 20,
-    ];
+	return array("name" => $lang->forums_and_posts, "permissions" => $admin_permissions, "disporder" => 20);
 }
+

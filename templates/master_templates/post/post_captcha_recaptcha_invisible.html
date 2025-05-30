@@ -1,33 +1,36 @@
 <br />
 <script src="{$server}?onload=captchaOnloadCallback&render=explicit" async defer></script>
-<script>
-  var captchaTarget = '';
+<script type="text/javascript">
 
-  var captchaOnSubmit = function(token) {
+	var captchaTarget = '';
 
-    if (!captchaTarget.is('#quick_reply_submit')) {
-      document.createElement('form').submit.apply(captchaTarget.closest('form')[0]);
-    } else {
-      captchaTarget.on('click', function(e) {
-        return Thread.quickReply(e);
-      }).trigger('click').off('click');
-      grecaptcha.reset();
-    }
+	var captchaOnSubmit = function(token) {
 
-  };
+		if (!captchaTarget.is('#quick_reply_submit')) {
+			document.createElement('form').submit.apply(captchaTarget.closest('form')[0]);
+		}
+		else {
+			captchaTarget.on('click', function(e) {
+				return Thread.quickReply(e);
+			}).trigger('click').off('click');
+			grecaptcha.reset();
+		}
 
-  var captchaOnloadCallback = function() {
+	};
 
-    captchaTarget = $('input[name="submit"], #quick_reply_submit').filter(function() {
-      return $(this).closest('#quick_login').length == 0
-    });
+	var captchaOnloadCallback = function() {
 
-    captchaTarget.attr('data-size', 'invisible').unbind('click');
+		captchaTarget = $('input[name="submit"], #quick_reply_submit').filter(function(){
+			return $(this).closest('#quick_login').length == 0
+		});
 
-    grecaptcha.render(captchaTarget.get(0), {
-      'sitekey': '{$public_key}',
-      'callback': captchaOnSubmit
-    }, true);
+		captchaTarget.attr('data-size', 'invisible').unbind('click');
 
-  }
+		grecaptcha.render(captchaTarget.get(0), {
+				'sitekey': '{$public_key}',
+				'callback': captchaOnSubmit
+			}, true);
+
+	}
+
 </script>

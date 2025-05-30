@@ -1,19 +1,21 @@
 <br />
 <script src="{$server}?onload=captchaOnloadCallback&render=explicit" async defer></script>
-<script>
-  var captchaOnSubmit = function(token) {
-    $("#registration_form").trigger('submit');
-  };
+<script type="text/javascript">
 
-  var captchaOnloadCallback = function() {
+	var captchaOnSubmit = function(token) {
+		$("#registration_form").trigger('submit');
+	};
 
-    var target = $('input[name="regsubmit"]');
-    target.attr('data-size', 'invisible');
+	var captchaOnloadCallback = function() {
 
-    hcaptcha.render(target.get(0), {
-      'sitekey': '{$public_key}',
-      'callback': captchaOnSubmit
-    }, true);
+		var target = $('input[name="regsubmit"]');
+		target.attr('data-size', 'invisible');
 
-  }
+		hcaptcha.render(target.get(0), {
+				'sitekey': '{$public_key}',
+				'callback': captchaOnSubmit
+			}, true);
+
+	}
+
 </script>

@@ -20,8 +20,7 @@
 // --------------------------------------------------------------------------------
 
 $l['nav_memberlist'] = 'Members';
-$l['memberlist_disabled'] =
-    'The member list functionality has been disabled by the Administrator.';
+$l['memberlist_disabled'] = 'The member list functionality has been disabled by the Administrator.';
 $l['member_list'] = 'Members';
 $l['avatar'] = 'Avatar';
 $l['username'] = 'Member';
@@ -60,8 +59,7 @@ $l['search_icq'] = 'ICQ Number';
 $l['search_options'] = 'Search Options';
 $l['per_page'] = 'Results Per Page';
 $l['search'] = 'Search';
-$l['error_no_members'] =
-    '<p>There were no members found with the search criteria you entered.</p><p>Please enter a different search term and try again.</p>';
+$l['error_no_members'] = '<p>There were no members found with the search criteria you entered.</p><p>Please enter a different search term and try again.</p>';
 $l['a'] = 'A';
 $l['b'] = 'B';
 $l['c'] = 'C';

@@ -8,10 +8,10 @@
  */
 
 // Help Section 1
-$l['s1_name'] = 'Rejestracja i podstawy';
-$l['s1_desc'] =
-    'Podstawowe informacje, pomocne w rejestracji i tworzeniu profilu.';
+$l['s1_name'] = "Rejestracja i podstawy";
+$l['s1_desc'] = "Podstawowe informacje, pomocne w rejestracji i tworzeniu profilu.";
 
 // Help Section 2
-$l['s2_name'] = 'Pisanie';
-$l['s2_desc'] = 'Podstawy używania forum - tworzenie wątków, odpowiadanie itp.';
+$l['s2_name'] = "Pisanie";
+$l['s2_desc'] = "Podstawy używania forum - tworzenie wątków, odpowiadanie itp.";
+

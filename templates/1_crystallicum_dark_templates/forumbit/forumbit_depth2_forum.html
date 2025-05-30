@@ -1,41 +1,26 @@
-<!-- DESKTOP -->
+<! -- DESKTOP -->
 <tr class="forums desktop">
-  <td align="center" width="1">
-    <div class="forum_status forum_{$lightbulb['folder']} ajax_mark_read" title="{$lightbulb['altonoff']}" id="mark_read_{$forum['fid']}"></div><br />
-    <div class="box">{$threads}{$unapproved['unapproved_threads']} tematów<br />
-      {$posts}{$unapproved['unapproved_posts']} postów<br /></div>
-  </td>
-  <td style="width: 70% !important;">
-    <strong><a class="link" href="{$forum_url}">{$forum['name']}</a></strong>
-    <hr>{$forum_viewers_text}<div class="smalltext">{$forum['description']}{$modlist}<br></div>{$subforums}<br>
-  </td>
-  <td id="lastpost" align="center" style="white-space: nowrap" class="one">{$lastpost}</td>
+<td align="center" width="1"><div class="forum_status forum_{$lightbulb['folder']} ajax_mark_read" title="{$lightbulb['altonoff']}" id="mark_read_{$forum['fid']}"></div><br/>
+	<div class="box">{$threads}{$unapproved['unapproved_threads']} tematów<br/>
+		{$posts}{$unapproved['unapproved_posts']} postów<br/></div></td>
+<td style="width: 70% !important;">
+<strong><a class="link" href="{$forum_url}">{$forum['name']}</a></strong><hr>{$forum_viewers_text}<div class="smalltext">{$forum['description']}{$modlist}<br></div>{$subforums}<br>
+</td>
+	<td id="lastpost" align="center" style="white-space: nowrap" class="one">{$lastpost}</td>
 </tr>
-
-<!-- MOBILE -->
+	
+<! -- MOBILE -->
 <tr class="forums mobile">
-  <td colspan="2">
-    <strong><a class="link" href="{$forum_url}">{$forum['name']}</a></strong>
-    <hr>{$forum_viewers_text}<div class="smalltext">{$forum['description']}{$modlist}<br>{$subforums}<br></div>
-  </td>
+	<td colspan="2">
+	<strong><a class="link" href="{$forum_url}">{$forum['name']}</a></strong><hr>{$forum_viewers_text}<div class="smalltext">{$forum['description']}{$modlist}<br>{$subforums}<br></div>
+	</td>
 </tr>
 
 <tr class="forums mobile" style="text-align: center; vertical-align: middle;">
-  <td align="center">
-    <div class="box">{$threads}{$unapproved['unapproved_threads']} tematów<br />{$posts}{$unapproved['unapproved_posts']} postów<br /></div>
-  </td>
+	<td align="center"><div class="box">{$threads}{$unapproved['unapproved_threads']} tematów<br/>{$posts}{$unapproved['unapproved_posts']} postów<br/></div></td>
 
-  <!--[html-validate-disable-next no-dup-id]-->
-  <td id="lastpost" align="center" style="white-space: nowrap">
-    <div class="box">
-      <!--[html-validate-disable-next deprecated, element-permitted-content]-->
-      <center><i style="font-size:400;" class="far fa-clock"></i> {$lastpost_date}</center>
-      <!--[html-validate-disable-next deprecated, element-permitted-content]-->
-      <center>
-        <a href="{$lastpost_link}" title="{$full_lastpost_subject}">
-          <strong>{$lastpost_subject}</strong>
-        </a> <br />{$lang->by} {$lastpost_profilelink}
-      </center>
-    </div>
-  </td>
+	<td id="lastpost" align="center" style="white-space: nowrap"><div class="box"><center><i style="font-size:400;" class="far fa-clock"></i>  {$lastpost_date}</center>
+	<center><a href="{$lastpost_link}" title="{$full_lastpost_subject}">
+		
+		<strong>{$lastpost_subject}</strong></a> <br/>{$lang->by} {$lastpost_profilelink}</center></div></td>
 </tr>

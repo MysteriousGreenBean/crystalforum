@@ -20,8 +20,7 @@
 // --------------------------------------------------------------------------------
 
 $l['nav_stats'] = 'Statistics';
-$l['stats_disabled'] =
-    'You cannot view the statistics page as it has been disabled by the Administrator.';
+$l['stats_disabled'] = 'You cannot view the statistics page as it has been disabled by the Administrator.';
 $l['board_stats'] = 'Statistics';
 $l['none'] = 'None';
 $l['totals'] = 'Totals';
@@ -44,8 +43,7 @@ $l['popular_forum'] = 'Most Popular<br />{1}<br />{2} posts, {3} threads';
 $l['most_popular'] = 'Most Popular&hellip;';
 $l['most_replied_threads'] = 'Most Replies';
 $l['most_viewed_threads'] = 'Most Views';
-$l['not_enough_info_stats'] =
-    'Sorry, but there is not enough information on this board to generate statistics. Before statistics can be generated this board needs to contain at least 1 member and 1 thread.';
+$l['not_enough_info_stats'] = 'Sorry, but there is not enough information on this board to generate statistics. Before statistics can be generated this board needs to contain at least 1 member and 1 thread.';
 $l['replies'] = 'replies';
 $l['views'] = 'views';
 $l['top_referrer'] = '<div class="col align-self-center text-center">

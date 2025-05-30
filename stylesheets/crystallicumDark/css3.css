@@ -1,71 +1,67 @@
 tr td.trow1:first-child,
 tr td.trow2:first-child,
 tr td.trow_shaded:first-child {
-    border-left: 0;
+	border-left: 0;
 }
 
 #header_block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content:center;
+	align-items: center;
 }
 
 @keyframes bganim {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: 100% 0;
-    }
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
 }
 
 #iconbouton {
-    padding: 10px;
-    border-radius: 50%;
-    margin-right: 5px;
-    font-size: 14px;
-    background: #2ecc71 none repeat scroll 0% 0%;
-    color: #fff;
+	padding: 10px;
+border-radius: 50%;
+margin-right: 5px;
+font-size: 14px;
+background: #2ECC71 none repeat scroll 0% 0%;
+color: #FFF;
 }
 
 .teammember {
-    background: #f0f0f0 none repeat scroll 0% 0%;
-    border-bottom: 4px solid #e3e3e3;
-    margin: 18px;
-    display: inline-block;
-    padding: 55px 0px;
-    width: 24%;
-    font-size: 17px;
+	background: #F0F0F0 none repeat scroll 0% 0%;
+border-bottom: 4px solid #E3E3E3;
+margin: 18px;
+display: inline-block;
+padding: 55px 0px;
+width: 24%;
+font-size: 17px;
 }
 
 .headerlist ul li {
-    transition: all 200ms;
+	transition: all 200ms;
 }
 
 .headerlist ul li:hover {
-    background: #f9f9f9;
+	background: #F9F9F9;
 }
 
-.headerlist ul li:hover a {
-    text-decoration: none;
+.headerlist ul li:hover a{
+	text-decoration:none;
 }
 
 .haut a:hover {
-    text-decoration: none;
-    color: white !important;
+	text-decoration:none;
+	color: white !important;
 }
 
 tr td.trow1:last-child,
 tr td.trow2:last-child,
 tr td.trow_shaded:last-child {
-    border-right: 0;
+	border-right: 0;
 }
 
 .tborder {
 }
 
 .tborder tbody tr:last-child td {
-    border-bottom: 0;
+	border-bottom: 0;
 }
 
 .tborder tbody tr:last-child td:first-child {
@@ -81,21 +77,21 @@ tr td.trow_shaded:last-child {
 }
 
 .thead_left {
-    -moz-border-radius-topright: 0;
-    -webkit-border-top-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-webkit-border-top-right-radius: 0;
     border-top-right-radius: 0;
 }
 
 .thead_right {
-    -moz-border-radius-topleft: 0;
-    -webkit-border-top-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-webkit-border-top-left-radius: 0;
     border-top-left-radius: 0;
 }
 
 .tcat_menu {
-    -moz-border-radius: 0 !important;
-    -webkit-border-radius: 0 !important;
-    border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	-webkit-border-radius: 0 !important;
+  	border-radius: 0 !important;
 }
 
 .tborder tbody:nth-last-child(2) .tcat_collapse_collapsed {
@@ -131,150 +127,146 @@ a.button {
 .pollbar {
 }
 
-.logo_mobile,
-#nav_active {
-    display: none;
+.logo_mobile,#nav_active {
+display:none;
 }
 
 .logo {
-    float: left;
+ float:left;
 }
 
 .forum {
-    /*width: 77%;*/
+	/*width: 77%;*/
 }
 
 @media (max-width: 768px) {
-    #threads,
-    #views,
-    #replies,
-    #lastpost,
-    .side,
-    .useroptions {
-        display: none;
-    }
+	#threads,#views,#replies,#lastpost,.side,.useroptions{
+display: none;
+}
+	
+.footer-distributed
+{
+	bottom: -50px !important;
+}
 
-    .footer-distributed {
-        bottom: -50px !important;
-    }
+#profile_desktop, #desktop_post, #menu_desktop, #notif_desktop, .hide_mobile {
+	display:none;
+}
+	
+#mobile_profile, #mobile_post, #mobile_menu
+{
+	display:block !important;
+}
 
-    #profile_desktop,
-    #desktop_post,
-    #menu_desktop,
-    #notif_desktop,
-    .hide_mobile {
-        display: none;
-    }
+.post_flexible
+{
+	display:block;	
+}
+	
+.headerlist{
+display:none;
+}
 
-    #mobile_profile,
-    #mobile_post,
-    #mobile_menu {
-        display: block !important;
-    }
+#nav_bit_complet{
+display:inline-block;
+}
 
-    .post_flexible {
-        display: block;
-    }
+.navigation, #header_block,.nav_link, .scrollToDown, .scrollToTop {
+display:none;
+}
 
-    .headerlist {
-        display: none;
-    }
+.haut {
+text-align: center;
+}
 
-    #nav_bit_complet {
-        display: inline-block;
-    }
 
-    .navigation,
-    #header_block,
-    .nav_link,
-    .scrollToDown,
-    .scrollToTop {
-        display: none;
-    }
+.forum,.wrapper {
+ width:100%;
+}
 
-    .haut {
-        text-align: center;
-    }
+#mobile_member {
+	display:block;
+	width: 80%;
+}
 
-    .forum,
-    .wrapper {
-        width: 100%;
-    }
+.post.parent .post_author {
+	float:none; 
+	width:100%; 
+	padding: 20px 0px;
+}
 
-    #mobile_member {
-        display: block;
-        width: 80%;
-    }
+.teammember {
+display:block;width:60%
+}
 
-    .post.parent .post_author {
-        float: none;
-        width: 100%;
-        padding: 20px 0px;
-    }
+#logo {
+ 
+		left: -15px;
+}
 
-    .teammember {
-        display: block;
-        width: 60%;
-    }
 
-    #logo {
-        left: -15px;
-    }
 }
 
 @media (max-width: 1280px) {
-    .wrapper {
-        /*width:100%;*/
-    }
+.wrapper {
+ /*width:100%;*/
+}
 
-    #buytheme {
-        max-height: 80px;
-    }
+#buytheme {
+	max-height: 80px;
+}
 
-    #threads,
-    #views,
-    #replies,
-    #lastpost,
-    .scrollToDown,
-    .scrollToTop,
-    .star_rating_container,
-    #rating {
-        display: none;
-    }
+#threads,#views,#replies,#lastpost,.scrollToDown, .scrollToTop, .star_rating_container,#rating{
+ display:none;
+}
+
+
 }
 
 @media (max-width: 1280px) {
-    #menu_mobile {
-        display: block !important;
-    }
 
-    #menu_desktop,
-    .hide_mobile {
-        display: none;
-    }
+#menu_mobile
+{
+	display:block !important;
 }
-
+	
+#menu_desktop, .hide_mobile {
+	display:none;
+}
+	
+}		
+		
 #nav_width {
-    /*float:left;*/
-    width: 24%;
+		/*float:left;*/
+		width:24%;
 }
 #content_width {
-    /*float:right;*/
-    width: 74%;
+		/*float:right;*/
+		width:74%;
 }
 
 .flex-container {
     display: flex;
     flex-direction: row; /* Ensure the direction is row */
-    justify-content: space-evenly;
-    margin-left: 5px;
+	justify-content: space-evenly;
+	margin-left: 5px;
 }
 
 @media (max-width: 768px) {
-    #nav_width,
-    #content_width {
-        float: none;
-        width: 100% !important;
-        margin-top: 15px;
-    }
-}
+	#nav_width, #content_width {
+		float:none;
+		width:100% !important;
+		margin-top:15px;
+	}
+}	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

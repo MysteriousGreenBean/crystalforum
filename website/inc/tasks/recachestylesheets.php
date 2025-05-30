@@ -10,44 +10,30 @@
 
 function task_recachestylesheets($task)
 {
-    global $mybb, $db, $lang;
+	global $mybb, $db, $lang;
 
-    if (
-        file_exists(
-            MYBB_ROOT . $mybb->config['admin_dir'] . '/inc/functions_themes.php'
-        )
-    ) {
-        require_once MYBB_ROOT .
-            $mybb->config['admin_dir'] .
-            '/inc/functions_themes.php';
-    } elseif (file_exists(MYBB_ROOT . 'admin/inc/functions_themes.php')) {
-        require_once MYBB_ROOT . 'admin/inc/functions_themes.php';
-    }
+	if(file_exists(MYBB_ROOT.$mybb->config['admin_dir']."/inc/functions_themes.php"))
+	{
+		require_once MYBB_ROOT.$mybb->config['admin_dir']."/inc/functions_themes.php";
+	}
+	else if(file_exists(MYBB_ROOT."admin/inc/functions_themes.php"))
+	{
+		require_once MYBB_ROOT."admin/inc/functions_themes.php";
+	}
 
-    $query = $db->simple_select('themestylesheets', '*');
+	$query = $db->simple_select('themestylesheets', '*');
 
-    $num_recached = 0;
+	$num_recached = 0;
 
-    while ($stylesheet = $db->fetch_array($query)) {
-        if (
-            cache_stylesheet(
-                $stylesheet['tid'],
-                $stylesheet['name'],
-                $stylesheet['stylesheet']
-            )
-        ) {
-            $db->update_query(
-                'themestylesheets',
-                ['cachefile' => $db->escape_string($stylesheet['name'])],
-                "sid='{$stylesheet['sid']}'",
-                1
-            );
-            ++$num_recached;
-        }
-    }
+	while($stylesheet = $db->fetch_array($query))
+	{
+		if(cache_stylesheet($stylesheet['tid'], $stylesheet['name'], $stylesheet['stylesheet']))
+		{
+			$db->update_query("themestylesheets", array('cachefile' => $db->escape_string($stylesheet['name'])), "sid='{$stylesheet['sid']}'", 1);
+			++$num_recached;
+		}
+	}
 
-    add_task_log(
-        $task,
-        $lang->sprintf($lang->task_recachestylesheets_ran, $num_recached)
-    );
+	add_task_log($task, $lang->sprintf($lang->task_recachestylesheets_ran, $num_recached));
 }
+

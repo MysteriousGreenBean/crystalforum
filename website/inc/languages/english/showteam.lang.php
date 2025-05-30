@@ -34,6 +34,5 @@ $l['away'] = 'Away';
 $l['group_leaders'] = 'Group Leaders';
 $l['group_members'] = 'Member(s)';
 $l['no_members'] = 'No members in this group';
-$l['showteam_disabled'] =
-    'The forum team listing functionality has been disabled by the Administrator.';
+$l['showteam_disabled'] = 'The forum team listing functionality has been disabled by the Administrator.';
 $l['error_noteamstoshow'] = 'There are no forum staff to be shown.';
