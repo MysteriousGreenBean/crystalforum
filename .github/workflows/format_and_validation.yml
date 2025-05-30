@@ -7,7 +7,7 @@ on:
             - 'feature/*'
 
 jobs:
-    prettier:
+    Check format and validation:
         runs-on: ubuntu-latest
 
         steps:

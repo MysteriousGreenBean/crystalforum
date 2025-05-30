@@ -10,7 +10,8 @@
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "validate-html": "html-validate \"**/*.html\"",
-        "beautify": "js-beautify \"**/*.html\" -r"
+        "beautify": "js-beautify \"**/*.html\" -r",
+        "check-format-and-validate": "npm run format:check && npm run validate-html"
     },
     "repository": {
         "type": "git",

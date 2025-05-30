@@ -110,6 +110,17 @@
                 "reveal": "always",
                 "panel": "shared"
             }
+        },
+        {
+            "name": "Format and validate",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "preLaunchTask": "Format and validate",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
         }
     ]
 }
