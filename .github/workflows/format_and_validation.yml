@@ -7,7 +7,7 @@ on:
             - 'feature/*'
 
 jobs:
-    Check format and validation:
+    run_checks:
         runs-on: ubuntu-latest
 
         steps:
