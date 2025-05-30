@@ -1,7 +1,6 @@
 <a href="editpost.php?pid={$post['pid']}" onclick="Thread.deletePost({$post['pid']}); return false;" style="display: none;" id="quick_delete_{$post['pid']}" title="{$postbit_qdelete}" class="postbit_qdelete"><i class="cp cp-trash"></i></a>
-<script>
-  // <!--
-  $('#quick_delete_{$post['
-    pid ']}').css('display', '{$display}');
-  // -->
+<script type="text/javascript">
+// <!--
+	$('#quick_delete_{$post['pid']}').css('display', '{$display}');
+// -->
 </script>

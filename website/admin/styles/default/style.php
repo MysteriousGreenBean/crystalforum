@@ -28,54 +28,61 @@
  */
 
 // Disallow direct access to this file for security reasons
-if (!defined('IN_MYBB')) {
-    die(
-        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
-    );
+if(!defined("IN_MYBB"))
+{
+	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
 }
 
 #[AllowDynamicProperties]
 class Page extends DefaultPage
 {
-    function _generate_breadcrumb()
-    {
-        if (!is_array($this->_breadcrumb_trail)) {
-            return false;
-        }
-        $trail = '';
-        foreach ($this->_breadcrumb_trail as $key => $crumb) {
-            if (!empty($this->_breadcrumb_trail[$key + 1])) {
-                $trail .=
-                    "<a href=\"" .
-                    $crumb['url'] .
-                    "\">" .
-                    $crumb['name'] .
-                    '</a>';
-                if (!empty($this->_breadcrumb_trail[$key + 2])) {
-                    $trail .= ' &raquo; ';
-                }
-            } else {
-                $trail .=
-                    " &raquo; <span class=\"active\">" .
-                    $crumb['name'] .
-                    '</span>';
-            }
-        }
-        return $trail;
-    }
+	function _generate_breadcrumb()
+	{
+		if(!is_array($this->_breadcrumb_trail))
+		{
+			return false;
+		}
+		$trail = "";
+		foreach($this->_breadcrumb_trail as $key => $crumb)
+		{
+			if(!empty($this->_breadcrumb_trail[$key+1]))
+			{
+				$trail .= "<a href=\"".$crumb['url']."\">".$crumb['name']."</a>";
+				if(!empty($this->_breadcrumb_trail[$key+2]))
+				{
+					$trail .= " &raquo; ";
+				}
+			}
+			else
+			{
+				$trail .= " &raquo; <span class=\"active\">".$crumb['name']."</span>";
+			}
+		}
+		return $trail;
+	}
 }
 
 #[AllowDynamicProperties]
-class SidebarItem extends DefaultSidebarItem {}
+class SidebarItem extends DefaultSidebarItem
+{
+}
 
 #[AllowDynamicProperties]
-class PopupMenu extends DefaultPopupMenu {}
+class PopupMenu extends DefaultPopupMenu
+{
+}
 
 #[AllowDynamicProperties]
-class Table extends DefaultTable {}
+class Table extends DefaultTable
+{
+}
 
 #[AllowDynamicProperties]
-class Form extends DefaultForm {}
+class Form extends DefaultForm
+{
+}
 
 #[AllowDynamicProperties]
-class FormContainer extends DefaultFormContainer {}
+class FormContainer extends DefaultFormContainer
+{
+}

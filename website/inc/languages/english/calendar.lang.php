@@ -25,8 +25,7 @@ $l['nav_dayview'] = 'Day View';
 $l['nav_addevent'] = 'Add Event';
 $l['nav_editevent'] = 'Edit Event';
 $l['nav_move_event'] = 'Move Event';
-$l['calendar_disabled'] =
-    'You cannot use the calendar functionality as it has been disabled by the Administrator.';
+$l['calendar_disabled'] = 'You cannot use the calendar functionality as it has been disabled by the Administrator.';
 $l['alt_month_1'] = 'January';
 $l['alt_month_2'] = 'February';
 $l['alt_month_3'] = 'March';
@@ -55,8 +54,7 @@ $l['event_recurring_repeat_days'] = 'Event Repeats On';
 $l['event_name'] = 'Event';
 $l['event_details'] = 'Details';
 $l['event_options'] = 'Options';
-$l['private_option'] =
-    'Private - <span class="text-muted">Only you will be able to view this event.</span>';
+$l['private_option'] = 'Private - <span class="text-muted">Only you will be able to view this event.</span>';
 $l['delete_option'] = '<b>Delete:</b> Delete this event.';
 $l['post_event'] = 'Post Event';
 $l['day_view'] = 'Day View';
@@ -65,8 +63,7 @@ $l['birthdays'] = 'Birthdays';
 $l['event_author'] = 'Event Author:';
 $l['edit_event'] = 'Edit Event';
 $l['view_event'] = 'View Event';
-$l['no_events'] =
-    '<div class="row legend p-4 mb-4 m-0"><div class="col-6 text-muted align-self-center">This day does not have any events associated with it.</div><div class="col-6 text-end"> <a href="calendar.php?action=addevent&amp;calendar={1}&amp;day={2}&amp;month={3}&amp;year={4}" class="btn btn-new">Post Event</a></div></div>';
+$l['no_events'] = '<div class="row legend p-4 mb-4 m-0"><div class="col-6 text-muted align-self-center">This day does not have any events associated with it.</div><div class="col-6 text-end"> <a href="calendar.php?action=addevent&amp;calendar={1}&amp;day={2}&amp;month={3}&amp;year={4}" class="btn btn-new">Post Event</a></div></div>';
 $l['years_old'] = '{1} Years Old';
 $l['alt_edit'] = 'Edit this event';
 $l['alt_delete'] = 'Delete this event';
@@ -84,8 +81,7 @@ $l['every_x_weeks'] = 'Repeats every {1} weeks';
 $l['every_month_on_day'] = 'Repeats on day {1}<br />of every month';
 $l['every_x_months_on_day'] = 'Repeats on day {1}<br />of every {2} months';
 $l['every_month_on_weekday'] = 'Repeats on the {1} {2}<br />of every month';
-$l['every_x_months_on_weekday'] =
-    'Repeats on the {1} {2}<br />of every {3} months';
+$l['every_x_months_on_weekday'] = 'Repeats on the {1} {2}<br />of every {3} months';
 $l['weekday_occurance_1'] = 'first';
 $l['weekday_occurance_2'] = 'second';
 $l['weekday_occurance_3'] = 'third';
@@ -97,12 +93,10 @@ $l['every_year_on_weekday'] = 'Repeats on the {1} {2} in {3} of every year';
 $l['every_x_year_on_weekday'] = 'Repeats on the {1} {2} in {3} every {4} years';
 $l['delete_event'] = 'Delete Event';
 $l['delete_q'] = 'Delete?';
-$l['delete_1'] =
-    'To delete this event, check the checkbox to the left and then click the button to the right.';
+$l['delete_1'] = 'To delete this event, check the checkbox to the left and then click the button to the right.';
 $l['delete_2'] = '<b>Note:</b> This process cannot be undone.';
 $l['delete_now'] = 'Delete Now';
-$l['delete_no_checkbox'] =
-    'The event was not deleted because you didn\'t check the "Delete" checkbox.';
+$l['delete_no_checkbox'] = 'The event was not deleted because you didn\'t check the "Delete" checkbox.';
 $l['jump_to_calendar'] = 'Jump to calendar:';
 $l['select_calendar'] = 'Calendar:';
 $l['type_single'] = 'Single day event';
@@ -111,8 +105,7 @@ $l['enter_time'] = 'Time';
 $l['start_time'] = 'Starts';
 $l['end_time'] = 'Ends';
 $l['timezone'] = 'Time Zone';
-$l['ignore_timezone'] =
-    'Ignore time zone? <span class="text-muted">This event should use the time zone of the viewer.</span>';
+$l['ignore_timezone'] = 'Ignore time zone? <span class="text-muted">This event should use the time zone of the viewer.</span>';
 $l['repeats'] = 'Repeats';
 $l['does_not_repeat'] = 'Does not repeat';
 $l['repeats_daily'] = 'Daily';
@@ -144,23 +137,13 @@ $l['last'] = 'Last';
 $l['all_day'] = 'All Day';
 $l['starts'] = 'Starts: ';
 $l['finishes'] = 'Finishes: ';
-$l['error_incorrectday'] =
-    'The day you have entered does not appear to exist. Please go back and try again.';
-$l['error_invalidevent'] =
-    'The event you specified is either invalid or doesn\'t exist.';
-$l['invalid_calendar'] =
-    'The specified calendar does not exist. Are you sure you are visiting the correct page?';
-$l['redirect_eventdeleted'] =
-    'The event has successfully been deleted.<br />You will now be taken back to the calendar.';
-$l['redirect_eventupdated'] =
-    'The event has been successfully updated.<br />You will now be returned to it.';
-$l['redirect_eventadded'] =
-    'Your event has been added successfully.<br />You will now be taken to it.';
-$l['redirect_eventadded_moderation'] =
-    'Your event has been added successfully but requires moderation by a forum moderator before it is visible.<br />You will now be taken back to the calendar.';
-$l['redirect_eventunapproved'] =
-    'The event has been unapproved successfully.<br />You will now be taken to it.';
-$l['redirect_eventapproved'] =
-    'The event has been approved successfully.<br />You will now be taken to it.';
-$l['redirect_eventmoved'] =
-    'The event has been moved successfully.<br />You will now be taken to it.';
+$l['error_incorrectday'] = 'The day you have entered does not appear to exist. Please go back and try again.';
+$l['error_invalidevent'] = 'The event you specified is either invalid or doesn\'t exist.';
+$l['invalid_calendar'] = 'The specified calendar does not exist. Are you sure you are visiting the correct page?';
+$l['redirect_eventdeleted'] = 'The event has successfully been deleted.<br />You will now be taken back to the calendar.';
+$l['redirect_eventupdated'] = 'The event has been successfully updated.<br />You will now be returned to it.';
+$l['redirect_eventadded'] = 'Your event has been added successfully.<br />You will now be taken to it.';
+$l['redirect_eventadded_moderation'] = 'Your event has been added successfully but requires moderation by a forum moderator before it is visible.<br />You will now be taken back to the calendar.';
+$l['redirect_eventunapproved'] = 'The event has been unapproved successfully.<br />You will now be taken to it.';
+$l['redirect_eventapproved'] = 'The event has been approved successfully.<br />You will now be taken to it.';
+$l['redirect_eventmoved'] = 'The event has been moved successfully.<br />You will now be taken to it.';

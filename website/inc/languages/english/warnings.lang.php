@@ -36,8 +36,7 @@ $l['expiry_date'] = 'Expires';
 $l['active_warnings'] = 'Active Warnings';
 $l['expired_warnings'] = 'Expired Warnings';
 $l['warning_points'] = '({1} points)';
-$l['no_warnings'] =
-    'This user has not received any warnings or they\'ve all been removed.';
+$l['no_warnings'] = 'This user has not received any warnings or they\'ve all been removed.';
 $l['warn_user'] = 'Warn User';
 $l['post'] = 'Post:';
 $l['warning_note'] = 'Notes';
@@ -47,11 +46,9 @@ $l['custom'] = 'Custom Reason';
 $l['reason'] = 'Reason';
 $l['points'] = 'Points';
 $l['details_reason'] = 'Reason';
-$l['warn_user_desc'] =
-    'Here you can increase the warning level of this user if they\'ve violated one or more rules.';
+$l['warn_user_desc'] = 'Here you can increase the warning level of this user if they\'ve violated one or more rules.';
 $l['send_pm'] = 'Notify User';
-$l['send_user_warning_pm'] =
-    'Send this user a private message notifying them of this warning.';
+$l['send_user_warning_pm'] = 'Send this user a private message notifying them of this warning.';
 $l['send_pm_subject'] = 'Title';
 $l['warning_pm_subject'] = 'You have received a warning.';
 $l['send_pm_message'] = 'Message';
@@ -62,44 +59,32 @@ You have received a warning from the staff of {2}.
 
 --';
 $l['send_pm_options'] = 'Options';
-$l['send_pm_options_anonymous'] =
-    'Send this private message as an anonymous user?';
+$l['send_pm_options_anonymous'] = 'Send this private message as an anonymous user?';
 $l['expiration_never'] = 'permanently';
 $l['expiration_hours'] = 'hours';
 $l['expiration_days'] = 'days';
 $l['expiration_weeks'] = 'weeks';
 $l['expiration_months'] = 'months';
-$l['redirect_warned_banned'] =
-    '<br /><br />The user has also been moved to the {1} group {2}.';
-$l['redirect_warned_suspended'] =
-    '<br /><br />This users posting privileges have been suspended {1}.';
-$l['redirect_warned_moderate'] =
-    '<br /><br />All posts by this user will now be moderated {1}.';
-$l['redirect_warned_pmerror'] =
-    '<br /><br />Please note that the PM was not sent.';
-$l['redirect_warned'] =
-    'The warning level of {1} has been increased to {2}%.{3}<br /><br />You will now be taken back to where you came from.';
-$l['error_warning_system_disabled'] =
-    'You cannot use the warning system as it has been disabled by the board administrator.';
-$l['error_cant_warn_group'] =
-    'You do not have permission to warn users of this group.';
+$l['redirect_warned_banned'] = '<br /><br />The user has also been moved to the {1} group {2}.';
+$l['redirect_warned_suspended'] = '<br /><br />This users posting privileges have been suspended {1}.';
+$l['redirect_warned_moderate'] = '<br /><br />All posts by this user will now be moderated {1}.';
+$l['redirect_warned_pmerror'] = '<br /><br />Please note that the PM was not sent.';
+$l['redirect_warned'] = 'The warning level of {1} has been increased to {2}%.{3}<br /><br />You will now be taken back to where you came from.';
+$l['error_warning_system_disabled'] = 'You cannot use the warning system as it has been disabled by the board administrator.';
+$l['error_cant_warn_group'] = 'You do not have permission to warn users of this group.';
 $l['error_invalid_user'] = 'Selected user doesn\'t exist.';
 $l['details'] = 'Details';
 $l['view'] = 'View';
-$l['current_warning_level'] =
-    'Current warning level: <strong>{1}%</strong> ({2}/{3})';
+$l['current_warning_level'] = 'Current warning level: <strong>{1}%</strong> ({2}/{3})';
 $l['warning_details'] = 'Warning Details';
 $l['revoke_warning'] = 'Revoke this Warning';
-$l['revoke_warning_desc'] =
-    'To revoke this warning please enter a reason below. This will not remove any bans or suspensions imposed by this warning.';
+$l['revoke_warning_desc'] = 'To revoke this warning please enter a reason below. This will not remove any bans or suspensions imposed by this warning.';
 $l['warning_is_revoked'] = 'This Warning has been revoked';
 $l['revoked_by'] = 'Revoked By';
 $l['date_revoked'] = 'Date Revoked';
 $l['warning_already_revoked'] = 'This warning has already been revoked.';
-$l['no_revoke_reason'] =
-    'You did not enter a reason as to why you want to revoke this warning.';
-$l['redirect_warning_revoked'] =
-    'This warning has successfully been revoked and the users warning points decreased.<br /><br />You will now be taken back to the warning.';
+$l['no_revoke_reason'] = 'You did not enter a reason as to why you want to revoke this warning.';
+$l['redirect_warning_revoked'] = 'This warning has successfully been revoked and the users warning points decreased.<br /><br />You will now be taken back to the warning.';
 $l['result'] = 'Result:';
 $l['result_banned'] = 'User will be moved to banned group ({1}) {2}';
 $l['result_suspended'] = 'Posting privileges will be suspended {1}';

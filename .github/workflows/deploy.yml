@@ -1,158 +1,161 @@
 name: Deploy forum and make it official!
 
 on:
-    workflow_dispatch:
-        inputs:
-            branch:
-                description: 'Select the branch to use as source'
-                required: true
-                default: 'main'
-    push:
-        branches:
-            - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Select the branch to use as source"
+        required: true
+        default: "main"
+  push:
+    branches:
+      - main
 jobs:
-    update-database:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+  update-database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            - uses: liquibase/liquibase-github-action@v7
-              with:
-                  operation: 'update'
-                  classpath: 'docker/liquibase/changelog'
-                  changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
-                  username: ${{ secrets.databaseUsername }}
-                  password: ${{ secrets.databasePassword }}
-                  url: jdbc:mariadb://${{ secrets.databaseHost }}:3306/${{ secrets.databaseName }}
+      - uses: liquibase/liquibase-github-action@v7
+        with:
+          operation: 'update'
+          classpath: 'docker/liquibase/changelog'
+          changeLogFile: 'docker/liquibase/changelog/db.changelog.xml'
+          username: ${{ secrets.databaseUsername }}
+          password: ${{ secrets.databasePassword }}
+          url: jdbc:mariadb://${{ secrets.databaseHost }}:3306/${{ secrets.databaseName }}
 
-    update-files:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+  update-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            # At least for now we handle settings and config manually as it doesn't seem to work well
-            # - name: Update mybb_settings
-            #   env:
-            #     SITE_DOMAIN: ${{ secrets.siteDomain }}
-            #   run: |
-            #     sed -i 's/\[\x27cookiedomain\x27\] = "localhost";/\[\x27cookiedomain\x27\] = ".localhost";/g' website/inc/settings.php
-            #     sed -i 's/\[\x27developermode\x27\] = "1";/\[\x27developermode\x27\] = "0";/g' website/inc/settings.php
-            #     sed -i 's/localhost/'"$SITE_DOMAIN"'/g' website/inc/settings.php
-            #     sed -i 's/http:/https:/g' website/inc/settings.php
-            #     sed -i 's/\[\x27minifycss\x27\] = "0";/\[\x27minifycss\x27\] = "1";/g' website/inc/settings.php
+      # At least for now we handle settings and config manually as it doesn't seem to work well
+      # - name: Update mybb_settings
+      #   env:
+      #     SITE_DOMAIN: ${{ secrets.siteDomain }}
+      #   run: |
+      #     sed -i 's/\[\x27cookiedomain\x27\] = "localhost";/\[\x27cookiedomain\x27\] = ".localhost";/g' website/inc/settings.php
+      #     sed -i 's/\[\x27developermode\x27\] = "1";/\[\x27developermode\x27\] = "0";/g' website/inc/settings.php
+      #     sed -i 's/localhost/'"$SITE_DOMAIN"'/g' website/inc/settings.php
+      #     sed -i 's/http:/https:/g' website/inc/settings.php
+      #     sed -i 's/\[\x27minifycss\x27\] = "0";/\[\x27minifycss\x27\] = "1";/g' website/inc/settings.php
 
-            # - name: Update config.php
-            #   env:
-            #     DB_NAME: ${{ secrets.databaseName }}
-            #     DB_HOST: ${{ secrets.databaseHost }}
-            #     DB_USERNAME: ${{ secrets.databaseUsername }}
-            #     DB_PASSWORD: ${{ secrets.databasePassword }}
-            #   run: |
-            #       sed -i 's/crystalforum\_/'"$DB_NAME"'/g' website/inc/config.php
-            #       sed -i "s/172.28.1.2/${DB_HOST}/g" website/inc/config.php
-            #       sed -i "s/\['username'\] = 'root';/\['username'\] = '$DB_USERNAME';/g" website/inc/config.php
-            #       sed -i "s/\['password'\] = 'root';/\['password'\] = '$DB_PASSWORD';/g" website/inc/config.php
 
-            - name: Remove config and settings
-              run: |
-                  rm -f website/inc/config.php
-                  rm -f website/inc/settings.php
+      # - name: Update config.php
+      #   env:
+      #     DB_NAME: ${{ secrets.databaseName }}
+      #     DB_HOST: ${{ secrets.databaseHost }}
+      #     DB_USERNAME: ${{ secrets.databaseUsername }}
+      #     DB_PASSWORD: ${{ secrets.databasePassword }}
+      #   run: |
+      #       sed -i 's/crystalforum\_/'"$DB_NAME"'/g' website/inc/config.php
+      #       sed -i "s/172.28.1.2/${DB_HOST}/g" website/inc/config.php
+      #       sed -i "s/\['username'\] = 'root';/\['username'\] = '$DB_USERNAME';/g" website/inc/config.php
+      #       sed -i "s/\['password'\] = 'root';/\['password'\] = '$DB_PASSWORD';/g" website/inc/config.php
 
-            - name: Create files for upload
-              run: |
-                  mkdir -p ./upload_folder #create folder to upload
-                  cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
-                  zip -r ./upload_folder/website.zip ./website #zip website folder
-                  zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
-                  zip -r ./upload_folder/templates.zip ./templates #zip templates folder
-                  ls -l ./upload_folder
 
-            - name: Install lftp
-              run: sudo apt-get install -y lftp
+      - name: Remove config and settings
+        run: |
+          rm -f website/inc/config.php
+          rm -f website/inc/settings.php
 
-            - name: Upload zipped files to the server
-              env:
-                  FTP_HOST: ${{ secrets.FTP_HOST }}
-                  FTP_USER: ${{ secrets.FTP_USERNAME }}
-                  FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-              run: |
-                  lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
-                  set ssl:verify-certificate no
-                  mput ./upload_folder/*
-                  ls
-                  bye
-                  EOF
+      - name: Create files for upload
+        run: |
+          mkdir -p ./upload_folder #create folder to upload
+          cp ./website/handlezipfiles.php ./upload_folder/handlezipfiles.php #copy handlezipfiles.php to upload folder
+          zip -r ./upload_folder/website.zip ./website #zip website folder
+          zip -r ./upload_folder/stylesheets.zip ./stylesheets #zip stylesheets folder
+          zip -r ./upload_folder/templates.zip ./templates #zip templates folder
+          ls -l ./upload_folder
 
-            - name: Unzip website on the server to root folder
-              run: |
-                  curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
-            - name: Unzip stylesheets on the server to stylesheets folder
-              run: |
-                  curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target="
+      - name: Upload zipped files to the server
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
+          mput ./upload_folder/*
+          ls
+          bye
+          EOF
+      
+      - name: Unzip website on the server to root folder
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=website.zip&target=current"
 
-            - name: Unzip templates on the server to templates folder
-              run: |
-                  curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
+      - name: Unzip stylesheets on the server to stylesheets folder
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=stylesheets.zip&target="
 
-    update-stylesheets:
-        needs: [update-database, update-files]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+      - name: Unzip templates on the server to templates folder
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlezipfiles.php?unzip=templates.zip&target="
 
-            - name: Rebuild stylesheets
-              run: |
-                  curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets&force=true&fromconsole=true"
+  update-stylesheets:
+    needs: [update-database, update-files]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    update-templates:
-        needs: [update-database, update-files]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+      - name: Rebuild stylesheets
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=stylesheets&force=true&fromconsole=true"
+       
+  update-templates:
+    needs: [update-database, update-files]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            - name: Rebuild templates
-              run: |
-                  curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true&fromconsole=true"
+      - name: Rebuild templates
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=templates&force=true&fromconsole=true"
 
-    refresh-cache:
-        needs: [update-stylesheets, update-templates]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+  refresh-cache:
+    needs: [update-stylesheets, update-templates]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            - name: Refresh cache
-              run: |
-                  curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?refreshcache=true&fromconsole=true"
+      - name: Refresh cache
+        run: |
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?refreshcache=true&fromconsole=true"
 
-    cleanup:
-        needs: [refresh-cache]
-        runs-on: ubuntu-latest
-        steps:
-            - name: Install lftp
-              run: sudo apt-get install -y lftp
+  cleanup:
+    needs: [refresh-cache]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
-            - name: Remove templates and stylesheets folders
-              run: |
-                  curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?cleanup=true&fromconsole=true"
+      - name: Remove templates and stylesheets folders
+        run: |
+            curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?cleanup=true&fromconsole=true"
 
-            - name: Remove zip files and PHP cleanup scripts from server
-              env:
-                  FTP_HOST: ${{ secrets.FTP_HOST }}
-                  FTP_USER: ${{ secrets.FTP_USERNAME }}
-                  FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-              run: |
-                  lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
-                  set ssl:verify-certificate no
-                  rm -f ./website.zip
-                  rm -f ./stylesheets.zip
-                  rm -f ./templates.zip
-                  rm -f ./handlestylesheetsandtemplates.php
-                  rm -f ./handlezipfiles.php
-                  bye
-                  EOF
+
+      - name: Remove zip files and PHP cleanup scripts from server
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
+          set ssl:verify-certificate no
+          rm -f ./website.zip
+          rm -f ./stylesheets.zip
+          rm -f ./templates.zip
+          rm -f ./handlestylesheetsandtemplates.php
+          rm -f ./handlezipfiles.php
+          bye
+          EOF

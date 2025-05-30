@@ -15,10 +15,9 @@
  */
 
 // Disallow direct access to this file for security reasons
-if (!defined('IN_MYBB')) {
-    die(
-        'Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.'
-    );
+if(!defined("IN_MYBB"))
+{
+	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
 }
 
 class Horde_Text_Diff_Engine_Shell
@@ -40,8 +39,8 @@ class Horde_Text_Diff_Engine_Shell
      */
     public function diff($from_lines, $to_lines)
     {
-        array_walk($from_lines, ['Horde_Text_Diff', 'trimNewlines']);
-        array_walk($to_lines, ['Horde_Text_Diff', 'trimNewlines']);
+        array_walk($from_lines, array('Horde_Text_Diff', 'trimNewlines'));
+        array_walk($to_lines, array('Horde_Text_Diff', 'trimNewlines'));
 
         // Execute gnu diff or similar to get a standard diff file.
         $from_file = Horde_Util::getTempFile('Horde_Text_Diff');
@@ -52,31 +51,25 @@ class Horde_Text_Diff_Engine_Shell
         $fp = fopen($to_file, 'w');
         fwrite($fp, implode("\n", $to_lines));
         fclose($fp);
-        $diff = shell_exec(
-            $this->_diffCommand . ' ' . $from_file . ' ' . $to_file
-        );
+        $diff = shell_exec($this->_diffCommand . ' ' . $from_file . ' ' . $to_file);
         unlink($from_file);
         unlink($to_file);
 
         if (is_null($diff)) {
             // No changes were made
-            return [new Horde_Text_Diff_Op_Copy($from_lines)];
+            return array(new Horde_Text_Diff_Op_Copy($from_lines));
         }
 
         $from_line_no = 1;
         $to_line_no = 1;
-        $edits = [];
+        $edits = array();
 
         // Get changed lines by parsing something like:
         // 0a1,2
         // 1,2c4,6
         // 1,5d6
-        preg_match_all(
-            '#^(\d+)(?:,(\d+))?([adc])(\d+)(?:,(\d+))?$#m',
-            $diff,
-            $matches,
-            PREG_SET_ORDER
-        );
+        preg_match_all('#^(\d+)(?:,(\d+))?([adc])(\d+)(?:,(\d+))?$#m', $diff,
+            $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
             if (!isset($match[5])) {
@@ -95,53 +88,47 @@ class Horde_Text_Diff_Engine_Shell
             if ($from_line_no < $match[1] || $to_line_no < $match[4]) {
                 // copied lines
                 assert($match[1] - $from_line_no == $match[4] - $to_line_no);
-                $edits[] = new Horde_Text_Diff_Op_Copy(
-                    $this->_getLines($from_lines, $from_line_no, $match[1] - 1),
-                    $this->_getLines($to_lines, $to_line_no, $match[4] - 1)
-                );
+                $edits[] =
+                    new Horde_Text_Diff_Op_Copy(
+                        $this->_getLines($from_lines, $from_line_no, $match[1] - 1),
+                        $this->_getLines($to_lines, $to_line_no, $match[4] - 1));
             }
 
             switch ($match[3]) {
-                case 'd':
-                    // deleted lines
-                    $edits[] = new Horde_Text_Diff_Op_Delete(
-                        $this->_getLines($from_lines, $from_line_no, $match[2])
-                    );
-                    $to_line_no++;
-                    break;
+            case 'd':
+                // deleted lines
+                $edits[] =
+                    new Horde_Text_Diff_Op_Delete(
+                        $this->_getLines($from_lines, $from_line_no, $match[2]));
+                $to_line_no++;
+                break;
 
-                case 'c':
-                    // changed lines
-                    $edits[] = new Horde_Text_Diff_Op_Change(
+            case 'c':
+                // changed lines
+                $edits[] =
+                    new Horde_Text_Diff_Op_Change(
                         $this->_getLines($from_lines, $from_line_no, $match[2]),
-                        $this->_getLines($to_lines, $to_line_no, $match[5])
-                    );
-                    break;
+                        $this->_getLines($to_lines, $to_line_no, $match[5]));
+                break;
 
-                case 'a':
-                    // added lines
-                    $edits[] = new Horde_Text_Diff_Op_Add(
-                        $this->_getLines($to_lines, $to_line_no, $match[5])
-                    );
-                    $from_line_no++;
-                    break;
+            case 'a':
+                // added lines
+                $edits[] =
+                    new Horde_Text_Diff_Op_Add(
+                        $this->_getLines($to_lines, $to_line_no, $match[5]));
+                $from_line_no++;
+                break;
             }
         }
 
         if (!empty($from_lines)) {
             // Some lines might still be pending. Add them as copied
-            $edits[] = new Horde_Text_Diff_Op_Copy(
-                $this->_getLines(
-                    $from_lines,
-                    $from_line_no,
-                    $from_line_no + count($from_lines) - 1
-                ),
-                $this->_getLines(
-                    $to_lines,
-                    $to_line_no,
-                    $to_line_no + count($to_lines) - 1
-                )
-            );
+            $edits[] =
+                new Horde_Text_Diff_Op_Copy(
+                    $this->_getLines($from_lines, $from_line_no,
+                                     $from_line_no + count($from_lines) - 1),
+                    $this->_getLines($to_lines, $to_line_no,
+                                     $to_line_no + count($to_lines) - 1));
         }
 
         return $edits;
@@ -162,14 +149,14 @@ class Horde_Text_Diff_Engine_Shell
     protected function _getLines(&$text_lines, &$line_no, $end = false)
     {
         if (!empty($end)) {
-            $lines = [];
+            $lines = array();
             // We can shift even more
             while ($line_no <= $end) {
                 $lines[] = array_shift($text_lines);
                 $line_no++;
             }
         } else {
-            $lines = [array_shift($text_lines)];
+            $lines = array(array_shift($text_lines));
             $line_no++;
         }
 

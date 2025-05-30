@@ -36,10 +36,8 @@ $l['nav_multi_splitposts'] = 'Split Selected Posts';
 $l['nav_multi_moveposts'] = 'Move Selected Posts';
 $l['nav_multi_mergeposts'] = 'Merge Selected Posts';
 $l['nav_multi_movethreads'] = 'Move / Copy Threads';
-$l['no_mod_options'] =
-    'No moderation options have yet been performed on this thread.';
-$l['no_delayed_mods'] =
-    'No delayed moderation actions are scheduled to be performed on the selected thread(s).';
+$l['no_mod_options'] = 'No moderation options have yet been performed on this thread.';
+$l['no_delayed_mods'] = 'No delayed moderation actions are scheduled to be performed on the selected thread(s).';
 $l['delete_poll'] = 'Delete Poll';
 $l['delete_posts'] = 'Delete Posts Permanently';
 $l['delete_selected_posts'] = 'Delete Selected Posts';
@@ -57,17 +55,14 @@ $l['search_ip_posts'] = 'Search for posts with this IP';
 $l['merge_threads'] = 'Merge Threads';
 $l['new_subject'] = 'New Title';
 $l['thread_to_merge_with'] = 'Merge with';
-$l['merge_with_note'] =
-    '<br />Copy the URL of the thread to be merged into this one into the textbox. The thread on the right will be deleted and all posts will be merged into this one.';
+$l['merge_with_note'] = '<br />Copy the URL of the thread to be merged into this one into the textbox. The thread on the right will be deleted and all posts will be merged into this one.';
 $l['merge_posts'] = 'Merge Posts';
-$l['merge_posts_note'] =
-    'All selected posts will be merged into the first selected post.';
+$l['merge_posts_note'] = 'All selected posts will be merged into the first selected post.';
 $l['move_copy_thread'] = 'Move / Copy Thread';
 $l['new_forum'] = 'New Forum';
 $l['method'] = 'Method';
 $l['method_move'] = 'Move thread';
-$l['method_move_redirect'] =
-    'Move thread and leave redirect in existing forum for days:';
+$l['method_move_redirect'] = 'Move thread and leave redirect in existing forum for days:';
 $l['redirect_expire_note'] = '(leave blank for \'infinite\')';
 $l['method_copy'] = 'Copy thread to the new forum';
 $l['split_thread_subject'] = '[split]';
@@ -90,14 +85,11 @@ $l['thread'] = 'Thread:';
 $l['post'] = 'Post:';
 $l['forum'] = 'Forum';
 $l['confirm_execute_tool'] = 'Execute Tool';
-$l['confirm_execute_tool_desc'] =
-    'Are you sure you wish to execute the <strong>{1}</strong> custom moderation tool? Once a tool is executed it may not be able to revert the applied changes.';
+$l['confirm_execute_tool_desc'] = 'Are you sure you wish to execute the <strong>{1}</strong> custom moderation tool? Once a tool is executed it may not be able to revert the applied changes.';
 $l['delete_threads'] = 'Delete Threads Permanently';
-$l['confirm_delete_threads'] =
-    'Are you sure you wish to delete the selected threads? Once a thread has been deleted it cannot be restored and any posts, attachments or polls within that thread are also deleted.';
+$l['confirm_delete_threads'] = 'Are you sure you wish to delete the selected threads? Once a thread has been deleted it cannot be restored and any posts, attachments or polls within that thread are also deleted.';
 $l['move_threads'] = 'Move / Copy Threads';
-$l['confirm_delete_posts'] =
-    'Are you sure you wish to delete the selected posts from the thread? Once they have been deleted they cannot be restored. If there are no posts left in the thread, the thread will also be deleted.';
+$l['confirm_delete_posts'] = 'Are you sure you wish to delete the selected posts from the thread? Once they have been deleted they cannot be restored. If there are no posts left in the thread, the thread will also be deleted.';
 $l['post_separator'] = 'Post Separator';
 $l['new_line'] = 'New Line';
 $l['horizontal_rule'] = 'Horizontal Rule';
@@ -143,8 +135,7 @@ $l['multi_moved_threads'] = 'Threads Moved / Copied';
 $l['multi_copied_threads'] = 'Threads Copied';
 $l['custom_tool'] = 'Custom Moderator Tool: {1}';
 $l['delayed_moderation'] = 'Delayed Moderation';
-$l['delayed_moderation_desc'] =
-    'Here you can delay a moderation action for a selected number of days.';
+$l['delayed_moderation_desc'] = 'Here you can delay a moderation action for a selected number of days.';
 $l['threads'] = 'Threads';
 $l['threads_selected'] = '{1} thread(s) selected';
 $l['run_moderation_time'] = 'Run moderation time:';
@@ -169,8 +160,7 @@ $l['redirect_forever'] = 'Forever';
 $l['view_notes_for'] = 'Viewing Notes for {1}';
 $l['purgespammer'] = 'Purge Spammer';
 $l['purgespammer_purge'] = 'Purge spammer {1}';
-$l['purgespammer_purge_desc'] =
-    'This will delete user\'s whole content (posts, private messages, events, etc.) and {1} them.';
+$l['purgespammer_purge_desc'] = 'This will delete user\'s whole content (posts, private messages, events, etc.) and {1} them.';
 $l['purgespammer_ban'] = 'ban';
 $l['purgespammer_delete'] = 'delete';
 $l['purgespammer_submit'] = 'Purge Spammer';
@@ -178,125 +168,65 @@ $l['purgespammer_success'] = 'The user has been purged.';
 $l['purgespammer_invalid_user'] = 'You have specified an invalid user.';
 $l['purgespammer_modlog'] = 'Purged Spammer';
 $l['error_invalidpm'] = 'Invalid PM';
-$l['error_nomergeposts'] =
-    'You need to select one or more posts to be able to merge posts together.';
-$l['error_cantsplitonepost'] =
-    'You cannot split a thread that contains only one post.';
-$l['error_badmergeurl'] =
-    'The URL for the thread to be merged seems to be invalid or empty. Please copy the exact URL into the textbox.<br />Please go back and try again.';
-$l['error_badmovepostsurl'] =
-    'The URL for the thread to move to seems to be invalid or empty. Please copy the exact URL into the textbox.<br />Please go back and try again.';
-$l['error_inline_nothreadsselected'] =
-    'Sorry, but you did not select any threads to perform inline moderation on, or your previous moderation session has expired (Automatically after 1 hour of inactivity). Please select some threads and try again.';
-$l['error_inline_nopostsselected'] =
-    'Sorry, but you did not select any posts to perform inline moderation on, or your previous moderation session has expired (Automatically after 1 hour of inactivity). Please select some posts and try again.';
-$l['error_movetocategory'] =
-    'This tool is trying to move the thread into a category. Please alter the tool and select a valid forum.';
-$l['error_cantsplitall'] =
-    'You cannot split all of the posts out of this thread! If you did, what would be left in the thread?';
-$l['error_cantmoveall'] =
-    'You cannot move all of the posts out of this thread! If you did, what would be left in the thread?';
-$l['error_nosplitposts'] =
-    'You cannot split this thread as you did not select any posts to split from this thread.';
-$l['error_movetosameforum'] =
-    'You cannot move this thread into the forum it is currently situated in. Please select a different forum.';
-$l['error_mergewithself'] =
-    'Threads cannot be merged with themselves.<br />Please go back and enter a valid URL.';
-$l['error_movetoself'] =
-    'Posts cannot be moved to the thread they are in.<br />Please go back and enter a valid URL.';
-$l['error_movetononmodforum'] =
-    'You cannot move this thread to a forum you are not a moderator of or do not have permission to view.';
-$l['error_delayedmoderation_unsupported_type'] =
-    'Sorry, but you did not select a valid type for this delayed moderation action or you do not have permission to do this action.';
-$l['error_delayedmoderation_unsupported_method'] =
-    'Sorry, but you did not select a valid move method for this delayed moderation action.';
-$l['error_delayedmoderation_invalid_date_day'] =
-    'Sorry, but you did not select a valid delay date day for this delayed moderation action.';
-$l['error_delayedmoderation_invalid_date_month'] =
-    'Sorry, but you did not select a valid delay date month for this delayed moderation action.';
-$l['error_delayedmoderation_invalid_date_year'] =
-    'Sorry, but you did not select a valid delay date year for this delayed moderation action.';
-$l['error_thread_deleted'] =
-    'The target thread is soft deleted. In order to perform this action you need to restore the thread first.';
-$l['redirect_pollnotdeleted'] =
-    'The poll was not deleted because you did not check the "Delete" checkbox.';
-$l['redirect_polldeleted'] =
-    'Thank you, the poll has successfully been removed from the thread.<br />You will now be taken back to the thread.';
-$l['redirect_mergeposts'] =
-    'The selected posts have now been merged together. You will now be returned to the thread.';
-$l['redirect_openthread'] =
-    'Thank you, the thread has successfully been opened.<br />You will now be returned to the thread.';
-$l['redirect_closethread'] =
-    'Thank you, the thread has successfully been closed.<br />You will now be returned to the thread.';
-$l['redirect_stickthread'] =
-    'Thank you, the thread has successfully been stuck.<br />You will now be returned to the thread.';
-$l['redirect_unstickthread'] =
-    'Thank you, the thread has successfully been unstuck.<br />You will now be returned to the thread.';
-$l['redirect_threaddeleted'] =
-    'Thank you, the thread has been deleted permanently. <br />You will now be returned to the forum.';
-$l['redirect_threadmoved'] =
-    'The thread has been moved or copied to the selected forum successfully.<br />You will now be returned to it.';
-$l['redirect_redirectsremoved'] =
-    'All move redirects to this thread have now been removed.<br />You will now be returned to the thread.';
+$l['error_nomergeposts'] = 'You need to select one or more posts to be able to merge posts together.';
+$l['error_cantsplitonepost'] = 'You cannot split a thread that contains only one post.';
+$l['error_badmergeurl'] = 'The URL for the thread to be merged seems to be invalid or empty. Please copy the exact URL into the textbox.<br />Please go back and try again.';
+$l['error_badmovepostsurl'] = 'The URL for the thread to move to seems to be invalid or empty. Please copy the exact URL into the textbox.<br />Please go back and try again.';
+$l['error_inline_nothreadsselected'] = 'Sorry, but you did not select any threads to perform inline moderation on, or your previous moderation session has expired (Automatically after 1 hour of inactivity). Please select some threads and try again.';
+$l['error_inline_nopostsselected'] = 'Sorry, but you did not select any posts to perform inline moderation on, or your previous moderation session has expired (Automatically after 1 hour of inactivity). Please select some posts and try again.';
+$l['error_movetocategory'] = 'This tool is trying to move the thread into a category. Please alter the tool and select a valid forum.';
+$l['error_cantsplitall'] = 'You cannot split all of the posts out of this thread! If you did, what would be left in the thread?';
+$l['error_cantmoveall'] = 'You cannot move all of the posts out of this thread! If you did, what would be left in the thread?';
+$l['error_nosplitposts'] = 'You cannot split this thread as you did not select any posts to split from this thread.';
+$l['error_movetosameforum'] = 'You cannot move this thread into the forum it is currently situated in. Please select a different forum.';
+$l['error_mergewithself'] = 'Threads cannot be merged with themselves.<br />Please go back and enter a valid URL.';
+$l['error_movetoself'] = 'Posts cannot be moved to the thread they are in.<br />Please go back and enter a valid URL.';
+$l['error_movetononmodforum'] = 'You cannot move this thread to a forum you are not a moderator of or do not have permission to view.';
+$l['error_delayedmoderation_unsupported_type'] = 'Sorry, but you did not select a valid type for this delayed moderation action or you do not have permission to do this action.';
+$l['error_delayedmoderation_unsupported_method'] = 'Sorry, but you did not select a valid move method for this delayed moderation action.';
+$l['error_delayedmoderation_invalid_date_day'] = 'Sorry, but you did not select a valid delay date day for this delayed moderation action.';
+$l['error_delayedmoderation_invalid_date_month'] = 'Sorry, but you did not select a valid delay date month for this delayed moderation action.';
+$l['error_delayedmoderation_invalid_date_year'] = 'Sorry, but you did not select a valid delay date year for this delayed moderation action.';
+$l['error_thread_deleted'] = 'The target thread is soft deleted. In order to perform this action you need to restore the thread first.';
+$l['redirect_pollnotdeleted'] = 'The poll was not deleted because you did not check the "Delete" checkbox.';
+$l['redirect_polldeleted'] = 'Thank you, the poll has successfully been removed from the thread.<br />You will now be taken back to the thread.';
+$l['redirect_mergeposts'] = 'The selected posts have now been merged together. You will now be returned to the thread.';
+$l['redirect_openthread'] = 'Thank you, the thread has successfully been opened.<br />You will now be returned to the thread.';
+$l['redirect_closethread'] = 'Thank you, the thread has successfully been closed.<br />You will now be returned to the thread.';
+$l['redirect_stickthread'] = 'Thank you, the thread has successfully been stuck.<br />You will now be returned to the thread.';
+$l['redirect_unstickthread'] = 'Thank you, the thread has successfully been unstuck.<br />You will now be returned to the thread.';
+$l['redirect_threaddeleted'] = 'Thank you, the thread has been deleted permanently. <br />You will now be returned to the forum.';
+$l['redirect_threadmoved'] = 'The thread has been moved or copied to the selected forum successfully.<br />You will now be returned to it.';
+$l['redirect_redirectsremoved'] = 'All move redirects to this thread have now been removed.<br />You will now be returned to the thread.';
 $l['redirect_threadapproved'] = 'The thread has been approved successfully.';
-$l['redirect_threadunapproved'] =
-    'The thread has been unapproved successfully.';
+$l['redirect_threadunapproved'] = 'The thread has been unapproved successfully.';
 $l['redirect_threadrestored'] = 'The thread has been restored successfully.';
-$l['redirect_threadsoftdeleted'] =
-    'The thread has been soft deleted successfully.';
-$l['redirect_threadsplit'] =
-    'The thread has been split successfully.<br />You will now be taken to the new thread.';
-$l['redirect_moveposts'] =
-    'The posts have been moved successfully.<br />You will now be taken to the new thread the posts are in.';
-$l['redirect_threadnotesupdated'] =
-    'Thank you, the notes for this thread have successfully been updated.<br />You will now be returned to the thread.';
-$l['redirect_threadsmerged'] =
-    'Thank you, the two threads have successfully been merged together.<br />You will now be taken to the new thread.';
-$l['redirect_inline_threadsdeleted'] =
-    'The selected threads have been deleted permanently.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadsopened'] =
-    'The selected threads have been opened.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadsclosed'] =
-    'The selected threads have been closed.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadsstuck'] =
-    'The selected threads have been stuck.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadsunstuck'] =
-    'The selected threads have been unstuck.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadsmoved'] =
-    'The selected threads have been moved or copied.<br />You will now be taken to the new forum the threads are in.';
-$l['redirect_inline_threadsapproved'] =
-    'The selected threads have been approved.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadsunapproved'] =
-    'The selected threads have been unapproved.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadsrestored'] =
-    'The selected threads have been restored.<br />You will now be returned to your previous location.';
-$l['redirect_inline_threadssoftdeleted'] =
-    'The selected threads have been soft deleted.<br />You will now be returned to your previous location.';
-$l['redirect_inline_postsmerged'] =
-    'The selected posts have been merged together.<br />You will now be returned to your previous location.';
-$l['redirect_inline_postsapproved'] =
-    'The selected posts have been approved.<br />You will now be returned to your previous location.';
-$l['redirect_inline_postsunapproved'] =
-    'The selected posts have been unapproved.<br />You will now be returned to your previous location.';
-$l['redirect_inline_postsrestored'] =
-    'The selected posts have been restored.<br />You will now be returned to your previous location.';
-$l['redirect_inline_postssoftdeleted'] =
-    'The selected posts have been soft deleted.<br />You will now be returned to your previous location.';
-$l['redirect_postsdeleted'] =
-    'The selected posts have been deleted permanently.<br />You will now be returned to your previous location.';
-$l['redirect_removed_subscriptions'] =
-    'All subscriptions for this thread have been removed successfully.<br />You will now be returned to the thread.';
-$l['redirect_customtool_thread'] =
-    '"{1}" moderation tool executed successfully.<br />You will now be returned to the thread.';
-$l['redirect_customtool_forum'] =
-    '"{1}" moderation tool executed successfully.<br />You will now be returned to the forum.';
-$l['redirect_customtool_search'] =
-    '"{1}" moderation tool executed successfully.<br />You will now be returned to the search.';
-$l['redirect_delayed_moderation_thread'] =
-    'The selected moderation tool has been saved and delayed till {1}.<br />You will now be returned to the thread.';
-$l['redirect_delayed_moderation_forum'] =
-    'The selected moderation tool has been saved and delayed till {1}.<br />You will now be returned to the forum.';
-$l['redirect_delayed_moderation_search'] =
-    'The selected moderation tool has been saved and delayed till {1}.<br />You will now be returned to the search.';
-$l['redirect_delayed_moderation_cancelled'] =
-    'The selected delayed moderation action has been canceled.<br />You will now be returned to the delayed moderation page.';
+$l['redirect_threadsoftdeleted'] = 'The thread has been soft deleted successfully.';
+$l['redirect_threadsplit'] = 'The thread has been split successfully.<br />You will now be taken to the new thread.';
+$l['redirect_moveposts'] = 'The posts have been moved successfully.<br />You will now be taken to the new thread the posts are in.';
+$l['redirect_threadnotesupdated'] = 'Thank you, the notes for this thread have successfully been updated.<br />You will now be returned to the thread.';
+$l['redirect_threadsmerged'] = 'Thank you, the two threads have successfully been merged together.<br />You will now be taken to the new thread.';
+$l['redirect_inline_threadsdeleted'] = 'The selected threads have been deleted permanently.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadsopened'] = 'The selected threads have been opened.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadsclosed'] = 'The selected threads have been closed.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadsstuck'] = 'The selected threads have been stuck.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadsunstuck'] = 'The selected threads have been unstuck.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadsmoved'] = 'The selected threads have been moved or copied.<br />You will now be taken to the new forum the threads are in.';
+$l['redirect_inline_threadsapproved'] = 'The selected threads have been approved.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadsunapproved'] = 'The selected threads have been unapproved.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadsrestored'] = 'The selected threads have been restored.<br />You will now be returned to your previous location.';
+$l['redirect_inline_threadssoftdeleted'] = 'The selected threads have been soft deleted.<br />You will now be returned to your previous location.';
+$l['redirect_inline_postsmerged'] = 'The selected posts have been merged together.<br />You will now be returned to your previous location.';
+$l['redirect_inline_postsapproved'] = 'The selected posts have been approved.<br />You will now be returned to your previous location.';
+$l['redirect_inline_postsunapproved'] = 'The selected posts have been unapproved.<br />You will now be returned to your previous location.';
+$l['redirect_inline_postsrestored'] = 'The selected posts have been restored.<br />You will now be returned to your previous location.';
+$l['redirect_inline_postssoftdeleted'] = 'The selected posts have been soft deleted.<br />You will now be returned to your previous location.';
+$l['redirect_postsdeleted'] = 'The selected posts have been deleted permanently.<br />You will now be returned to your previous location.';
+$l['redirect_removed_subscriptions'] = 'All subscriptions for this thread have been removed successfully.<br />You will now be returned to the thread.';
+$l['redirect_customtool_thread'] = '"{1}" moderation tool executed successfully.<br />You will now be returned to the thread.';
+$l['redirect_customtool_forum'] = '"{1}" moderation tool executed successfully.<br />You will now be returned to the forum.';
+$l['redirect_customtool_search'] = '"{1}" moderation tool executed successfully.<br />You will now be returned to the search.';
+$l['redirect_delayed_moderation_thread'] = 'The selected moderation tool has been saved and delayed till {1}.<br />You will now be returned to the thread.';
+$l['redirect_delayed_moderation_forum'] = 'The selected moderation tool has been saved and delayed till {1}.<br />You will now be returned to the forum.';
+$l['redirect_delayed_moderation_search'] = 'The selected moderation tool has been saved and delayed till {1}.<br />You will now be returned to the search.';
+$l['redirect_delayed_moderation_cancelled'] = 'The selected delayed moderation action has been canceled.<br />You will now be returned to the delayed moderation page.';

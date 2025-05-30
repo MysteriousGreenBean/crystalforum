@@ -10,31 +10,26 @@
 
 function task_threadviews($task)
 {
-    global $mybb, $db, $lang, $plugins;
+	global $mybb, $db, $lang, $plugins;
 
-    if ($mybb->settings['delayedthreadviews'] != 1) {
-        return;
-    }
+	if($mybb->settings['delayedthreadviews'] != 1)
+	{
+		return;
+	}
 
-    // Update thread views
-    $query = $db->simple_select('threadviews', 'tid, COUNT(tid) AS views', '', [
-        'group_by' => 'tid',
-    ]);
-    while ($threadview = $db->fetch_array($query)) {
-        $db->update_query(
-            'threads',
-            ['views' => "views+{$threadview['views']}"],
-            "tid='{$threadview['tid']}'",
-            1,
-            true
-        );
-    }
+	// Update thread views
+	$query = $db->simple_select("threadviews", "tid, COUNT(tid) AS views", "", array('group_by' => 'tid'));
+	while($threadview = $db->fetch_array($query))
+	{
+		$db->update_query("threads", array('views' => "views+{$threadview['views']}"), "tid='{$threadview['tid']}'", 1, true);
+	}
 
-    $db->write_query('TRUNCATE TABLE ' . TABLE_PREFIX . 'threadviews');
+	$db->write_query("TRUNCATE TABLE ".TABLE_PREFIX."threadviews");
 
-    if (is_object($plugins)) {
-        $plugins->run_hooks('task_threadviews', $task);
-    }
+	if(is_object($plugins))
+	{
+		$plugins->run_hooks('task_threadviews', $task);
+	}
 
-    add_task_log($task, $lang->task_threadviews_ran);
+	add_task_log($task, $lang->task_threadviews_ran);
 }

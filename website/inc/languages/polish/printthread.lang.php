@@ -6,7 +6,7 @@
  * Autorzy: bryn, DamYan, gigi, matc, szulcu, Łukasz, Divir | Testerzy: hippie
  */
 
-$l['forum'] = 'Dział:';
-$l['printable_version'] = 'Wersja do druku';
-$l['pages'] = 'Strony:';
-$l['thread'] = 'Wątek:';
+$l['forum'] = "Dział:";
+$l['printable_version'] = "Wersja do druku";
+$l['pages'] = "Strony:";
+$l['thread'] = "Wątek:";

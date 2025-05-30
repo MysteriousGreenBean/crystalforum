@@ -31,15 +31,10 @@ $l['report_reason_bad'] = 'Inappropriate Content';
 $l['report_reason_spam'] = 'Spam Content';
 $l['report_reason_wrong'] = 'Wrong Forum';
 $l['report_reason_other'] = 'Other';
-$l['success_report_voted'] =
-    'Your report has been sent successfully.<br /><br />A member of the forum team will check your report soon.';
+$l['success_report_voted'] = 'Your report has been sent successfully.<br /><br />A member of the forum team will check your report soon.';
 $l['error_report_length'] = 'Please provide a detailed reason for your report.';
-$l['error_invalid_report'] =
-    'This {1} either does not exist or is not allowed to be reported.';
+$l['error_invalid_report'] = 'This {1} either does not exist or is not allowed to be reported.';
 $l['error_invalid_report_reason'] = 'The selected reason is invalid.';
-$l['error_comment_required'] =
-    'An additional comment is required for the selected reason.';
-$l['error_report_duplicate'] =
-    'This content has already been reported by another member.<br /><br />You may also report this content below.';
-$l['report_reason_other_description'] =
-    'Please provide more information about why you are reporting this content.';
+$l['error_comment_required'] = 'An additional comment is required for the selected reason.';
+$l['error_report_duplicate'] = 'This content has already been reported by another member.<br /><br />You may also report this content below.';
+$l['report_reason_other_description'] = 'Please provide more information about why you are reporting this content.';

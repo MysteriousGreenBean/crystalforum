@@ -13,7 +13,7 @@ function mergeDirectories($sourcePath, $destPath)
         mkdir($destPath, 0755, true);
     }
 
-    $items = array_diff(scandir($sourcePath), ['..', '.']); // Get all items except . and ..
+    $items = array_diff(scandir($sourcePath), array('..', '.')); // Get all items except . and ..
 
     foreach ($items as $item) {
         $sourceItemPath = $sourcePath . DIRECTORY_SEPARATOR . $item;
@@ -60,9 +60,9 @@ if (isset($_GET['unzip']) && isset($_GET['target'])) {
     }
 
     // Attempt to unzip the file
-    $zip = new ZipArchive();
+    $zip = new ZipArchive;
     $res = $zip->open($zipFile);
-    if ($res === true) {
+    if ($res === TRUE) {
         $zip->extractTo($targetDir);
         $zip->close();
         echo 'Unzip successful\n';
@@ -72,21 +72,16 @@ if (isset($_GET['unzip']) && isset($_GET['target'])) {
 
     if ($_GET['target'] == 'current') {
         // Handle moving contents of the 'current' folder to the current directory
-        $currentFolder =
-            $currentDir .
-            DIRECTORY_SEPARATOR .
-            'current' .
-            DIRECTORY_SEPARATOR .
-            basename($_GET['unzip'], '.zip');
+        $currentFolder = $currentDir . DIRECTORY_SEPARATOR . 'current' . DIRECTORY_SEPARATOR . basename($_GET['unzip'], '.zip');
 
         if (is_dir($currentFolder)) {
             // Open the 'current' folder and move its contents
-            $files = array_diff(scandir($currentFolder), ['..', '.']); // Get all files/folders except . and ..
-
+            $files = array_diff(scandir($currentFolder), array('..', '.')); // Get all files/folders except . and ..
+        
             foreach ($files as $file) {
                 $sourcePath = $currentFolder . DIRECTORY_SEPARATOR . $file;
                 $destPath = $currentDir . DIRECTORY_SEPARATOR . $file;
-
+        
                 if (is_dir($sourcePath)) {
                     // If it's a directory, merge its contents
                     mergeDirectories($sourcePath, $destPath);
@@ -102,7 +97,7 @@ if (isset($_GET['unzip']) && isset($_GET['target'])) {
         } else {
             echo 'Error: "current" folder does not exist.\n';
         }
-
+        
         // Remove the 'current' folder
         rmdir($currentFolder);
     }

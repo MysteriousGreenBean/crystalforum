@@ -1,24 +1,25 @@
 name: Dev
 description: Things related to environments and pipelines rather than solution itself
-title: '[DEV]'
-labels: ['devops']
-projects: ['MysteriousGreenBean/4']
+title: "[DEV]"
+labels: ["devops"]
+projects: ["MysteriousGreenBean/4"]
 assignees:
-    - MysteriousGreenBean
+  - MysteriousGreenBean
 body:
-    - type: textarea
-      id: bug
-      attributes:
-          label: Feature description
-          description: Describe what the feature solves and how it should be achieved
-          placeholder: Describe what the feature solves and how it should be achieved
-      validations:
-          required: true
-    - type: textarea
-      id: additional-information
-      attributes:
-          label: Additional context
-          description: Add any other context or screenshots about the feature here.
-          placeholder: Add any other context or screenshots about the feature here.
-      validations:
-          required: false
+  - type: textarea
+    id: bug
+    attributes:
+      label: Feature description
+      description: Describe what the feature solves and how it should be achieved
+      placeholder: Describe what the feature solves and how it should be achieved
+    validations:
+      required: true
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature here.
+      placeholder: Add any other context or screenshots about the feature here.
+    validations:
+      required: false
+    

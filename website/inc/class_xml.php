@@ -8,6 +8,7 @@
  *
  */
 
-require_once MYBB_ROOT . 'inc/class_xmlparser.php';
+require_once MYBB_ROOT."inc/class_xmlparser.php";
 
-class XMLParser extends MyBBXMLParser {}
+class XMLParser extends MyBBXMLParser {
+}
