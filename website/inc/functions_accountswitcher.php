@@ -92,3 +92,34 @@ function get_accounts_for_user_profile($user, $type) {
     $characterOutput = rtrim($characterOutput, ', ');
     return $characterOutput;
 }
+
+/**
+ * Get a list of formatted account names with links for memberlist.
+ * @param linkedAccounts Array of linked accounts for the user
+ * @return string HTML output of accounts for memberlist row, or "Brak" string if no accounts are linked.
+ */
+function get_accounts_for_memberlist($linkedAccounts) {
+    global $mybb;
+
+    if (empty($linkedAccounts)) {
+        return "Brak";
+    }
+
+    usort($linkedAccounts, function($a, $b) {
+        if ($a['parentUid'] == 0 && $b['parentUid'] != 0) {
+            return -1;
+        }
+        if ($a['parentUid'] != 0 && $b['parentUid'] == 0) {
+            return 1;
+        }
+        return strcasecmp($a['username'], $b['username']);
+    });
+
+    $characterOutput = '';
+    $linkTemplate = $mybb->settings['bburl'] . '/member.php?action=profile&uid=';
+    foreach($linkedAccounts as $linkedAccount) {
+        $characterOutput .= '<a href="'.$linkTemplate.$linkedAccount['uid'].'">'.format_name($linkedAccount['username'], $linkedAccount['usergroup'], $linkedAccount['displaygroup'], true).'</a><br/>';
+    }
+
+    return $characterOutput;
+}
