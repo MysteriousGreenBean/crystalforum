@@ -26,6 +26,8 @@ require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."inc/class_parser.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
+
 $parser = new postParser;
 
 // Load global language phrases
@@ -154,8 +156,7 @@ if($mybb->settings['bbcodeinserter'] != 0 && $forum['allowmycode'] != 0 && (!$my
 // Display a login box or change user box?
 if($mybb->user['uid'] != 0)
 {
-	$mybb->user['username'] = htmlspecialchars_uni($mybb->user['username']);
-	eval("\$loginbox = \"".$templates->get("changeuserbox")."\";");
+	$loginbox = ChangeUserControl::render($forum['AllowedAccountType']);
 }
 else
 {
@@ -389,6 +390,12 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 	require_once MYBB_ROOT."inc/datahandlers/post.php";
 	$posthandler = new PostDataHandler("insert");
 
+	$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+	if ($selectedAccount['uid'] === -1) {
+		error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+	}
+
 	// Set the post data that came from the input to the $post array.
 	$post = array(
 		"tid" => $mybb->get_input('tid', MyBB::INPUT_INT),
@@ -396,8 +403,8 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 		"fid" => $thread['fid'],
 		"subject" => $mybb->get_input('subject'),
 		"icon" => $mybb->get_input('icon', MyBB::INPUT_INT),
-		"uid" => $uid,
-		"username" => $username,
+		"uid" => $selectedAccount['uid'] ?? $uid,
+		"username" => $selectedAccount['username'] ?? $username,
 		"message" => $mybb->get_input('message'),
 		"ipaddress" => $session->packedip,
 		"posthash" => $mybb->get_input('posthash')
@@ -977,6 +984,12 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 		$posthandler = new PostDataHandler("insert");
 		$posthandler->action = "post";
 
+		$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+		if ($selectedAccount['uid'] === -1) {
+			error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+		}
+
 		// Set the post data that came from the input to the $post array.
 		$post = array(
 			"tid" => $mybb->get_input('tid', MyBB::INPUT_INT),
@@ -984,8 +997,8 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 			"fid" => $thread['fid'],
 			"subject" => $mybb->get_input('subject'),
 			"icon" => $mybb->get_input('icon', MyBB::INPUT_INT),
-			"uid" => $uid,
-			"username" => $username,
+			"uid" => $selectedAccount['uid'] ?? $uid,
+			"username" => $selectedAccount['username'] ?? $username,
 			"message" => $mybb->get_input('message'),
 			"ipaddress" => $session->packedip,
 			"posthash" => $mybb->get_input('posthash')

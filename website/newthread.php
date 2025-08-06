@@ -24,6 +24,7 @@ require_once "./global.php";
 require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
 
 // Load global language phrases
 $lang->load("newthread");
@@ -115,8 +116,7 @@ if($forum['allowpicons'] != 0)
 // If we have a currently logged in user then fetch the change user box.
 if($mybb->user['uid'] != 0)
 {
-	$mybb->user['username'] = htmlspecialchars_uni($mybb->user['username']);
-	eval("\$loginbox = \"".$templates->get("changeuserbox")."\";");
+	$loginbox = ChangeUserControl::render($forum['AllowedAccountType']);
 }
 
 // Otherwise we have a guest, determine the "username" and get the login box.
@@ -339,14 +339,20 @@ if($mybb->input['action'] == "do_newthread" && $mybb->request_method == "post")
 	$posthandler = new PostDataHandler("insert");
 	$posthandler->action = "thread";
 
+	$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+	if ($selectedAccount['uid'] === -1) {
+		error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+	}
+
 	// Set the thread data that came from the input to the $thread array.
 	$new_thread = array(
 		"fid" => $forum['fid'],
 		"subject" => $mybb->get_input('subject'),
 		"prefix" => $mybb->get_input('threadprefix', MyBB::INPUT_INT),
 		"icon" => $mybb->get_input('icon', MyBB::INPUT_INT),
-		"uid" => $uid,
-		"username" => $username,
+		"uid" => $selectedAccount['uid'] ?? $uid,
+		"username" => $selectedAccount['username'] ?? $username,
 		"message" => $mybb->get_input('message'),
 		"ipaddress" => $session->packedip,
 		"posthash" => $mybb->get_input('posthash')
@@ -741,14 +747,20 @@ if($mybb->input['action'] == "newthread" || $mybb->input['action'] == "editdraft
 		$posthandler = new PostDataHandler("insert");
 		$posthandler->action = "thread";
 
+		$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+		if ($selectedAccount['uid'] === -1) {
+			error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+		}
+
 		// Set the thread data that came from the input to the $thread array.
 		$new_thread = array(
 			"fid" => $forum['fid'],
 			"prefix" => $mybb->get_input('threadprefix', MyBB::INPUT_INT),
 			"subject" => $mybb->get_input('subject'),
 			"icon" => $mybb->get_input('icon'),
-			"uid" => $uid,
-			"username" => $username,
+			"uid" => $selectedAccount['uid'] ?? $uid,
+			"username" => $selectedAccount['username'] ?? $username,
 			"message" => $mybb->get_input('message'),
 			"ipaddress" => $session->packedip,
 			"posthash" => $mybb->get_input('posthash')
