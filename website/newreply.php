@@ -26,7 +26,7 @@ require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."inc/class_parser.php";
-require_once MYBB_ROOT."controls/changeUser.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
 
 $parser = new postParser;
 
@@ -156,7 +156,7 @@ if($mybb->settings['bbcodeinserter'] != 0 && $forum['allowmycode'] != 0 && (!$my
 // Display a login box or change user box?
 if($mybb->user['uid'] != 0)
 {
-	$loginbox = ChangeUserControl::render();
+	$loginbox = ChangeUserControl::render($forum['AllowedAccountType']);
 }
 else
 {
@@ -391,6 +391,10 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 	$posthandler = new PostDataHandler("insert");
 
 	$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+	if ($selectedAccount['uid'] === -1) {
+		error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+	}
 
 	// Set the post data that came from the input to the $post array.
 	$post = array(
@@ -981,6 +985,10 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 		$posthandler->action = "post";
 
 		$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+		if ($selectedAccount['uid'] === -1) {
+			error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+		}
 
 		// Set the post data that came from the input to the $post array.
 		$post = array(
