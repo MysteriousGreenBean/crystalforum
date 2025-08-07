@@ -7,14 +7,15 @@ class ChangeUserControl {
     /**
      * Render the change user dropdown box
      * @param allowedAccountTypes Enum Allowed account types
+     * @param justDropdown Boolean Whether to render just the dropdown, without html around it. False by default.
      */
-    public static function render($allowedAccountTypes, $justDropdown = false) {
+    public static function render($allowedAccountTypes, $justDropdown = false, $defaultUid = null) {
         global $mybb, $templates;
 
         $loginbox = '';
         $changeuserboxDropdown = '';
         $mybb->user['username'] = htmlspecialchars_uni($mybb->user['username']);
-        [$dropdownOptions, $dropdownOptionsCount] = self::createOptions($mybb->user, $allowedAccountTypes);
+        [$dropdownOptions, $dropdownOptionsCount] = self::createOptions($mybb->user, $allowedAccountTypes, $defaultUid);
         $singleOptionText = self::createSingleOptionText($mybb->user, $allowedAccountTypes);
         eval("\$changeuserboxDropdown = \"".$templates->get("changeuserboxDropdown")."\";");
         eval("\$loginbox = \"".$templates->get("changeuserbox")."\";");
@@ -42,22 +43,22 @@ class ChangeUserControl {
         return '<input type="hidden" name="changeuserbox_selectedUser" value="'.$value.'" />'.$text;
     }
 
-    private static function createOptions($user, $allowedAccountTypes) {
+    private static function createOptions($user, $allowedAccountTypes, $defaultUid = null) {
         switch ($allowedAccountTypes) {
             case 'All':
-                return self::createAllOptions($user);
+                return self::createAllOptions($user, $defaultUid);
             case 'Player':
                 return [null, 1];
             case 'Character':
-                return self::createCharacterOptions($user);
+                return self::createCharacterOptions($user, $defaultUid);
             default:
                 error("Invalid account type: ".$allowedAccountTypes);
         }
     }
 
-    private static function createAllOptions($user) {
+    private static function createAllOptions($user, $defaultUid = null) {
         $linkedAccounts = array_merge([$user['parent']], $user['characters']);
-        $defaultUid = $user['uid'];
+        $defaultUid = $defaultUid ?? $user['uid'];
         $options = '';
         foreach ($linkedAccounts as $account) {
             $selected = ($account['uid'] == $defaultUid) ? ' selected' : '';
@@ -66,9 +67,9 @@ class ChangeUserControl {
         return [$options, count($linkedAccounts)];
     }
 
-    private static function createCharacterOptions($user) {
+    private static function createCharacterOptions($user, $defaultUid = null) {
         $linkedAccounts = $user['characters'];
-        $defaultUid = $user['uid'];
+        $defaultUid = $defaultUid ?? $user['uid'];
         $options = '';
         foreach ($linkedAccounts as $account) {
             $selected = ($account['uid'] == $defaultUid) ? ' selected' : '';

@@ -355,7 +355,8 @@ if($mybb->input['action'] == "do_newthread" && $mybb->request_method == "post")
 		"username" => $selectedAccount['username'] ?? $username,
 		"message" => $mybb->get_input('message'),
 		"ipaddress" => $session->packedip,
-		"posthash" => $mybb->get_input('posthash')
+		"posthash" => $mybb->get_input('posthash'),
+		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid']
 	);
 
 	if($pid != '')

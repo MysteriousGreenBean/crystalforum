@@ -132,7 +132,7 @@ if($mybb->input['action'] == "deletepost" && $mybb->request_method == "post")
 		{
 			error_no_permission();
 		}
-		if($mybb->user['uid'] != $post['uid'])
+		if($mybb->user['parent']['uid'] != $post['ParentUid'] && $mybb->user['parent']['uid'] != $post['uid'])
 		{
 			error_no_permission();
 		}
@@ -166,7 +166,7 @@ else
 		{
 			error_no_permission();
 		}
-		if($mybb->user['uid'] != $post['uid'])
+		if($mybb->user['parent']['uid'] != $post['ParentUid'] && $mybb->user['parent']['uid'] != $post['uid'])
 		{
 			error_no_permission();
 		}
@@ -621,7 +621,7 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 		$posticons = get_post_icons();
 	}
 
-	$loginbox = ChangeUserControl::render($forum['AllowedAccountType']);
+	$loginbox = ChangeUserControl::render($forum['AllowedAccountType'], $true, $post['uid']);
 
 	$deletebox = '';
 	
