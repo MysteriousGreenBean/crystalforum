@@ -24,7 +24,7 @@ require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."inc/class_parser.php";
 require_once MYBB_ROOT."controls/changeUserControl.php";
-
+require_once MYBB_ROOT."enums/AllowedAccountTypes.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -621,7 +621,9 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 		$posticons = get_post_icons();
 	}
 
-	$loginbox = ChangeUserControl::render($forum['AllowedAccountType'], $true, $post['uid']);
+	$loginbox = ChangeUserControl::prepareFor($mybb->user)
+		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
+		->withDefaultSelection($post['uid'])->render();
 
 	$deletebox = '';
 	

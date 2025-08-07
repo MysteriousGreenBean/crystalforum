@@ -25,6 +25,7 @@ require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."controls/changeUserControl.php";
+require_once MYBB_ROOT."enums/AllowedAccountTypes.php";
 
 // Load global language phrases
 $lang->load("newthread");
@@ -116,7 +117,9 @@ if($forum['allowpicons'] != 0)
 // If we have a currently logged in user then fetch the change user box.
 if($mybb->user['uid'] != 0)
 {
-	$loginbox = ChangeUserControl::render($forum['AllowedAccountType']);
+	$loginbox = ChangeUserControl::prepareFor($mybb->user)
+			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
+			->render();
 }
 
 // Otherwise we have a guest, determine the "username" and get the login box.

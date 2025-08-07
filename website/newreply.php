@@ -27,6 +27,7 @@ require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."inc/class_parser.php";
 require_once MYBB_ROOT."controls/changeUserControl.php";
+require_once MYBB_ROOT."enums/AllowedAccountTypes.php";
 
 $parser = new postParser;
 
@@ -156,7 +157,9 @@ if($mybb->settings['bbcodeinserter'] != 0 && $forum['allowmycode'] != 0 && (!$my
 // Display a login box or change user box?
 if($mybb->user['uid'] != 0)
 {
-	$loginbox = ChangeUserControl::render($forum['AllowedAccountType']);
+	$loginbox = ChangeUserControl::prepareFor($mybb->user)
+			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
+			->render();
 }
 else
 {
