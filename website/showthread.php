@@ -29,6 +29,7 @@ require_once "./global.php";
 require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_indicators.php";
 require_once MYBB_ROOT."inc/class_parser.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -1304,6 +1305,7 @@ if($mybb->input['action'] == "thread")
 			$collapsed['quickreply_e'] = '';
 		}
 
+		$changeuserboxDropdown = ChangeUserControl::render($forum['AllowedAccountType'], true);
 		$expaltext = (in_array("quickreply", $collapse)) ? $lang->expcol_expand : $lang->expcol_collapse;
 		eval("\$quickreply = \"".$templates->get("showthread_quickreply")."\";");
 	}
