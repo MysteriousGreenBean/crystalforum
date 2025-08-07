@@ -1863,7 +1863,7 @@ class PostDataHandler extends DataHandler
 		}
 
 		$post = &$this->data;
-
+		
 		$post['pid'] = (int)$post['pid'];
 
 		$existing_post = get_post($post['pid']);
@@ -1950,6 +1950,16 @@ class PostDataHandler extends DataHandler
 		// Prepare array for post updating.
 
 		$this->pid = $post['pid'];
+
+		if(isset($post['uid']))
+		{
+			$this->post_update_data['uid'] = (int)$post['uid'];
+		}
+
+		if(isset($post['username']))
+		{
+			$this->post_update_data['username'] = $db->escape_string($post['username']);
+		}
 
 		if(isset($post['subject']))
 		{
