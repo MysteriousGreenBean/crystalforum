@@ -1,14 +1,6 @@
 <tr>
 <td class="trow1"  width="20%"><strong>Napisz jako:</strong></td>
 <td class="trow1">
-    <if $dropdownOptionsCount > 1 then>
-    <select name="changeuserbox_selectedUser" title="Wybierz konto użytkownika" id="changeuserbox_selectedUser">
-        {$dropdownOptions}
-    </select>
-
-    <else>
-         {$singleOptionText}
-    </else>
-    </if>
+    {$changeuserboxDropdown}
 </td>
 </tr>

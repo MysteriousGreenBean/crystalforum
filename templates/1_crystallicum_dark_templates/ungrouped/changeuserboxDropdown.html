@@ -1,0 +1,8 @@
+<if $dropdownOptionsCount > 1 then>
+    <select name="changeuserbox_selectedUser" title="Wybierz konto użytkownika" id="changeuserbox_selectedUser">
+        {$dropdownOptions}
+    </select>
+    <else>
+        {$singleOptionText}
+    </else>
+</if>

@@ -8,15 +8,17 @@ class ChangeUserControl {
      * Render the change user dropdown box
      * @param allowedAccountTypes Enum Allowed account types
      */
-    public static function render($allowedAccountTypes) {
+    public static function render($allowedAccountTypes, $justDropdown = false) {
         global $mybb, $templates;
 
         $loginbox = '';
+        $changeuserboxDropdown = '';
         $mybb->user['username'] = htmlspecialchars_uni($mybb->user['username']);
         [$dropdownOptions, $dropdownOptionsCount] = self::createOptions($mybb->user, $allowedAccountTypes);
         $singleOptionText = self::createSingleOptionText($mybb->user, $allowedAccountTypes);
+        eval("\$changeuserboxDropdown = \"".$templates->get("changeuserboxDropdown")."\";");
         eval("\$loginbox = \"".$templates->get("changeuserbox")."\";");
-        return $loginbox;
+        return $justDropdown ? $changeuserboxDropdown : $loginbox;
     }
 
     private static function createSingleOptionText($user, $allowedAccountTypes) {
