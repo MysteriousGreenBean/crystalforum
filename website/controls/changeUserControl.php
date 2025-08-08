@@ -7,20 +7,23 @@ require_once __DIR__."/../enums/AllowedAccountTypes.php";
 class ChangeUserControl {
     private AllowedAccountTypes $allowedAccountTypes = AllowedAccountTypes::ALL;
     private array $user;
+    private array $usergroup;
     private ?int $defaultUid = null;
     private bool $justDropdown = false;
 
-    private function __construct(array $user) {
+    private function __construct(array $user, array $usergroup) {
         $this->user = $user;
+        $this->usergroup = $usergroup;
     }
 
     /**
      * Prepare ChangeUserControl for a specific user
      * @param array $user for whom the dropdown is being prepared
+     * @param array $usergroup the user group of the user
      * @return ChangeUserControl
      */
-    public static function prepareFor(array $user): ChangeUserControl {
-        return new ChangeUserControl($user);
+    public static function prepareFor(array $user, array $usergroup): ChangeUserControl {
+        return new ChangeUserControl($user, $usergroup);
     }
 
     /**
@@ -65,6 +68,11 @@ class ChangeUserControl {
         [$dropdownOptions, $dropdownOptionsCount] = $this->createOptions();
         $singleOptionText = $this->createSingleOptionText();
         eval("\$changeuserboxDropdown = \"".$templates->get("changeuserboxDropdown")."\";");
+
+        if ($this->usergroup['canAssignAnyUser']) {
+            $adminDropdownOptions = $this->createAdminOptions();
+            eval("\$changeuserboxDropdown = \"".$templates->get("adminChangeuserboxDropdown")."\";");
+        }
         eval("\$loginbox = \"".$templates->get("changeuserbox")."\";");
         return $this->justDropdown ? $changeuserboxDropdown : $loginbox;
     }
@@ -122,6 +130,32 @@ class ChangeUserControl {
         }
         return [$options, count($linkedAccounts)];
     }
+
+    private function createAdminOptions(): string {
+        global $db;
+
+        $options = '';
+        $query = $db->simple_select("users", "uid, username, AccountType", "uid != 0", array('order_by' => 'username'));
+        while($user = $db->fetch_array($query)) {
+            switch ($this->allowedAccountTypes) {
+                case AllowedAccountTypes::ALL:
+                        $options .= '<option value="'.$user['uid'].'">'.$user['username'].'</option>';
+                    break;
+                case AllowedAccountTypes::PLAYER:
+                    if (AccountType::from($user['AccountType']) == AccountType::PLAYER) {
+                        $options .= '<option value="'.$user['uid'].'">'.$user['username'].'</option>';
+                    }
+                    break;
+                case AllowedAccountTypes::CHARACTER:
+                    if (AccountType::from($user['AccountType']) == AccountType::CHARACTER || AccountType::from($user['AccountType']) == AccountType::GM) {
+                        $options .= '<option value="'.$user['uid'].'">'.$user['username'].'</option>';
+                    }
+                    break;
+            }
+
+        }
+        return $options;
+    }
     
     /**
      * Get the selected user account from the change user dropdown
@@ -132,7 +166,17 @@ class ChangeUserControl {
         global $mybb;
 
         $selectedUid = $mybb->get_input('changeuserbox_selectedUser', MyBB::INPUT_INT);
-    
+
+        $useAdminOverride = $mybb->get_input('use_admin_override', MyBB::INPUT_INT);
+        if ($useAdminOverride == 1){
+            global $db;
+
+            $selectedUid = $mybb->get_input('admin_changeuserbox_selectedUser', MyBB::INPUT_INT);
+            $query = $db->simple_select("users", "*", "uid = {$selectedUid}");
+            return $db->fetch_array($query);
+        }
+
+
         if ($selectedUid === -1) {
             return ['uid' => -1, 'username' => 'Brak konta postaci'];
         }

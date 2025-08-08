@@ -157,7 +157,7 @@ if($mybb->settings['bbcodeinserter'] != 0 && $forum['allowmycode'] != 0 && (!$my
 // Display a login box or change user box?
 if($mybb->user['uid'] != 0)
 {
-	$loginbox = ChangeUserControl::prepareFor($mybb->user)
+	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
 			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
 			->render();
 }

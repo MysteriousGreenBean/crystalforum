@@ -1307,7 +1307,7 @@ if($mybb->input['action'] == "thread")
 			$collapsed['quickreply_e'] = '';
 		}
 
-		$changeuserboxDropdown = ChangeUserControl::prepareFor($mybb->user)
+		$changeuserboxDropdown = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
 			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
 			->asDropdownOnly()
 			->render();

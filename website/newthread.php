@@ -117,7 +117,7 @@ if($forum['allowpicons'] != 0)
 // If we have a currently logged in user then fetch the change user box.
 if($mybb->user['uid'] != 0)
 {
-	$loginbox = ChangeUserControl::prepareFor($mybb->user)
+	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
 			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
 			->render();
 }

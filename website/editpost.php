@@ -621,7 +621,7 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 		$posticons = get_post_icons();
 	}
 
-	$loginbox = ChangeUserControl::prepareFor($mybb->user)
+	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
 		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
 		->withDefaultSelection($post['uid'])->render();
 

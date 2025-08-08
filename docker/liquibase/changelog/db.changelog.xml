@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <changeSet author="liquibase (generated)" id="1737906077484-1">
     <createTable tableName="mybb_adminlog">
@@ -3221,4 +3221,10 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
         UPDATE `mybb_forums` SET `AllowedAccountType` = 'All' WHERE `type` = 'f';
       </sql>
     </changeSet>
+      <changeSet author="Patryk Konieczny"  id="1747952670676-8">
+        <sql>
+          ALTER TABLE `mybb_usergroups` ADD `canAssignAnyUser` TINYINT NOT NULL DEFAULT '0' AFTER `canuseipsearch`;
+          UPDATE `mybb_usergroups` SET `canAssignAnyUser` = '1' WHERE `mybb_usergroups`.`gid` = 4;
+        </sql>
+  </changeSet>
 </databaseChangeLog>
