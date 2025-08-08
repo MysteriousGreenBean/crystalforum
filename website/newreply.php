@@ -27,6 +27,7 @@ require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."inc/class_parser.php";
 require_once MYBB_ROOT."controls/changeUserControl.php";
+require_once MYBB_ROOT."enums/AllowedAccountTypes.php";
 
 $parser = new postParser;
 
@@ -55,7 +56,7 @@ if(($mybb->input['action'] == "editdraft" || $mybb->input['action'] == "do_newre
 	{
 		error($lang->error_invalidpost);
 	}
-	else if($mybb->user['uid'] != $post['uid'])
+	else if($mybb->user['parent']['uid'] != $post['ParentUid'] && $mybb->user['parent']['uid'] != $post['uid'])
 	{
 		error($lang->error_post_noperms);
 	}
@@ -156,7 +157,9 @@ if($mybb->settings['bbcodeinserter'] != 0 && $forum['allowmycode'] != 0 && (!$my
 // Display a login box or change user box?
 if($mybb->user['uid'] != 0)
 {
-	$loginbox = ChangeUserControl::render($forum['AllowedAccountType']);
+	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
+			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
+			->render();
 }
 else
 {
@@ -407,7 +410,8 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 		"username" => $selectedAccount['username'] ?? $username,
 		"message" => $mybb->get_input('message'),
 		"ipaddress" => $session->packedip,
-		"posthash" => $mybb->get_input('posthash')
+		"posthash" => $mybb->get_input('posthash'),
+		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid']
 	);
 
 	if(isset($mybb->input['pid']))
@@ -1001,7 +1005,8 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 			"username" => $selectedAccount['username'] ?? $username,
 			"message" => $mybb->get_input('message'),
 			"ipaddress" => $session->packedip,
-			"posthash" => $mybb->get_input('posthash')
+			"posthash" => $mybb->get_input('posthash'),
+			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid']
 		);
 
 		if(isset($mybb->input['pid']))

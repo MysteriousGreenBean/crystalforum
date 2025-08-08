@@ -1011,7 +1011,7 @@ class PostDataHandler extends DataHandler
 			}
 
 			// Are posts from this user being moderated? Change visibility
-			if($mybb->user['uid'] == $post['uid'] && $mybb->user['moderateposts'] == 1)
+			if(($mybb->user['parent']['uid'] == $post['ParentUid'] || $mybb->user['parent']['uid'] == $post['uid']) && $mybb->user['moderateposts'] == 1)
 			{
 				$visible = 0;
 			}
@@ -1155,7 +1155,8 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary($post['ipaddress']),
 				"includesig" => $post['options']['signature'],
 				"smilieoff" => $post['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $post['ParentUid'],
 			);
 
 			$plugins->run_hooks("datahandler_post_insert_post", $this);
@@ -1547,7 +1548,8 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary(my_inet_pton(get_ip())),
 				"includesig" => $thread['options']['signature'],
 				"smilieoff" => $thread['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $thread['ParentUid'],
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1592,7 +1594,8 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary(my_inet_pton(get_ip())),
 				"includesig" => $thread['options']['signature'],
 				"smilieoff" => $thread['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $thread['ParentUid'],
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1950,6 +1953,21 @@ class PostDataHandler extends DataHandler
 		// Prepare array for post updating.
 
 		$this->pid = $post['pid'];
+
+		if(isset($post['uid']))
+		{
+			$this->post_update_data['uid'] = (int)$post['uid'];
+		}
+
+		if(isset($post['username']))
+		{
+			$this->post_update_data['username'] = $db->escape_string($post['username']);
+		}
+
+		if (isset($post['ParentUid']))
+		{
+			$this->post_update_data['ParentUid'] = (int)$post['ParentUid'];
+		}
 
 		if(isset($post['subject']))
 		{
