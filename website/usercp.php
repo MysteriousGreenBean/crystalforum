@@ -3446,10 +3446,11 @@ if($mybb->input['action'] == "drafts")
 	if($draftcount)
 	{
 		$query = $db->query("
-			SELECT p.subject, p.pid, t.tid, t.subject AS threadsubject, t.fid, f.name AS forumname, p.dateline, t.visible AS threadvisible, p.visible AS postvisible
+			SELECT p.subject, p.pid, t.tid, t.subject AS threadsubject, t.fid, f.name AS forumname, p.dateline, t.visible AS threadvisible, p.visible AS postvisible, u.username, u.usergroup, u.displaygroup
 			FROM ".TABLE_PREFIX."posts p
 			LEFT JOIN ".TABLE_PREFIX."threads t ON (t.tid=p.tid)
 			LEFT JOIN ".TABLE_PREFIX."forums f ON (f.fid=t.fid)
+			LEFT JOIN ".TABLE_PREFIX."users u ON (p.uid=u.uid)
 			WHERE (p.uid='{$mybb->user['uid']}' OR p.uid IN ($character_uids)) AND p.visible = '-2'
 			ORDER BY p.dateline DESC, p.pid DESC
 		");
@@ -3477,6 +3478,7 @@ if($mybb->input['action'] == "drafts")
 				$type = "thread";
 			}
 
+			$author = format_name($draft['username'], $draft['usergroup'], $draft['displaygroup']);
 			$draft['subject'] = htmlspecialchars_uni($draft['subject']);
 			$savedate = my_date('relative', $draft['dateline']);
 			eval("\$drafts .= \"".$templates->get("usercp_drafts_draft")."\";");
