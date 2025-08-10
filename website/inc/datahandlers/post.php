@@ -1027,7 +1027,7 @@ class PostDataHandler extends DataHandler
 
 		if($post['pid'] > 0)
 		{
-			$query = $db->simple_select("posts", "tid", "pid='{$post['pid']}' AND uid='{$post['uid']}' AND visible='-2'");
+			$query = $db->simple_select("posts", "tid", "pid='{$post['pid']}' AND visible='-2'");
 			$draft_check = $db->fetch_field($query, "tid");
 		}
 		else
