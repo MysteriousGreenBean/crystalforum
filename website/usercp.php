@@ -45,6 +45,9 @@ if($mybb->user['uid'] == 0 || $mybb->usergroup['canusercp'] == 0)
 	error_no_permission();
 }
 
+
+$mybb->user['parent']['characters'] = $mybb->user['characters'];
+$mybb->user = $mybb->user['parent'];
 $errors = '';
 
 $mybb->input['action'] = $mybb->get_input('action');
@@ -3422,8 +3425,18 @@ if($mybb->input['action'] == "editlists")
 if($mybb->input['action'] == "drafts")
 {
 	$plugins->run_hooks("usercp_drafts_start");
+	$character_uids = '';
+	if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
+		$uids = array();
+		foreach ($mybb->user['characters'] as $character) {
+			if (isset($character['uid'])) {
+				$uids[] = "'".(int)$character['uid']."'";
+			}
+		}
+		$character_uids = implode(',', $uids);
+	}
 
-	$query = $db->simple_select("posts", "COUNT(pid) AS draftcount", "visible='-2' AND uid='{$mybb->user['uid']}'");
+	$query = $db->simple_select("posts", "COUNT(pid) AS draftcount", "visible='-2' AND (uid='{$mybb->user['uid']}' OR uid IN ($character_uids))");
 	$draftcount = $db->fetch_field($query, 'draftcount');
 
 	$drafts = $disable_delete_drafts = '';
@@ -3433,11 +3446,12 @@ if($mybb->input['action'] == "drafts")
 	if($draftcount)
 	{
 		$query = $db->query("
-			SELECT p.subject, p.pid, t.tid, t.subject AS threadsubject, t.fid, f.name AS forumname, p.dateline, t.visible AS threadvisible, p.visible AS postvisible
+			SELECT p.subject, p.pid, t.tid, t.subject AS threadsubject, t.fid, f.name AS forumname, p.dateline, t.visible AS threadvisible, p.visible AS postvisible, u.username, u.usergroup, u.displaygroup
 			FROM ".TABLE_PREFIX."posts p
 			LEFT JOIN ".TABLE_PREFIX."threads t ON (t.tid=p.tid)
 			LEFT JOIN ".TABLE_PREFIX."forums f ON (f.fid=t.fid)
-			WHERE p.uid = '{$mybb->user['uid']}' AND p.visible = '-2'
+			LEFT JOIN ".TABLE_PREFIX."users u ON (p.uid=u.uid)
+			WHERE (p.uid='{$mybb->user['uid']}' OR p.uid IN ($character_uids)) AND p.visible = '-2'
 			ORDER BY p.dateline DESC, p.pid DESC
 		");
 
@@ -3464,6 +3478,7 @@ if($mybb->input['action'] == "drafts")
 				$type = "thread";
 			}
 
+			$author = format_name($draft['username'], $draft['usergroup'], $draft['displaygroup']);
 			$draft['subject'] = htmlspecialchars_uni($draft['subject']);
 			$savedate = my_date('relative', $draft['dateline']);
 			eval("\$drafts .= \"".$templates->get("usercp_drafts_draft")."\";");

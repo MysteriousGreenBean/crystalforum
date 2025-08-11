@@ -41,7 +41,7 @@ if($mybb->input['action'] == "editdraft" || ($mybb->get_input('savedraft') && $m
 	$query = $db->simple_select("posts", "*", "tid='".$mybb->input['tid']."' AND visible='-2'", array('order_by' => 'dateline, pid', 'limit' => 1));
 	$post = $db->fetch_array($query);
 
-	if(!$thread || !$post || $thread['visible'] != -2 || $thread['uid'] != $mybb->user['uid'])
+	if(!$thread || !$post || $thread['visible'] != -2 || ($thread['uid'] != $mybb->user['uid'] && $mybb->user['parent']['uid'] != $post['ParentUid']))
 	{
 		error($lang->invalidthread);
 	}
@@ -118,8 +118,11 @@ if($forum['allowpicons'] != 0)
 if($mybb->user['uid'] != 0)
 {
 	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
-			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
-			->render();
+		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']));
+	if ($post != null){
+		$loginbox = $loginbox->withDefaultSelection($post['uid']);
+	}
+	$loginbox = $loginbox->render();
 }
 
 // Otherwise we have a guest, determine the "username" and get the login box.

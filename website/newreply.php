@@ -158,8 +158,11 @@ if($mybb->settings['bbcodeinserter'] != 0 && $forum['allowmycode'] != 0 && (!$my
 if($mybb->user['uid'] != 0)
 {
 	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
-			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
-			->render();
+			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']));
+	if ($post != null){
+		$loginbox = $loginbox->withDefaultSelection($post['uid']);
+	}
+	$loginbox = $loginbox->render();
 }
 else
 {
