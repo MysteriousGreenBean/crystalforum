@@ -32,6 +32,7 @@ require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/class_parser.php";
 require_once MYBB_ROOT."inc/functions_modcp.php";
+require_once MYBB_ROOT."inc/functions_accountswitcher.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -84,9 +85,10 @@ if ($mybb->input['action'] == "do_add_character") {
 
 	$randomPassword = random_str(8);
 	$parentUid = $mybb->user['ParentUid'] == 0 ? $mybb->user['uid'] : $mybb->user['ParentUid'];
+	$characterName = $mybb->get_input('characterName');
 	// Set the data for the new user.
 	$user = array(
-		"username" => $mybb->get_input('characterName'),
+		"username" => $characterName,
 		"usergroup" => $usergroup,
 		"password" => $randomPassword,
 		"password2" => $randomPassword,
@@ -116,7 +118,9 @@ if ($mybb->input['action'] == "do_add_character") {
 	else {
 		require_once MYBB_ROOT."inc/functions_accountswitcher.php";
 		$user_info = $userhandler->insert_user();
-				
+
+		create_pm_folder_for_character($user_info['uid'], $user_info['username']);
+
 		$mybb->user['parent'] = $user_info;
 		login_as_account($mybb->user, $user_info['uid'], "index.php");
 	}

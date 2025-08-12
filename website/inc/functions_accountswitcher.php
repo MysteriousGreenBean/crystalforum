@@ -123,3 +123,45 @@ function get_accounts_for_memberlist($linkedAccounts) {
 
     return $characterOutput;
 }
+
+function create_pm_folder_for_character($characterUid, $characterName)
+{
+    global $mybb, $lang;
+
+    $userHandler = new UserDataHandler("update");
+
+    $foldersexploded = explode("$%%$", $mybb->user['parent']['pmfolders']);
+    $newPmFolders = '';
+    foreach($foldersexploded as $key => $folders)
+    {
+		[$folderId, $folderName] = explode("**", $folders, 2);
+        $newPmFolders .= "$%%$$folderId**$folderName";
+        if ($folderId == 0) {
+            $folderName = $lang->folder_inbox.' - '.$characterName;
+            $newPmFolders .= "$%%$-$characterUid**$folderName";
+        }
+    }
+
+    if (substr($newPmFolders, 0, 4) === "$%%$") {
+        $newPmFolders = substr($newPmFolders, 4);
+    }
+
+    $user = array(
+        "uid" => $mybb->user['parent']['uid'],
+        "pmfolders" => $newPmFolders
+    );
+
+    echo "NEW PM FOLDERS FOR UID: ".$mybb->user['parent']['uid']." ".$newPmFolders."<br/>";
+    $userHandler->set_data($user);
+
+    if(!$userHandler->validate_user())
+    {
+        $errors = $userHandler->get_friendly_errors();
+        echo "ERROR CREATING PM FOLDER FOR UID: ".$mybb->user['parent']['uid']." ".$errors."<br/>";
+    }
+    else
+    {
+        $userHandler->update_user();
+        echo "PM FOLDER CREATED FOR UID: ".$mybb->user['parent']['uid']." ".$newPmFolders."<br/>";
+    }
+}

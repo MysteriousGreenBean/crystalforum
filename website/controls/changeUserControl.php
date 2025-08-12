@@ -10,6 +10,7 @@ class ChangeUserControl {
     private array $usergroup;
     private ?int $defaultUid = null;
     private bool $justDropdown = false;
+    private bool $justOneOption = false;
 
     private function __construct(array $user, array $usergroup) {
         $this->user = $user;
@@ -47,6 +48,17 @@ class ChangeUserControl {
     }
 
     /**
+     * Set the control to only show a single user
+     * @param int $onlyUid
+     * @return ChangeUserControl
+     */
+    public function withOnlySelection(int $onlyUid): ChangeUserControl {
+        $this->defaultUid = $onlyUid;
+        $this->justOneOption = true;
+        return $this;
+    }
+
+    /**
      * Set the dropdown to only show the user selection dropdown
      * @return ChangeUserControl
      */
@@ -66,7 +78,11 @@ class ChangeUserControl {
         $changeuserboxDropdown = '';
         $this->user['username'] = htmlspecialchars_uni($this->user['username']);
         [$dropdownOptions, $dropdownOptionsCount] = $this->createOptions();
-        $singleOptionText = $this->createSingleOptionText();
+        $singleOptionText = $this->defaultUid != null ? $this->createSingleOptionTextFromDefaultValue() : $this->createSingleOptionText();
+        if ($this->justOneOption) {
+            $dropdownOptionsCount = 1;
+        }
+
         eval("\$changeuserboxDropdown = \"".$templates->get("changeuserboxDropdown")."\";");
 
         if ($this->usergroup['canAssignAnyUser']) {
@@ -75,6 +91,29 @@ class ChangeUserControl {
         }
         eval("\$loginbox = \"".$templates->get("changeuserbox")."\";");
         return $this->justDropdown ? $changeuserboxDropdown : $loginbox;
+    }
+
+    private function createSingleOptionTextFromDefaultValue(): string {
+        if ($this->defaultUid == null)
+        {
+            error("Default UID is not set. Please set it using withDefaultSelection() method.");
+        }
+
+        if ($this->defaultUid == $this->user['parent']['uid'] && ($this->allowedAccountTypes == AllowedAccountTypes::ALL || $this->allowedAccountTypes == AllowedAccountTypes::PLAYER)) {
+            return $this->createSingleOptionTexWithInputField($this->user['parent']['uid'], $this->user['parent']['username']);
+        }
+
+        if ($this->allowedAccountTypes != AllowedAccountTypes::CHARACTER && $this->allowedAccountTypes != AllowedAccountTypes::ALL) {
+            error("Nieprawidłowy typ konta");
+        }
+        $defaultUid = $this->defaultUid ?? $this->user['uid'];
+        foreach ($this->user['characters'] as $character) {
+            if ($character['uid'] == $defaultUid) {
+                return $this->createSingleOptionTexWithInputField($character['uid'], $character['username']);
+            }
+        }
+
+        error("Nie udało się odnaleźć konta.");
     }
 
     private function createSingleOptionText(): string {
@@ -156,7 +195,7 @@ class ChangeUserControl {
         }
         return $options;
     }
-    
+
     /**
      * Get the selected user account from the change user dropdown
      * @param user User data of the current user

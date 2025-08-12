@@ -27,10 +27,15 @@ require_once "./global.php";
 require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/class_parser.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
 $parser = new postParser;
 
 // Load global language phrases
 $lang->load("private");
+
+$mybb->user['parent']['characters'] = $mybb->user['characters'];
+$mybb->user['parent']['parent'] = $mybb->user['parent'];
+$mybb->user = $mybb->user['parent'];
 
 if($mybb->settings['enablepms'] == 0)
 {
@@ -45,6 +50,19 @@ if($mybb->user['uid'] == '/' || $mybb->user['uid'] == 0 || $mybb->usergroup['can
 $mybb->input['fid'] = $mybb->get_input('fid', MyBB::INPUT_INT);
 
 $folder_id = $folder_name = $folderjump_folder = $folderoplist_folder = $foldersearch_folder ='';
+
+$character_uids = array();
+if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
+	foreach ($mybb->user['characters'] as $character) {
+		if (isset($character['uid'])) {
+			$character_uids[] = (int)$character['uid'];
+		}
+	}
+}
+if (!empty($mybb->user['parent']['uid'])) {
+	$character_uids[] = (int)$mybb->user['parent']['uid'];
+}
+$character_uid_string = implode(',', array_unique($character_uids));
 
 $foldernames = array();
 $foldersexploded = explode("$%%$", $mybb->user['pmfolders']);
@@ -730,7 +748,7 @@ if($mybb->input['action'] == "send")
 			SELECT u.username AS userusername, u.*, f.*
 			FROM ".TABLE_PREFIX."users u
 			LEFT JOIN ".TABLE_PREFIX."userfields f ON (f.ufid=u.uid)
-			WHERE u.uid='".$mybb->user['uid']."'
+			WHERE u.uid='".$mybb->user['uid']."' OR u.uid IN ($character_uid_string)
 		");
 
 		$post = $db->fetch_array($query);
@@ -796,7 +814,7 @@ if($mybb->input['action'] == "send")
 			SELECT pm.*, u.username AS quotename
 			FROM ".TABLE_PREFIX."privatemessages pm
 			LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=pm.fromid)
-			WHERE pm.pmid='".$mybb->get_input('pmid', MyBB::INPUT_INT)."' AND pm.uid='{$mybb->user['uid']}'
+			WHERE pm.pmid='".$mybb->get_input('pmid', MyBB::INPUT_INT)."' AND (pm.uid='{$mybb->user['uid']}' OR pm.uid IN ($character_uid_string))
 		");
 
 		$pm = $db->fetch_array($query);
@@ -859,6 +877,8 @@ if($mybb->input['action'] == "send")
 					}
 				}
 			}
+			
+			$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
 		}
 		else
 		{
@@ -877,6 +897,7 @@ if($mybb->input['action'] == "send")
 			if($mybb->input['do'] == 'forward')
 			{
 				$subject = "Fw: $subject";
+				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
 			}
 			elseif($mybb->input['do'] == 'reply')
 			{
@@ -892,6 +913,9 @@ if($mybb->input['action'] == "send")
 					$to = $db->fetch_field($query, 'username');
 				}
 				$to = htmlspecialchars_uni($to);
+				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
+					->withOnlySelection((int)$pm['toid'])
+					->render();
 			}
 			else if($mybb->input['do'] == 'replyall')
 			{
@@ -918,6 +942,9 @@ if($mybb->input['action'] == "send")
 					$to .= $comma.htmlspecialchars_uni($user['username']);
 					$comma = $lang->comma;
 				}
+				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
+					->withOnlySelection((int)$pm['toid'])
+					->render();
 			}
 		}
 	}
@@ -969,7 +996,7 @@ if($mybb->input['action'] == "send")
 	}
 
 	$plugins->run_hooks("private_send_end");
-
+	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
 	eval("\$send = \"".$templates->get("private_send")."\";");
 	output_page($send);
 }
@@ -985,7 +1012,7 @@ if($mybb->input['action'] == "read")
 		FROM ".TABLE_PREFIX."privatemessages pm
 		LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=pm.fromid)
 		LEFT JOIN ".TABLE_PREFIX."userfields f ON (f.ufid=u.uid)
-		WHERE pm.pmid='{$pmid}' AND pm.uid='".$mybb->user['uid']."'
+		WHERE pm.pmid='{$pmid}' AND (pm.uid IN(".$character_uid_string.") OR pm.uid='".$mybb->user['uid']."')
 	");
 	$pm = $db->fetch_array($query);
 
@@ -2292,12 +2319,25 @@ if(!$mybb->input['action'])
 		}
 	}
 
+	$character_uids = array();
+	if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
+		foreach ($mybb->user['characters'] as $character) {
+			if (isset($character['uid'])) {
+				$character_uids[] = (int)$character['uid'];
+			}
+		}
+	}
+	if (!empty($mybb->user['parent']['uid'])) {
+		$character_uids[] = (int)$mybb->user['parent']['uid'];
+	}
+	$character_uid_string = implode(',', array_unique($character_uids));
+
 	$query = $db->query("
 		SELECT pm.*, fu.username AS fromusername, tu.username as tousername
 		FROM ".TABLE_PREFIX."privatemessages pm
 		LEFT JOIN ".TABLE_PREFIX."users fu ON (fu.uid=pm.fromid)
 		LEFT JOIN ".TABLE_PREFIX."users tu ON (tu.uid=pm.toid)
-		WHERE pm.folder='$folder' AND pm.uid='".$mybb->user['uid']."'{$selective}
+		WHERE pm.folder='$folder' AND (pm.uid IN(".$character_uid_string.") OR pm.uid='".$mybb->user['uid']."'){$selective}
 		ORDER BY {$pm}{$sortfield} {$sortordernow}
 		LIMIT $start, $perpage
 	");
@@ -2401,9 +2441,25 @@ if(!$mybb->input['action'])
 					$tofromuid = 0;
 					$tofromusername = $lang->na;
 				}
+
+				$tofromusername2 = htmlspecialchars_uni($message['tousername']);
+				$tofromuid2 = $message['toid'];
+				if($tofromuid2 == 0)
+				{
+					$tofromusername2 = $lang->mybb_engine;
+				}
+
+				if(!$tofromusername2)
+				{
+					$tofromuid2 = 0;
+					$tofromusername2 = $lang->na;
+				}
+
 			}
 
+		
 			$tofromusername = build_profile_link($tofromusername, $tofromuid);
+			$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
 
 			if($mybb->usergroup['candenypmreceipts'] == 1 && $message['receipt'] == '1' && $message['folder'] != '3' && $message['folder'] != 2)
 			{
