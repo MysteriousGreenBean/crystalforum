@@ -699,7 +699,7 @@ function my_mail($to, $subject, $message, $from="", $charset="", $headers="", $k
 
 /**
  * Generates a code for POST requests to prevent XSS/CSRF attacks.
- * Unique for each user or guest session and rotated every 6 hours.
+ * Unique for each user (but shared among user's subaccounts) or guest session and rotated every 6 hours.
  *
  * @param int $rotation_shift Adjustment of the rotation number to generate a past/future code
  * @return string The generated code
@@ -713,9 +713,9 @@ function generate_post_check($rotation_shift=0)
 
 	$seed = $rotation;
 
-	if($mybb->user['uid'])
+	if($mybb->user['parent']['uid'])
 	{
-		$seed .= $mybb->user['loginkey'].$mybb->user['salt'].$mybb->user['regdate'];
+		$seed .= $mybb->user['parent']['loginkey'].$mybb->user['parent']['salt'].$mybb->user['parent']['regdate'];
 	}
 	else
 	{

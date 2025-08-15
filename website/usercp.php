@@ -46,8 +46,7 @@ if($mybb->user['uid'] == 0 || $mybb->usergroup['canusercp'] == 0)
 }
 
 
-$mybb->user['parent']['characters'] = $mybb->user['characters'];
-$mybb->user = $mybb->user['parent'];
+use_parent_user();
 $errors = '';
 
 $mybb->input['action'] = $mybb->get_input('action');
@@ -3553,321 +3552,337 @@ if($mybb->input['action'] == "do_drafts" && $mybb->request_method == "post")
 
 if($mybb->input['action'] == "usergroups")
 {
-	$ingroups = ",".$mybb->user['usergroup'].",".$mybb->user['additionalgroups'].",".$mybb->user['displaygroup'].",";
-
-	$usergroups = $mybb->cache->read('usergroups');
-
-	$plugins->run_hooks("usercp_usergroups_start");
-
-	// Changing our display group
-	if($mybb->get_input('displaygroup', MyBB::INPUT_INT))
+	$memberoflists = [];
+	foreach (get_all_accounts($mybb->user) as $displayedAccount) 
 	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
+		$ingroups = ",".$displayedAccount['usergroup'].",".$displayedAccount['additionalgroups'].",".$displayedAccount['displaygroup'].",";
 
-		if(my_strpos($ingroups, ",".$mybb->input['displaygroup'].",") === false)
+		$usergroups = $mybb->cache->read('usergroups');
+
+		$plugins->run_hooks("usercp_usergroups_start");
+
+		// Changing our display group
+		if($mybb->get_input('displaygroup', MyBB::INPUT_INT))
 		{
-			error($lang->not_member_of_group);
-		}
-
-		$dispgroup = $usergroups[$mybb->get_input('displaygroup', MyBB::INPUT_INT)];
-		if($dispgroup['candisplaygroup'] != 1)
-		{
-			error($lang->cannot_set_displaygroup);
-		}
-		$db->update_query("users", array('displaygroup' => $mybb->get_input('displaygroup', MyBB::INPUT_INT)), "uid='".$mybb->user['uid']."'");
-		$cache->update_moderators();
-		$plugins->run_hooks("usercp_usergroups_change_displaygroup");
-		redirect("usercp.php?action=usergroups", $lang->display_group_changed);
-		exit;
-	}
-
-	// Leaving a group
-	if($mybb->get_input('leavegroup', MyBB::INPUT_INT))
-	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
-
-		if(my_strpos($ingroups, ",".$mybb->get_input('leavegroup', MyBB::INPUT_INT).",") === false)
-		{
-			error($lang->not_member_of_group);
-		}
-		if($mybb->user['usergroup'] == $mybb->get_input('leavegroup', MyBB::INPUT_INT))
-		{
-			error($lang->cannot_leave_primary_group);
-		}
-
-		$usergroup = $usergroups[$mybb->get_input('leavegroup', MyBB::INPUT_INT)];
-		if($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
-		{
-			error($lang->cannot_leave_group);
-		}
-		leave_usergroup($mybb->user['uid'], $mybb->get_input('leavegroup', MyBB::INPUT_INT));
-		$plugins->run_hooks("usercp_usergroups_leave_group");
-		redirect("usercp.php?action=usergroups", $lang->left_group);
-		exit;
-	}
-
-	$groupleaders = array();
-
-	// List of usergroup leaders
-	$query = $db->query("
-		SELECT g.*, u.username, u.displaygroup, u.usergroup, u.email, u.language
-		FROM ".TABLE_PREFIX."groupleaders g
-		LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=g.uid)
-		ORDER BY u.username ASC
-	");
-	while($leader = $db->fetch_array($query))
-	{
-		$groupleaders[$leader['gid']][$leader['uid']] = $leader;
-	}
-
-	// Joining a group
-	if($mybb->get_input('joingroup', MyBB::INPUT_INT))
-	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
-
-		$usergroup = $usergroups[$mybb->get_input('joingroup', MyBB::INPUT_INT)];
-
-		if($usergroup['type'] == 5)
-		{
-			error($lang->cannot_join_invite_group);
-		}
-
-		if(($usergroup['type'] != 4 && $usergroup['type'] != 3) || !$usergroup['gid'])
-		{
-			error($lang->cannot_join_group);
-		}
-
-		if(my_strpos($ingroups, ",".$mybb->get_input('joingroup', MyBB::INPUT_INT).",") !== false)
-		{
-			error($lang->already_member_of_group);
-		}
-
-		$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('joingroup', MyBB::INPUT_INT)."'");
-		$joinrequest = $db->fetch_array($query);
-
-		if($joinrequest)
-		{
-			error($lang->already_sent_join_request);
-		}
-
-		if($mybb->get_input('do') == "joingroup" && $usergroup['type'] == 4)
-		{
-			$reasonlength = my_strlen($mybb->get_input('reason'));
-
-			if($reasonlength > 250) // Reason field is varchar(250) in database
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+			
+			$changedUserUid = $mybb->get_input('uid', MyBB::INPUT_INT);
+			if (does_account_belong_to_current_user($changedUserUid) == false)
 			{
-				error($lang->sprintf($lang->joinreason_too_long, ($reasonlength - 250)));
+				error("Nie możesz zmienić konta, które nie należy do ciebie.");
 			}
 
-			$now = TIME_NOW;
-			$joinrequest = array(
-				"uid" => $mybb->user['uid'],
-				"gid" => $mybb->get_input('joingroup', MyBB::INPUT_INT),
-				"reason" => $db->escape_string($mybb->get_input('reason')),
-				"dateline" => TIME_NOW
-			);
-
-			$db->insert_query("joinrequests", $joinrequest);
-
-			if(array_key_exists($usergroup['gid'], $groupleaders))
+			if(my_strpos($ingroups, ",".$mybb->input['displaygroup'].",") === false)
 			{
-				foreach($groupleaders[$usergroup['gid']] as $leader)
+				error($lang->not_member_of_group);
+			}
+
+			$dispgroup = $usergroups[$mybb->get_input('displaygroup', MyBB::INPUT_INT)];
+			if($dispgroup['candisplaygroup'] != 1)
+			{
+				error($lang->cannot_set_displaygroup);
+			}
+			$db->update_query("users", array('displaygroup' => $mybb->get_input('displaygroup', MyBB::INPUT_INT)), "uid='".$changedUserUid."'");
+			$cache->update_moderators();
+			$plugins->run_hooks("usercp_usergroups_change_displaygroup");
+			redirect("usercp.php?action=usergroups", $lang->display_group_changed);
+			exit;
+		}
+
+		// Leaving a group
+		if($mybb->get_input('leavegroup', MyBB::INPUT_INT))
+		{
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+
+			if(my_strpos($ingroups, ",".$mybb->get_input('leavegroup', MyBB::INPUT_INT).",") === false)
+			{
+				error($lang->not_member_of_group);
+			}
+			if($mybb->user['usergroup'] == $mybb->get_input('leavegroup', MyBB::INPUT_INT))
+			{
+				error($lang->cannot_leave_primary_group);
+			}
+
+			$usergroup = $usergroups[$mybb->get_input('leavegroup', MyBB::INPUT_INT)];
+			if($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
+			{
+				error($lang->cannot_leave_group);
+			}
+			leave_usergroup($mybb->user['uid'], $mybb->get_input('leavegroup', MyBB::INPUT_INT));
+			$plugins->run_hooks("usercp_usergroups_leave_group");
+			redirect("usercp.php?action=usergroups", $lang->left_group);
+			exit;
+		}
+
+		$groupleaders = array();
+
+		// List of usergroup leaders
+		$query = $db->query("
+			SELECT g.*, u.username, u.displaygroup, u.usergroup, u.email, u.language
+			FROM ".TABLE_PREFIX."groupleaders g
+			LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=g.uid)
+			ORDER BY u.username ASC
+		");
+		while($leader = $db->fetch_array($query))
+		{
+			$groupleaders[$leader['gid']][$leader['uid']] = $leader;
+		}
+
+		// Joining a group
+		if($mybb->get_input('joingroup', MyBB::INPUT_INT))
+		{
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+
+			$usergroup = $usergroups[$mybb->get_input('joingroup', MyBB::INPUT_INT)];
+
+			if($usergroup['type'] == 5)
+			{
+				error($lang->cannot_join_invite_group);
+			}
+
+			if(($usergroup['type'] != 4 && $usergroup['type'] != 3) || !$usergroup['gid'])
+			{
+				error($lang->cannot_join_group);
+			}
+
+			if(my_strpos($ingroups, ",".$mybb->get_input('joingroup', MyBB::INPUT_INT).",") !== false)
+			{
+				error($lang->already_member_of_group);
+			}
+
+			$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('joingroup', MyBB::INPUT_INT)."'");
+			$joinrequest = $db->fetch_array($query);
+
+			if($joinrequest)
+			{
+				error($lang->already_sent_join_request);
+			}
+
+			if($mybb->get_input('do') == "joingroup" && $usergroup['type'] == 4)
+			{
+				$reasonlength = my_strlen($mybb->get_input('reason'));
+
+				if($reasonlength > 250) // Reason field is varchar(250) in database
 				{
-					// Load language
-					$lang->set_language($leader['language']);
-					$lang->load("messages");
-
-					$subject = $lang->sprintf($lang->emailsubject_newjoinrequest, $mybb->settings['bbname']);
-					$message = $lang->sprintf($lang->email_groupleader_joinrequest, $leader['username'], $mybb->user['username'], $usergroup['title'], $mybb->settings['bbname'], $mybb->get_input('reason'), $mybb->settings['bburl'], $leader['gid']);
-					my_mail($leader['email'], $subject, $message);
+					error($lang->sprintf($lang->joinreason_too_long, ($reasonlength - 250)));
 				}
+
+				$now = TIME_NOW;
+				$joinrequest = array(
+					"uid" => $mybb->user['uid'],
+					"gid" => $mybb->get_input('joingroup', MyBB::INPUT_INT),
+					"reason" => $db->escape_string($mybb->get_input('reason')),
+					"dateline" => TIME_NOW
+				);
+
+				$db->insert_query("joinrequests", $joinrequest);
+
+				if(array_key_exists($usergroup['gid'], $groupleaders))
+				{
+					foreach($groupleaders[$usergroup['gid']] as $leader)
+					{
+						// Load language
+						$lang->set_language($leader['language']);
+						$lang->load("messages");
+
+						$subject = $lang->sprintf($lang->emailsubject_newjoinrequest, $mybb->settings['bbname']);
+						$message = $lang->sprintf($lang->email_groupleader_joinrequest, $leader['username'], $mybb->user['username'], $usergroup['title'], $mybb->settings['bbname'], $mybb->get_input('reason'), $mybb->settings['bburl'], $leader['gid']);
+						my_mail($leader['email'], $subject, $message);
+					}
+				}
+
+				// Load language
+				$lang->set_language($mybb->user['language']);
+				$lang->load("messages");
+
+				$plugins->run_hooks("usercp_usergroups_join_group_request");
+				redirect("usercp.php?action=usergroups", $lang->group_join_requestsent);
+				exit;
+			}
+			elseif($usergroup['type'] == 4)
+			{
+				$joingroup = $mybb->get_input('joingroup', MyBB::INPUT_INT);
+				eval("\$joinpage = \"".$templates->get("usercp_usergroups_joingroup")."\";");
+				output_page($joinpage);
+				exit;
+			}
+			else
+			{
+				join_usergroup($mybb->user['uid'], $mybb->get_input('joingroup', MyBB::INPUT_INT));
+				$plugins->run_hooks("usercp_usergroups_join_group");
+				redirect("usercp.php?action=usergroups", $lang->joined_group);
+			}
+		}
+
+		// Accepting invitation
+		if($mybb->get_input('acceptinvite', MyBB::INPUT_INT))
+		{
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+
+			$usergroup = $usergroups[$mybb->get_input('acceptinvite', MyBB::INPUT_INT)];
+
+			if(my_strpos($ingroups, ",".$mybb->get_input('acceptinvite', MyBB::INPUT_INT).",") !== false)
+			{
+				error($lang->already_accepted_invite);
 			}
 
-			// Load language
-			$lang->set_language($mybb->user['language']);
-			$lang->load("messages");
-
-			$plugins->run_hooks("usercp_usergroups_join_group_request");
-			redirect("usercp.php?action=usergroups", $lang->group_join_requestsent);
-			exit;
+			$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."' AND invite='1'");
+			$joinrequest = $db->fetch_array($query);
+			if($joinrequest)
+			{
+				join_usergroup($mybb->user['uid'], $mybb->get_input('acceptinvite', MyBB::INPUT_INT));
+				$db->delete_query("joinrequests", "uid='{$mybb->user['uid']}' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."'");
+				$plugins->run_hooks("usercp_usergroups_accept_invite");
+				redirect("usercp.php?action=usergroups", $lang->joined_group);
+			}
+			else
+			{
+				error($lang->no_pending_invitation);
+			}
 		}
-		elseif($usergroup['type'] == 4)
+		// Show listing of various group related things
+
+		// List of groups this user is a leader of
+		$groupsledlist = '';
+
+		switch($db->type)
 		{
-			$joingroup = $mybb->get_input('joingroup', MyBB::INPUT_INT);
-			eval("\$joinpage = \"".$templates->get("usercp_usergroups_joingroup")."\";");
-			output_page($joinpage);
-			exit;
-		}
-		else
-		{
-			join_usergroup($mybb->user['uid'], $mybb->get_input('joingroup', MyBB::INPUT_INT));
-			$plugins->run_hooks("usercp_usergroups_join_group");
-			redirect("usercp.php?action=usergroups", $lang->joined_group);
-		}
-	}
-
-	// Accepting invitation
-	if($mybb->get_input('acceptinvite', MyBB::INPUT_INT))
-	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
-
-		$usergroup = $usergroups[$mybb->get_input('acceptinvite', MyBB::INPUT_INT)];
-
-		if(my_strpos($ingroups, ",".$mybb->get_input('acceptinvite', MyBB::INPUT_INT).",") !== false)
-		{
-			error($lang->already_accepted_invite);
+			case "pgsql":
+			case "sqlite":
+				$query = $db->query("
+					SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+					FROM ".TABLE_PREFIX."groupleaders l
+					LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
+					LEFT JOIN ".TABLE_PREFIX."users u ON(((','|| u.additionalgroups|| ',' LIKE '%,'|| g.gid|| ',%') OR u.usergroup = g.gid))
+					LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
+					WHERE l.uid='".$displayedAccount['uid']."'
+					GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+				");
+				break;
+			default:
+				$query = $db->query("
+					SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+					FROM ".TABLE_PREFIX."groupleaders l
+					LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
+					LEFT JOIN ".TABLE_PREFIX."users u ON(((CONCAT(',', u.additionalgroups, ',') LIKE CONCAT('%,', g.gid, ',%')) OR u.usergroup = g.gid))
+					LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
+					WHERE l.uid='".$displayedAccount['uid']."'
+					GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+				");
 		}
 
-		$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."' AND invite='1'");
-		$joinrequest = $db->fetch_array($query);
-		if($joinrequest)
-		{
-			join_usergroup($mybb->user['uid'], $mybb->get_input('acceptinvite', MyBB::INPUT_INT));
-			$db->delete_query("joinrequests", "uid='{$mybb->user['uid']}' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."'");
-			$plugins->run_hooks("usercp_usergroups_accept_invite");
-			redirect("usercp.php?action=usergroups", $lang->joined_group);
-		}
-		else
-		{
-			error($lang->no_pending_invitation);
-		}
-	}
-	// Show listing of various group related things
-
-	// List of groups this user is a leader of
-	$groupsledlist = '';
-
-	switch($db->type)
-	{
-		case "pgsql":
-		case "sqlite":
-			$query = $db->query("
-				SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-				FROM ".TABLE_PREFIX."groupleaders l
-				LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
-				LEFT JOIN ".TABLE_PREFIX."users u ON(((','|| u.additionalgroups|| ',' LIKE '%,'|| g.gid|| ',%') OR u.usergroup = g.gid))
-				LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
-				WHERE l.uid='".$mybb->user['uid']."'
-				GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-			");
-			break;
-		default:
-			$query = $db->query("
-				SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-				FROM ".TABLE_PREFIX."groupleaders l
-				LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
-				LEFT JOIN ".TABLE_PREFIX."users u ON(((CONCAT(',', u.additionalgroups, ',') LIKE CONCAT('%,', g.gid, ',%')) OR u.usergroup = g.gid))
-				LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
-				WHERE l.uid='".$mybb->user['uid']."'
-				GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-			");
-	}
-
-	while($usergroup = $db->fetch_array($query))
-	{
-		$memberlistlink = $moderaterequestslink = '';
-		eval("\$memberlistlink = \"".$templates->get("usercp_usergroups_leader_usergroup_memberlist")."\";");
-		$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
-		if($usergroup['type'] != 4)
-		{
-			$usergroup['joinrequests'] = '--';
-		}
-		if($usergroup['joinrequests'] > 0 && $usergroup['canmanagerequests'] == 1)
-		{
-			eval("\$moderaterequestslink = \"".$templates->get("usercp_usergroups_leader_usergroup_moderaterequests")."\";");
-		}
-		$groupleader[$usergroup['gid']] = 1;
-		$trow = alt_trow();
-		eval("\$groupsledlist .= \"".$templates->get("usercp_usergroups_leader_usergroup")."\";");
-	}
-	$leadinggroups = '';
-	if($groupsledlist)
-	{
-		eval("\$leadinggroups = \"".$templates->get("usercp_usergroups_leader")."\";");
-	}
-
-	// Fetch the list of groups the member is in
-	// Do the primary group first
-	$usergroup = $usergroups[$mybb->user['usergroup']];
-	$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
-	$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
-	if($usergroup['description'])
-	{
-		$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
-		eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
-	}
-	eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveprimary")."\";");
-	$trow = alt_trow();
-	if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $mybb->user['displaygroup'])
-	{
-		eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
-	}
-	elseif($usergroup['candisplaygroup'] == 1)
-	{
-		eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
-	}
-	else
-	{
-		$displaycode = '';
-	}
-
-	eval("\$memberoflist = \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
-	$showmemberof = false;
-	if($mybb->user['additionalgroups'])
-	{
-		$additionalgroups = implode(
-			',',
-			array_map(
-				'intval',
-				explode(',', $mybb->user['additionalgroups'])
-			)
-		);
-		$query = $db->simple_select("usergroups", "*", "gid IN (".$additionalgroups.") AND gid !='".$mybb->user['usergroup']."'", array('order_by' => 'title'));
 		while($usergroup = $db->fetch_array($query))
 		{
-			$showmemberof = true;
-
-			if(isset($groupleader[$usergroup['gid']]))
-			{
-				eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveleader")."\";");
-			}
-			elseif($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
-			{
-				eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveother")."\";");
-			}
-			else
-			{
-				eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leave")."\";");
-			}
-
-			$description = '';
+			$memberlistlink = $moderaterequestslink = '';
+			eval("\$memberlistlink = \"".$templates->get("usercp_usergroups_leader_usergroup_memberlist")."\";");
 			$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
-			$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
-			if($usergroup['description'])
+			if($usergroup['type'] != 4)
 			{
-				$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
-				eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
+				$usergroup['joinrequests'] = '--';
 			}
+			if($usergroup['joinrequests'] > 0 && $usergroup['canmanagerequests'] == 1)
+			{
+				eval("\$moderaterequestslink = \"".$templates->get("usercp_usergroups_leader_usergroup_moderaterequests")."\";");
+			}
+			$groupleader[$usergroup['gid']] = 1;
 			$trow = alt_trow();
-			if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $mybb->user['displaygroup'])
-			{
-				eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
-			}
-			elseif($usergroup['candisplaygroup'] == 1)
-			{
-				eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
-			}
-			else
-			{
-				$displaycode = '';
-			}
-			eval("\$memberoflist .= \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
+			eval("\$groupsledlist .= \"".$templates->get("usercp_usergroups_leader_usergroup")."\";");
 		}
+		$leadinggroups = '';
+		if($groupsledlist)
+		{
+			eval("\$leadinggroups = \"".$templates->get("usercp_usergroups_leader")."\";");
+		}
+
+		// Fetch the list of groups the member is in
+		// Do the primary group first
+		$usergroup = $usergroups[$displayedAccount['usergroup']];
+		$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
+		$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
+		// print_r($usergroup);
+		if($usergroup['description'])
+		{
+			$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
+			eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
+		}
+		eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveprimary")."\";");
+		$trow = alt_trow();
+		if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $displayedAccount['displaygroup'])
+		{
+			eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
+		}
+		elseif($usergroup['candisplaygroup'] == 1)
+		{
+			eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
+		}
+		else
+		{
+			$displaycode = '';
+		}
+
+		eval("\$memberoflist = \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
+		$showmemberof = false;
+		if($displayedAccount['additionalgroups'])
+		{
+			$additionalgroups = implode(
+				',',
+				array_map(
+					'intval',
+					explode(',', $displayedAccount['additionalgroups'])
+				)
+			);
+			$query = $db->simple_select("usergroups", "*", "gid IN (".$additionalgroups.") AND gid !='".$displayedAccount['usergroup']."'", array('order_by' => 'title'));
+			while($usergroup = $db->fetch_array($query))
+			{
+				$showmemberof = true;
+
+				if(isset($groupleader[$usergroup['gid']]))
+				{
+					eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveleader")."\";");
+				}
+				elseif($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
+				{
+					eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveother")."\";");
+				}
+				else
+				{
+					eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leave")."\";");
+				}
+
+				$description = '';
+				$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
+				$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
+				if($usergroup['description'])
+				{
+					$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
+					eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
+				}
+				$trow = alt_trow();
+				if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $displayedAccount['displaygroup'])
+				{
+					eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
+				}
+				elseif($usergroup['candisplaygroup'] == 1)
+				{
+					eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
+				}
+				else
+				{
+					$displaycode = '';
+				}
+				eval("\$memberoflist .= \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
+			}
+		}
+		// $displayedAccount = $mybb->user;
+		$displayedGroupsAccount = format_name($displayedAccount['username'], $displayedAccount['usergroup'], $displayedAccount['displaygroup']);
+		$memberoflists[] = eval("return \"".$templates->get("usercp_usergroups_memberof_userlist")."\";");
 	}
+
+	$memberoflists = implode('', $memberoflists);
 	eval("\$membergroups = \"".$templates->get("usercp_usergroups_memberof")."\";");
 
 	// List of groups this user has applied for but has not been accepted in to
@@ -3963,7 +3978,6 @@ if($mybb->input['action'] == "usergroups")
 	}
 
 	$plugins->run_hooks("usercp_usergroups_end");
-
 	eval("\$groupmemberships = \"".$templates->get("usercp_usergroups")."\";");
 	output_page($groupmemberships);
 }
