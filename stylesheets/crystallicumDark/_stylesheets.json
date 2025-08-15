@@ -28,11 +28,6 @@
       "cache/themes/theme2/thread_status.css"
     ]
   },
-  "usercp2.php": {
-    "global": [
-      "cache/themes/theme2/usercp.css"
-    ]
-  },
   "private.php": {
     "global": [
       "cache/themes/theme2/usercp.css"

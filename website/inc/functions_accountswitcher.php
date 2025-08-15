@@ -78,6 +78,7 @@ function login_as_account($user, $accountUid, $redirectPage) {
 function use_parent_user() {
     global $mybb;
     $mybb->user['parent']['characters'] = $mybb->user['characters'];
+    $mybb->user['parent']['parent'] = $mybb->user['parent']; 
     $mybb->user = $mybb->user['parent'];
     $mybb->post_code = generate_post_check();
 }
