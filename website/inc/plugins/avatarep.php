@@ -987,7 +987,7 @@ function avatarep_announcement()
 
 function avatarep_private_fname()
 {
-	global $mybb, $cache, $message, $tofromusername, $tofromuid;
+	global $mybb, $cache, $message, $tofromusername, $tofromuid, $tofromusername2, $tofromuid2;
 	if($mybb->settings['avatarep_active'] == 0 || $mybb->settings['avatarep_active'] == 1 && $mybb->settings['avatarep_private'] == 0)
     {
         return false;
@@ -995,17 +995,20 @@ function avatarep_private_fname()
 	if($mybb->input['fid'] == 2)
 	{
 		$tofromuid = (int)$message['toid'];
-		$tofromusername = htmlspecialchars_uni($message['tousername']);		
+		$tofromusername = htmlspecialchars_uni($message['tousername']);
+		$tofromusername2 = htmlspecialchars_uni($message['fromusername']);
 	}
 	else if($mybb->input['fid'] == 3)
 	{
 		$tofromuid = (int)$message['toid'];
-		$tofromusername = htmlspecialchars_uni($message['tousername']);		
+		$tofromusername = htmlspecialchars_uni($message['tousername']);	
+		$tofromusername2 = htmlspecialchars_uni($message['fromusername']);	
 	}	
 	else
 	{
 		$tofromuid = (int)$message['fromid'];
 		$tofromusername = htmlspecialchars_uni($message['fromusername']);
+		$tofromusername2 = htmlspecialchars_uni($message['tousername']);
 	}
 	if($mybb->settings['avatarep_format'] == 1)
 	{
@@ -1013,14 +1016,28 @@ function avatarep_private_fname()
 		{
 			$cache->cache['users'][$tofromuid] = $tofromusername;
 			$tofromusername = "#{$tofromusername}{$tofromuid}#";
+			$tofromusername2 = "#{$tofromusername2}{$tofromuid2}#";
 		}
 		else
-		{		
+		{
 			$cache->cache['guests'][] = $tofromusername;
-			$tofromusername = "#{$tofromusername}#";
+			$tofromusername = " ";
+		}
+
+		if ($tofromuid2 > 0)
+		{
+			$cache->cache['users'][$tofromuid2] = $tofromusername2;
+			$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
+		}
+		else
+		{
+			$cache->cache['guests'][] = $tofromusername2;
+			$tofromusername2 = " ";
 		}
 	}	
+
 	$tofromusername = build_profile_link($tofromusername, $tofromuid);
+	$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
 }
 
 function avatarep_private_tracking_fname()

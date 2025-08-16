@@ -3221,10 +3221,15 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
         UPDATE `mybb_forums` SET `AllowedAccountType` = 'All' WHERE `type` = 'f';
       </sql>
     </changeSet>
-      <changeSet author="Patryk Konieczny"  id="1747952670676-8">
+    <changeSet author="Patryk Konieczny"  id="1747952670676-8">
         <sql>
           ALTER TABLE `mybb_usergroups` ADD `canAssignAnyUser` TINYINT NOT NULL DEFAULT '0' AFTER `canuseipsearch`;
           UPDATE `mybb_usergroups` SET `canAssignAnyUser` = '1' WHERE `mybb_usergroups`.`gid` = 4;
         </sql>
-  </changeSet>
+    </changeSet>
+    <changeSet author="Patryk Konieczny"  id="1747952670676-9">
+        <sql>
+          ALTER TABLE mybb_privatemessages MODIFY COLUMN message INT;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

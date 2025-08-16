@@ -710,7 +710,7 @@ function update_pm_count($uid=0, $count_to_update=7)
  */
 function get_pm_folder_name($fid, $name="")
 {
-	global $lang;
+	global $lang, $mybb;
 
 	if($name != '')
 	{
@@ -720,7 +720,7 @@ function get_pm_folder_name($fid, $name="")
 	switch($fid)
 	{
 		case 0:
-			return $lang->folder_inbox;
+			return $lang->folder_inbox.' - '.$mybb->user['username'];
 			break;
 		case 1:
 			return $lang->folder_unread;
