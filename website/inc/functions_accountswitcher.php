@@ -84,6 +84,19 @@ function use_parent_user() {
 }
 
 /**
+ * Set the current user as one of the linked accounts for code purposes. Does not actually login as this user.
+ * @param int $uid UID of the user to switch to
+ */
+function use_linked_user(int $uid)
+{
+    global $mybb;
+
+    $user = get_user($uid);
+    $mybb->user = $user;
+    $mybb->post_code = generate_post_check();
+}
+
+/**
  * Get a list of formatted account names with links for a user profile, filtered by account type
  * @param user User data containing characters
  * @param type Type of account to filter by (e.g., 'Player', 'NPC')
@@ -198,9 +211,8 @@ function does_account_belong_to_current_user(int $uid) {
 /*
     Create a new PM folder for a character.
     @param characterUid UID of the character
-    @param characterName Name of the character
 */
-function create_pm_folder_for_character($characterUid, $characterName)
+function create_pm_folder_for_character($characterUid)
 {
     global $mybb, $lang;
 
@@ -213,8 +225,7 @@ function create_pm_folder_for_character($characterUid, $characterName)
 		[$folderId, $folderName] = explode("**", $folders, 2);
         $newPmFolders .= "$%%$$folderId**$folderName";
         if ($folderId == 0) {
-            $folderName = $lang->folder_inbox.' - '.$characterName;
-            $newPmFolders .= "$%%$-$characterUid**$folderName";
+            $newPmFolders .= "$%%$-$characterUid**";
         }
     }
 
@@ -226,18 +237,33 @@ function create_pm_folder_for_character($characterUid, $characterName)
         "uid" => $mybb->user['parent']['uid'],
         "pmfolders" => $newPmFolders
     );
-
-    echo "NEW PM FOLDERS FOR UID: ".$mybb->user['parent']['uid']." ".$newPmFolders."<br/>";
     $userHandler->set_data($user);
 
     if(!$userHandler->validate_user())
     {
         $errors = $userHandler->get_friendly_errors();
-        echo "ERROR CREATING PM FOLDER FOR UID: ".$mybb->user['parent']['uid']." ".$errors."<br/>";
     }
     else
     {
         $userHandler->update_user();
-        echo "PM FOLDER CREATED FOR UID: ".$mybb->user['parent']['uid']." ".$newPmFolders."<br/>";
     }
+}
+
+/**
+ * Get linked account by UID.
+ * @param linkedUid UID of the linked account
+ * @return array User data of linked account
+ */
+function get_linked_account_by_uid($linkedUid) 
+{
+    global $mybb;
+
+    $allAccounts = get_all_accounts($mybb->user);
+    foreach ($allAccounts as $account) {
+        if ($account['uid'] == $linkedUid) {
+            return $account;
+        }
+    }
+
+    error("Linked account with UID $linkedUid not found in user's accounts.");
 }
