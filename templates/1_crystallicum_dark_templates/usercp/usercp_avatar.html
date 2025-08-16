@@ -1,16 +1,6 @@
-<html>
-<head>
-<title>{$mybb->settings['bbname']} - {$lang->change_avatar}</title>
-{$headerinclude}
-</head>
-<body>
-{$header}
-<form enctype="multipart/form-data" action="usercp.php" method="post">
-<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-<div class="flex-container">
-<div id="nav_width">{$usercpnav}</div>
-<div id="content_width">
-	<td valign="top">
+<td valign="top" colspan="2">
+	<form enctype="multipart/form-data" action="usercp.php" method="post">
+		<input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
 		{$avatar_error}
 		<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_avtable">
 			<tr>
@@ -35,15 +25,10 @@
 		</table>
 
 		<br />
-		<div align="center">
+		<div align="center"  style="margin-bottom: 10px;">
 			<input type="hidden" name="action" value="do_avatar" />
 			<input type="submit" class="button" name="submit" value="{$lang->change_avatar}" />
 			{$removeavatar}
 		</div>
-	</td>
-	</div>
-	</div>
-</form>
-{$footer}
-</body>
-</html>
+	</form>
+</td>
