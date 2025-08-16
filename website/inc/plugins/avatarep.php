@@ -1015,18 +1015,27 @@ function avatarep_private_fname()
 		if($tofromuid>0)
 		{
 			$cache->cache['users'][$tofromuid] = $tofromusername;
-			$cache->cache['users'][$tofromuid2] = $tofromusername2;
 			$tofromusername = "#{$tofromusername}{$tofromuid}#";
 			$tofromusername2 = "#{$tofromusername2}{$tofromuid2}#";
 		}
 		else
-		{		
+		{
 			$cache->cache['guests'][] = $tofromusername;
+			$tofromusername = " ";
+		}
+
+		if ($tofromuid2 > 0)
+		{
+			$cache->cache['users'][$tofromuid2] = $tofromusername2;
+			$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
+		}
+		else
+		{
 			$cache->cache['guests'][] = $tofromusername2;
-			$tofromusername = "#{$tofromusername}#";
-			$tofromusername2 = "#{$tofromusername2}#";
+			$tofromusername2 = " ";
 		}
 	}	
+
 	$tofromusername = build_profile_link($tofromusername, $tofromuid);
 	$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
 }

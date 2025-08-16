@@ -396,6 +396,7 @@ if($mybb->input['action'] == "results")
 		$folder = $message['folder'];
 
 		$tofromuid = 0;
+		$tofromuid2 = 0;
 		if($folder == 2 || $folder == 3)
 		{
 			// Sent Items or Drafts Folder Check
@@ -2462,7 +2463,7 @@ if(!$mybb->input['action'])
 
 			}
 
-		
+
 			$tofromusername = build_profile_link($tofromusername, $tofromuid);
 			$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
 
