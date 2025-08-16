@@ -711,6 +711,20 @@ function get_pm_folder_name($fid, $name="")
 		return $name;
 	}
 
+	if ($fid < 0)
+	{
+		$accounts = get_all_accounts($mybb->user);
+		$uid = -$fid;
+		echo "KOL: ".$uid;
+		foreach ($accounts as $account) {
+			if ($account['uid'] == $uid) {
+				return $lang->folder_inbox.' - '.$account['username'];
+			}
+		}
+		return $lang->folder_untitled;
+	}
+
+
 	switch($fid)
 	{
 		case 0:

@@ -119,7 +119,7 @@ if ($mybb->input['action'] == "do_add_character") {
 		require_once MYBB_ROOT."inc/functions_accountswitcher.php";
 		$user_info = $userhandler->insert_user();
 
-		create_pm_folder_for_character($user_info['uid'], $user_info['username']);
+		create_pm_folder_for_character($user_info['uid']);
 
 		$mybb->user['parent'] = $user_info;
 		login_as_account($mybb->user, $user_info['uid'], "index.php");

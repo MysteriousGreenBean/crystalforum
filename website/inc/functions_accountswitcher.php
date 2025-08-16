@@ -198,9 +198,8 @@ function does_account_belong_to_current_user(int $uid) {
 /*
     Create a new PM folder for a character.
     @param characterUid UID of the character
-    @param characterName Name of the character
 */
-function create_pm_folder_for_character($characterUid, $characterName)
+function create_pm_folder_for_character($characterUid)
 {
     global $mybb, $lang;
 
@@ -213,8 +212,7 @@ function create_pm_folder_for_character($characterUid, $characterName)
 		[$folderId, $folderName] = explode("**", $folders, 2);
         $newPmFolders .= "$%%$$folderId**$folderName";
         if ($folderId == 0) {
-            $folderName = $lang->folder_inbox.' - '.$characterName;
-            $newPmFolders .= "$%%$-$characterUid**$folderName";
+            $newPmFolders .= "$%%$-$characterUid**";
         }
     }
 
