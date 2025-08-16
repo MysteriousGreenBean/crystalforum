@@ -1070,6 +1070,139 @@ if($mybb->input['action'] == "profile")
 
 	eval("\$avatar = \"".$templates->get("usercp_avatar")."\";");
 
+	$plugins->run_hooks("usercp_editsig_start");
+	if(!empty($mybb->input['preview']) && empty($error))
+	{
+		$sig = $mybb->get_input('signature');
+		$template = "usercp_editsig_preview";
+	}
+	elseif(empty($error))
+	{
+		$sig = $mybb->user['signature'];
+		$template = "usercp_editsig_current";
+	}
+	else
+	{
+		$sig = $mybb->get_input('signature');
+		$template = false;
+	}
+
+	if(!isset($error))
+	{
+		$error = '';
+	}
+
+	$canModifySignature = true;
+	if($mybb->user['suspendsignature'] && ($mybb->user['suspendsigtime'] == 0 || $mybb->user['suspendsigtime'] > 0 && $mybb->user['suspendsigtime'] > TIME_NOW))
+	{
+		$canModifySignature = false;
+	}
+
+	if($mybb->usergroup['canusesig'] != 1)
+	{
+		$canModifySignature = false;
+	}
+	elseif($mybb->usergroup['canusesig'] == 1 && $mybb->usergroup['canusesigxposts'] > 0 && $mybb->user['postnum'] < $mybb->usergroup['canusesigxposts'])
+	{
+		$canModifySignature = false;
+	}
+
+	$signature = '';
+	if($sig && $template)
+	{
+		$sig_parser = array(
+			"allow_html" => $mybb->settings['sightml'],
+			"allow_mycode" => $mybb->settings['sigmycode'],
+			"allow_smilies" => $mybb->settings['sigsmilies'],
+			"allow_imgcode" => $mybb->settings['sigimgcode'],
+			"me_username" => $mybb->user['username'],
+			"filter_badwords" => 1
+		);
+
+		if($mybb->user['showimages'] != 1)
+		{
+			$sig_parser['allow_imgcode'] = 0;
+		}
+
+		$sigpreview = $parser->parse_message($sig, $sig_parser);
+		eval("\$signature = \"".$templates->get($template)."\";");
+	}
+
+	// User has a current signature, so let's display it (but show an error message)
+	if($mybb->user['suspendsignature'] && $mybb->user['suspendsigtime'] > TIME_NOW)
+	{
+		$plugins->run_hooks("usercp_editsig_end");
+
+		// User either doesn't have permission, or has their signature suspended
+		eval("\$editsig = \"".$templates->get("usercp_editsig_suspended")."\";");
+	}
+	else
+	{
+		// User is allowed to edit their signature
+		$smilieinserter = '';
+		if($mybb->settings['sigsmilies'] == 1)
+		{
+			$sigsmilies = $lang->on;
+			$smilieinserter = build_clickable_smilies();
+		}
+		else
+		{
+			$sigsmilies = $lang->off;
+		}
+		if($mybb->settings['sigmycode'] == 1)
+		{
+			$sigmycode = $lang->on;
+		}
+		else
+		{
+			$sigmycode = $lang->off;
+		}
+		if($mybb->settings['sightml'] == 1)
+		{
+			$sightml = $lang->on;
+		}
+		else
+		{
+			$sightml = $lang->off;
+		}
+		if($mybb->settings['sigimgcode'] == 1)
+		{
+			$sigimgcode = $lang->on;
+		}
+		else
+		{
+			$sigimgcode = $lang->off;
+		}
+
+		if($mybb->settings['siglength'] == 0)
+		{
+			$siglength = $lang->unlimited;
+		}
+		else
+		{
+			$siglength = $mybb->settings['siglength'];
+		}
+
+		$sig = htmlspecialchars_uni($sig);
+		$lang->edit_sig_note2 = $lang->sprintf($lang->edit_sig_note2, $sigsmilies, $sigmycode, $sigimgcode, $sightml, $siglength);
+
+		if($mybb->settings['sigmycode'] != 0 && $mybb->settings['bbcodeinserter'] != 0 && $mybb->user['showcodebuttons'] != 0)
+		{
+			$codebuttons = build_mycode_inserter("signature");
+		}
+
+		$plugins->run_hooks("usercp_editsig_end");
+
+		if ($canModifySignature) {
+			eval("\$editsig = \"".$templates->get("usercp_editsig")."\";");
+		}
+		else
+		{
+			$editsig = '';
+		}
+
+	}
+
 	eval("\$editprofile = \"".$templates->get("usercp_profile")."\";");
 	output_page($editprofile);
 }
@@ -2568,140 +2701,7 @@ if($mybb->input['action'] == "do_editsig" && $mybb->request_method == "post")
 	$plugins->run_hooks("usercp_do_editsig_process");
 	$db->update_query("users", $new_signature, "uid='".$mybb->user['uid']."'");
 	$plugins->run_hooks("usercp_do_editsig_end");
-	redirect("usercp.php?action=editsig", $lang->redirect_sigupdated);
-}
-
-if($mybb->input['action'] == "editsig")
-{
-	$plugins->run_hooks("usercp_editsig_start");
-	if(!empty($mybb->input['preview']) && empty($error))
-	{
-		$sig = $mybb->get_input('signature');
-		$template = "usercp_editsig_preview";
-	}
-	elseif(empty($error))
-	{
-		$sig = $mybb->user['signature'];
-		$template = "usercp_editsig_current";
-	}
-	else
-	{
-		$sig = $mybb->get_input('signature');
-		$template = false;
-	}
-
-	if(!isset($error))
-	{
-		$error = '';
-	}
-
-	if($mybb->user['suspendsignature'] && ($mybb->user['suspendsigtime'] == 0 || $mybb->user['suspendsigtime'] > 0 && $mybb->user['suspendsigtime'] > TIME_NOW))
-	{
-		// User currently has no signature and they're suspended
-		error($lang->sig_suspended);
-	}
-
-	if($mybb->usergroup['canusesig'] != 1)
-	{
-		// Usergroup has no permission to use this facility
-		error_no_permission();
-	}
-	elseif($mybb->usergroup['canusesig'] == 1 && $mybb->usergroup['canusesigxposts'] > 0 && $mybb->user['postnum'] < $mybb->usergroup['canusesigxposts'])
-	{
-		// Usergroup can use this facility, but only after x posts
-		error($lang->sprintf($lang->sig_suspended_posts, $mybb->usergroup['canusesigxposts']));
-	}
-
-	$signature = '';
-	if($sig && $template)
-	{
-		$sig_parser = array(
-			"allow_html" => $mybb->settings['sightml'],
-			"allow_mycode" => $mybb->settings['sigmycode'],
-			"allow_smilies" => $mybb->settings['sigsmilies'],
-			"allow_imgcode" => $mybb->settings['sigimgcode'],
-			"me_username" => $mybb->user['username'],
-			"filter_badwords" => 1
-		);
-
-		if($mybb->user['showimages'] != 1)
-		{
-			$sig_parser['allow_imgcode'] = 0;
-		}
-
-		$sigpreview = $parser->parse_message($sig, $sig_parser);
-		eval("\$signature = \"".$templates->get($template)."\";");
-	}
-
-	// User has a current signature, so let's display it (but show an error message)
-	if($mybb->user['suspendsignature'] && $mybb->user['suspendsigtime'] > TIME_NOW)
-	{
-		$plugins->run_hooks("usercp_editsig_end");
-
-		// User either doesn't have permission, or has their signature suspended
-		eval("\$editsig = \"".$templates->get("usercp_editsig_suspended")."\";");
-	}
-	else
-	{
-		// User is allowed to edit their signature
-		$smilieinserter = '';
-		if($mybb->settings['sigsmilies'] == 1)
-		{
-			$sigsmilies = $lang->on;
-			$smilieinserter = build_clickable_smilies();
-		}
-		else
-		{
-			$sigsmilies = $lang->off;
-		}
-		if($mybb->settings['sigmycode'] == 1)
-		{
-			$sigmycode = $lang->on;
-		}
-		else
-		{
-			$sigmycode = $lang->off;
-		}
-		if($mybb->settings['sightml'] == 1)
-		{
-			$sightml = $lang->on;
-		}
-		else
-		{
-			$sightml = $lang->off;
-		}
-		if($mybb->settings['sigimgcode'] == 1)
-		{
-			$sigimgcode = $lang->on;
-		}
-		else
-		{
-			$sigimgcode = $lang->off;
-		}
-
-		if($mybb->settings['siglength'] == 0)
-		{
-			$siglength = $lang->unlimited;
-		}
-		else
-		{
-			$siglength = $mybb->settings['siglength'];
-		}
-
-		$sig = htmlspecialchars_uni($sig);
-		$lang->edit_sig_note2 = $lang->sprintf($lang->edit_sig_note2, $sigsmilies, $sigmycode, $sigimgcode, $sightml, $siglength);
-
-		if($mybb->settings['sigmycode'] != 0 && $mybb->settings['bbcodeinserter'] != 0 && $mybb->user['showcodebuttons'] != 0)
-		{
-			$codebuttons = build_mycode_inserter("signature");
-		}
-
-		$plugins->run_hooks("usercp_editsig_end");
-
-		eval("\$editsig = \"".$templates->get("usercp_editsig")."\";");
-	}
-
-	output_page($editsig);
+	redirect("usercp.php?action=profile", $lang->redirect_sigupdated);
 }
 
 if($mybb->input['action'] == "acceptrequest")

@@ -226,18 +226,14 @@ function create_pm_folder_for_character($characterUid, $characterName)
         "uid" => $mybb->user['parent']['uid'],
         "pmfolders" => $newPmFolders
     );
-
-    echo "NEW PM FOLDERS FOR UID: ".$mybb->user['parent']['uid']." ".$newPmFolders."<br/>";
     $userHandler->set_data($user);
 
     if(!$userHandler->validate_user())
     {
         $errors = $userHandler->get_friendly_errors();
-        echo "ERROR CREATING PM FOLDER FOR UID: ".$mybb->user['parent']['uid']." ".$errors."<br/>";
     }
     else
     {
         $userHandler->update_user();
-        echo "PM FOLDER CREATED FOR UID: ".$mybb->user['parent']['uid']." ".$newPmFolders."<br/>";
     }
 }
