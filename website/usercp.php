@@ -310,6 +310,56 @@ if($mybb->input['action'] == "do_profile" && $mybb->request_method == "post")
 	}
 }
 
+if($mybb->input['action'] == "do_changename" && $mybb->request_method == "post")
+{
+	// Verify incoming POST request
+	verify_post_check($mybb->get_input('my_post_key'));
+	$errors = array();
+
+	if($mybb->usergroup['canchangename'] != 1)
+	{
+		error_no_permission();
+	}
+
+	$user = array();
+
+	$plugins->run_hooks("usercp_do_changename_start");
+
+	if(validate_password_from_uid($mybb->user['uid'], $mybb->get_input('password')) == false)
+	{
+		$errors[] = $lang->error_invalidpassword;
+	}
+	else
+	{
+		// Set up user handler.
+		require_once MYBB_ROOT."inc/datahandlers/user.php";
+		$userhandler = new UserDataHandler("update");
+
+		$user = array_merge($user, array(
+			"uid" => $mybb->user['uid'],
+			"username" => $mybb->get_input('username')
+		));
+
+		$userhandler->set_data($user);
+
+		if(!$userhandler->validate_user())
+		{
+			$errors = $userhandler->get_friendly_errors();
+		}
+		else
+		{
+			$userhandler->update_user();
+			$plugins->run_hooks("usercp_do_changename_end");
+			redirect("usercp.php?action=profile", $lang->redirect_namechanged);
+		}
+	}
+	if(count($errors) > 0)
+	{
+		$errors = inline_error($errors);
+		$mybb->input['action'] = "profile";
+	}
+}
+
 if($mybb->input['action'] == "profile")
 {
 	if($errors)
@@ -756,6 +806,28 @@ if($mybb->input['action'] == "profile")
 	}
 
 	$plugins->run_hooks("usercp_profile_end");
+
+	//Prepare change login
+	$plugins->run_hooks("usercp_changename_start");
+	// Coming back to this page after one or more errors were experienced, show field the user previously entered (with the exception of the password)
+	if($errors)
+	{
+		$username = htmlspecialchars_uni($mybb->get_input('username'));
+	}
+	else
+	{
+		$username = '';
+	}
+
+	$plugins->run_hooks("usercp_changename_end");
+
+	if($mybb->usergroup['canchangename'] == 1)
+	{
+		eval("\$changename = \"".$templates->get("usercp_changename")."\";");
+	}
+	else {
+		$changename = '';
+	}
 
 	eval("\$editprofile = \"".$templates->get("usercp_profile")."\";");
 	output_page($editprofile);
@@ -1387,80 +1459,31 @@ if($mybb->input['action'] == "password")
 	output_page($editpassword);
 }
 
-if($mybb->input['action'] == "do_changename" && $mybb->request_method == "post")
-{
-	// Verify incoming POST request
-	verify_post_check($mybb->get_input('my_post_key'));
 
-	$errors = array();
 
-	if($mybb->usergroup['canchangename'] != 1)
-	{
-		error_no_permission();
-	}
+// if($mybb->input['action'] == "changename")
+// {
+// 	$plugins->run_hooks("usercp_changename_start");
+// 	if($mybb->usergroup['canchangename'] != 1)
+// 	{
+// 		error_no_permission();
+// 	}
 
-	$user = array();
+// 	// Coming back to this page after one or more errors were experienced, show field the user previously entered (with the exception of the password)
+// 	if($errors)
+// 	{
+// 		$username = htmlspecialchars_uni($mybb->get_input('username'));
+// 	}
+// 	else
+// 	{
+// 		$username = '';
+// 	}
 
-	$plugins->run_hooks("usercp_do_changename_start");
+// 	$plugins->run_hooks("usercp_changename_end");
 
-	if(validate_password_from_uid($mybb->user['uid'], $mybb->get_input('password')) == false)
-	{
-		$errors[] = $lang->error_invalidpassword;
-	}
-	else
-	{
-		// Set up user handler.
-		require_once MYBB_ROOT."inc/datahandlers/user.php";
-		$userhandler = new UserDataHandler("update");
-
-		$user = array_merge($user, array(
-			"uid" => $mybb->user['uid'],
-			"username" => $mybb->get_input('username')
-		));
-
-		$userhandler->set_data($user);
-
-		if(!$userhandler->validate_user())
-		{
-			$errors = $userhandler->get_friendly_errors();
-		}
-		else
-		{
-			$userhandler->update_user();
-			$plugins->run_hooks("usercp_do_changename_end");
-			redirect("usercp.php?action=changename", $lang->redirect_namechanged);
-		}
-	}
-	if(count($errors) > 0)
-	{
-		$errors = inline_error($errors);
-		$mybb->input['action'] = "changename";
-	}
-}
-
-if($mybb->input['action'] == "changename")
-{
-	$plugins->run_hooks("usercp_changename_start");
-	if($mybb->usergroup['canchangename'] != 1)
-	{
-		error_no_permission();
-	}
-
-	// Coming back to this page after one or more errors were experienced, show field the user previously entered (with the exception of the password)
-	if($errors)
-	{
-		$username = htmlspecialchars_uni($mybb->get_input('username'));
-	}
-	else
-	{
-		$username = '';
-	}
-
-	$plugins->run_hooks("usercp_changename_end");
-
-	eval("\$changename = \"".$templates->get("usercp_changename")."\";");
-	output_page($changename);
-}
+// 	eval("\$changename = \"".$templates->get("usercp_changename")."\";");
+// 	output_page($changename);
+// }
 
 if($mybb->input['action'] == "do_subscriptions")
 {

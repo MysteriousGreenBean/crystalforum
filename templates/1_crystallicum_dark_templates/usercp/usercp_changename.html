@@ -1,17 +1,5 @@
-<html>
-<head>
-<title>{$mybb->settings['bbname']} - {$lang->change_username}</title>
-{$headerinclude}
-</head>
-<body>
-{$header}
 <form action="usercp.php" method="post">
 <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-<div class="flex-container">
-<div id="nav_width" style="width:24%;float:left;">{$usercpnav}</div>
-<div id="content_width" style="width:74%;float:right;">
-<td valign="top">
-{$errors}
 <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder ucp_thread">
 <tr>
 <td class="thead" colspan="2"><strong>{$lang->change_username}</strong></td>
@@ -32,14 +20,8 @@
 </tr>
 </table>
 <br />
-<div align="center">
+<div align="center"  style="margin-bottom: 10px;">
 <input type="hidden" name="action" value="do_changename" />
 <input type="submit" class="button" name="submit" value="{$lang->update_username}" />
 </div>
-</td>
-	</div>
-	</div>
 </form>
-{$footer}
-</body>
-</html>

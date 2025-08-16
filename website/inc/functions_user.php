@@ -546,12 +546,6 @@ function usercp_menu_profile()
 {
 	global $db, $mybb, $templates, $theme, $usercpmenu, $lang, $collapse, $collapsed, $collapsedimg;
 
-	$changenameop = '';
-	if($mybb->usergroup['canchangename'] != 0)
-	{
-		eval("\$changenameop = \"".$templates->get("usercp_nav_changename")."\";");
-	}
-
 	$changesigop = '';
 	if($mybb->usergroup['canusesig'] == 1 && ($mybb->usergroup['canusesigxposts'] == 0 || $mybb->usergroup['canusesigxposts'] > 0 && $mybb->user['postnum'] > $mybb->usergroup['canusesigxposts']))
 	{
