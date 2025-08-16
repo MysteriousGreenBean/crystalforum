@@ -84,6 +84,19 @@ function use_parent_user() {
 }
 
 /**
+ * Set the current user as one of the linked accounts for code purposes. Does not actually login as this user.
+ * @param int $uid UID of the user to switch to
+ */
+function use_linked_user(int $uid)
+{
+    global $mybb;
+
+    $user = get_user($uid);
+    $mybb->user = $user;
+    $mybb->post_code = generate_post_check();
+}
+
+/**
  * Get a list of formatted account names with links for a user profile, filtered by account type
  * @param user User data containing characters
  * @param type Type of account to filter by (e.g., 'Player', 'NPC')
@@ -234,4 +247,23 @@ function create_pm_folder_for_character($characterUid)
     {
         $userHandler->update_user();
     }
+}
+
+/**
+ * Get linked account by UID.
+ * @param linkedUid UID of the linked account
+ * @return array User data of linked account
+ */
+function get_linked_account_by_uid($linkedUid) 
+{
+    global $mybb;
+
+    $allAccounts = get_all_accounts($mybb->user);
+    foreach ($allAccounts as $account) {
+        if ($account['uid'] == $linkedUid) {
+            return $account;
+        }
+    }
+
+    error("Linked account with UID $linkedUid not found in user's accounts.");
 }

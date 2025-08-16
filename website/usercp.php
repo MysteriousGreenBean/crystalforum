@@ -153,6 +153,7 @@ switch($mybb->input['action'])
 
 if($mybb->input['action'] == "do_profile" && $mybb->request_method == "post")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
 	// Verify incoming POST request
 	verify_post_check($mybb->get_input('my_post_key'));
 
@@ -300,18 +301,20 @@ if($mybb->input['action'] == "do_profile" && $mybb->request_method == "post")
 
 		$errors = inline_error($errors);
 		$mybb->input['action'] = "profile";
+		$mybb->input['profileuid'] = $mybb->user['uid'];
 	}
 	else
 	{
 		$userhandler->update_user();
 
 		$plugins->run_hooks("usercp_do_profile_end");
-		redirect("usercp.php?action=profile", $lang->redirect_profileupdated);
+		redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_profileupdated);
 	}
 }
 
 if($mybb->input['action'] == "do_changename" && $mybb->request_method == "post")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
 	// Verify incoming POST request
 	verify_post_check($mybb->get_input('my_post_key'));
 	$errors = array();
@@ -325,7 +328,7 @@ if($mybb->input['action'] == "do_changename" && $mybb->request_method == "post")
 
 	$plugins->run_hooks("usercp_do_changename_start");
 
-	if(validate_password_from_uid($mybb->user['uid'], $mybb->get_input('password')) == false)
+	if(validate_password_from_uid($mybb->user['parent']['uid'], $mybb->get_input('password')) == false)
 	{
 		$errors[] = $lang->error_invalidpassword;
 	}
@@ -350,18 +353,20 @@ if($mybb->input['action'] == "do_changename" && $mybb->request_method == "post")
 		{
 			$userhandler->update_user();
 			$plugins->run_hooks("usercp_do_changename_end");
-			redirect("usercp.php?action=profile", $lang->redirect_namechanged);
+			redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_namechanged);
 		}
 	}
 	if(count($errors) > 0)
 	{
 		$errors = inline_error($errors);
 		$mybb->input['action'] = "profile";
+		$mybb->input['profileuid'] = $mybb->user['uid'];
 	}
 }
 
 if($mybb->input['action'] == "do_avatar" && $mybb->request_method == "post")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
 	// Verify incoming POST request
 	verify_post_check($mybb->get_input('my_post_key'));
 
@@ -524,17 +529,22 @@ if($mybb->input['action'] == "do_avatar" && $mybb->request_method == "post")
 	if(empty($avatar_error))
 	{
 		$plugins->run_hooks("usercp_do_avatar_end");
-		redirect("usercp.php?action=profile", $lang->redirect_avatarupdated);
+		redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_avatarupdated);
 	}
 	else
 	{
 		$mybb->input['action'] = "profile";
+		$mybb->input['profileuid'] = $mybb->user['uid'];
 		$avatar_error = inline_error($avatar_error);
 	}
 }
 
 if($mybb->input['action'] == "profile")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
+
+	add_breadcrumb($mybb->user['username']);
+
 	if($errors)
 	{
 		$user = $mybb->input;
@@ -2670,6 +2680,7 @@ if($mybb->input['action'] == "removesubscriptions")
 
 if($mybb->input['action'] == "do_editsig" && $mybb->request_method == "post")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
 	// Verify incoming POST request
 	verify_post_check($mybb->get_input('my_post_key'));
 
@@ -2701,7 +2712,7 @@ if($mybb->input['action'] == "do_editsig" && $mybb->request_method == "post")
 	$plugins->run_hooks("usercp_do_editsig_process");
 	$db->update_query("users", $new_signature, "uid='".$mybb->user['uid']."'");
 	$plugins->run_hooks("usercp_do_editsig_end");
-	redirect("usercp.php?action=profile", $lang->redirect_sigupdated);
+	redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_sigupdated);
 }
 
 if($mybb->input['action'] == "acceptrequest")

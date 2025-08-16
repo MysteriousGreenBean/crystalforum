@@ -544,7 +544,7 @@ function usercp_menu_messenger()
  */
 function usercp_menu_profile()
 {
-	global $db, $mybb, $templates, $theme, $usercpmenu, $lang, $collapse, $collapsed, $collapsedimg;
+	global $mybb, $templates, $theme, $usercpmenu, $lang, $collapse, $collapsed, $collapsedimg;
 
 	$changesigop = '';
 	if($mybb->usergroup['canusesig'] == 1 && ($mybb->usergroup['canusesigxposts'] == 0 || $mybb->usergroup['canusesigxposts'] > 0 && $mybb->user['postnum'] > $mybb->usergroup['canusesigxposts']))
@@ -564,6 +564,16 @@ function usercp_menu_profile()
 	{
 		$collapsed['usercpprofile_e'] = '';
 	}
+
+	$profileAccountLinks = [];
+	foreach (get_all_accounts($mybb->user) as $account)
+	{
+		$profileId = $account['uid'];
+		$profileName = $account['username'];
+		$profileAccountLinks[] = eval("return \"".$templates->get("usercp_nav_editprofile")."\";");
+	}
+	$profileAccountLinks = implode("", $profileAccountLinks);
+
 
 	$expaltext = (in_array("usercpprofile", $collapse)) ? $lang->expcol_expand : $lang->expcol_collapse;
 	eval("\$usercpmenu .= \"".$templates->get("usercp_nav_profile")."\";");
@@ -715,7 +725,6 @@ function get_pm_folder_name($fid, $name="")
 	{
 		$accounts = get_all_accounts($mybb->user);
 		$uid = -$fid;
-		echo "KOL: ".$uid;
 		foreach ($accounts as $account) {
 			if ($account['uid'] == $uid) {
 				return $lang->folder_inbox.' - '.$account['username'];
