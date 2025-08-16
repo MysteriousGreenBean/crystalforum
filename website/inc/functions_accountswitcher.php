@@ -72,6 +72,17 @@ function login_as_account($user, $accountUid, $redirectPage) {
     redirect($redirectPage, $lang->redirect_registered);
 }
 
+/*
+ * Set the current user as parent account for code purposes. Does not actually login as this user.
+ */
+function use_parent_user() {
+    global $mybb;
+    $mybb->user['parent']['characters'] = $mybb->user['characters'];
+    $mybb->user['parent']['parent'] = $mybb->user['parent']; 
+    $mybb->user = $mybb->user['parent'];
+    $mybb->post_code = generate_post_check();
+}
+
 /**
  * Get a list of formatted account names with links for a user profile, filtered by account type
  * @param user User data containing characters
@@ -123,6 +134,67 @@ function get_accounts_for_memberlist($linkedAccounts) {
 
     return $characterOutput;
 }
+
+/**
+ * Get list of all accounts for a user. 
+ * @param user User data containing characters
+ * @return array List of all accounts for the user. First element will be the parent user, rest will be alphabetically sorted.
+ */
+function get_all_accounts($user){
+    $accounts = [];
+
+    // Add $user
+    $accounts[$user['uid']] = $user;
+
+    // Add $user['parent'] if exists and not duplicate
+    if (isset($user['parent']) && $user['parent']['uid'] != $user['uid']) {
+        $accounts[$user['parent']['uid']] = $user['parent'];
+    }
+
+    // Add characters, avoiding duplicates
+    $characterAccounts = [];
+    if (isset($user['characters']) && is_array($user['characters'])) {
+        foreach ($user['characters'] as $character) {
+            if (!isset($accounts[$character['uid']])) {
+                $characterAccounts[$character['uid']] = $character;
+            }
+        }
+    }
+
+    // Sort characters alphabetically by username
+    uasort($characterAccounts, function($a, $b) {
+        return strcasecmp($a['username'], $b['username']);
+    });
+
+    // Merge sorted characters into $accounts (parent stays first)
+    foreach ($characterAccounts as $uid => $character) {
+        $accounts[$uid] = $character;
+    }
+
+    // Return as indexed array
+    return array_values($accounts);
+}
+
+/*
+    Checks if provided uid belongs to the current user.
+    @param uid User ID to check
+    @return bool True if the account belongs to the current user, false otherwise
+*/
+function does_account_belong_to_current_user(int $uid) {
+    global $mybb;
+
+    if ($uid == null || $uid == 0) {
+        return false;
+    }
+
+    $allAccounts = get_all_accounts($mybb->user);
+    if (in_array($uid, array_column($allAccounts, 'uid'))) {
+        return true;
+    }
+
+    return false;
+}
+
 
 function create_pm_folder_for_character($characterUid, $characterName)
 {
