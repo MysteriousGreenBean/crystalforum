@@ -51,17 +51,7 @@ $mybb->input['fid'] = $mybb->get_input('fid', MyBB::INPUT_INT);
 
 $folder_id = $folder_name = $folderjump_folder = $folderoplist_folder = $foldersearch_folder ='';
 
-$character_uids = array();
-if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
-	foreach ($mybb->user['characters'] as $character) {
-		if (isset($character['uid'])) {
-			$character_uids[] = (int)$character['uid'];
-		}
-	}
-}
-if (!empty($mybb->user['parent']['uid'])) {
-	$character_uids[] = (int)$mybb->user['parent']['uid'];
-}
+$character_uids = array_column(get_all_accounts($mybb->user), 'uid');
 $character_uid_string = implode(',', array_unique($character_uids));
 
 $foldernames = array();
@@ -607,11 +597,17 @@ if($mybb->input['action'] == "do_send" && $mybb->request_method == "post")
 	require_once MYBB_ROOT."inc/datahandlers/pm.php";
 	$pmhandler = new PMDataHandler();
 
+	$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+	if ($selectedAccount['uid'] === -1) {
+		error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+	}
+
 	$pm = array(
 		"subject" => $mybb->get_input('subject'),
 		"message" => $mybb->get_input('message'),
 		"icon" => $mybb->get_input('icon', MyBB::INPUT_INT),
-		"fromid" => $mybb->user['uid'],
+		"fromid" => $selectedAccount['uid'],
 		"do" => $mybb->get_input('do'),
 		"pmid" => $mybb->get_input('pmid', MyBB::INPUT_INT),
 		"ipaddress" => $session->packedip
@@ -946,7 +942,13 @@ if($mybb->input['action'] == "send")
 					->withOnlySelection((int)$pm['toid'])
 					->render();
 			}
+			else {
+				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
+			}
 		}
+	}
+	else {
+		$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
 	}
 
 	// New PM with recipient preset
@@ -996,7 +998,6 @@ if($mybb->input['action'] == "send")
 	}
 
 	$plugins->run_hooks("private_send_end");
-	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
 	eval("\$send = \"".$templates->get("private_send")."\";");
 	output_page($send);
 }
@@ -2140,10 +2141,12 @@ if(!$mybb->input['action'])
 	if($folder == 2 || $folder == 3)
 	{ // Sent Items Folder
 		$sender = $lang->sentto;
+		$sender2 = $lang->sender;
 	}
 	else
 	{
 		$sender = $lang->sender;
+		$sender2 = $lang->sentto;
 	}
 
 	$mybb->input['order'] = htmlspecialchars_uni($mybb->get_input('order'));
@@ -2421,6 +2424,8 @@ if(!$mybb->input['action'])
 				{
 					$tofromusername = htmlspecialchars_uni($message['tousername']);
 					$tofromuid = $message['toid'];
+					$tofromusername2 = htmlspecialchars_uni($message['fromusername']);
+					$tofromuid2 = $message['fromid'];
 				}
 				else
 				{

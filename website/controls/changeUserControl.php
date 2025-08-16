@@ -79,9 +79,6 @@ class ChangeUserControl {
         $this->user['username'] = htmlspecialchars_uni($this->user['username']);
         [$dropdownOptions, $dropdownOptionsCount] = $this->createOptions();
         $singleOptionText = $this->defaultUid != null ? $this->createSingleOptionTextFromDefaultValue() : $this->createSingleOptionText();
-        if ($this->justOneOption) {
-            $dropdownOptionsCount = 1;
-        }
 
         eval("\$changeuserboxDropdown = \"".$templates->get("changeuserboxDropdown")."\";");
 
@@ -138,6 +135,10 @@ class ChangeUserControl {
     }
 
     private function createOptions(): array {
+        if ($this->justOneOption) {
+            return [null, 1];
+        }
+
         switch ($this->allowedAccountTypes) {
             case AllowedAccountTypes::ALL:
                 return $this->createAllOptions();

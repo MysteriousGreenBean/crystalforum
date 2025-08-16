@@ -195,7 +195,11 @@ function does_account_belong_to_current_user(int $uid) {
     return false;
 }
 
-
+/*
+    Create a new PM folder for a character.
+    @param characterUid UID of the character
+    @param characterName Name of the character
+*/
 function create_pm_folder_for_character($characterUid, $characterName)
 {
     global $mybb, $lang;
