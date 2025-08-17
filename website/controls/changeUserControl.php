@@ -11,6 +11,8 @@ class ChangeUserControl {
     private ?int $defaultUid = null;
     private bool $justDropdown = false;
     private bool $justOneOption = false;
+    private ?string $npcName = null;
+    private bool $isNPCAllowed = true;
 
     private function __construct(array $user, array $usergroup) {
         $this->user = $user;
@@ -34,6 +36,7 @@ class ChangeUserControl {
      */
     public function withAllowedAccountTypes(AllowedAccountTypes $allowedAccountTypes): ChangeUserControl {
         $this->allowedAccountTypes = $allowedAccountTypes;
+        $this->isNPCAllowed = $this->allowedAccountTypes == AllowedAccountTypes::CHARACTER || $this->allowedAccountTypes == AllowedAccountTypes::ALL;
         return $this;
     }
 
@@ -43,10 +46,30 @@ class ChangeUserControl {
      * @return ChangeUserControl
      */
     public function withDefaultSelection(int $defaultUid): ChangeUserControl {
-        if ($defaultUid != get_NPC()['uid']) {
-            $this->defaultUid = $defaultUid;
-        }
+        $this->defaultUid = $defaultUid;
 
+        return $this;
+    }
+
+    /**
+     * Set the default NPC selection for the dropdown
+     * @param string $npcName
+     * @return ChangeUserControl
+     */
+    public function withDefaultNPCSelection(string $npcName): ChangeUserControl {
+        if (empty($npcName)) {
+            error("NPC name must be provided.");
+        }
+        $this->npcName = $npcName;
+        return $this;
+    }
+
+    /**
+     * Disable NPC selection for the dropdown
+     * @return ChangeUserControl
+     */
+    public function withoutNPCSelection(): ChangeUserControl {
+        $this->isNPCAllowed = false;
         return $this;
     }
 
@@ -83,7 +106,9 @@ class ChangeUserControl {
         [$dropdownOptions, $dropdownOptionsCount] = $this->createOptions();
         $singleOptionText = $this->defaultUid != null ? $this->createSingleOptionTextFromDefaultValue() : $this->createSingleOptionText();
 
-        $NPCAllowed = $this->allowedAccountTypes == AllowedAccountTypes::CHARACTER || $this->allowedAccountTypes == AllowedAccountTypes::ALL;
+        $NPCAllowed = $this->isNPCAllowed;
+        $NPCChosenByDefault = $this->npcName != null ? "checked" : "";
+        $NPCDefaultName = $this->npcName ?? "";
         eval("\$changeuserboxDropdown = \"".$templates->get("changeuserboxDropdown")."\";");
 
         if ($this->usergroup['canAssignAnyUser']) {
@@ -104,17 +129,13 @@ class ChangeUserControl {
             return $this->createSingleOptionTexWithInputField($this->user['parent']['uid'], $this->user['parent']['username']);
         }
 
-        if ($this->allowedAccountTypes != AllowedAccountTypes::CHARACTER && $this->allowedAccountTypes != AllowedAccountTypes::ALL) {
-            error("Nieprawidłowy typ konta");
-        }
-        $defaultUid = $this->defaultUid ?? $this->user['uid'];
         foreach ($this->user['characters'] as $character) {
-            if ($character['uid'] == $defaultUid) {
+            if ($character['uid'] == $this->defaultUid) {
                 return $this->createSingleOptionTexWithInputField($character['uid'], $character['username']);
             }
         }
 
-        error("Nie udało się odnaleźć konta.");
+        return $this->createSingleOptionText();
     }
 
     private function createSingleOptionText(): string {
@@ -225,6 +246,12 @@ class ChangeUserControl {
         if ($useNPCOverride == 1) {
             $npc_account = get_NPC();
             $npc_account['username'] = htmlspecialchars_uni($npcName);
+
+            if (!isset($npc_account['NPCName']))
+            {
+                error("Imię NPC musi zostać podane");
+            }
+
             $npc_account['NPCName'] = $npc_account['username'];
             return $npc_account;
         }

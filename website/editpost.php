@@ -624,8 +624,17 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 	}
 
 	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
-		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
-		->withDefaultSelection($post['uid'])->render();
+		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']));
+
+	$NPC = get_NPC();
+	if ($post['uid'] == $NPC['uid']) {
+		$loginbox = $loginbox->withDefaultNPCSelection($post['NPCName']);
+	}
+	else 
+	{
+		$loginbox = $loginbox->withDefaultSelection($post['uid']);
+	}
+	$loginbox = $loginbox->render();
 
 	$deletebox = '';
 	
