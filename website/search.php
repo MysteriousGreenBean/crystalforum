@@ -254,10 +254,51 @@ if($mybb->input['action'] == "results")
 		// Moderators can view unapproved threads and deleted threads from forums they moderate
 		$unapproved_where_t = get_visible_where('t');
 
+		$where_conditions = '';
+		if (isset($mybb->input['filtered']) && isset($mybb->input['uid'])) 
+		{
+			$filtered = $mybb->get_input('filtered', MyBB::INPUT_INT);
+			$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
+
+			$user = get_user($uid);
+			$selectedAccount = ChangeUserControl::getUserAccountSelection($user);
+
+			if (isset($selectedAccount['id']))
+			{
+				$filtered = false;
+			}
+			else if (isset($selectedAccount['uid']) && $selectedAccount['uid'] > 0)
+			{
+				$filtered = true;
+				$uid = $selectedAccount['uid'];
+			}
+
+		    $filterDropdown = 
+				ChangeUserControl::prepareFor($user)
+				->withoutNPCSelection()
+				->withAdditionalOption("Wszystkie", -5)
+				->asDropdownOnly();
+
+			if ($filtered == false) 
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection(-1);
+			}
+			else if ($uid)
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection($uid);
+				$where_conditions = "t.uid={$uid} AND ";
+			}
+
+			$filterDropdown = $filterDropdown->render();
+
+			$filterButtonHref = "search.php?action=results&uid={$uid}&filtered=true&sid={$sid}";
+			eval("\$accountfilter .= \"".$templates->get("search_results_account_filter")."\";");
+		}
+
 		// If we have saved WHERE conditions, execute them
 		if($search['querycache'] != "")
 		{
-			$where_conditions = $search['querycache'];
+			$where_conditions .= $search['querycache'];
 			$query = $db->simple_select("threads t", "t.tid", $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' ORDER BY t.lastpost DESC {$limitsql}");
 			while($thread = $db->fetch_array($query))
 			{
@@ -279,7 +320,7 @@ if($mybb->input['action'] == "results")
 		// This search doesn't use a query cache, results stored in search table.
 		else
 		{
-			$where_conditions = "t.tid IN (".$search['threads'].")";
+			$where_conditions .= "t.tid IN (".$search['threads'].")";
 			$query = $db->simple_select("threads t", "COUNT(t.tid) AS resultcount", $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' {$limitsql}");
 			$count = $db->fetch_array($query);
 
@@ -754,14 +795,12 @@ if($mybb->input['action'] == "results")
 
 		if (isset($mybb->input['filtered']) && isset($mybb->input['uid'])) 
 		{
-			$shouldShowFilter = true;
 			$filtered = $mybb->get_input('filtered', MyBB::INPUT_INT);
 			$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
 
 			$user = get_user($uid);
 			$selectedAccount = ChangeUserControl::getUserAccountSelection($user);
 
-			print_r($selectedAccount);
 			if (isset($selectedAccount['id']))
 			{
 				$filtered = false;
@@ -785,13 +824,14 @@ if($mybb->input['action'] == "results")
 			else if ($uid)
 			{
 				$filterDropdown = $filterDropdown->withDefaultSelection($uid);
-				// $filteredWhereForPosts = " AND uid={$uid}";
-				// $filteredWhereForSearchResults = " AND p.uid={$uid}";
+				$filteredWhereForPosts = " AND uid={$uid}";
+				$filteredWhereForSearchResults = " AND p.uid={$uid}";
 			}
 
 			$filterDropdown = $filterDropdown->render();
 
 			$filterButtonHref = "search.php?action=results&uid={$uid}&filtered=true&sid={$sid}";
+			eval("\$accountfilter .= \"".$templates->get("search_results_account_filter")."\";");
 		}
 
 		// Make sure the posts we're viewing we have permission to view.
@@ -1406,7 +1446,7 @@ elseif($mybb->input['action'] == "finduserthreads")
 	);
 	$plugins->run_hooks("search_do_search_process");
 	$db->insert_query("searchlog", $searcharray);
-	redirect("search.php?action=results&sid=".$sid, $lang->redirect_searchresults);
+	redirect("search.php?action=results&uid={$searchedUser['uid']}&filtered=false&sid=".$sid, $lang->redirect_searchresults);
 }
 elseif($mybb->input['action'] == "getnew")
 {
