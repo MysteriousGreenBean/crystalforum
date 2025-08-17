@@ -45,6 +45,8 @@ if($mybb->user['uid'] == 0 || $mybb->usergroup['canusercp'] == 0)
 	error_no_permission();
 }
 
+
+use_parent_user();
 $errors = '';
 
 $mybb->input['action'] = $mybb->get_input('action');
@@ -151,6 +153,7 @@ switch($mybb->input['action'])
 
 if($mybb->input['action'] == "do_profile" && $mybb->request_method == "post")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
 	// Verify incoming POST request
 	verify_post_check($mybb->get_input('my_post_key'));
 
@@ -298,18 +301,250 @@ if($mybb->input['action'] == "do_profile" && $mybb->request_method == "post")
 
 		$errors = inline_error($errors);
 		$mybb->input['action'] = "profile";
+		$mybb->input['profileuid'] = $mybb->user['uid'];
 	}
 	else
 	{
 		$userhandler->update_user();
 
 		$plugins->run_hooks("usercp_do_profile_end");
-		redirect("usercp.php?action=profile", $lang->redirect_profileupdated);
+		redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_profileupdated);
+	}
+}
+
+if($mybb->input['action'] == "do_changename" && $mybb->request_method == "post")
+{
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
+	// Verify incoming POST request
+	verify_post_check($mybb->get_input('my_post_key'));
+	$errors = array();
+
+	if($mybb->usergroup['canchangename'] != 1)
+	{
+		error_no_permission();
+	}
+
+	$user = array();
+
+	$plugins->run_hooks("usercp_do_changename_start");
+
+	if(validate_password_from_uid($mybb->user['parent']['uid'], $mybb->get_input('password')) == false)
+	{
+		$errors[] = $lang->error_invalidpassword;
+	}
+	else
+	{
+		// Set up user handler.
+		require_once MYBB_ROOT."inc/datahandlers/user.php";
+		$userhandler = new UserDataHandler("update");
+
+		$user = array_merge($user, array(
+			"uid" => $mybb->user['uid'],
+			"username" => $mybb->get_input('username')
+		));
+
+		$userhandler->set_data($user);
+
+		if(!$userhandler->validate_user())
+		{
+			$errors = $userhandler->get_friendly_errors();
+		}
+		else
+		{
+			$userhandler->update_user();
+			$plugins->run_hooks("usercp_do_changename_end");
+			redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_namechanged);
+		}
+	}
+	if(count($errors) > 0)
+	{
+		$errors = inline_error($errors);
+		$mybb->input['action'] = "profile";
+		$mybb->input['profileuid'] = $mybb->user['uid'];
+	}
+}
+
+if($mybb->input['action'] == "do_avatar" && $mybb->request_method == "post")
+{
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
+	// Verify incoming POST request
+	verify_post_check($mybb->get_input('my_post_key'));
+
+	$plugins->run_hooks("usercp_do_avatar_start");
+	require_once MYBB_ROOT."inc/functions_upload.php";
+
+	$avatar_error = "";
+
+	if(!empty($mybb->input['remove'])) // remove avatar
+	{
+		$updated_avatar = array(
+			"avatar" => "",
+			"avatardimensions" => "",
+			"avatartype" => ""
+		);
+		$db->update_query("users", $updated_avatar, "uid='".$mybb->user['uid']."'");
+		remove_avatars($mybb->user['uid']);
+	}
+	elseif($_FILES['avatarupload']['name']) // upload avatar
+	{
+		if($mybb->usergroup['canuploadavatars'] == 0)
+		{
+			error_no_permission();
+		}
+		$avatar = upload_avatar();
+		if(!empty($avatar['error']))
+		{
+			$avatar_error = $avatar['error'];
+		}
+		else
+		{
+			if($avatar['width'] > 0 && $avatar['height'] > 0)
+			{
+				$avatar_dimensions = $avatar['width']."|".$avatar['height'];
+			}
+			$updated_avatar = array(
+				"avatar" => $avatar['avatar'].'?dateline='.TIME_NOW,
+				"avatardimensions" => $avatar_dimensions,
+				"avatartype" => "upload"
+			);
+			$db->update_query("users", $updated_avatar, "uid='".$mybb->user['uid']."'");
+		}
+	}
+	elseif(!$mybb->settings['allowremoteavatars'] && !$_FILES['avatarupload']['name']) // missing avatar image
+	{
+		$avatar_error = $lang->error_avatarimagemissing;
+	}
+	elseif($mybb->settings['allowremoteavatars']) // remote avatar
+	{
+		$mybb->input['avatarurl'] = trim($mybb->get_input('avatarurl'));
+		if(validate_email_format($mybb->input['avatarurl']) != false)
+		{
+			// Gravatar
+			$mybb->input['avatarurl'] = my_strtolower($mybb->input['avatarurl']);
+
+			// If user image does not exist, or is a higher rating, use the mystery man
+			$email = md5($mybb->input['avatarurl']);
+
+			$s = '';
+			if(!$mybb->settings['maxavatardims'])
+			{
+				$mybb->settings['maxavatardims'] = '100x100'; // Hard limit of 100 if there are no limits
+			}
+
+			// Because Gravatars are square, hijack the width
+			list($maxwidth, $maxheight) = preg_split('/[|x]/', my_strtolower($mybb->settings['maxavatardims']));
+			$maxheight = (int)$maxwidth;
+
+			// Rating?
+			$types = array('g', 'pg', 'r', 'x');
+			$rating = $mybb->settings['useravatarrating'];
+
+			if(!in_array($rating, $types))
+			{
+				$rating = 'g';
+			}
+
+			$s = "?s={$maxheight}&r={$rating}&d=mm";
+
+			$updated_avatar = array(
+				"avatar" => "https://www.gravatar.com/avatar/{$email}{$s}",
+				"avatardimensions" => "{$maxheight}|{$maxheight}",
+				"avatartype" => "gravatar"
+			);
+
+			$db->update_query("users", $updated_avatar, "uid = '{$mybb->user['uid']}'");
+		}
+		else
+		{
+			$mybb->input['avatarurl'] = preg_replace("#script:#i", "", $mybb->get_input('avatarurl'));
+			$ext = get_extension($mybb->input['avatarurl']);
+
+			// Copy the avatar to the local server (work around remote URL access disabled for getimagesize)
+			$file = fetch_remote_file($mybb->input['avatarurl']);
+			if(!$file)
+			{
+				$avatar_error = $lang->error_invalidavatarurl;
+			}
+			else
+			{
+				$tmp_name = $mybb->settings['avataruploadpath']."/remote_".md5(random_str());
+				$fp = @fopen($tmp_name, "wb");
+				if(!$fp)
+				{
+					$avatar_error = $lang->error_invalidavatarurl;
+				}
+				else
+				{
+					fwrite($fp, $file);
+					fclose($fp);
+					list($width, $height, $type) = @getimagesize($tmp_name);
+					@unlink($tmp_name);
+					if(!$type)
+					{
+						$avatar_error = $lang->error_invalidavatarurl;
+					}
+				}
+			}
+
+			if(empty($avatar_error))
+			{
+				if($width && $height && $mybb->settings['maxavatardims'] != "")
+				{
+					list($maxwidth, $maxheight) = preg_split('/[|x]/', my_strtolower($mybb->settings['maxavatardims']));
+					if(($maxwidth && $width > $maxwidth) || ($maxheight && $height > $maxheight))
+					{
+						$lang->error_avatartoobig = $lang->sprintf($lang->error_avatartoobig, $maxwidth, $maxheight);
+						$avatar_error = $lang->error_avatartoobig;
+					}
+				}
+			}
+
+			// Limiting URL string to stay within database limit
+			if(strlen($mybb->input['avatarurl']) > 200)
+			{
+				$avatar_error = $lang->error_avatarurltoolong;
+			}
+
+			if(empty($avatar_error))
+			{
+				if($width > 0 && $height > 0)
+				{
+					$avatar_dimensions = (int)$width."|".(int)$height;
+				}
+				$updated_avatar = array(
+					"avatar" => $db->escape_string($mybb->input['avatarurl'].'?dateline='.TIME_NOW),
+					"avatardimensions" => $avatar_dimensions,
+					"avatartype" => "remote"
+				);
+				$db->update_query("users", $updated_avatar, "uid='".$mybb->user['uid']."'");
+				remove_avatars($mybb->user['uid']);
+			}
+		}
+	}
+	else // remote avatar, but remote avatars are not allowed
+	{
+		$avatar_error = $lang->error_remote_avatar_not_allowed;
+	}
+
+	if(empty($avatar_error))
+	{
+		$plugins->run_hooks("usercp_do_avatar_end");
+		redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_avatarupdated);
+	}
+	else
+	{
+		$mybb->input['action'] = "profile";
+		$mybb->input['profileuid'] = $mybb->user['uid'];
+		$avatar_error = inline_error($avatar_error);
 	}
 }
 
 if($mybb->input['action'] == "profile")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
+
+	add_breadcrumb($mybb->user['username']);
+
 	if($errors)
 	{
 		$user = $mybb->input;
@@ -754,6 +989,229 @@ if($mybb->input['action'] == "profile")
 	}
 
 	$plugins->run_hooks("usercp_profile_end");
+
+	//Prepare change login
+	$plugins->run_hooks("usercp_changename_start");
+	// Coming back to this page after one or more errors were experienced, show field the user previously entered (with the exception of the password)
+	if($errors)
+	{
+		$username = htmlspecialchars_uni($mybb->get_input('username'));
+	}
+	else
+	{
+		$username = '';
+	}
+
+	$plugins->run_hooks("usercp_changename_end");
+
+	if($mybb->usergroup['canchangename'] == 1)
+	{
+		eval("\$changename = \"".$templates->get("usercp_changename")."\";");
+	}
+	else {
+		$changename = '';
+	}
+
+	$plugins->run_hooks("usercp_avatar_start");
+
+	$avatarmsg = $avatarurl = '';
+
+	if($mybb->user['avatartype'] == "upload" || stristr($mybb->user['avatar'], $mybb->settings['avataruploadpath']))
+	{
+		$avatarmsg = "<br /><strong>".$lang->already_uploaded_avatar."</strong>";
+	}
+	elseif($mybb->user['avatartype'] == "remote" || my_validate_url($mybb->user['avatar']))
+	{
+		$avatarmsg = "<br /><strong>".$lang->using_remote_avatar."</strong>";
+		$avatarurl = htmlspecialchars_uni($mybb->user['avatar']);
+	}
+
+	$useravatar = format_avatar($mybb->user['avatar'], $mybb->user['avatardimensions'], '100x100');
+	eval("\$currentavatar = \"".$templates->get("usercp_avatar_current")."\";");
+
+	if($mybb->settings['maxavatardims'] != "")
+	{
+		list($maxwidth, $maxheight) = preg_split('/[|x]/', my_strtolower($mybb->settings['maxavatardims']));
+		$lang->avatar_note .= "<br />".$lang->sprintf($lang->avatar_note_dimensions, $maxwidth, $maxheight);
+	}
+
+	if($mybb->settings['avatarsize'])
+	{
+		$maxsize = get_friendly_size($mybb->settings['avatarsize']*1024);
+		$lang->avatar_note .= "<br />".$lang->sprintf($lang->avatar_note_size, $maxsize);
+	}
+
+	$plugins->run_hooks("usercp_avatar_intermediate");
+
+	$auto_resize = '';
+	if($mybb->settings['avatarresizing'] == "auto")
+	{
+		eval("\$auto_resize = \"".$templates->get("usercp_avatar_auto_resize_auto")."\";");
+	}
+	elseif($mybb->settings['avatarresizing'] == "user")
+	{
+		eval("\$auto_resize = \"".$templates->get("usercp_avatar_auto_resize_user")."\";");
+	}
+
+	$avatarupload = '';
+	if($mybb->usergroup['canuploadavatars'] == 1)
+	{
+		eval("\$avatarupload = \"".$templates->get("usercp_avatar_upload")."\";");
+	}
+
+	$avatar_remote = '';
+	if($mybb->settings['allowremoteavatars'] == 1)
+	{
+		eval("\$avatar_remote = \"".$templates->get("usercp_avatar_remote")."\";");
+	}
+
+	$removeavatar = '';
+	if(!empty($mybb->user['avatar']))
+	{
+		eval("\$removeavatar = \"".$templates->get("usercp_avatar_remove")."\";");
+	}
+
+	$plugins->run_hooks("usercp_avatar_end");
+
+	if(!isset($avatar_error))
+	{
+		$avatar_error = '';
+	}
+
+	eval("\$avatar = \"".$templates->get("usercp_avatar")."\";");
+
+	$plugins->run_hooks("usercp_editsig_start");
+	if(!empty($mybb->input['preview']) && empty($error))
+	{
+		$sig = $mybb->get_input('signature');
+		$template = "usercp_editsig_preview";
+	}
+	elseif(empty($error))
+	{
+		$sig = $mybb->user['signature'];
+		$template = "usercp_editsig_current";
+	}
+	else
+	{
+		$sig = $mybb->get_input('signature');
+		$template = false;
+	}
+
+	if(!isset($error))
+	{
+		$error = '';
+	}
+
+	$canModifySignature = true;
+	if($mybb->user['suspendsignature'] && ($mybb->user['suspendsigtime'] == 0 || $mybb->user['suspendsigtime'] > 0 && $mybb->user['suspendsigtime'] > TIME_NOW))
+	{
+		$canModifySignature = false;
+	}
+
+	if($mybb->usergroup['canusesig'] != 1)
+	{
+		$canModifySignature = false;
+	}
+	elseif($mybb->usergroup['canusesig'] == 1 && $mybb->usergroup['canusesigxposts'] > 0 && $mybb->user['postnum'] < $mybb->usergroup['canusesigxposts'])
+	{
+		$canModifySignature = false;
+	}
+
+	$signature = '';
+	if($sig && $template)
+	{
+		$sig_parser = array(
+			"allow_html" => $mybb->settings['sightml'],
+			"allow_mycode" => $mybb->settings['sigmycode'],
+			"allow_smilies" => $mybb->settings['sigsmilies'],
+			"allow_imgcode" => $mybb->settings['sigimgcode'],
+			"me_username" => $mybb->user['username'],
+			"filter_badwords" => 1
+		);
+
+		if($mybb->user['showimages'] != 1)
+		{
+			$sig_parser['allow_imgcode'] = 0;
+		}
+
+		$sigpreview = $parser->parse_message($sig, $sig_parser);
+		eval("\$signature = \"".$templates->get($template)."\";");
+	}
+
+	// User has a current signature, so let's display it (but show an error message)
+	if($mybb->user['suspendsignature'] && $mybb->user['suspendsigtime'] > TIME_NOW)
+	{
+		$plugins->run_hooks("usercp_editsig_end");
+
+		// User either doesn't have permission, or has their signature suspended
+		eval("\$editsig = \"".$templates->get("usercp_editsig_suspended")."\";");
+	}
+	else
+	{
+		// User is allowed to edit their signature
+		$smilieinserter = '';
+		if($mybb->settings['sigsmilies'] == 1)
+		{
+			$sigsmilies = $lang->on;
+			$smilieinserter = build_clickable_smilies();
+		}
+		else
+		{
+			$sigsmilies = $lang->off;
+		}
+		if($mybb->settings['sigmycode'] == 1)
+		{
+			$sigmycode = $lang->on;
+		}
+		else
+		{
+			$sigmycode = $lang->off;
+		}
+		if($mybb->settings['sightml'] == 1)
+		{
+			$sightml = $lang->on;
+		}
+		else
+		{
+			$sightml = $lang->off;
+		}
+		if($mybb->settings['sigimgcode'] == 1)
+		{
+			$sigimgcode = $lang->on;
+		}
+		else
+		{
+			$sigimgcode = $lang->off;
+		}
+
+		if($mybb->settings['siglength'] == 0)
+		{
+			$siglength = $lang->unlimited;
+		}
+		else
+		{
+			$siglength = $mybb->settings['siglength'];
+		}
+
+		$sig = htmlspecialchars_uni($sig);
+		$lang->edit_sig_note2 = $lang->sprintf($lang->edit_sig_note2, $sigsmilies, $sigmycode, $sigimgcode, $sightml, $siglength);
+
+		if($mybb->settings['sigmycode'] != 0 && $mybb->settings['bbcodeinserter'] != 0 && $mybb->user['showcodebuttons'] != 0)
+		{
+			$codebuttons = build_mycode_inserter("signature");
+		}
+
+		$plugins->run_hooks("usercp_editsig_end");
+
+		if ($canModifySignature) {
+			eval("\$editsig = \"".$templates->get("usercp_editsig")."\";");
+		}
+		else
+		{
+			$editsig = '';
+		}
+
+	}
 
 	eval("\$editprofile = \"".$templates->get("usercp_profile")."\";");
 	output_page($editprofile);
@@ -1383,81 +1841,6 @@ if($mybb->input['action'] == "password")
 
 	eval("\$editpassword = \"".$templates->get("usercp_password")."\";");
 	output_page($editpassword);
-}
-
-if($mybb->input['action'] == "do_changename" && $mybb->request_method == "post")
-{
-	// Verify incoming POST request
-	verify_post_check($mybb->get_input('my_post_key'));
-
-	$errors = array();
-
-	if($mybb->usergroup['canchangename'] != 1)
-	{
-		error_no_permission();
-	}
-
-	$user = array();
-
-	$plugins->run_hooks("usercp_do_changename_start");
-
-	if(validate_password_from_uid($mybb->user['uid'], $mybb->get_input('password')) == false)
-	{
-		$errors[] = $lang->error_invalidpassword;
-	}
-	else
-	{
-		// Set up user handler.
-		require_once MYBB_ROOT."inc/datahandlers/user.php";
-		$userhandler = new UserDataHandler("update");
-
-		$user = array_merge($user, array(
-			"uid" => $mybb->user['uid'],
-			"username" => $mybb->get_input('username')
-		));
-
-		$userhandler->set_data($user);
-
-		if(!$userhandler->validate_user())
-		{
-			$errors = $userhandler->get_friendly_errors();
-		}
-		else
-		{
-			$userhandler->update_user();
-			$plugins->run_hooks("usercp_do_changename_end");
-			redirect("usercp.php?action=changename", $lang->redirect_namechanged);
-		}
-	}
-	if(count($errors) > 0)
-	{
-		$errors = inline_error($errors);
-		$mybb->input['action'] = "changename";
-	}
-}
-
-if($mybb->input['action'] == "changename")
-{
-	$plugins->run_hooks("usercp_changename_start");
-	if($mybb->usergroup['canchangename'] != 1)
-	{
-		error_no_permission();
-	}
-
-	// Coming back to this page after one or more errors were experienced, show field the user previously entered (with the exception of the password)
-	if($errors)
-	{
-		$username = htmlspecialchars_uni($mybb->get_input('username'));
-	}
-	else
-	{
-		$username = '';
-	}
-
-	$plugins->run_hooks("usercp_changename_end");
-
-	eval("\$changename = \"".$templates->get("usercp_changename")."\";");
-	output_page($changename);
 }
 
 if($mybb->input['action'] == "do_subscriptions")
@@ -2297,6 +2680,7 @@ if($mybb->input['action'] == "removesubscriptions")
 
 if($mybb->input['action'] == "do_editsig" && $mybb->request_method == "post")
 {
+	use_linked_user($mybb->get_input('profileuid', MyBB::INPUT_INT));
 	// Verify incoming POST request
 	verify_post_check($mybb->get_input('my_post_key'));
 
@@ -2328,385 +2712,7 @@ if($mybb->input['action'] == "do_editsig" && $mybb->request_method == "post")
 	$plugins->run_hooks("usercp_do_editsig_process");
 	$db->update_query("users", $new_signature, "uid='".$mybb->user['uid']."'");
 	$plugins->run_hooks("usercp_do_editsig_end");
-	redirect("usercp.php?action=editsig", $lang->redirect_sigupdated);
-}
-
-if($mybb->input['action'] == "editsig")
-{
-	$plugins->run_hooks("usercp_editsig_start");
-	if(!empty($mybb->input['preview']) && empty($error))
-	{
-		$sig = $mybb->get_input('signature');
-		$template = "usercp_editsig_preview";
-	}
-	elseif(empty($error))
-	{
-		$sig = $mybb->user['signature'];
-		$template = "usercp_editsig_current";
-	}
-	else
-	{
-		$sig = $mybb->get_input('signature');
-		$template = false;
-	}
-
-	if(!isset($error))
-	{
-		$error = '';
-	}
-
-	if($mybb->user['suspendsignature'] && ($mybb->user['suspendsigtime'] == 0 || $mybb->user['suspendsigtime'] > 0 && $mybb->user['suspendsigtime'] > TIME_NOW))
-	{
-		// User currently has no signature and they're suspended
-		error($lang->sig_suspended);
-	}
-
-	if($mybb->usergroup['canusesig'] != 1)
-	{
-		// Usergroup has no permission to use this facility
-		error_no_permission();
-	}
-	elseif($mybb->usergroup['canusesig'] == 1 && $mybb->usergroup['canusesigxposts'] > 0 && $mybb->user['postnum'] < $mybb->usergroup['canusesigxposts'])
-	{
-		// Usergroup can use this facility, but only after x posts
-		error($lang->sprintf($lang->sig_suspended_posts, $mybb->usergroup['canusesigxposts']));
-	}
-
-	$signature = '';
-	if($sig && $template)
-	{
-		$sig_parser = array(
-			"allow_html" => $mybb->settings['sightml'],
-			"allow_mycode" => $mybb->settings['sigmycode'],
-			"allow_smilies" => $mybb->settings['sigsmilies'],
-			"allow_imgcode" => $mybb->settings['sigimgcode'],
-			"me_username" => $mybb->user['username'],
-			"filter_badwords" => 1
-		);
-
-		if($mybb->user['showimages'] != 1)
-		{
-			$sig_parser['allow_imgcode'] = 0;
-		}
-
-		$sigpreview = $parser->parse_message($sig, $sig_parser);
-		eval("\$signature = \"".$templates->get($template)."\";");
-	}
-
-	// User has a current signature, so let's display it (but show an error message)
-	if($mybb->user['suspendsignature'] && $mybb->user['suspendsigtime'] > TIME_NOW)
-	{
-		$plugins->run_hooks("usercp_editsig_end");
-
-		// User either doesn't have permission, or has their signature suspended
-		eval("\$editsig = \"".$templates->get("usercp_editsig_suspended")."\";");
-	}
-	else
-	{
-		// User is allowed to edit their signature
-		$smilieinserter = '';
-		if($mybb->settings['sigsmilies'] == 1)
-		{
-			$sigsmilies = $lang->on;
-			$smilieinserter = build_clickable_smilies();
-		}
-		else
-		{
-			$sigsmilies = $lang->off;
-		}
-		if($mybb->settings['sigmycode'] == 1)
-		{
-			$sigmycode = $lang->on;
-		}
-		else
-		{
-			$sigmycode = $lang->off;
-		}
-		if($mybb->settings['sightml'] == 1)
-		{
-			$sightml = $lang->on;
-		}
-		else
-		{
-			$sightml = $lang->off;
-		}
-		if($mybb->settings['sigimgcode'] == 1)
-		{
-			$sigimgcode = $lang->on;
-		}
-		else
-		{
-			$sigimgcode = $lang->off;
-		}
-
-		if($mybb->settings['siglength'] == 0)
-		{
-			$siglength = $lang->unlimited;
-		}
-		else
-		{
-			$siglength = $mybb->settings['siglength'];
-		}
-
-		$sig = htmlspecialchars_uni($sig);
-		$lang->edit_sig_note2 = $lang->sprintf($lang->edit_sig_note2, $sigsmilies, $sigmycode, $sigimgcode, $sightml, $siglength);
-
-		if($mybb->settings['sigmycode'] != 0 && $mybb->settings['bbcodeinserter'] != 0 && $mybb->user['showcodebuttons'] != 0)
-		{
-			$codebuttons = build_mycode_inserter("signature");
-		}
-
-		$plugins->run_hooks("usercp_editsig_end");
-
-		eval("\$editsig = \"".$templates->get("usercp_editsig")."\";");
-	}
-
-	output_page($editsig);
-}
-
-if($mybb->input['action'] == "do_avatar" && $mybb->request_method == "post")
-{
-	// Verify incoming POST request
-	verify_post_check($mybb->get_input('my_post_key'));
-
-	$plugins->run_hooks("usercp_do_avatar_start");
-	require_once MYBB_ROOT."inc/functions_upload.php";
-
-	$avatar_error = "";
-
-	if(!empty($mybb->input['remove'])) // remove avatar
-	{
-		$updated_avatar = array(
-			"avatar" => "",
-			"avatardimensions" => "",
-			"avatartype" => ""
-		);
-		$db->update_query("users", $updated_avatar, "uid='".$mybb->user['uid']."'");
-		remove_avatars($mybb->user['uid']);
-	}
-	elseif($_FILES['avatarupload']['name']) // upload avatar
-	{
-		if($mybb->usergroup['canuploadavatars'] == 0)
-		{
-			error_no_permission();
-		}
-		$avatar = upload_avatar();
-		if(!empty($avatar['error']))
-		{
-			$avatar_error = $avatar['error'];
-		}
-		else
-		{
-			if($avatar['width'] > 0 && $avatar['height'] > 0)
-			{
-				$avatar_dimensions = $avatar['width']."|".$avatar['height'];
-			}
-			$updated_avatar = array(
-				"avatar" => $avatar['avatar'].'?dateline='.TIME_NOW,
-				"avatardimensions" => $avatar_dimensions,
-				"avatartype" => "upload"
-			);
-			$db->update_query("users", $updated_avatar, "uid='".$mybb->user['uid']."'");
-		}
-	}
-	elseif(!$mybb->settings['allowremoteavatars'] && !$_FILES['avatarupload']['name']) // missing avatar image
-	{
-		$avatar_error = $lang->error_avatarimagemissing;
-	}
-	elseif($mybb->settings['allowremoteavatars']) // remote avatar
-	{
-		$mybb->input['avatarurl'] = trim($mybb->get_input('avatarurl'));
-		if(validate_email_format($mybb->input['avatarurl']) != false)
-		{
-			// Gravatar
-			$mybb->input['avatarurl'] = my_strtolower($mybb->input['avatarurl']);
-
-			// If user image does not exist, or is a higher rating, use the mystery man
-			$email = md5($mybb->input['avatarurl']);
-
-			$s = '';
-			if(!$mybb->settings['maxavatardims'])
-			{
-				$mybb->settings['maxavatardims'] = '100x100'; // Hard limit of 100 if there are no limits
-			}
-
-			// Because Gravatars are square, hijack the width
-			list($maxwidth, $maxheight) = preg_split('/[|x]/', my_strtolower($mybb->settings['maxavatardims']));
-			$maxheight = (int)$maxwidth;
-
-			// Rating?
-			$types = array('g', 'pg', 'r', 'x');
-			$rating = $mybb->settings['useravatarrating'];
-
-			if(!in_array($rating, $types))
-			{
-				$rating = 'g';
-			}
-
-			$s = "?s={$maxheight}&r={$rating}&d=mm";
-
-			$updated_avatar = array(
-				"avatar" => "https://www.gravatar.com/avatar/{$email}{$s}",
-				"avatardimensions" => "{$maxheight}|{$maxheight}",
-				"avatartype" => "gravatar"
-			);
-
-			$db->update_query("users", $updated_avatar, "uid = '{$mybb->user['uid']}'");
-		}
-		else
-		{
-			$mybb->input['avatarurl'] = preg_replace("#script:#i", "", $mybb->get_input('avatarurl'));
-			$ext = get_extension($mybb->input['avatarurl']);
-
-			// Copy the avatar to the local server (work around remote URL access disabled for getimagesize)
-			$file = fetch_remote_file($mybb->input['avatarurl']);
-			if(!$file)
-			{
-				$avatar_error = $lang->error_invalidavatarurl;
-			}
-			else
-			{
-				$tmp_name = $mybb->settings['avataruploadpath']."/remote_".md5(random_str());
-				$fp = @fopen($tmp_name, "wb");
-				if(!$fp)
-				{
-					$avatar_error = $lang->error_invalidavatarurl;
-				}
-				else
-				{
-					fwrite($fp, $file);
-					fclose($fp);
-					list($width, $height, $type) = @getimagesize($tmp_name);
-					@unlink($tmp_name);
-					if(!$type)
-					{
-						$avatar_error = $lang->error_invalidavatarurl;
-					}
-				}
-			}
-
-			if(empty($avatar_error))
-			{
-				if($width && $height && $mybb->settings['maxavatardims'] != "")
-				{
-					list($maxwidth, $maxheight) = preg_split('/[|x]/', my_strtolower($mybb->settings['maxavatardims']));
-					if(($maxwidth && $width > $maxwidth) || ($maxheight && $height > $maxheight))
-					{
-						$lang->error_avatartoobig = $lang->sprintf($lang->error_avatartoobig, $maxwidth, $maxheight);
-						$avatar_error = $lang->error_avatartoobig;
-					}
-				}
-			}
-
-			// Limiting URL string to stay within database limit
-			if(strlen($mybb->input['avatarurl']) > 200)
-			{
-				$avatar_error = $lang->error_avatarurltoolong;
-			}
-
-			if(empty($avatar_error))
-			{
-				if($width > 0 && $height > 0)
-				{
-					$avatar_dimensions = (int)$width."|".(int)$height;
-				}
-				$updated_avatar = array(
-					"avatar" => $db->escape_string($mybb->input['avatarurl'].'?dateline='.TIME_NOW),
-					"avatardimensions" => $avatar_dimensions,
-					"avatartype" => "remote"
-				);
-				$db->update_query("users", $updated_avatar, "uid='".$mybb->user['uid']."'");
-				remove_avatars($mybb->user['uid']);
-			}
-		}
-	}
-	else // remote avatar, but remote avatars are not allowed
-	{
-		$avatar_error = $lang->error_remote_avatar_not_allowed;
-	}
-
-	if(empty($avatar_error))
-	{
-		$plugins->run_hooks("usercp_do_avatar_end");
-		redirect("usercp.php?action=avatar", $lang->redirect_avatarupdated);
-	}
-	else
-	{
-		$mybb->input['action'] = "avatar";
-		$avatar_error = inline_error($avatar_error);
-	}
-}
-
-if($mybb->input['action'] == "avatar")
-{
-	$plugins->run_hooks("usercp_avatar_start");
-
-	$avatarmsg = $avatarurl = '';
-
-	if($mybb->user['avatartype'] == "upload" || stristr($mybb->user['avatar'], $mybb->settings['avataruploadpath']))
-	{
-		$avatarmsg = "<br /><strong>".$lang->already_uploaded_avatar."</strong>";
-	}
-	elseif($mybb->user['avatartype'] == "remote" || my_validate_url($mybb->user['avatar']))
-	{
-		$avatarmsg = "<br /><strong>".$lang->using_remote_avatar."</strong>";
-		$avatarurl = htmlspecialchars_uni($mybb->user['avatar']);
-	}
-
-	$useravatar = format_avatar($mybb->user['avatar'], $mybb->user['avatardimensions'], '100x100');
-	eval("\$currentavatar = \"".$templates->get("usercp_avatar_current")."\";");
-
-	if($mybb->settings['maxavatardims'] != "")
-	{
-		list($maxwidth, $maxheight) = preg_split('/[|x]/', my_strtolower($mybb->settings['maxavatardims']));
-		$lang->avatar_note .= "<br />".$lang->sprintf($lang->avatar_note_dimensions, $maxwidth, $maxheight);
-	}
-
-	if($mybb->settings['avatarsize'])
-	{
-		$maxsize = get_friendly_size($mybb->settings['avatarsize']*1024);
-		$lang->avatar_note .= "<br />".$lang->sprintf($lang->avatar_note_size, $maxsize);
-	}
-
-	$plugins->run_hooks("usercp_avatar_intermediate");
-
-	$auto_resize = '';
-	if($mybb->settings['avatarresizing'] == "auto")
-	{
-		eval("\$auto_resize = \"".$templates->get("usercp_avatar_auto_resize_auto")."\";");
-	}
-	elseif($mybb->settings['avatarresizing'] == "user")
-	{
-		eval("\$auto_resize = \"".$templates->get("usercp_avatar_auto_resize_user")."\";");
-	}
-
-	$avatarupload = '';
-	if($mybb->usergroup['canuploadavatars'] == 1)
-	{
-		eval("\$avatarupload = \"".$templates->get("usercp_avatar_upload")."\";");
-	}
-
-	$avatar_remote = '';
-	if($mybb->settings['allowremoteavatars'] == 1)
-	{
-		eval("\$avatar_remote = \"".$templates->get("usercp_avatar_remote")."\";");
-	}
-
-	$removeavatar = '';
-	if(!empty($mybb->user['avatar']))
-	{
-		eval("\$removeavatar = \"".$templates->get("usercp_avatar_remove")."\";");
-	}
-
-	$plugins->run_hooks("usercp_avatar_end");
-
-	if(!isset($avatar_error))
-	{
-		$avatar_error = '';
-	}
-
-	eval("\$avatar = \"".$templates->get("usercp_avatar")."\";");
-	output_page($avatar);
+	redirect("usercp.php?action=profile&profileuid=".$mybb->user['uid'], $lang->redirect_sigupdated);
 }
 
 if($mybb->input['action'] == "acceptrequest")
@@ -3422,8 +3428,18 @@ if($mybb->input['action'] == "editlists")
 if($mybb->input['action'] == "drafts")
 {
 	$plugins->run_hooks("usercp_drafts_start");
+	$character_uids = '';
+	if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
+		$uids = array();
+		foreach ($mybb->user['characters'] as $character) {
+			if (isset($character['uid'])) {
+				$uids[] = "'".(int)$character['uid']."'";
+			}
+		}
+		$character_uids = implode(',', $uids);
+	}
 
-	$query = $db->simple_select("posts", "COUNT(pid) AS draftcount", "visible='-2' AND uid='{$mybb->user['uid']}'");
+	$query = $db->simple_select("posts", "COUNT(pid) AS draftcount", "visible='-2' AND (uid='{$mybb->user['uid']}' OR uid IN ($character_uids))");
 	$draftcount = $db->fetch_field($query, 'draftcount');
 
 	$drafts = $disable_delete_drafts = '';
@@ -3433,11 +3449,12 @@ if($mybb->input['action'] == "drafts")
 	if($draftcount)
 	{
 		$query = $db->query("
-			SELECT p.subject, p.pid, t.tid, t.subject AS threadsubject, t.fid, f.name AS forumname, p.dateline, t.visible AS threadvisible, p.visible AS postvisible
+			SELECT p.subject, p.pid, t.tid, t.subject AS threadsubject, t.fid, f.name AS forumname, p.dateline, t.visible AS threadvisible, p.visible AS postvisible, u.username, u.usergroup, u.displaygroup
 			FROM ".TABLE_PREFIX."posts p
 			LEFT JOIN ".TABLE_PREFIX."threads t ON (t.tid=p.tid)
 			LEFT JOIN ".TABLE_PREFIX."forums f ON (f.fid=t.fid)
-			WHERE p.uid = '{$mybb->user['uid']}' AND p.visible = '-2'
+			LEFT JOIN ".TABLE_PREFIX."users u ON (p.uid=u.uid)
+			WHERE (p.uid='{$mybb->user['uid']}' OR p.uid IN ($character_uids)) AND p.visible = '-2'
 			ORDER BY p.dateline DESC, p.pid DESC
 		");
 
@@ -3464,6 +3481,7 @@ if($mybb->input['action'] == "drafts")
 				$type = "thread";
 			}
 
+			$author = format_name($draft['username'], $draft['usergroup'], $draft['displaygroup']);
 			$draft['subject'] = htmlspecialchars_uni($draft['subject']);
 			$savedate = my_date('relative', $draft['dateline']);
 			eval("\$drafts .= \"".$templates->get("usercp_drafts_draft")."\";");
@@ -3538,321 +3556,337 @@ if($mybb->input['action'] == "do_drafts" && $mybb->request_method == "post")
 
 if($mybb->input['action'] == "usergroups")
 {
-	$ingroups = ",".$mybb->user['usergroup'].",".$mybb->user['additionalgroups'].",".$mybb->user['displaygroup'].",";
-
-	$usergroups = $mybb->cache->read('usergroups');
-
-	$plugins->run_hooks("usercp_usergroups_start");
-
-	// Changing our display group
-	if($mybb->get_input('displaygroup', MyBB::INPUT_INT))
+	$memberoflists = [];
+	foreach (get_all_accounts($mybb->user) as $displayedAccount) 
 	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
+		$ingroups = ",".$displayedAccount['usergroup'].",".$displayedAccount['additionalgroups'].",".$displayedAccount['displaygroup'].",";
 
-		if(my_strpos($ingroups, ",".$mybb->input['displaygroup'].",") === false)
+		$usergroups = $mybb->cache->read('usergroups');
+
+		$plugins->run_hooks("usercp_usergroups_start");
+
+		// Changing our display group
+		if($mybb->get_input('displaygroup', MyBB::INPUT_INT))
 		{
-			error($lang->not_member_of_group);
-		}
-
-		$dispgroup = $usergroups[$mybb->get_input('displaygroup', MyBB::INPUT_INT)];
-		if($dispgroup['candisplaygroup'] != 1)
-		{
-			error($lang->cannot_set_displaygroup);
-		}
-		$db->update_query("users", array('displaygroup' => $mybb->get_input('displaygroup', MyBB::INPUT_INT)), "uid='".$mybb->user['uid']."'");
-		$cache->update_moderators();
-		$plugins->run_hooks("usercp_usergroups_change_displaygroup");
-		redirect("usercp.php?action=usergroups", $lang->display_group_changed);
-		exit;
-	}
-
-	// Leaving a group
-	if($mybb->get_input('leavegroup', MyBB::INPUT_INT))
-	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
-
-		if(my_strpos($ingroups, ",".$mybb->get_input('leavegroup', MyBB::INPUT_INT).",") === false)
-		{
-			error($lang->not_member_of_group);
-		}
-		if($mybb->user['usergroup'] == $mybb->get_input('leavegroup', MyBB::INPUT_INT))
-		{
-			error($lang->cannot_leave_primary_group);
-		}
-
-		$usergroup = $usergroups[$mybb->get_input('leavegroup', MyBB::INPUT_INT)];
-		if($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
-		{
-			error($lang->cannot_leave_group);
-		}
-		leave_usergroup($mybb->user['uid'], $mybb->get_input('leavegroup', MyBB::INPUT_INT));
-		$plugins->run_hooks("usercp_usergroups_leave_group");
-		redirect("usercp.php?action=usergroups", $lang->left_group);
-		exit;
-	}
-
-	$groupleaders = array();
-
-	// List of usergroup leaders
-	$query = $db->query("
-		SELECT g.*, u.username, u.displaygroup, u.usergroup, u.email, u.language
-		FROM ".TABLE_PREFIX."groupleaders g
-		LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=g.uid)
-		ORDER BY u.username ASC
-	");
-	while($leader = $db->fetch_array($query))
-	{
-		$groupleaders[$leader['gid']][$leader['uid']] = $leader;
-	}
-
-	// Joining a group
-	if($mybb->get_input('joingroup', MyBB::INPUT_INT))
-	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
-
-		$usergroup = $usergroups[$mybb->get_input('joingroup', MyBB::INPUT_INT)];
-
-		if($usergroup['type'] == 5)
-		{
-			error($lang->cannot_join_invite_group);
-		}
-
-		if(($usergroup['type'] != 4 && $usergroup['type'] != 3) || !$usergroup['gid'])
-		{
-			error($lang->cannot_join_group);
-		}
-
-		if(my_strpos($ingroups, ",".$mybb->get_input('joingroup', MyBB::INPUT_INT).",") !== false)
-		{
-			error($lang->already_member_of_group);
-		}
-
-		$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('joingroup', MyBB::INPUT_INT)."'");
-		$joinrequest = $db->fetch_array($query);
-
-		if($joinrequest)
-		{
-			error($lang->already_sent_join_request);
-		}
-
-		if($mybb->get_input('do') == "joingroup" && $usergroup['type'] == 4)
-		{
-			$reasonlength = my_strlen($mybb->get_input('reason'));
-
-			if($reasonlength > 250) // Reason field is varchar(250) in database
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+			
+			$changedUserUid = $mybb->get_input('uid', MyBB::INPUT_INT);
+			if (does_account_belong_to_current_user($changedUserUid) == false)
 			{
-				error($lang->sprintf($lang->joinreason_too_long, ($reasonlength - 250)));
+				error("Nie możesz zmienić konta, które nie należy do ciebie.");
 			}
 
-			$now = TIME_NOW;
-			$joinrequest = array(
-				"uid" => $mybb->user['uid'],
-				"gid" => $mybb->get_input('joingroup', MyBB::INPUT_INT),
-				"reason" => $db->escape_string($mybb->get_input('reason')),
-				"dateline" => TIME_NOW
-			);
-
-			$db->insert_query("joinrequests", $joinrequest);
-
-			if(array_key_exists($usergroup['gid'], $groupleaders))
+			if(my_strpos($ingroups, ",".$mybb->input['displaygroup'].",") === false)
 			{
-				foreach($groupleaders[$usergroup['gid']] as $leader)
+				error($lang->not_member_of_group);
+			}
+
+			$dispgroup = $usergroups[$mybb->get_input('displaygroup', MyBB::INPUT_INT)];
+			if($dispgroup['candisplaygroup'] != 1)
+			{
+				error($lang->cannot_set_displaygroup);
+			}
+			$db->update_query("users", array('displaygroup' => $mybb->get_input('displaygroup', MyBB::INPUT_INT)), "uid='".$changedUserUid."'");
+			$cache->update_moderators();
+			$plugins->run_hooks("usercp_usergroups_change_displaygroup");
+			redirect("usercp.php?action=usergroups", $lang->display_group_changed);
+			exit;
+		}
+
+		// Leaving a group
+		if($mybb->get_input('leavegroup', MyBB::INPUT_INT))
+		{
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+
+			if(my_strpos($ingroups, ",".$mybb->get_input('leavegroup', MyBB::INPUT_INT).",") === false)
+			{
+				error($lang->not_member_of_group);
+			}
+			if($mybb->user['usergroup'] == $mybb->get_input('leavegroup', MyBB::INPUT_INT))
+			{
+				error($lang->cannot_leave_primary_group);
+			}
+
+			$usergroup = $usergroups[$mybb->get_input('leavegroup', MyBB::INPUT_INT)];
+			if($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
+			{
+				error($lang->cannot_leave_group);
+			}
+			leave_usergroup($mybb->user['uid'], $mybb->get_input('leavegroup', MyBB::INPUT_INT));
+			$plugins->run_hooks("usercp_usergroups_leave_group");
+			redirect("usercp.php?action=usergroups", $lang->left_group);
+			exit;
+		}
+
+		$groupleaders = array();
+
+		// List of usergroup leaders
+		$query = $db->query("
+			SELECT g.*, u.username, u.displaygroup, u.usergroup, u.email, u.language
+			FROM ".TABLE_PREFIX."groupleaders g
+			LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=g.uid)
+			ORDER BY u.username ASC
+		");
+		while($leader = $db->fetch_array($query))
+		{
+			$groupleaders[$leader['gid']][$leader['uid']] = $leader;
+		}
+
+		// Joining a group
+		if($mybb->get_input('joingroup', MyBB::INPUT_INT))
+		{
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+
+			$usergroup = $usergroups[$mybb->get_input('joingroup', MyBB::INPUT_INT)];
+
+			if($usergroup['type'] == 5)
+			{
+				error($lang->cannot_join_invite_group);
+			}
+
+			if(($usergroup['type'] != 4 && $usergroup['type'] != 3) || !$usergroup['gid'])
+			{
+				error($lang->cannot_join_group);
+			}
+
+			if(my_strpos($ingroups, ",".$mybb->get_input('joingroup', MyBB::INPUT_INT).",") !== false)
+			{
+				error($lang->already_member_of_group);
+			}
+
+			$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('joingroup', MyBB::INPUT_INT)."'");
+			$joinrequest = $db->fetch_array($query);
+
+			if($joinrequest)
+			{
+				error($lang->already_sent_join_request);
+			}
+
+			if($mybb->get_input('do') == "joingroup" && $usergroup['type'] == 4)
+			{
+				$reasonlength = my_strlen($mybb->get_input('reason'));
+
+				if($reasonlength > 250) // Reason field is varchar(250) in database
 				{
-					// Load language
-					$lang->set_language($leader['language']);
-					$lang->load("messages");
-
-					$subject = $lang->sprintf($lang->emailsubject_newjoinrequest, $mybb->settings['bbname']);
-					$message = $lang->sprintf($lang->email_groupleader_joinrequest, $leader['username'], $mybb->user['username'], $usergroup['title'], $mybb->settings['bbname'], $mybb->get_input('reason'), $mybb->settings['bburl'], $leader['gid']);
-					my_mail($leader['email'], $subject, $message);
+					error($lang->sprintf($lang->joinreason_too_long, ($reasonlength - 250)));
 				}
+
+				$now = TIME_NOW;
+				$joinrequest = array(
+					"uid" => $mybb->user['uid'],
+					"gid" => $mybb->get_input('joingroup', MyBB::INPUT_INT),
+					"reason" => $db->escape_string($mybb->get_input('reason')),
+					"dateline" => TIME_NOW
+				);
+
+				$db->insert_query("joinrequests", $joinrequest);
+
+				if(array_key_exists($usergroup['gid'], $groupleaders))
+				{
+					foreach($groupleaders[$usergroup['gid']] as $leader)
+					{
+						// Load language
+						$lang->set_language($leader['language']);
+						$lang->load("messages");
+
+						$subject = $lang->sprintf($lang->emailsubject_newjoinrequest, $mybb->settings['bbname']);
+						$message = $lang->sprintf($lang->email_groupleader_joinrequest, $leader['username'], $mybb->user['username'], $usergroup['title'], $mybb->settings['bbname'], $mybb->get_input('reason'), $mybb->settings['bburl'], $leader['gid']);
+						my_mail($leader['email'], $subject, $message);
+					}
+				}
+
+				// Load language
+				$lang->set_language($mybb->user['language']);
+				$lang->load("messages");
+
+				$plugins->run_hooks("usercp_usergroups_join_group_request");
+				redirect("usercp.php?action=usergroups", $lang->group_join_requestsent);
+				exit;
+			}
+			elseif($usergroup['type'] == 4)
+			{
+				$joingroup = $mybb->get_input('joingroup', MyBB::INPUT_INT);
+				eval("\$joinpage = \"".$templates->get("usercp_usergroups_joingroup")."\";");
+				output_page($joinpage);
+				exit;
+			}
+			else
+			{
+				join_usergroup($mybb->user['uid'], $mybb->get_input('joingroup', MyBB::INPUT_INT));
+				$plugins->run_hooks("usercp_usergroups_join_group");
+				redirect("usercp.php?action=usergroups", $lang->joined_group);
+			}
+		}
+
+		// Accepting invitation
+		if($mybb->get_input('acceptinvite', MyBB::INPUT_INT))
+		{
+			// Verify incoming POST request
+			verify_post_check($mybb->get_input('my_post_key'));
+
+			$usergroup = $usergroups[$mybb->get_input('acceptinvite', MyBB::INPUT_INT)];
+
+			if(my_strpos($ingroups, ",".$mybb->get_input('acceptinvite', MyBB::INPUT_INT).",") !== false)
+			{
+				error($lang->already_accepted_invite);
 			}
 
-			// Load language
-			$lang->set_language($mybb->user['language']);
-			$lang->load("messages");
-
-			$plugins->run_hooks("usercp_usergroups_join_group_request");
-			redirect("usercp.php?action=usergroups", $lang->group_join_requestsent);
-			exit;
+			$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."' AND invite='1'");
+			$joinrequest = $db->fetch_array($query);
+			if($joinrequest)
+			{
+				join_usergroup($mybb->user['uid'], $mybb->get_input('acceptinvite', MyBB::INPUT_INT));
+				$db->delete_query("joinrequests", "uid='{$mybb->user['uid']}' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."'");
+				$plugins->run_hooks("usercp_usergroups_accept_invite");
+				redirect("usercp.php?action=usergroups", $lang->joined_group);
+			}
+			else
+			{
+				error($lang->no_pending_invitation);
+			}
 		}
-		elseif($usergroup['type'] == 4)
+		// Show listing of various group related things
+
+		// List of groups this user is a leader of
+		$groupsledlist = '';
+
+		switch($db->type)
 		{
-			$joingroup = $mybb->get_input('joingroup', MyBB::INPUT_INT);
-			eval("\$joinpage = \"".$templates->get("usercp_usergroups_joingroup")."\";");
-			output_page($joinpage);
-			exit;
-		}
-		else
-		{
-			join_usergroup($mybb->user['uid'], $mybb->get_input('joingroup', MyBB::INPUT_INT));
-			$plugins->run_hooks("usercp_usergroups_join_group");
-			redirect("usercp.php?action=usergroups", $lang->joined_group);
-		}
-	}
-
-	// Accepting invitation
-	if($mybb->get_input('acceptinvite', MyBB::INPUT_INT))
-	{
-		// Verify incoming POST request
-		verify_post_check($mybb->get_input('my_post_key'));
-
-		$usergroup = $usergroups[$mybb->get_input('acceptinvite', MyBB::INPUT_INT)];
-
-		if(my_strpos($ingroups, ",".$mybb->get_input('acceptinvite', MyBB::INPUT_INT).",") !== false)
-		{
-			error($lang->already_accepted_invite);
+			case "pgsql":
+			case "sqlite":
+				$query = $db->query("
+					SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+					FROM ".TABLE_PREFIX."groupleaders l
+					LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
+					LEFT JOIN ".TABLE_PREFIX."users u ON(((','|| u.additionalgroups|| ',' LIKE '%,'|| g.gid|| ',%') OR u.usergroup = g.gid))
+					LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
+					WHERE l.uid='".$displayedAccount['uid']."'
+					GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+				");
+				break;
+			default:
+				$query = $db->query("
+					SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+					FROM ".TABLE_PREFIX."groupleaders l
+					LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
+					LEFT JOIN ".TABLE_PREFIX."users u ON(((CONCAT(',', u.additionalgroups, ',') LIKE CONCAT('%,', g.gid, ',%')) OR u.usergroup = g.gid))
+					LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
+					WHERE l.uid='".$displayedAccount['uid']."'
+					GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
+				");
 		}
 
-		$query = $db->simple_select("joinrequests", "*", "uid='".$mybb->user['uid']."' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."' AND invite='1'");
-		$joinrequest = $db->fetch_array($query);
-		if($joinrequest)
-		{
-			join_usergroup($mybb->user['uid'], $mybb->get_input('acceptinvite', MyBB::INPUT_INT));
-			$db->delete_query("joinrequests", "uid='{$mybb->user['uid']}' AND gid='".$mybb->get_input('acceptinvite', MyBB::INPUT_INT)."'");
-			$plugins->run_hooks("usercp_usergroups_accept_invite");
-			redirect("usercp.php?action=usergroups", $lang->joined_group);
-		}
-		else
-		{
-			error($lang->no_pending_invitation);
-		}
-	}
-	// Show listing of various group related things
-
-	// List of groups this user is a leader of
-	$groupsledlist = '';
-
-	switch($db->type)
-	{
-		case "pgsql":
-		case "sqlite":
-			$query = $db->query("
-				SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-				FROM ".TABLE_PREFIX."groupleaders l
-				LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
-				LEFT JOIN ".TABLE_PREFIX."users u ON(((','|| u.additionalgroups|| ',' LIKE '%,'|| g.gid|| ',%') OR u.usergroup = g.gid))
-				LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
-				WHERE l.uid='".$mybb->user['uid']."'
-				GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-			");
-			break;
-		default:
-			$query = $db->query("
-				SELECT g.title, g.gid, g.type, COUNT(DISTINCT u.uid) AS users, COUNT(DISTINCT j.rid) AS joinrequests, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-				FROM ".TABLE_PREFIX."groupleaders l
-				LEFT JOIN ".TABLE_PREFIX."usergroups g ON(g.gid=l.gid)
-				LEFT JOIN ".TABLE_PREFIX."users u ON(((CONCAT(',', u.additionalgroups, ',') LIKE CONCAT('%,', g.gid, ',%')) OR u.usergroup = g.gid))
-				LEFT JOIN ".TABLE_PREFIX."joinrequests j ON(j.gid=g.gid AND j.uid != 0)
-				WHERE l.uid='".$mybb->user['uid']."'
-				GROUP BY g.gid, g.title, g.type, l.canmanagerequests, l.canmanagemembers, l.caninvitemembers
-			");
-	}
-
-	while($usergroup = $db->fetch_array($query))
-	{
-		$memberlistlink = $moderaterequestslink = '';
-		eval("\$memberlistlink = \"".$templates->get("usercp_usergroups_leader_usergroup_memberlist")."\";");
-		$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
-		if($usergroup['type'] != 4)
-		{
-			$usergroup['joinrequests'] = '--';
-		}
-		if($usergroup['joinrequests'] > 0 && $usergroup['canmanagerequests'] == 1)
-		{
-			eval("\$moderaterequestslink = \"".$templates->get("usercp_usergroups_leader_usergroup_moderaterequests")."\";");
-		}
-		$groupleader[$usergroup['gid']] = 1;
-		$trow = alt_trow();
-		eval("\$groupsledlist .= \"".$templates->get("usercp_usergroups_leader_usergroup")."\";");
-	}
-	$leadinggroups = '';
-	if($groupsledlist)
-	{
-		eval("\$leadinggroups = \"".$templates->get("usercp_usergroups_leader")."\";");
-	}
-
-	// Fetch the list of groups the member is in
-	// Do the primary group first
-	$usergroup = $usergroups[$mybb->user['usergroup']];
-	$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
-	$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
-	if($usergroup['description'])
-	{
-		$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
-		eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
-	}
-	eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveprimary")."\";");
-	$trow = alt_trow();
-	if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $mybb->user['displaygroup'])
-	{
-		eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
-	}
-	elseif($usergroup['candisplaygroup'] == 1)
-	{
-		eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
-	}
-	else
-	{
-		$displaycode = '';
-	}
-
-	eval("\$memberoflist = \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
-	$showmemberof = false;
-	if($mybb->user['additionalgroups'])
-	{
-		$additionalgroups = implode(
-			',',
-			array_map(
-				'intval',
-				explode(',', $mybb->user['additionalgroups'])
-			)
-		);
-		$query = $db->simple_select("usergroups", "*", "gid IN (".$additionalgroups.") AND gid !='".$mybb->user['usergroup']."'", array('order_by' => 'title'));
 		while($usergroup = $db->fetch_array($query))
 		{
-			$showmemberof = true;
-
-			if(isset($groupleader[$usergroup['gid']]))
-			{
-				eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveleader")."\";");
-			}
-			elseif($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
-			{
-				eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveother")."\";");
-			}
-			else
-			{
-				eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leave")."\";");
-			}
-
-			$description = '';
+			$memberlistlink = $moderaterequestslink = '';
+			eval("\$memberlistlink = \"".$templates->get("usercp_usergroups_leader_usergroup_memberlist")."\";");
 			$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
-			$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
-			if($usergroup['description'])
+			if($usergroup['type'] != 4)
 			{
-				$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
-				eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
+				$usergroup['joinrequests'] = '--';
 			}
+			if($usergroup['joinrequests'] > 0 && $usergroup['canmanagerequests'] == 1)
+			{
+				eval("\$moderaterequestslink = \"".$templates->get("usercp_usergroups_leader_usergroup_moderaterequests")."\";");
+			}
+			$groupleader[$usergroup['gid']] = 1;
 			$trow = alt_trow();
-			if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $mybb->user['displaygroup'])
-			{
-				eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
-			}
-			elseif($usergroup['candisplaygroup'] == 1)
-			{
-				eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
-			}
-			else
-			{
-				$displaycode = '';
-			}
-			eval("\$memberoflist .= \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
+			eval("\$groupsledlist .= \"".$templates->get("usercp_usergroups_leader_usergroup")."\";");
 		}
+		$leadinggroups = '';
+		if($groupsledlist)
+		{
+			eval("\$leadinggroups = \"".$templates->get("usercp_usergroups_leader")."\";");
+		}
+
+		// Fetch the list of groups the member is in
+		// Do the primary group first
+		$usergroup = $usergroups[$displayedAccount['usergroup']];
+		$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
+		$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
+		// print_r($usergroup);
+		if($usergroup['description'])
+		{
+			$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
+			eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
+		}
+		eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveprimary")."\";");
+		$trow = alt_trow();
+		if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $displayedAccount['displaygroup'])
+		{
+			eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
+		}
+		elseif($usergroup['candisplaygroup'] == 1)
+		{
+			eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
+		}
+		else
+		{
+			$displaycode = '';
+		}
+
+		eval("\$memberoflist = \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
+		$showmemberof = false;
+		if($displayedAccount['additionalgroups'])
+		{
+			$additionalgroups = implode(
+				',',
+				array_map(
+					'intval',
+					explode(',', $displayedAccount['additionalgroups'])
+				)
+			);
+			$query = $db->simple_select("usergroups", "*", "gid IN (".$additionalgroups.") AND gid !='".$displayedAccount['usergroup']."'", array('order_by' => 'title'));
+			while($usergroup = $db->fetch_array($query))
+			{
+				$showmemberof = true;
+
+				if(isset($groupleader[$usergroup['gid']]))
+				{
+					eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveleader")."\";");
+				}
+				elseif($usergroup['type'] != 4 && $usergroup['type'] != 3 && $usergroup['type'] != 5)
+				{
+					eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leaveother")."\";");
+				}
+				else
+				{
+					eval("\$leavelink = \"".$templates->get("usercp_usergroups_memberof_usergroup_leave")."\";");
+				}
+
+				$description = '';
+				$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
+				$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
+				if($usergroup['description'])
+				{
+					$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);
+					eval("\$description = \"".$templates->get("usercp_usergroups_memberof_usergroup_description")."\";");
+				}
+				$trow = alt_trow();
+				if($usergroup['candisplaygroup'] == 1 && $usergroup['gid'] == $displayedAccount['displaygroup'])
+				{
+					eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_display")."\";");
+				}
+				elseif($usergroup['candisplaygroup'] == 1)
+				{
+					eval("\$displaycode = \"".$templates->get("usercp_usergroups_memberof_usergroup_setdisplay")."\";");
+				}
+				else
+				{
+					$displaycode = '';
+				}
+				eval("\$memberoflist .= \"".$templates->get("usercp_usergroups_memberof_usergroup")."\";");
+			}
+		}
+		// $displayedAccount = $mybb->user;
+		$displayedGroupsAccount = format_name($displayedAccount['username'], $displayedAccount['usergroup'], $displayedAccount['displaygroup']);
+		$memberoflists[] = eval("return \"".$templates->get("usercp_usergroups_memberof_userlist")."\";");
 	}
+
+	$memberoflists = implode('', $memberoflists);
 	eval("\$membergroups = \"".$templates->get("usercp_usergroups_memberof")."\";");
 
 	// List of groups this user has applied for but has not been accepted in to
@@ -3948,7 +3982,6 @@ if($mybb->input['action'] == "usergroups")
 	}
 
 	$plugins->run_hooks("usercp_usergroups_end");
-
 	eval("\$groupmemberships = \"".$templates->get("usercp_usergroups")."\";");
 	output_page($groupmemberships);
 }

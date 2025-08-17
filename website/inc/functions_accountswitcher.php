@@ -72,6 +72,30 @@ function login_as_account($user, $accountUid, $redirectPage) {
     redirect($redirectPage, $lang->redirect_registered);
 }
 
+/*
+ * Set the current user as parent account for code purposes. Does not actually login as this user.
+ */
+function use_parent_user() {
+    global $mybb;
+    $mybb->user['parent']['characters'] = $mybb->user['characters'];
+    $mybb->user['parent']['parent'] = $mybb->user['parent']; 
+    $mybb->user = $mybb->user['parent'];
+    $mybb->post_code = generate_post_check();
+}
+
+/**
+ * Set the current user as one of the linked accounts for code purposes. Does not actually login as this user.
+ * @param int $uid UID of the user to switch to
+ */
+function use_linked_user(int $uid)
+{
+    global $mybb;
+
+    $user = get_user($uid);
+    $mybb->user = $user;
+    $mybb->post_code = generate_post_check();
+}
+
 /**
  * Get a list of formatted account names with links for a user profile, filtered by account type
  * @param user User data containing characters
@@ -122,4 +146,124 @@ function get_accounts_for_memberlist($linkedAccounts) {
     }
 
     return $characterOutput;
+}
+
+/**
+ * Get list of all accounts for a user. 
+ * @param user User data containing characters
+ * @return array List of all accounts for the user. First element will be the parent user, rest will be alphabetically sorted.
+ */
+function get_all_accounts($user){
+    $accounts = [];
+
+    // Add $user
+    $accounts[$user['uid']] = $user;
+
+    // Add $user['parent'] if exists and not duplicate
+    if (isset($user['parent']) && $user['parent']['uid'] != $user['uid']) {
+        $accounts[$user['parent']['uid']] = $user['parent'];
+    }
+
+    // Add characters, avoiding duplicates
+    $characterAccounts = [];
+    if (isset($user['characters']) && is_array($user['characters'])) {
+        foreach ($user['characters'] as $character) {
+            if (!isset($accounts[$character['uid']])) {
+                $characterAccounts[$character['uid']] = $character;
+            }
+        }
+    }
+
+    // Sort characters alphabetically by username
+    uasort($characterAccounts, function($a, $b) {
+        return strcasecmp($a['username'], $b['username']);
+    });
+
+    // Merge sorted characters into $accounts (parent stays first)
+    foreach ($characterAccounts as $uid => $character) {
+        $accounts[$uid] = $character;
+    }
+
+    // Return as indexed array
+    return array_values($accounts);
+}
+
+/*
+    Checks if provided uid belongs to the current user.
+    @param uid User ID to check
+    @return bool True if the account belongs to the current user, false otherwise
+*/
+function does_account_belong_to_current_user(int $uid) {
+    global $mybb;
+
+    if ($uid == null || $uid == 0) {
+        return false;
+    }
+
+    $allAccounts = get_all_accounts($mybb->user);
+    if (in_array($uid, array_column($allAccounts, 'uid'))) {
+        return true;
+    }
+
+    return false;
+}
+
+/*
+    Create a new PM folder for a character.
+    @param characterUid UID of the character
+*/
+function create_pm_folder_for_character($characterUid)
+{
+    global $mybb, $lang;
+
+    $userHandler = new UserDataHandler("update");
+
+    $foldersexploded = explode("$%%$", $mybb->user['parent']['pmfolders']);
+    $newPmFolders = '';
+    foreach($foldersexploded as $key => $folders)
+    {
+		[$folderId, $folderName] = explode("**", $folders, 2);
+        $newPmFolders .= "$%%$$folderId**$folderName";
+        if ($folderId == 0) {
+            $newPmFolders .= "$%%$-$characterUid**";
+        }
+    }
+
+    if (substr($newPmFolders, 0, 4) === "$%%$") {
+        $newPmFolders = substr($newPmFolders, 4);
+    }
+
+    $user = array(
+        "uid" => $mybb->user['parent']['uid'],
+        "pmfolders" => $newPmFolders
+    );
+    $userHandler->set_data($user);
+
+    if(!$userHandler->validate_user())
+    {
+        $errors = $userHandler->get_friendly_errors();
+    }
+    else
+    {
+        $userHandler->update_user();
+    }
+}
+
+/**
+ * Get linked account by UID.
+ * @param linkedUid UID of the linked account
+ * @return array User data of linked account
+ */
+function get_linked_account_by_uid($linkedUid) 
+{
+    global $mybb;
+
+    $allAccounts = get_all_accounts($mybb->user);
+    foreach ($allAccounts as $account) {
+        if ($account['uid'] == $linkedUid) {
+            return $account;
+        }
+    }
+
+    error("Linked account with UID $linkedUid not found in user's accounts.");
 }

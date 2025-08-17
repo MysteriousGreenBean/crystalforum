@@ -1,17 +1,7 @@
-<html>
-<head>
-<title>{$mybb->settings['bbname']} - {$lang->edit_sig}</title>
-{$headerinclude}
-</head>
-<body>
-{$header}
 <form action="usercp.php" method="post">
 <input type="hidden" name="my_post_key" value="{$mybb->post_code}" />
-<div class="flex-container">
-<div id="nav_width">{$usercpnav}</div>
-<div id="content_width">
+<input type="hidden" name="profileuid" value="{$mybb->user['uid']}" />
 <td valign="top">
-{$error}
 {$signature}
 <table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder newreply">
 <tr>
@@ -39,15 +29,10 @@
 </tr>
 </table>
 <br />
-<div align="center">
+<div align="center" style="margin-bottom: 10px;">
 <input type="hidden" name="action" value="do_editsig" />
 <input type="submit" class="button" name="submit" value="{$lang->update_sig}" />
 <input type="submit" class="button" name="preview" value="{$lang->preview}" />
 </div>
 </td>
-	</div>
-	</div>
 </form>
-{$footer}
-</body>
-</html>
