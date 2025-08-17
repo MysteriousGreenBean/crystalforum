@@ -3807,7 +3807,7 @@ if($mybb->input['action'] == "usergroups")
 		$usergroup = $usergroups[$displayedAccount['usergroup']];
 		$usergroup['title'] = htmlspecialchars_uni($usergroup['title']);
 		$usergroup['usertitle'] = htmlspecialchars_uni($usergroup['usertitle']);
-		// print_r($usergroup);
+
 		if($usergroup['description'])
 		{
 			$usergroup['description'] = htmlspecialchars_uni($usergroup['description']);

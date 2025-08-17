@@ -300,10 +300,23 @@ function build_postbit($post, $post_type=0)
 	if($post['userusername'])
 	{
 		// This post was made by a registered user
-		$post['username'] = $post['userusername'];
-		$post['profilelink_plain'] = get_profile_link($post['uid']);
-		$post['username_formatted'] = format_name($post['username'], $post['usergroup'], $post['displaygroup']);
-		$post['profilelink'] = build_profile_link($post['username_formatted'], $post['uid']);
+		if ($post['uid'] == get_NPC()['uid'])
+		{
+			$posterUser = get_user($post['ParentUid']);
+			$post['profilelink_plain'] = get_profile_link($post['ParentUid']);
+
+			$userName = "[NPC] {$post['NPCName']} ({$posterUser['username']})";
+			$post['username_formatted'] = format_name($userName, $post['usergroup'], $post['displaygroup']);
+			$post['profilelink'] = build_profile_link($post['username_formatted'], $posterUser['uid']);
+		}
+		else {
+			$post['username'] = $post['userusername'];
+			$post['profilelink_plain'] = get_profile_link($post['uid']);
+			$post['username_formatted'] = format_name($post['username'], $post['usergroup'], $post['displaygroup']);
+			$post['profilelink'] = build_profile_link($post['username_formatted'], $post['uid']);
+		}
+
+
 
 		if(trim($post['usertitle']) != "")
 		{

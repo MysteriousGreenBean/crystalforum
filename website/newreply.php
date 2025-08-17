@@ -414,7 +414,8 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 		"message" => $mybb->get_input('message'),
 		"ipaddress" => $session->packedip,
 		"posthash" => $mybb->get_input('posthash'),
-		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid']
+		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+		"NPCName" => $selectedAccount['NPCName'] ?? ''
 	);
 
 	if(isset($mybb->input['pid']))
@@ -1009,7 +1010,8 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 			"message" => $mybb->get_input('message'),
 			"ipaddress" => $session->packedip,
 			"posthash" => $mybb->get_input('posthash'),
-			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid']
+			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+			"NPCName" => $selectedAccount['NPCName'] ?? ''
 		);
 
 		if(isset($mybb->input['pid']))

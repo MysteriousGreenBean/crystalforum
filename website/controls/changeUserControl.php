@@ -43,7 +43,10 @@ class ChangeUserControl {
      * @return ChangeUserControl
      */
     public function withDefaultSelection(int $defaultUid): ChangeUserControl {
-        $this->defaultUid = $defaultUid;
+        if ($defaultUid != get_NPC()['uid']) {
+            $this->defaultUid = $defaultUid;
+        }
+
         return $this;
     }
 
@@ -80,6 +83,7 @@ class ChangeUserControl {
         [$dropdownOptions, $dropdownOptionsCount] = $this->createOptions();
         $singleOptionText = $this->defaultUid != null ? $this->createSingleOptionTextFromDefaultValue() : $this->createSingleOptionText();
 
+        $NPCAllowed = $this->allowedAccountTypes == AllowedAccountTypes::CHARACTER || $this->allowedAccountTypes == AllowedAccountTypes::ALL;
         eval("\$changeuserboxDropdown = \"".$templates->get("changeuserboxDropdown")."\";");
 
         if ($this->usergroup['canAssignAnyUser']) {
@@ -216,6 +220,14 @@ class ChangeUserControl {
             return $db->fetch_array($query);
         }
 
+        $useNPCOverride = $mybb->get_input('use_NPC_override', MyBB::INPUT_INT);
+        $npcName = $mybb->get_input('NPC_name', MyBB::INPUT_STRING);
+        if ($useNPCOverride == 1) {
+            $npc_account = get_NPC();
+            $npc_account['username'] = htmlspecialchars_uni($npcName);
+            $npc_account['NPCName'] = $npc_account['username'];
+            return $npc_account;
+        }
 
         if ($selectedUid === -1) {
             return ['uid' => -1, 'username' => 'Brak konta postaci'];

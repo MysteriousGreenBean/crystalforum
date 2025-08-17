@@ -1364,27 +1364,28 @@ function avatarep_format_names(&$content)
 		
 		if (isset($cache->cache['users']) && !empty($cache->cache['users']))
 		{
-			$result = $db->simple_select('users', 'uid, username, usergroup, displaygroup', 'uid IN (' . implode(',', array_keys($cache->cache['users'])) . ')');
-			while ($avatarep = $db->fetch_array($result))
-			{
-				$username = format_name($avatarep['username'], $avatarep['usergroup'], $avatarep['displaygroup']);
-				$format = "#{$avatarep['username']}{$avatarep['uid']}#";
-				if(is_array($cache->cache['groups']) && is_array($cache->cache['mods']))
-				{
-					if(in_array($avatarep['uid'], $cache->cache['mods']))
-					{
-						$old_username = str_replace('{username}', $format, $cache->cache['usergroups'][$avatarep['usergroup']]['namestyle']);
-						if ($old_username != '')
-						{
-							$content = str_replace($old_username, $format, $content);
-						}
-					}
-					
-				}
-		
-				$content = str_replace($format, $username, $content);			
-				unset($cache->cache['users'][$avatarep['uid']]);
-			}
+            $uids = array_keys($cache->cache['users']);
+            $result = $db->simple_select('users', 'uid, username, usergroup, displaygroup', 'uid IN (' . implode(',', $uids) . ')');
+            while ($user = $db->fetch_array($result)) {
+                $uid = $user['uid'];
+                $real_username = $user['username'];
+                $usergroup = $user['usergroup'];
+                $displaygroup = $user['displaygroup'];
+                // Use regex to match #anyusernameUID#
+                $content = preg_replace_callback(
+                    '/#(.*?)' . $uid . '#/',
+                    function ($matches) use ($real_username, $usergroup, $displaygroup) {
+                        $matched_username = $matches[1];
+                        // If the username in the string does NOT match the real username, add [NPC]
+                        if ($matched_username !== $real_username) {
+                            $matched_username = '[NPC] ' . $matched_username;
+                        }
+                        return format_name($matched_username, $usergroup, $displaygroup);
+                    },
+                    $content
+                );
+                unset($cache->cache['users'][$uid]);
+            }
 
 			if (isset($fmdata['users']))
 			{

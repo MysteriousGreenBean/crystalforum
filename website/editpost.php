@@ -535,6 +535,8 @@ if($mybb->input['action'] == "do_editpost" && $mybb->request_method == "post")
 		"edit_uid" => $mybb->user['uid'],
 		"message" => $mybb->get_input('message'),
 		"editreason" => $mybb->get_input('editreason'),
+		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+		"NPCName" => $selectedAccount['NPCName'] ?? ''
 	);
 
 	$postoptions = $mybb->get_input('postoptions', MyBB::INPUT_ARRAY);
@@ -781,6 +783,8 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 			"username" => $selectedAccount['username'] ?? $post['username'],
 			"edit_uid" => $mybb->user['uid'],
 			"message" => $mybb->get_input('message'),
+			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+			"NPCName" => $selectedAccount['NPCName'] ?? ''
 		);
 
 		$postoptions = $mybb->get_input('postoptions', MyBB::INPUT_ARRAY);
