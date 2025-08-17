@@ -6085,7 +6085,7 @@ function update_last_post($tid)
 	global $db;
 
 	$query = $db->query("
-		SELECT u.uid, u.username, p.username AS postusername, p.dateline
+		SELECT u.uid, u.username, p.username AS postusername, p.dateline, p.NPCName, p.ParentUid
 		FROM ".TABLE_PREFIX."posts p
 		LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=p.uid)
 		WHERE p.tid='$tid' AND p.visible='1'
@@ -6121,12 +6121,20 @@ function update_last_post($tid)
 		$lastpost['dateline'] = $firstpost['dateline'];
 	}
 
-	$lastpost['username'] = $db->escape_string($lastpost['username']);
+	if ($lastpost['NPCName']) 
+	{
+		$lastpost['username'] = $db->escape_string($lastpost['NPCName']);
+	}
+	else 
+	{
+		$lastpost['username'] = $db->escape_string($lastpost['username']);
+	}
+
 
 	$update_array = array(
 		'lastpost' => (int)$lastpost['dateline'],
 		'lastposter' => $lastpost['username'],
-		'lastposteruid' => (int)$lastpost['uid']
+		'lastposteruid' => (int)$lastpost['ParentUid']
 	);
 	$db->update_query("threads", $update_array, "tid='{$tid}'");
 }
@@ -6647,6 +6655,10 @@ function get_user($uid)
 	{
 		return $user_cache[$uid];
 	}
+	elseif(get_NPC()['uid'] == $uid){
+
+		return get_NPC();
+	}
 	elseif($uid > 0)
 	{
 		$query = $db->simple_select("users", "*", "uid = '{$uid}'");
@@ -6673,6 +6685,36 @@ function get_user($uid)
 		$user_cache[$uid] = fix_default_avatars($user_cache[$uid]);
 
 		return $user_cache[$uid];
+	}
+
+	return array();
+}
+
+/**
+ * Get the user data of an NPC account
+ *
+ * @return array The NPC's data
+ */
+function get_NPC(){
+	global $db, $mybb;
+	static $user_cache;
+
+	if(isset($user_cache["NPC"]))
+	{
+		return $user_cache["NPC"];
+	}
+	else
+	{
+		$query = $db->simple_select("users", "*", "username = 'NPC'");
+
+		$user_cache["NPC"] = $db->fetch_array($query);
+
+		$user_cache["NPC"]['parent'] = $mybb->user['parent'];
+		$user_cache["NPC"]['characters'] = [];
+
+		$user_cache["NPC"] = fix_default_avatars($user_cache["NPC"]);
+
+		return $user_cache["NPC"];
 	}
 	return array();
 }

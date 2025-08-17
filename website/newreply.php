@@ -159,7 +159,8 @@ if($mybb->user['uid'] != 0)
 {
 	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
 			->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']));
-	if ($post != null){
+	if ($post != null)
+	{
 		$loginbox = $loginbox->withDefaultSelection($post['uid']);
 	}
 	$loginbox = $loginbox->render();
@@ -414,7 +415,8 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 		"message" => $mybb->get_input('message'),
 		"ipaddress" => $session->packedip,
 		"posthash" => $mybb->get_input('posthash'),
-		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid']
+		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+		"NPCName" => $selectedAccount['NPCName'] ?? ''
 	);
 
 	if(isset($mybb->input['pid']))
@@ -1009,7 +1011,8 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 			"message" => $mybb->get_input('message'),
 			"ipaddress" => $session->packedip,
 			"posthash" => $mybb->get_input('posthash'),
-			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid']
+			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+			"NPCName" => $selectedAccount['NPCName'] ?? ''
 		);
 
 		if(isset($mybb->input['pid']))

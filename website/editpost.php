@@ -535,6 +535,8 @@ if($mybb->input['action'] == "do_editpost" && $mybb->request_method == "post")
 		"edit_uid" => $mybb->user['uid'],
 		"message" => $mybb->get_input('message'),
 		"editreason" => $mybb->get_input('editreason'),
+		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+		"NPCName" => $selectedAccount['NPCName'] ?? ''
 	);
 
 	$postoptions = $mybb->get_input('postoptions', MyBB::INPUT_ARRAY);
@@ -622,8 +624,17 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 	}
 
 	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
-		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']))
-		->withDefaultSelection($post['uid'])->render();
+		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']));
+
+	$NPC = get_NPC();
+	if ($post['uid'] == $NPC['uid']) {
+		$loginbox = $loginbox->withDefaultNPCSelection($post['NPCName']);
+	}
+	else 
+	{
+		$loginbox = $loginbox->withDefaultSelection($post['uid']);
+	}
+	$loginbox = $loginbox->render();
 
 	$deletebox = '';
 	
@@ -781,6 +792,8 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 			"username" => $selectedAccount['username'] ?? $post['username'],
 			"edit_uid" => $mybb->user['uid'],
 			"message" => $mybb->get_input('message'),
+			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+			"NPCName" => $selectedAccount['NPCName'] ?? ''
 		);
 
 		$postoptions = $mybb->get_input('postoptions', MyBB::INPUT_ARRAY);

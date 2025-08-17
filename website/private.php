@@ -874,8 +874,8 @@ if($mybb->input['action'] == "send")
 					}
 				}
 			}
-			
-			$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
+
+			$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->withoutNPCSelection()->render();
 		}
 		else
 		{
@@ -894,7 +894,7 @@ if($mybb->input['action'] == "send")
 			if($mybb->input['do'] == 'forward')
 			{
 				$subject = "Fw: $subject";
-				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
+				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->withoutNPCSelection()->render();
 			}
 			elseif($mybb->input['do'] == 'reply')
 			{
@@ -912,6 +912,7 @@ if($mybb->input['action'] == "send")
 				$to = htmlspecialchars_uni($to);
 				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
 					->withOnlySelection((int)$pm['toid'])
+					->withoutNPCSelection()
 					->render();
 			}
 			else if($mybb->input['do'] == 'replyall')
@@ -941,15 +942,16 @@ if($mybb->input['action'] == "send")
 				}
 				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
 					->withOnlySelection((int)$pm['toid'])
+					->withoutNPCSelection()
 					->render();
 			}
 			else {
-				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
+				$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->withoutNPCSelection()->render();
 			}
 		}
 	}
 	else {
-		$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->render();
+		$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)->withoutNPCSelection()->render();
 	}
 
 	// New PM with recipient preset

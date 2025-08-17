@@ -1131,7 +1131,9 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary($post['ipaddress']),
 				"includesig" => $post['options']['signature'],
 				"smilieoff" => $post['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $post['ParentUid'],
+				"NPCName" => $post['NPCName']
 			);
 
 			$plugins->run_hooks("datahandler_post_insert_post", $this);
@@ -1157,6 +1159,7 @@ class PostDataHandler extends DataHandler
 				"smilieoff" => $post['options']['disablesmilies'],
 				"visible" => $visible,
 				"ParentUid" => $post['ParentUid'],
+				"NPCName" => $post['NPCName']
 			);
 
 			$plugins->run_hooks("datahandler_post_insert_post", $this);
@@ -1531,7 +1534,7 @@ class PostDataHandler extends DataHandler
 				"username" => $db->escape_string($thread['username']),
 				"dateline" => (int)$thread['dateline'],
 				"lastpost" => (int)$thread['dateline'],
-				"lastposter" => $db->escape_string($thread['username']),
+				"lastposter" => $thread['NPCName'] ?? $db->escape_string($thread['username']),
 				"visible" => $visible
 			);
 
@@ -1550,6 +1553,7 @@ class PostDataHandler extends DataHandler
 				"smilieoff" => $thread['options']['disablesmilies'],
 				"visible" => $visible,
 				"ParentUid" => $thread['ParentUid'],
+				"NPCName" => $thread['NPCName']
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1570,7 +1574,7 @@ class PostDataHandler extends DataHandler
 				"username" => $db->escape_string($thread['username']),
 				"dateline" => (int)$thread['dateline'],
 				"lastpost" => (int)$thread['dateline'],
-				"lastposter" => $db->escape_string($thread['username']),
+				"lastposter" => $thread['NPCName'] ?? $db->escape_string($thread['username']),
 				"lastposteruid" => $thread['uid'],
 				"views" => 0,
 				"replies" => 0,
@@ -1596,6 +1600,7 @@ class PostDataHandler extends DataHandler
 				"smilieoff" => $thread['options']['disablesmilies'],
 				"visible" => $visible,
 				"ParentUid" => $thread['ParentUid'],
+				"NPCName" => $thread['NPCName']
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1967,6 +1972,11 @@ class PostDataHandler extends DataHandler
 		if (isset($post['ParentUid']))
 		{
 			$this->post_update_data['ParentUid'] = (int)$post['ParentUid'];
+		}
+
+		if (isset($post['NPCName']))
+		{
+			$this->post_update_data['NPCName'] = $db->escape_string($post['NPCName']);
 		}
 
 		if(isset($post['subject']))
