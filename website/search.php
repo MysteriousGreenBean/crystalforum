@@ -23,6 +23,7 @@ require_once "./global.php";
 require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_search.php";
 require_once MYBB_ROOT."inc/class_parser.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -668,7 +669,7 @@ if($mybb->input['action'] == "results")
 		{
 			error($lang->error_nosearchresults);
 		}
-		$multipage = multipage($threadcount, $perpage, $page, "search.php?action=results&amp;sid=$sid&amp;sortby=$sortby&amp;order=$order&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
+		$multipage = multipage($threadcount, $perpage, $page, "search.php?action=results&amp;sid=$sid&amp;sortby=$sortby&amp;order=$order&amp;filtered={$filtered}&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
 		if($upper > $threadcount)
 		{
 			$upper = $threadcount;
@@ -747,8 +748,54 @@ if($mybb->input['action'] == "results")
 
 		$tids = array();
 		$pids = array();
+
+		$filteredWhereForPosts = '';
+		$filteredWhereForSearchResults = '';
+
+		if (isset($mybb->input['filtered']) && isset($mybb->input['uid'])) 
+		{
+			$shouldShowFilter = true;
+			$filtered = $mybb->get_input('filtered', MyBB::INPUT_INT);
+			$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
+
+			$user = get_user($uid);
+			$selectedAccount = ChangeUserControl::getUserAccountSelection($user);
+
+			print_r($selectedAccount);
+			if (isset($selectedAccount['id']))
+			{
+				$filtered = false;
+			}
+			else if (isset($selectedAccount['uid']) && $selectedAccount['uid'] > 0)
+			{
+				$filtered = true;
+				$uid = $selectedAccount['uid'];
+			}
+
+		    $filterDropdown = 
+				ChangeUserControl::prepareFor($user)
+				->withoutNPCSelection()
+				->withAdditionalOption("Wszystkie", -5)
+				->asDropdownOnly();
+
+			if ($filtered == false) 
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection(-1);
+			}
+			else if ($uid)
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection($uid);
+				// $filteredWhereForPosts = " AND uid={$uid}";
+				// $filteredWhereForSearchResults = " AND p.uid={$uid}";
+			}
+
+			$filterDropdown = $filterDropdown->render();
+
+			$filterButtonHref = "search.php?action=results&uid={$uid}&filtered=true&sid={$sid}";
+		}
+
 		// Make sure the posts we're viewing we have permission to view.
-		$query = $db->simple_select("posts", "pid, tid", "pid IN(".$db->escape_string($search['posts']).") AND ({$unapproved_where})", $post_cache_options);
+		$query = $db->simple_select("posts", "pid, tid", "pid IN(".$db->escape_string($search['posts']).") AND ({$unapproved_where}) {$filteredWhereForPosts}", $post_cache_options);
 		while($post = $db->fetch_array($query))
 		{
 			$pids[$post['pid']] = $post['tid'];
@@ -852,7 +899,7 @@ if($mybb->input['action'] == "results")
 			LEFT JOIN ".TABLE_PREFIX."threads t ON (t.tid=p.tid)
 			LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=p.uid)
 			LEFT JOIN ".TABLE_PREFIX."forums f ON (t.fid=f.fid)
-			WHERE p.pid IN (".$db->escape_string($search['posts']).")
+			WHERE p.pid IN (".$db->escape_string($search['posts'])."){$filteredWhereForSearchResults}
 			ORDER BY $sortfield $order
 			LIMIT $start, $perpage
 		");
@@ -1077,7 +1124,7 @@ if($mybb->input['action'] == "results")
 		{
 			error($lang->error_nosearchresults);
 		}
-		$multipage = multipage($postcount, $perpage, $page, "search.php?action=results&amp;sid=".htmlspecialchars_uni($mybb->get_input('sid'))."&amp;sortby=$sortby&amp;order=$order&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
+		$multipage = multipage($postcount, $perpage, $page, "search.php?action=results&amp;sid=".htmlspecialchars_uni($mybb->get_input('sid'))."&amp;sortby=$sortby&amp;order=$order&amp;filtered={$filtered}&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
 		if($upper > $postcount)
 		{
 			$upper = $postcount;
@@ -1126,7 +1173,7 @@ if($mybb->input['action'] == "results")
 		}
 
 		$plugins->run_hooks("search_results_end");
-
+		
 		eval("\$searchresults = \"".$templates->get("search_results_posts")."\";");
 		output_page($searchresults);
 	}
@@ -1213,7 +1260,11 @@ elseif($mybb->input['action'] == "findguest")
 }
 elseif($mybb->input['action'] == "finduser")
 {
-	$where_sql = "uid='".$mybb->get_input('uid', MyBB::INPUT_INT)."'";
+	$searchedUser = get_user($mybb->get_input('uid', MyBB::INPUT_INT));
+	$allUserAccounts = get_all_accounts($searchedUser);
+	$character_uids = array_column($allUserAccounts, 'uid');
+	$character_uid_string = implode(',', array_unique($character_uids));
+	$where_sql = "uid IN (".$character_uid_string.")";
 
 	$unsearchforums = get_unsearchable_forums();
 	if($unsearchforums)
@@ -1289,11 +1340,16 @@ elseif($mybb->input['action'] == "finduser")
 	);
 	$plugins->run_hooks("search_do_search_process");
 	$db->insert_query("searchlog", $searcharray);
-	redirect("search.php?action=results&sid=".$sid, $lang->redirect_searchresults);
+	redirect("search.php?action=results&uid={$searchedUser['uid']}&filtered=false&sid=".$sid, $lang->redirect_searchresults);
 }
 elseif($mybb->input['action'] == "finduserthreads")
 {
-	$where_sql = "uid='".$mybb->get_input('uid', MyBB::INPUT_INT)."'";
+	$searchedUser = get_user($mybb->get_input('uid', MyBB::INPUT_INT));
+	$allUserAccounts = get_all_accounts($searchedUser);
+	$character_uids = array_column($allUserAccounts, 'uid');
+	$character_uid_string = implode(',', array_unique($character_uids));
+
+	$where_sql = "uid IN (".$character_uid_string.")";
 
 	$unsearchforums = get_unsearchable_forums();
 	if($unsearchforums)

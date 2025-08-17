@@ -153,7 +153,7 @@ function get_accounts_for_memberlist($linkedAccounts) {
  * @param user User data containing characters
  * @return array List of all accounts for the user. First element will be the parent user, rest will be alphabetically sorted.
  */
-function get_all_accounts($user){
+function get_all_accounts(array $user){
     $accounts = [];
 
     // Add $user

@@ -7,10 +7,22 @@
 {$header}
 <table width="100%" align="center" border="0">
 	<tr>
+		<if $shouldShowFilter then>
+			<form action="search.php" method="post" id="search_form">
+				<input type="hidden" name="action" value="results" />
+				<input type="hidden" name="uid" value="{$uid}" />
+				<input type="hidden" name="filtered" value="true" />
+				<input type="hidden" name="sid" value="{$sid}" />
+				<td align="left" valign="top">
+					Konta: {$filterDropdown}
+					<input type="submit" class="button" value="Filtruj" />
+				</td>
+			</form>
+		</if>
 		<td align="right" valign="top">{$multipage}</td>
 	</tr>
 </table>
-<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder">
+<table border="0" cellspacing="{$theme['borderwidth']}" cellpadding="{$theme['tablespace']}" class="tborder" style="margin-bottom: 10px; margin-top: 10px;">
 	<tr>
 		<td colspan="9" class="thead">
 			<strong>{$lang->search_results}</strong>
