@@ -244,13 +244,14 @@ class ChangeUserControl {
         $useNPCOverride = $mybb->get_input('use_NPC_override', MyBB::INPUT_INT);
         $npcName = $mybb->get_input('NPC_name', MyBB::INPUT_STRING);
         if ($useNPCOverride == 1) {
-            $npc_account = get_NPC();
-            $npc_account['username'] = htmlspecialchars_uni($npcName);
-
-            if (!isset($npc_account['NPCName']))
+            if (!$npcName)
             {
                 error("Imię NPC musi zostać podane");
             }
+
+            $npc_account = get_NPC();
+            $npc_account['username'] = htmlspecialchars_uni($npcName);
+
 
             $npc_account['NPCName'] = $npc_account['username'];
             return $npc_account;
