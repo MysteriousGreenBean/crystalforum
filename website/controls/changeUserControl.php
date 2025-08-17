@@ -301,7 +301,7 @@ class ChangeUserControl {
         }
 
         if ($selectedUid < 0) {
-            return ['id' => -5];
+            return ['id' => $selectedUid];
         }
 
         if ($selectedUid === -1) {

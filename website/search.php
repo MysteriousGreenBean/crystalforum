@@ -255,12 +255,14 @@ if($mybb->input['action'] == "results")
 		$unapproved_where_t = get_visible_where('t');
 
 		$where_conditions = '';
+		$NPCAccount = get_NPC();
 		if (isset($mybb->input['filtered']) && isset($mybb->input['uid'])) 
 		{
 			$filtered = $mybb->get_input('filtered', MyBB::INPUT_INT);
 			$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
 
 			$user = get_user($uid);
+			$user['characters'][] = $NPCAccount;
 			$selectedAccount = ChangeUserControl::getUserAccountSelection($user);
 
 			if (isset($selectedAccount['id']))
@@ -287,6 +289,7 @@ if($mybb->input['action'] == "results")
 			{
 				$filterDropdown = $filterDropdown->withDefaultSelection($uid);
 				$where_conditions = "t.uid={$uid} AND ";
+				$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
 			}
 
 			$filterDropdown = $filterDropdown->render();
@@ -299,7 +302,12 @@ if($mybb->input['action'] == "results")
 		if($search['querycache'] != "")
 		{
 			$where_conditions .= $search['querycache'];
-			$query = $db->simple_select("threads t", "t.tid", $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' ORDER BY t.lastpost DESC {$limitsql}");
+			$query = $db->query("
+				SELECT t.tid
+				FROM ".TABLE_PREFIX."threads t
+				LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
+				WHERE ". $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' ORDER BY t.lastpost DESC {$limitsql}
+			");
 			while($thread = $db->fetch_array($query))
 			{
 				$threads[$thread['tid']] = $thread['tid'];
@@ -321,7 +329,12 @@ if($mybb->input['action'] == "results")
 		else
 		{
 			$where_conditions .= "t.tid IN (".$search['threads'].")";
-			$query = $db->simple_select("threads t", "COUNT(t.tid) AS resultcount", $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' {$limitsql}");
+			$query = $db->query("
+				SELECT COUNT(t.tid) AS resultcount
+				FROM ".TABLE_PREFIX."threads t
+				LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
+				WHERE ". $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' {$limitsql}
+			");
 			$count = $db->fetch_array($query);
 
 			if(!$count['resultcount'])
@@ -374,10 +387,11 @@ if($mybb->input['action'] == "results")
 			'limit' => $perpage
 		);
 		$query = $db->query("
-			SELECT t.*, u.username AS userusername
+			SELECT t.*, u.username AS userusername, p.*
 			FROM ".TABLE_PREFIX."threads t
 			LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=t.uid)
 			LEFT JOIN ".TABLE_PREFIX."forums f ON (t.fid=f.fid)
+			LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
 			WHERE $where_conditions AND ({$unapproved_where_t}) {$permsql} AND t.closed NOT LIKE 'moved|%'
 			ORDER BY $sortfield $order
 			LIMIT $start, $perpage
@@ -449,8 +463,9 @@ if($mybb->input['action'] == "results")
 			{
 				$thread['username'] = $thread['userusername'];
 			}
-			$thread['username'] = htmlspecialchars_uni($thread['username']);
-			$thread['profilelink'] = build_profile_link($thread['username'], $thread['uid']);
+
+			$thread['username'] = $thread['uid'] == $NPCAccount['uid'] ? htmlspecialchars_uni($thread['NPCName']) : htmlspecialchars_uni($thread['username']);
+			$thread['profilelink'] = $thread['uid'] == $NPCAccount['uid'] ?  build_profile_link($thread['NPCName'], $thread['uid']) : build_profile_link($thread['username'], $thread['uid']);
 
 			// If this thread has a prefix, insert a space between prefix and subject
 			if($thread['prefix'] != 0)
@@ -793,14 +808,16 @@ if($mybb->input['action'] == "results")
 		$filteredWhereForPosts = '';
 		$filteredWhereForSearchResults = '';
 
+		$NPCAccount = get_NPC();
 		if (isset($mybb->input['filtered']) && isset($mybb->input['uid'])) 
 		{
 			$filtered = $mybb->get_input('filtered', MyBB::INPUT_INT);
 			$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
 
 			$user = get_user($uid);
+			$user['characters'][] = $NPCAccount;
 			$selectedAccount = ChangeUserControl::getUserAccountSelection($user);
-
+			
 			if (isset($selectedAccount['id']))
 			{
 				$filtered = false;
@@ -816,7 +833,7 @@ if($mybb->input['action'] == "results")
 				->withoutNPCSelection()
 				->withAdditionalOption("Wszystkie", -5)
 				->asDropdownOnly();
-
+			
 			if ($filtered == false) 
 			{
 				$filterDropdown = $filterDropdown->withDefaultSelection(-1);
@@ -826,11 +843,10 @@ if($mybb->input['action'] == "results")
 				$filterDropdown = $filterDropdown->withDefaultSelection($uid);
 				$filteredWhereForPosts = " AND uid={$uid}";
 				$filteredWhereForSearchResults = " AND p.uid={$uid}";
+				$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
 			}
 
 			$filterDropdown = $filterDropdown->render();
-
-			$filterButtonHref = "search.php?action=results&uid={$uid}&filtered=true&sid={$sid}";
 			eval("\$accountfilter .= \"".$templates->get("search_results_account_filter")."\";");
 		}
 
@@ -958,8 +974,8 @@ if($mybb->input['action'] == "results")
 			{
 				$post['username'] = $post['userusername'];
 			}
-			$post['username'] = htmlspecialchars_uni($post['username']);
-			$post['profilelink'] = build_profile_link($post['username'], $post['uid']);
+			$post['username'] = $post['uid'] == $NPCAccount['uid'] ? htmlspecialchars_uni("{$post['NPCName']}") : htmlspecialchars_uni($post['username']);
+			$post['profilelink'] = $post['uid'] == $NPCAccount['uid'] ? build_profile_link($post['username'], $post['parent']['uid']) : build_profile_link($post['username'], $post['uid']);
 			$post['subject'] = $parser->parse_badwords($post['subject']);
 			$post['thread_subject'] = $parser->parse_badwords($post['thread_subject']);
 			$post['thread_subject'] = htmlspecialchars_uni($post['thread_subject']);
@@ -1302,6 +1318,7 @@ elseif($mybb->input['action'] == "finduser")
 {
 	$searchedUser = get_user($mybb->get_input('uid', MyBB::INPUT_INT));
 	$allUserAccounts = get_all_accounts($searchedUser);
+	$allUserAccounts[] = get_NPC();
 	$character_uids = array_column($allUserAccounts, 'uid');
 	$character_uid_string = implode(',', array_unique($character_uids));
 	$where_sql = "uid IN (".$character_uid_string.")";
@@ -1350,7 +1367,7 @@ elseif($mybb->input['action'] == "finduser")
 
 	$pids = '';
 	$comma = '';
-	$query = $db->simple_select("posts", "pid", "{$where_sql}", $options);
+	$query = $db->simple_select("posts", "pid", "{$where_sql} AND ParentUid = {$searchedUser['parent']['uid']}", $options);
 	while($pid = $db->fetch_field($query, "pid"))
 	{
 		$pids .= $comma.$pid;
@@ -1386,24 +1403,25 @@ elseif($mybb->input['action'] == "finduserthreads")
 {
 	$searchedUser = get_user($mybb->get_input('uid', MyBB::INPUT_INT));
 	$allUserAccounts = get_all_accounts($searchedUser);
+	$allUserAccounts[] = get_NPC();
 	$character_uids = array_column($allUserAccounts, 'uid');
 	$character_uid_string = implode(',', array_unique($character_uids));
 
-	$where_sql = "uid IN (".$character_uid_string.")";
+	$where_sql = "t.uid IN (".$character_uid_string.") AND p.ParentUid = {$searchedUser['parent']['uid']}";
 
 	$unsearchforums = get_unsearchable_forums();
 	if($unsearchforums)
 	{
-		$where_sql .= " AND fid NOT IN ($unsearchforums)";
+		$where_sql .= " AND t.fid NOT IN ($unsearchforums)";
 	}
 	$inactiveforums = get_inactive_forums();
 	if($inactiveforums)
 	{
-		$where_sql .= " AND fid NOT IN ($inactiveforums)";
+		$where_sql .= " AND t.fid NOT IN ($inactiveforums)";
 	}
 
 	// Moderators can view unapproved threads and deleted threads from forums they moderate
-	$unapproved_where = get_visible_where();
+	$unapproved_where = get_visible_where("t");
 	$where_sql .= " AND ({$unapproved_where})";
 
 	$permsql = "";
@@ -1420,12 +1438,19 @@ elseif($mybb->input['action'] == "finduserthreads")
 	}
 	if(!empty($onlyusfids))
 	{
-		$where_sql .= "AND ((fid IN(".implode(',', $onlyusfids).") AND uid='{$mybb->user['uid']}') OR fid NOT IN(".implode(',', $onlyusfids)."))";
+		$where_sql .= "AND ((t.fid IN(".implode(',', $onlyusfids).") AND t.uid='{$mybb->user['uid']}') OR t.fid NOT IN(".implode(',', $onlyusfids)."))";
 	}
 
 	$tids = '';
 	$comma = '';
-	$query = $db->simple_select("threads", "tid", $where_sql);
+
+	$query = $db->query("
+		SELECT p.*, t.*
+		FROM ".TABLE_PREFIX."threads t
+		LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
+		WHERE {$where_sql}
+	");
+
 	while($tid = $db->fetch_field($query, "tid"))
 	{
 		$tids .= $comma.$tid;
