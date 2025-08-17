@@ -313,7 +313,32 @@ class session
 			}
         }
 
+		require_once MYBB_ROOT."inc/functions_accountswitcher.php";
+		$all_user_accounts = get_all_accounts($mybb->user);
+		$all_usergroup_ids = [];
+		$all_additionalgroup_ids = [];
+
+		foreach ($all_user_accounts as $account) {
+			if (!empty($account['usergroup'])) {
+				$all_usergroup_ids[] = $account['usergroup'];
+			}
+			if (!empty($account['additionalgroups'])) {
+				$groups = explode(',', $account['additionalgroups']);
+				foreach ($groups as $group) {
+					if ($group !== '') {
+						$all_additionalgroup_ids[] = $group;
+					}
+				}
+			}
+		}
+
+		// Merge and keep only unique values
+		$merged_groups = array_unique(array_merge($all_usergroup_ids, $all_additionalgroup_ids));
+
+		// Prepare as comma-separated string
+		$mybbgroups = implode(',', $merged_groups);
 		$mybb->usergroup = usergroup_permissions($mybbgroups);
+
 		if(!$mybb->user['displaygroup'])
 		{
 			$mybb->user['displaygroup'] = $mybb->user['usergroup'];
