@@ -23,6 +23,7 @@ require_once "./global.php";
 require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_search.php";
 require_once MYBB_ROOT."inc/class_parser.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -253,11 +254,60 @@ if($mybb->input['action'] == "results")
 		// Moderators can view unapproved threads and deleted threads from forums they moderate
 		$unapproved_where_t = get_visible_where('t');
 
+		$where_conditions = '';
+		$NPCAccount = get_NPC();
+		if (isset($mybb->input['filtered']) && isset($mybb->input['uid'])) 
+		{
+			$filtered = $mybb->get_input('filtered', MyBB::INPUT_INT);
+			$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
+
+			$user = get_user($uid);
+			$user['characters'][] = $NPCAccount;
+			$selectedAccount = ChangeUserControl::getUserAccountSelection($user);
+
+			if (isset($selectedAccount['id']))
+			{
+				$filtered = false;
+			}
+			else if (isset($selectedAccount['uid']) && $selectedAccount['uid'] > 0)
+			{
+				$filtered = true;
+				$uid = $selectedAccount['uid'];
+			}
+
+		    $filterDropdown = 
+				ChangeUserControl::prepareFor($user)
+				->withoutNPCSelection()
+				->withAdditionalOption("Wszystkie", -5)
+				->asDropdownOnly();
+
+			if ($filtered == false) 
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection(-1);
+			}
+			else if ($uid)
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection($uid);
+				$where_conditions = "t.uid={$uid} AND ";
+				$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
+			}
+
+			$filterDropdown = $filterDropdown->render();
+
+			$filterButtonHref = "search.php?action=results&uid={$uid}&filtered=true&sid={$sid}";
+			eval("\$accountfilter .= \"".$templates->get("search_results_account_filter")."\";");
+		}
+
 		// If we have saved WHERE conditions, execute them
 		if($search['querycache'] != "")
 		{
-			$where_conditions = $search['querycache'];
-			$query = $db->simple_select("threads t", "t.tid", $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' ORDER BY t.lastpost DESC {$limitsql}");
+			$where_conditions .= $search['querycache'];
+			$query = $db->query("
+				SELECT t.tid
+				FROM ".TABLE_PREFIX."threads t
+				LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
+				WHERE ". $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' ORDER BY t.lastpost DESC {$limitsql}
+			");
 			while($thread = $db->fetch_array($query))
 			{
 				$threads[$thread['tid']] = $thread['tid'];
@@ -278,8 +328,13 @@ if($mybb->input['action'] == "results")
 		// This search doesn't use a query cache, results stored in search table.
 		else
 		{
-			$where_conditions = "t.tid IN (".$search['threads'].")";
-			$query = $db->simple_select("threads t", "COUNT(t.tid) AS resultcount", $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' {$limitsql}");
+			$where_conditions .= "t.tid IN (".$search['threads'].")";
+			$query = $db->query("
+				SELECT COUNT(t.tid) AS resultcount
+				FROM ".TABLE_PREFIX."threads t
+				LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
+				WHERE ". $where_conditions. " AND ({$unapproved_where_t}) AND t.closed NOT LIKE 'moved|%' {$limitsql}
+			");
 			$count = $db->fetch_array($query);
 
 			if(!$count['resultcount'])
@@ -332,10 +387,11 @@ if($mybb->input['action'] == "results")
 			'limit' => $perpage
 		);
 		$query = $db->query("
-			SELECT t.*, u.username AS userusername
+			SELECT t.*, u.username AS userusername, p.*
 			FROM ".TABLE_PREFIX."threads t
 			LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=t.uid)
 			LEFT JOIN ".TABLE_PREFIX."forums f ON (t.fid=f.fid)
+			LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
 			WHERE $where_conditions AND ({$unapproved_where_t}) {$permsql} AND t.closed NOT LIKE 'moved|%'
 			ORDER BY $sortfield $order
 			LIMIT $start, $perpage
@@ -407,8 +463,9 @@ if($mybb->input['action'] == "results")
 			{
 				$thread['username'] = $thread['userusername'];
 			}
-			$thread['username'] = htmlspecialchars_uni($thread['username']);
-			$thread['profilelink'] = build_profile_link($thread['username'], $thread['uid']);
+
+			$thread['username'] = $thread['uid'] == $NPCAccount['uid'] ? htmlspecialchars_uni($thread['NPCName']) : htmlspecialchars_uni($thread['username']);
+			$thread['profilelink'] = $thread['uid'] == $NPCAccount['uid'] ?  build_profile_link($thread['NPCName'], $thread['uid']) : build_profile_link($thread['username'], $thread['uid']);
 
 			// If this thread has a prefix, insert a space between prefix and subject
 			if($thread['prefix'] != 0)
@@ -668,7 +725,7 @@ if($mybb->input['action'] == "results")
 		{
 			error($lang->error_nosearchresults);
 		}
-		$multipage = multipage($threadcount, $perpage, $page, "search.php?action=results&amp;sid=$sid&amp;sortby=$sortby&amp;order=$order&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
+		$multipage = multipage($threadcount, $perpage, $page, "search.php?action=results&amp;sid=$sid&amp;sortby=$sortby&amp;order=$order&amp;filtered={$filtered}&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
 		if($upper > $threadcount)
 		{
 			$upper = $threadcount;
@@ -747,8 +804,54 @@ if($mybb->input['action'] == "results")
 
 		$tids = array();
 		$pids = array();
+
+		$filteredWhereForPosts = '';
+		$filteredWhereForSearchResults = '';
+
+		$NPCAccount = get_NPC();
+		if (isset($mybb->input['filtered']) && isset($mybb->input['uid'])) 
+		{
+			$filtered = $mybb->get_input('filtered', MyBB::INPUT_INT);
+			$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
+
+			$user = get_user($uid);
+			$user['characters'][] = $NPCAccount;
+			$selectedAccount = ChangeUserControl::getUserAccountSelection($user);
+			
+			if (isset($selectedAccount['id']))
+			{
+				$filtered = false;
+			}
+			else if (isset($selectedAccount['uid']) && $selectedAccount['uid'] > 0)
+			{
+				$filtered = true;
+				$uid = $selectedAccount['uid'];
+			}
+
+		    $filterDropdown = 
+				ChangeUserControl::prepareFor($user)
+				->withoutNPCSelection()
+				->withAdditionalOption("Wszystkie", -5)
+				->asDropdownOnly();
+			
+			if ($filtered == false) 
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection(-1);
+			}
+			else if ($uid)
+			{
+				$filterDropdown = $filterDropdown->withDefaultSelection($uid);
+				$filteredWhereForPosts = " AND uid={$uid}";
+				$filteredWhereForSearchResults = " AND p.uid={$uid}";
+				$uid = $mybb->get_input('uid', MyBB::INPUT_INT);
+			}
+
+			$filterDropdown = $filterDropdown->render();
+			eval("\$accountfilter .= \"".$templates->get("search_results_account_filter")."\";");
+		}
+
 		// Make sure the posts we're viewing we have permission to view.
-		$query = $db->simple_select("posts", "pid, tid", "pid IN(".$db->escape_string($search['posts']).") AND ({$unapproved_where})", $post_cache_options);
+		$query = $db->simple_select("posts", "pid, tid", "pid IN(".$db->escape_string($search['posts']).") AND ({$unapproved_where}) {$filteredWhereForPosts}", $post_cache_options);
 		while($post = $db->fetch_array($query))
 		{
 			$pids[$post['pid']] = $post['tid'];
@@ -852,7 +955,7 @@ if($mybb->input['action'] == "results")
 			LEFT JOIN ".TABLE_PREFIX."threads t ON (t.tid=p.tid)
 			LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=p.uid)
 			LEFT JOIN ".TABLE_PREFIX."forums f ON (t.fid=f.fid)
-			WHERE p.pid IN (".$db->escape_string($search['posts']).")
+			WHERE p.pid IN (".$db->escape_string($search['posts'])."){$filteredWhereForSearchResults}
 			ORDER BY $sortfield $order
 			LIMIT $start, $perpage
 		");
@@ -871,8 +974,8 @@ if($mybb->input['action'] == "results")
 			{
 				$post['username'] = $post['userusername'];
 			}
-			$post['username'] = htmlspecialchars_uni($post['username']);
-			$post['profilelink'] = build_profile_link($post['username'], $post['uid']);
+			$post['username'] = $post['uid'] == $NPCAccount['uid'] ? htmlspecialchars_uni("{$post['NPCName']}") : htmlspecialchars_uni($post['username']);
+			$post['profilelink'] = $post['uid'] == $NPCAccount['uid'] ? build_profile_link($post['username'], $post['parent']['uid']) : build_profile_link($post['username'], $post['uid']);
 			$post['subject'] = $parser->parse_badwords($post['subject']);
 			$post['thread_subject'] = $parser->parse_badwords($post['thread_subject']);
 			$post['thread_subject'] = htmlspecialchars_uni($post['thread_subject']);
@@ -1077,7 +1180,7 @@ if($mybb->input['action'] == "results")
 		{
 			error($lang->error_nosearchresults);
 		}
-		$multipage = multipage($postcount, $perpage, $page, "search.php?action=results&amp;sid=".htmlspecialchars_uni($mybb->get_input('sid'))."&amp;sortby=$sortby&amp;order=$order&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
+		$multipage = multipage($postcount, $perpage, $page, "search.php?action=results&amp;sid=".htmlspecialchars_uni($mybb->get_input('sid'))."&amp;sortby=$sortby&amp;order=$order&amp;filtered={$filtered}&amp;uid=".$mybb->get_input('uid', MyBB::INPUT_INT));
 		if($upper > $postcount)
 		{
 			$upper = $postcount;
@@ -1126,7 +1229,7 @@ if($mybb->input['action'] == "results")
 		}
 
 		$plugins->run_hooks("search_results_end");
-
+		
 		eval("\$searchresults = \"".$templates->get("search_results_posts")."\";");
 		output_page($searchresults);
 	}
@@ -1213,7 +1316,12 @@ elseif($mybb->input['action'] == "findguest")
 }
 elseif($mybb->input['action'] == "finduser")
 {
-	$where_sql = "uid='".$mybb->get_input('uid', MyBB::INPUT_INT)."'";
+	$searchedUser = get_user($mybb->get_input('uid', MyBB::INPUT_INT));
+	$allUserAccounts = get_all_accounts($searchedUser);
+	$allUserAccounts[] = get_NPC();
+	$character_uids = array_column($allUserAccounts, 'uid');
+	$character_uid_string = implode(',', array_unique($character_uids));
+	$where_sql = "uid IN (".$character_uid_string.")";
 
 	$unsearchforums = get_unsearchable_forums();
 	if($unsearchforums)
@@ -1259,7 +1367,7 @@ elseif($mybb->input['action'] == "finduser")
 
 	$pids = '';
 	$comma = '';
-	$query = $db->simple_select("posts", "pid", "{$where_sql}", $options);
+	$query = $db->simple_select("posts", "pid", "{$where_sql} AND ParentUid = {$searchedUser['parent']['uid']}", $options);
 	while($pid = $db->fetch_field($query, "pid"))
 	{
 		$pids .= $comma.$pid;
@@ -1289,25 +1397,31 @@ elseif($mybb->input['action'] == "finduser")
 	);
 	$plugins->run_hooks("search_do_search_process");
 	$db->insert_query("searchlog", $searcharray);
-	redirect("search.php?action=results&sid=".$sid, $lang->redirect_searchresults);
+	redirect("search.php?action=results&uid={$searchedUser['uid']}&filtered=false&sid=".$sid, $lang->redirect_searchresults);
 }
 elseif($mybb->input['action'] == "finduserthreads")
 {
-	$where_sql = "uid='".$mybb->get_input('uid', MyBB::INPUT_INT)."'";
+	$searchedUser = get_user($mybb->get_input('uid', MyBB::INPUT_INT));
+	$allUserAccounts = get_all_accounts($searchedUser);
+	$allUserAccounts[] = get_NPC();
+	$character_uids = array_column($allUserAccounts, 'uid');
+	$character_uid_string = implode(',', array_unique($character_uids));
+
+	$where_sql = "t.uid IN (".$character_uid_string.") AND p.ParentUid = {$searchedUser['parent']['uid']}";
 
 	$unsearchforums = get_unsearchable_forums();
 	if($unsearchforums)
 	{
-		$where_sql .= " AND fid NOT IN ($unsearchforums)";
+		$where_sql .= " AND t.fid NOT IN ($unsearchforums)";
 	}
 	$inactiveforums = get_inactive_forums();
 	if($inactiveforums)
 	{
-		$where_sql .= " AND fid NOT IN ($inactiveforums)";
+		$where_sql .= " AND t.fid NOT IN ($inactiveforums)";
 	}
 
 	// Moderators can view unapproved threads and deleted threads from forums they moderate
-	$unapproved_where = get_visible_where();
+	$unapproved_where = get_visible_where("t");
 	$where_sql .= " AND ({$unapproved_where})";
 
 	$permsql = "";
@@ -1324,12 +1438,19 @@ elseif($mybb->input['action'] == "finduserthreads")
 	}
 	if(!empty($onlyusfids))
 	{
-		$where_sql .= "AND ((fid IN(".implode(',', $onlyusfids).") AND uid='{$mybb->user['uid']}') OR fid NOT IN(".implode(',', $onlyusfids)."))";
+		$where_sql .= "AND ((t.fid IN(".implode(',', $onlyusfids).") AND t.uid='{$mybb->user['uid']}') OR t.fid NOT IN(".implode(',', $onlyusfids)."))";
 	}
 
 	$tids = '';
 	$comma = '';
-	$query = $db->simple_select("threads", "tid", $where_sql);
+
+	$query = $db->query("
+		SELECT p.*, t.*
+		FROM ".TABLE_PREFIX."threads t
+		LEFT JOIN ".TABLE_PREFIX."posts p ON (t.firstpost=p.pid)
+		WHERE {$where_sql}
+	");
+
 	while($tid = $db->fetch_field($query, "tid"))
 	{
 		$tids .= $comma.$tid;
@@ -1350,7 +1471,7 @@ elseif($mybb->input['action'] == "finduserthreads")
 	);
 	$plugins->run_hooks("search_do_search_process");
 	$db->insert_query("searchlog", $searcharray);
-	redirect("search.php?action=results&sid=".$sid, $lang->redirect_searchresults);
+	redirect("search.php?action=results&uid={$searchedUser['uid']}&filtered=false&sid=".$sid, $lang->redirect_searchresults);
 }
 elseif($mybb->input['action'] == "getnew")
 {

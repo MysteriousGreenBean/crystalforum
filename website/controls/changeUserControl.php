@@ -8,11 +8,12 @@ class ChangeUserControl {
     private AllowedAccountTypes $allowedAccountTypes = AllowedAccountTypes::ALL;
     private array $user;
     private array $usergroup;
-    private ?int $defaultUid = null;
+    private ?int $defaultId = null;
     private bool $justDropdown = false;
     private bool $justOneOption = false;
     private ?string $npcName = null;
     private bool $isNPCAllowed = true;
+    private array $additionalOptions = [];
 
     private function __construct(array $user, array $usergroup) {
         $this->user = $user;
@@ -20,15 +21,19 @@ class ChangeUserControl {
     }
 
     /**
-     * Prepare ChangeUserControl for a specific user
+     * Prepare ChangeUserControl for a specific user.
      * @param array $user for whom the dropdown is being prepared
      * @param array $usergroup the user group of the user
      * @return ChangeUserControl
      */
-    public static function prepareFor(array $user, array $usergroup): ChangeUserControl {
+    public static function prepareFor(array $user, ?array $usergroup = null): ChangeUserControl {
+        if ($usergroup == null) {
+            $usergroup = array(
+                'canAssignAnyUser' => false
+            );
+        }
         return new ChangeUserControl($user, $usergroup);
     }
-
     /**
      * Set the allowed account types for the dropdown
      * @param AllowedAccountTypes $allowedAccountTypes
@@ -41,12 +46,12 @@ class ChangeUserControl {
     }
 
     /**
-     * Set the default selected user for the dropdown
-     * @param int $defaultUid
+     * Set the default option for the dropdown
+     * @param int $default
      * @return ChangeUserControl
      */
-    public function withDefaultSelection(int $defaultUid): ChangeUserControl {
-        $this->defaultUid = $defaultUid;
+    public function withDefaultSelection(int $defaultId): ChangeUserControl {
+        $this->defaultId = $defaultId;
 
         return $this;
     }
@@ -79,8 +84,26 @@ class ChangeUserControl {
      * @return ChangeUserControl
      */
     public function withOnlySelection(int $onlyUid): ChangeUserControl {
-        $this->defaultUid = $onlyUid;
+        $this->defaultId = $onlyUid;
         $this->justOneOption = true;
+        return $this;
+    }
+    
+    /**
+     * Add an additional option to the dropdown
+     * @param string $option Text to be shown
+     * @param int $optionId Id of selected option. Must be less than -1
+     * @return ChangeUserControl
+     */
+    public function withAdditionalOption(string $option, int $optionId): ChangeUserControl {
+        if ($optionId >= -1) {
+            error("Option ID must be less than -1.");
+        }
+
+        $this->additionalOptions[] = [
+            'text' => $option,
+            'id' => $optionId
+        ];
         return $this;
     }
 
@@ -104,7 +127,7 @@ class ChangeUserControl {
         $changeuserboxDropdown = '';
         $this->user['username'] = htmlspecialchars_uni($this->user['username']);
         [$dropdownOptions, $dropdownOptionsCount] = $this->createOptions();
-        $singleOptionText = $this->defaultUid != null ? $this->createSingleOptionTextFromDefaultValue() : $this->createSingleOptionText();
+        $singleOptionText = $this->defaultId != null ? $this->createSingleOptionTextFromDefaultValue() : $this->createSingleOptionText();
 
         $NPCAllowed = $this->isNPCAllowed;
         $NPCChosenByDefault = $this->npcName != null ? "checked" : "";
@@ -120,17 +143,17 @@ class ChangeUserControl {
     }
 
     private function createSingleOptionTextFromDefaultValue(): string {
-        if ($this->defaultUid == null)
+        if ($this->defaultId == null)
         {
-            error("Default UID is not set. Please set it using withDefaultSelection() method.");
+            error("Default ID is not set. Please set it using withDefaultSelection() method.");
         }
 
-        if ($this->defaultUid == $this->user['parent']['uid'] && ($this->allowedAccountTypes == AllowedAccountTypes::ALL || $this->allowedAccountTypes == AllowedAccountTypes::PLAYER)) {
+        if ($this->defaultId == $this->user['parent']['uid'] && ($this->allowedAccountTypes == AllowedAccountTypes::ALL || $this->allowedAccountTypes == AllowedAccountTypes::PLAYER)) {
             return $this->createSingleOptionTexWithInputField($this->user['parent']['uid'], $this->user['parent']['username']);
         }
 
         foreach ($this->user['characters'] as $character) {
-            if ($character['uid'] == $this->defaultUid) {
+            if ($character['uid'] == $this->defaultId) {
                 return $this->createSingleOptionTexWithInputField($character['uid'], $character['username']);
             }
         }
@@ -164,16 +187,36 @@ class ChangeUserControl {
             return [null, 1];
         }
 
+        [$options, $optionsCount] = $this->createAdditionalOptions();
+
         switch ($this->allowedAccountTypes) {
             case AllowedAccountTypes::ALL:
-                return $this->createAllOptions();
+                [$allOptions, $allOptionsCount] = $this->createAllOptions();
+                $options .= $allOptions;
+                $optionsCount += $allOptionsCount;
+                break;
             case AllowedAccountTypes::PLAYER:
-                return [null, 1];
+                $optionsCount += 1;
+                break;
             case AllowedAccountTypes::CHARACTER:
-                return $this->createCharacterOptions();
+                [$characterOptions, $characterOptionsCount] = $this->createCharacterOptions();
+                $options .= $characterOptions;
+                $optionsCount += $characterOptionsCount;
+                break;
             default:
                 error("Invalid account type: ".$this->allowedAccountTypes);
         }
+
+        return [$options, $optionsCount];
+    }
+
+    private function createAdditionalOptions(): array {
+        $options = '';
+        foreach ($this->additionalOptions as $option) {
+            $selected = ($option['id'] == $this->defaultId) ? ' selected' : '';
+            $options .= '<option value="'.$option['id'].'"'.$selected.'>'.$option['text'].'</option>';
+        }
+        return [$options, count($this->additionalOptions)];
     }
 
     private function createAllOptions(): array {
@@ -187,10 +230,10 @@ class ChangeUserControl {
     }
 
     private function createOptionsFor(array $linkedAccounts): array {
-        $defaultUid = $this->defaultUid ?? $this->user['uid'];
+        $defaultId = $this->defaultId ?? $this->user['uid'];
         $options = '';
         foreach ($linkedAccounts as $account) {
-            $selected = ($account['uid'] == $defaultUid) ? ' selected' : '';
+            $selected = ($account['uid'] == $defaultId) ? ' selected' : '';
             $options .= '<option value="'.$account['uid'].'"'.$selected.'>'.$account['username'].'</option>';
         }
         return [$options, count($linkedAccounts)];
@@ -255,6 +298,10 @@ class ChangeUserControl {
 
             $npc_account['NPCName'] = $npc_account['username'];
             return $npc_account;
+        }
+
+        if ($selectedUid < 0) {
+            return ['id' => $selectedUid];
         }
 
         if ($selectedUid === -1) {
