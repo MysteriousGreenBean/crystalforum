@@ -243,7 +243,8 @@ class ChangeUserControl {
         global $db;
 
         $options = '';
-        $query = $db->simple_select("users", "uid, username, AccountType", "uid != 0", array('order_by' => 'username'));
+        $NPC = get_NPC();
+        $query = $db->simple_select("users", "uid, username, AccountType", "uid != {$NPC['uid']}", array('order_by' => 'username'));
         while($user = $db->fetch_array($query)) {
             switch ($this->allowedAccountTypes) {
                 case AllowedAccountTypes::ALL:
