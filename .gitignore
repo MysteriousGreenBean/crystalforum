@@ -6,3 +6,4 @@ docker/liquibase/changes.sql
 docker/liquibase/database_snapshot.json
 stylesheets/**/_stylesheets.dev.json
 website/uploads/avatars/*
+website/inc/settings.php

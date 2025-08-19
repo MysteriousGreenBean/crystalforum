@@ -18,7 +18,7 @@ require_once MYBB_ROOT."inc/functions_upload.php";
 
 $page->add_breadcrumb_item($lang->users, "index.php?module=user-users");
 
-if($mybb->input['action'] == "add" || $mybb->input['action'] == "merge" || $mybb->input['action'] == "search" || !$mybb->input['action'])
+if($mybb->input['action'] == "add" || $mybb->input['action'] == "merge" || $mybb->input['action'] == "search" || $mybb->input['action'] == "createGM" || !$mybb->input['action'])
 {
 	$sub_tabs['browse_users'] = array(
 		'title' => $lang->browse_users,
@@ -42,6 +42,12 @@ if($mybb->input['action'] == "add" || $mybb->input['action'] == "merge" || $mybb
 		'title' => $lang->merge_users,
 		'link' => "index.php?module=user-users&amp;action=merge",
 		'description' => $lang->merge_users_desc
+	);
+
+	$sub_tabs['create_GM_account'] = array(
+		'title' => "Create GM Account",
+		'link' => "index.php?module=user-users&amp;action=createGM",
+		'description' => "Create GM account for selected user"
 	);
 }
 
@@ -1944,6 +1950,80 @@ if($mybb->input['action'] == "ipaddresses")
 	}
 
 	$table->output($lang->ip_address_for.' '.htmlspecialchars_uni($user['username']));
+
+	$page->output_footer();
+}
+
+if ($mybb->input['action'] == "createGM")
+{
+	$page->add_breadcrumb_item("Create GM account");
+	$page->output_header("Create GM");
+	$page->output_nav_tabs($sub_tabs, 'create_GM_account');
+
+	if($mybb->request_method == "post")
+	{
+		$parentUser = get_user($mybb->get_input('selected_user'));
+		// Set up user handler.
+		require_once MYBB_ROOT."inc/datahandlers/user.php";
+		$userhandler = new UserDataHandler("insert");
+
+		$randomPassword = random_str(8);
+		$username = isset($mybb->input['accountName']) ? "[MG] {$mybb->get_input('accountName')}" : "[MG] {$parentUser['username']}";
+		$characterName = $mybb->get_input('characterName');
+		// Set the data for the new user.
+		$user = array(
+			"username" => $username,
+			"usergroup" => $settings['gmgroup'],
+			"password" => $randomPassword,
+			"password2" => $randomPassword,
+			"email" => $parentUser['email'],
+			"email2" => $parentUser['email'],
+			"timezone" => $parentUser['timezoneoffset'],
+			"language" => $parentUser['language'],
+			"regip" => $session->packedip,
+			"AccountType" => 'GM',
+			"ParentUid" => $parentUser['uid'],
+		);
+
+		$userhandler->set_data($user);
+
+		$errors = array();
+
+		if(!$userhandler->validate_user())
+		{
+			$errors = $userhandler->get_friendly_errors();
+		}
+
+		$regerrors = '';
+		if(!empty($errors)) {
+			$regerrors = inline_error($errors);
+		}
+		else {
+			require_once MYBB_ROOT."inc/functions_accountswitcher.php";
+			$user_info = $userhandler->insert_user();
+
+			create_pm_folder_for_character($user_info['uid']);
+			flash_message("GM Account for <strong>{$parentUser['username']}</strong> has been successfully created as {$user['username']}.", "success");
+			admin_redirect("index.php?module=user-users");
+			exit;
+		}
+	}
+
+	if($errors)
+	{
+		$page->output_inline_error($errors);
+	}
+
+	$form = new Form("index.php?module=user-users&amp;action=createGM", "post");
+
+	$form_container = new FormContainer("Create GM account for specific user.");
+	$form_container->output_row("User <em>*</em>", "Select a user for which GM Account will be created", $form->generate_player_select('selected_user'));
+	$form_container->output_row("Account name <em>*</em>", "Name of the account that will be created. If empty, it will default to [MG] {username}", $form->generate_text_box('accountName', '', array('id' => 'accountName')));
+	$form_container->end();
+
+	$buttons[] = $form->generate_submit_button("Utwórz");
+	$form->output_submit_wrapper($buttons);
+	$form->end();
 
 	$page->output_footer();
 }

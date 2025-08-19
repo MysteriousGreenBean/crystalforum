@@ -32,18 +32,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # At least for now we handle settings and config manually as it doesn't seem to work well
-      # - name: Update mybb_settings
-      #   env:
-      #     SITE_DOMAIN: ${{ secrets.siteDomain }}
-      #   run: |
-      #     sed -i 's/\[\x27cookiedomain\x27\] = "localhost";/\[\x27cookiedomain\x27\] = ".localhost";/g' website/inc/settings.php
-      #     sed -i 's/\[\x27developermode\x27\] = "1";/\[\x27developermode\x27\] = "0";/g' website/inc/settings.php
-      #     sed -i 's/localhost/'"$SITE_DOMAIN"'/g' website/inc/settings.php
-      #     sed -i 's/http:/https:/g' website/inc/settings.php
-      #     sed -i 's/\[\x27minifycss\x27\] = "0";/\[\x27minifycss\x27\] = "1";/g' website/inc/settings.php
-
-
       # - name: Update config.php
       #   env:
       #     DB_NAME: ${{ secrets.databaseName }}
@@ -57,10 +45,9 @@ jobs:
       #       sed -i "s/\['password'\] = 'root';/\['password'\] = '$DB_PASSWORD';/g" website/inc/config.php
 
 
-      - name: Remove config and settings
+      - name: Remove config
         run: |
           rm -f website/inc/config.php
-          rm -f website/inc/settings.php
 
       - name: Create files for upload
         run: |
