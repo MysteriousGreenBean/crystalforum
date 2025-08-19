@@ -12,9 +12,7 @@
     ]
   },
   "modcp.php": {
-    "global": [
-      "cache/themes/theme2/modcp.css"
-    ]
+    "global": ["cache/themes/theme2/modcp.css"]
   },
   "showthread.php": {
     "global": [
@@ -29,9 +27,7 @@
     ]
   },
   "private.php": {
-    "global": [
-      "cache/themes/theme2/usercp.css"
-    ]
+    "global": ["cache/themes/theme2/usercp.css"]
   },
   "forumdisplay.php": {
     "global": [
@@ -40,19 +36,13 @@
     ]
   },
   "search.php": {
-    "global": [
-      "cache/themes/theme2/thread_status.css"
-    ]
+    "global": ["cache/themes/theme2/thread_status.css"]
   },
   "newpost.php": {
-    "global": [
-      "cache/themes/theme2/responsivity.css"
-    ]
+    "global": ["cache/themes/theme2/responsivity.css"]
   },
   "newthread.php": {
-    "global": [
-      "cache/themes/theme2/responsivity.css"
-    ]
+    "global": ["cache/themes/theme2/responsivity.css"]
   },
   "editpost.php": {
     "global": [
