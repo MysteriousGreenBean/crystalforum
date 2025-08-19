@@ -340,7 +340,7 @@ else if($mybb->input['action'] == "edit_subject" && $mybb->request_method == "po
 			xmlhttp_error($lang->thread_closed_edit_subjects);
 		}
 		// Forum is not open, user doesn't have permission to edit, or author doesn't match this user - don't allow editing.
-		else if($forum['open'] == 0 || $forumpermissions['caneditposts'] == 0 || $mybb->user['uid'] != $post['uid'] || $mybb->user['uid'] == 0)
+		else if($forum['open'] == 0 || $forumpermissions['caneditposts'] == 0 || ($mybb->user['parent']['uid'] != $post['ParentUid'] && $mybb->user['parent']['uid'] != $post['uid'])|| $mybb->user['uid'] == 0)
 		{
 			xmlhttp_error($lang->no_permission_edit_subject);
 		}
@@ -473,7 +473,7 @@ else if($mybb->input['action'] == "edit_post")
 			xmlhttp_error($lang->thread_closed_edit_message);
 		}
 		// Forum is not open, user doesn't have permission to edit, or author doesn't match this user - don't allow editing.
-		else if($forum['open'] == 0 || $forumpermissions['caneditposts'] == 0 || $mybb->user['uid'] != $post['uid'] || $mybb->user['uid'] == 0 || $mybb->user['suspendposting'] == 1)
+		else if($forum['open'] == 0 || $forumpermissions['caneditposts'] == 0 || ($mybb->user['parent']['uid'] != $post['ParentUid'] && $mybb->user['parent']['uid'] != $post['uid']) || $mybb->user['uid'] == 0 || $mybb->user['suspendposting'] == 1)
 		{
 			xmlhttp_error($lang->no_permission_edit_post);
 		}
@@ -956,6 +956,11 @@ else if($mybb->input['action'] == "username_availability")
 
 	require_once MYBB_ROOT."inc/functions_user.php";
 	$username = $mybb->get_input('username');
+
+	if(empty($username))
+	{
+		$username = $mybb->get_input('characterName');
+	}
 
 	// Fix bad characters
 	$username = trim_blank_chrs($username);

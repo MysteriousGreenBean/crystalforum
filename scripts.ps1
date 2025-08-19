@@ -1,6 +1,7 @@
 function Start-Containers {
     docker-compose up -d
     Wait-For-Containers
+    Database-Update
     Database-Snapshot
     Refresh-Stylesheets
 }
@@ -11,7 +12,6 @@ function Refresh-Cache {
 }
 
 function Refresh-Stylesheets {
-
     Get-ChildItem -Path "stylesheets" -Directory | ForEach-Object {
         $subfolder = $_.FullName
         $propertiesPath = Join-Path $subfolder "_properties.json"
@@ -106,11 +106,13 @@ function View-Logs {
 }
 
 function Database-Update {
-    docker-compose run liquibase update --changelog-file "./docker/liquibase/changelog/db.changelog.xml"
+    docker-compose run liquibase sh -c '
+    liquibase update --changelog-file "/changelog/db.changelog.xml" --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root &&
+    liquibase update --changelog-file "/changelog/db.changelog.dev.xml" --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root'
 }
 
 function Database-Snapshot {
-    docker-compose run liquibase snapshot --snapshot-format=JSON --output-file=database_before.json --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root
+    docker-compose run liquibase snapshot --snapshot-format=JSON --output-file=/liquibase/resources/database_before.json --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root
     $masterStatus = docker exec mybb_mariadb mariadb -uroot -proot -e "SHOW MASTER STATUS;"
     $masterStatusArray = $masterStatus -split "`n" | Select-Object -Skip 1 | ForEach-Object {
         $columns = $_ -split "`t"

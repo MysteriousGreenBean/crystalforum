@@ -145,6 +145,24 @@ class session
 		");
 		$mybb->user = $db->fetch_array($query);
 
+		// Load parent account
+		if ($mybb->user['AccountType'] == 'Player') {
+			$mybb->user['parent'] = $mybb->user;
+		} else {
+			$mybb->user['parent'] = $db->fetch_array(
+				$db->simple_select('users', '*', 'uid='.(int)$mybb->user['ParentUid'])
+			);
+		}
+
+		// Load other character accounts
+		$uidForFilter = $mybb->user['AccountType'] == 'Player' ? $mybb->user['uid'] : $mybb->user['ParentUid'];
+
+		$mybb->user['characters'] = array();
+		$query = $db->simple_select('users', '*', 'ParentUid=' . (int)$uidForFilter, array('order_by' => 'uid'));
+		while ($character = $db->fetch_array($query)) {
+			$mybb->user['characters'][] = $character;
+		}
+
 		// Check the password if we're not using a session
 		if(!$mybb->user || empty($loginkey) || $loginkey !== $mybb->user['loginkey'])
 		{
@@ -295,7 +313,32 @@ class session
 			}
         }
 
+		require_once MYBB_ROOT."inc/functions_accountswitcher.php";
+		$all_user_accounts = get_all_accounts($mybb->user);
+		$all_usergroup_ids = [];
+		$all_additionalgroup_ids = [];
+
+		foreach ($all_user_accounts as $account) {
+			if (!empty($account['usergroup'])) {
+				$all_usergroup_ids[] = $account['usergroup'];
+			}
+			if (!empty($account['additionalgroups'])) {
+				$groups = explode(',', $account['additionalgroups']);
+				foreach ($groups as $group) {
+					if ($group !== '') {
+						$all_additionalgroup_ids[] = $group;
+					}
+				}
+			}
+		}
+
+		// Merge and keep only unique values
+		$merged_groups = array_unique(array_merge($all_usergroup_ids, $all_additionalgroup_ids));
+
+		// Prepare as comma-separated string
+		$mybbgroups = implode(',', $merged_groups);
 		$mybb->usergroup = usergroup_permissions($mybbgroups);
+
 		if(!$mybb->user['displaygroup'])
 		{
 			$mybb->user['displaygroup'] = $mybb->user['usergroup'];

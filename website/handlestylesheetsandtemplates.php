@@ -7,7 +7,7 @@ $settingsBackup = $settings;
 $settings['showthemeselect'] = "0";
 require_once "./global.php";
 require_once MYBB_ROOT."admin/inc/functions_themes.php";
-
+require_once MYBB_ROOT."inc/functions.php";
 global $isForDev;
 $isForDev = isset($_GET['dev']) && $_GET['dev'] == "true";
 
@@ -309,6 +309,8 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "cache") {
     echo "Reloaded plugins cache".$endline;
     $cache->update_profilefields();
     echo "Updated profile fields cache".$endline;
+    $cache->update_forums();
+    echo "Updated forums cache".$endline;
     $cache->update_forumsdisplay();
     echo "Updated forums display cache".$endline;
     $cache->update_mycode();
@@ -317,6 +319,8 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "cache") {
     echo "Updated forum permissions cache".$endline;
     $cache->update_usergroups();
     echo "Updated user groups cache".$endline;
+    rebuild_settings();
+    echo "Rebuilt settings cache".$endline;
 }
 
 $settings = $settingsBackup;

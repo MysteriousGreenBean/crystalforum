@@ -5,3 +5,13 @@ docker/liquibase/database_after.sql
 docker/liquibase/changes.sql
 docker/liquibase/database_snapshot.json
 stylesheets/**/_stylesheets.dev.json
+website/uploads/*
+!website/uploads/avatars/avatar
+!website/uploads/avatars/avatar_2
+!website/uploads/avatars/avatar_3
+!website/uploads/avatars/avatar_4
+!website/uploads/avatars/avatar_5
+!website/uploads/avatars/avatar_6
+!website/uploads/avatars/avatar_7
+!website/uploads/avatars/avatar_8
+website/inc/settings.php

@@ -987,7 +987,7 @@ function avatarep_announcement()
 
 function avatarep_private_fname()
 {
-	global $mybb, $cache, $message, $tofromusername, $tofromuid;
+	global $mybb, $cache, $message, $tofromusername, $tofromuid, $tofromusername2, $tofromuid2;
 	if($mybb->settings['avatarep_active'] == 0 || $mybb->settings['avatarep_active'] == 1 && $mybb->settings['avatarep_private'] == 0)
     {
         return false;
@@ -995,17 +995,20 @@ function avatarep_private_fname()
 	if($mybb->input['fid'] == 2)
 	{
 		$tofromuid = (int)$message['toid'];
-		$tofromusername = htmlspecialchars_uni($message['tousername']);		
+		$tofromusername = htmlspecialchars_uni($message['tousername']);
+		$tofromusername2 = htmlspecialchars_uni($message['fromusername']);
 	}
 	else if($mybb->input['fid'] == 3)
 	{
 		$tofromuid = (int)$message['toid'];
-		$tofromusername = htmlspecialchars_uni($message['tousername']);		
+		$tofromusername = htmlspecialchars_uni($message['tousername']);	
+		$tofromusername2 = htmlspecialchars_uni($message['fromusername']);	
 	}	
 	else
 	{
 		$tofromuid = (int)$message['fromid'];
 		$tofromusername = htmlspecialchars_uni($message['fromusername']);
+		$tofromusername2 = htmlspecialchars_uni($message['tousername']);
 	}
 	if($mybb->settings['avatarep_format'] == 1)
 	{
@@ -1013,14 +1016,28 @@ function avatarep_private_fname()
 		{
 			$cache->cache['users'][$tofromuid] = $tofromusername;
 			$tofromusername = "#{$tofromusername}{$tofromuid}#";
+			$tofromusername2 = "#{$tofromusername2}{$tofromuid2}#";
 		}
 		else
-		{		
+		{
 			$cache->cache['guests'][] = $tofromusername;
-			$tofromusername = "#{$tofromusername}#";
+			$tofromusername = " ";
+		}
+
+		if ($tofromuid2 > 0)
+		{
+			$cache->cache['users'][$tofromuid2] = $tofromusername2;
+			$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
+		}
+		else
+		{
+			$cache->cache['guests'][] = $tofromusername2;
+			$tofromusername2 = " ";
 		}
 	}	
+
 	$tofromusername = build_profile_link($tofromusername, $tofromuid);
+	$tofromusername2 = build_profile_link($tofromusername2, $tofromuid2);
 }
 
 function avatarep_private_tracking_fname()
@@ -1347,27 +1364,45 @@ function avatarep_format_names(&$content)
 		
 		if (isset($cache->cache['users']) && !empty($cache->cache['users']))
 		{
-			$result = $db->simple_select('users', 'uid, username, usergroup, displaygroup', 'uid IN (' . implode(',', array_keys($cache->cache['users'])) . ')');
-			while ($avatarep = $db->fetch_array($result))
-			{
-				$username = format_name($avatarep['username'], $avatarep['usergroup'], $avatarep['displaygroup']);
-				$format = "#{$avatarep['username']}{$avatarep['uid']}#";
-				if(is_array($cache->cache['groups']) && is_array($cache->cache['mods']))
+            $uids = array_keys($cache->cache['users']);
+            $result = $db->simple_select('users', 'uid, username, usergroup, displaygroup', 'uid IN (' . implode(',', $uids) . ')');
+            while ($user = $db->fetch_array($result)) {
+				// Handling registered users
+				$username = format_name($user['username'], $user['usergroup'], $user['displaygroup']);
+				$format = "#{$user['username']}{$user['uid']}#";
+				$replaced = false;
+				$old_username = str_replace('{username}', $format, $cache->cache['usergroups'][$user['usergroup']]['namestyle']);
+				if ($old_username != '')
 				{
-					if(in_array($avatarep['uid'], $cache->cache['mods']))
-					{
-						$old_username = str_replace('{username}', $format, $cache->cache['usergroups'][$avatarep['usergroup']]['namestyle']);
-						if ($old_username != '')
-						{
-							$content = str_replace($old_username, $format, $content);
-						}
-					}
-					
+					$content = str_replace($old_username, $format, $content);
+	
+					$replaced = true;
 				}
 		
-				$content = str_replace($format, $username, $content);			
-				unset($cache->cache['users'][$avatarep['uid']]);
-			}
+				if ($replaced) {
+					$content = str_replace($format, $username, $content);
+					continue;
+				}
+
+                $uid = $user['uid'];
+                $real_username = $user['username'];
+                $usergroup = $user['usergroup'];
+                $displaygroup = $user['displaygroup'];
+                // Use regex to match #anyusernameUID#
+                $content = preg_replace_callback(
+                    '/#(.*?)' . $uid . '#/',
+                    function ($matches) use ($real_username, $usergroup, $displaygroup) {
+                        $matched_username = $matches[1];
+                        // If the username in the string does NOT match the real username, add [NPC]
+                        if ($matched_username !== $real_username) {
+                            $matched_username = '[NPC] ' . $matched_username;
+                        }
+                        return format_name($matched_username, $usergroup, $displaygroup);
+                    },
+                    $content
+                );
+                unset($cache->cache['users'][$uid]);
+            }
 
 			if (isset($fmdata['users']))
 			{

@@ -349,10 +349,10 @@ function my_date($format, $stamp=0, $offset="", $ty=1, $adodb=false)
 
 	if(!$offset && $offset != '0')
 	{
-		if(isset($mybb->user['uid']) && $mybb->user['uid'] != 0 && array_key_exists("timezone", $mybb->user))
+		if(isset($mybb->user['parent']['uid']) && $mybb->user['parent']['uid'] != 0 && array_key_exists("timezone", $mybb->user))
 		{
-			$offset = (float)$mybb->user['timezone'];
-			$dstcorrection = $mybb->user['dst'];
+			$offset = (float)$mybb->user['parent']['timezone'];
+			$dstcorrection = $mybb->user['parent']['dst'];
 		}
 		else
 		{
@@ -699,7 +699,7 @@ function my_mail($to, $subject, $message, $from="", $charset="", $headers="", $k
 
 /**
  * Generates a code for POST requests to prevent XSS/CSRF attacks.
- * Unique for each user or guest session and rotated every 6 hours.
+ * Unique for each user (but shared among user's subaccounts) or guest session and rotated every 6 hours.
  *
  * @param int $rotation_shift Adjustment of the rotation number to generate a past/future code
  * @return string The generated code
@@ -713,9 +713,9 @@ function generate_post_check($rotation_shift=0)
 
 	$seed = $rotation;
 
-	if($mybb->user['uid'])
+	if($mybb->user['parent']['uid'])
 	{
-		$seed .= $mybb->user['loginkey'].$mybb->user['salt'].$mybb->user['regdate'];
+		$seed .= $mybb->user['parent']['loginkey'].$mybb->user['parent']['salt'].$mybb->user['parent']['regdate'];
 	}
 	else
 	{
@@ -6085,7 +6085,7 @@ function update_last_post($tid)
 	global $db;
 
 	$query = $db->query("
-		SELECT u.uid, u.username, p.username AS postusername, p.dateline
+		SELECT u.uid, u.username, p.username AS postusername, p.dateline, p.NPCName, p.ParentUid
 		FROM ".TABLE_PREFIX."posts p
 		LEFT JOIN ".TABLE_PREFIX."users u ON (u.uid=p.uid)
 		WHERE p.tid='$tid' AND p.visible='1'
@@ -6121,12 +6121,22 @@ function update_last_post($tid)
 		$lastpost['dateline'] = $firstpost['dateline'];
 	}
 
-	$lastpost['username'] = $db->escape_string($lastpost['username']);
+	$isByNPC = get_NPC()['uid'] == $lastpost['uid'];
+
+	if ($isByNPC) 
+	{
+		$lastpost['username'] = $db->escape_string($lastpost['NPCName']);
+	}
+	else 
+	{
+		$lastpost['username'] = $db->escape_string($lastpost['username']);
+	}
+
 
 	$update_array = array(
 		'lastpost' => (int)$lastpost['dateline'],
 		'lastposter' => $lastpost['username'],
-		'lastposteruid' => (int)$lastpost['uid']
+		'lastposteruid' => $isByNPC ? (int)$lastpost['ParentUid'] : (int)$lastpost['uid']
 	);
 	$db->update_query("threads", $update_array, "tid='{$tid}'");
 }
@@ -6647,14 +6657,95 @@ function get_user($uid)
 	{
 		return $user_cache[$uid];
 	}
+	elseif(get_NPC()['uid'] == $uid){
+
+		return get_NPC();
+	}
 	elseif($uid > 0)
 	{
 		$query = $db->simple_select("users", "*", "uid = '{$uid}'");
+
 		$user_cache[$uid] = $db->fetch_array($query);
+
+		if ($user_cache[$uid]['AccountType'] == 'Player') {
+			$user_cache[$uid]['parent'] = $user_cache[$uid];
+		} else {
+			$user_cache[$uid]['parent'] = $db->fetch_array(
+				$db->simple_select('users', '*', 'uid='.(int)$user_cache[$uid]['ParentUid'])
+			);
+		}
+
+		// Load other character accounts
+		$uidForFilter = $user_cache[$uid]['AccountType'] == 'Player' ? $user_cache[$uid]['uid'] : $user_cache[$uid]['ParentUid'];
+
+		$user_cache[$uid]['characters'] = array();
+		$query = $db->simple_select('users', '*', 'ParentUid=' . (int)$uidForFilter, array('order_by' => 'uid'));
+		while ($character = $db->fetch_array($query)) {
+			$user_cache[$uid]['characters'][] = $character;
+		}
+
+		$user_cache[$uid] = fix_default_avatars($user_cache[$uid]);
 
 		return $user_cache[$uid];
 	}
+
 	return array();
+}
+
+/**
+ * Get the user data of an NPC account
+ *
+ * @return array The NPC's data
+ */
+function get_NPC(){
+	global $db, $mybb;
+	static $user_cache;
+
+	if(isset($user_cache["NPC"]))
+	{
+		return $user_cache["NPC"];
+	}
+	else
+	{
+		$query = $db->simple_select("users", "*", "username = 'NPC'");
+
+		$user_cache["NPC"] = $db->fetch_array($query);
+
+		$user_cache["NPC"]['parent'] = $mybb->user['parent'];
+		$user_cache["NPC"]['characters'] = [];
+
+		$user_cache["NPC"] = fix_default_avatars($user_cache["NPC"]);
+
+		return $user_cache["NPC"];
+	}
+	return array();
+}
+
+/**
+ * Fixes the default avatar for users and characters.
+ *
+ * @param array $user The user data array.
+ * @return array The user data array with fixed avatar.
+ */
+function fix_default_avatars($user)
+{
+	 global $mybb;
+	 
+	 if(!$user['avatar'] && !empty($mybb->settings['useravatar']))
+	 {
+		$user['avatar'] = $mybb->settings['useravatar'];
+	 }
+
+    if(!$user['parent']['avatar'] && !empty($mybb->settings['useravatar'])) {
+        $user['parent']['avatar'] = $mybb->settings['useravatar'];
+    }
+
+    foreach ($user['characters'] as &$character) {
+        if(!$character['avatar'] && !empty($mybb->settings['useravatar']))
+            $character['avatar'] = $mybb->settings['useravatar'];
+    }
+
+	return $user;
 }
 
 /**

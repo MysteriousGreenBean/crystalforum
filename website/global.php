@@ -656,6 +656,9 @@ if($mybb->user['uid'] != 0)
 		eval('$pmslink = "'.$templates->get('header_welcomeblock_member_pms').'";');
 	}
 
+	require_once MYBB_ROOT.'inc/functions_accountswitcher.php';
+	$navigation_characters = get_characters_for_navigation($mybb->user, $templates);
+
 	eval('$welcomeblock = "'.$templates->get('header_welcomeblock_member').'";');
 }
 // Otherwise, we have a guest
@@ -961,11 +964,24 @@ if(isset($mybb->user['pmnotice']) && $mybb->user['pmnotice'] == 2 && $mybb->user
 		$parser = new postParser;
 	}
 
+	$character_uids = array();
+	if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
+		foreach ($mybb->user['characters'] as $character) {
+			if (isset($character['uid'])) {
+				$character_uids[] = (int)$character['uid'];
+			}
+		}
+	}
+	if (!empty($mybb->user['parent']['uid'])) {
+		$character_uids[] = (int)$mybb->user['parent']['uid'];
+	}
+	$character_uid_string = implode(',', array_unique($character_uids));
+
 	$query = $db->query("
 		SELECT pm.subject, pm.pmid, fu.username AS fromusername, fu.uid AS fromuid
 		FROM ".TABLE_PREFIX."privatemessages pm
 		LEFT JOIN ".TABLE_PREFIX."users fu on (fu.uid=pm.fromid)
-		WHERE pm.folder = '1' AND pm.uid = '{$mybb->user['uid']}' AND pm.status = '0'
+		WHERE pm.folder = '1' AND (pm.uid IN(".$character_uid_string.") OR pm.uid = '{$mybb->user['uid']}') AND pm.status = '0'
 		ORDER BY pm.dateline DESC
 		LIMIT 1
 	");

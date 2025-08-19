@@ -613,3 +613,6 @@ $l['expcol_expand'] = '[+]';
 $l['boardclosed_reason'] = 'Forum jest aktualnie zamknięte z powodu prac konserwacyjnych. Spróbuj ponownie za jakiś czas';
 
 $l['use_default'] = "Użyj domyślnego";
+$l['add_character'] = 'Dodaj postać';
+$l['character_name'] = 'Imię postaci';
+$l['error_invalid_character'] = 'Nie możesz zalogować się na postać z uid "{1}".';

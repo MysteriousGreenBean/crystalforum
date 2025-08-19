@@ -701,6 +701,7 @@ class PMDataHandler extends DataHandler
 
 			$this->pm_insert_data['uid'] = $recipient['uid'];
 			$this->pm_insert_data['toid'] = $recipient['uid'];
+			$this->pm_insert_data['folder'] = (int)("-".$recipient['uid']);
 
 			$plugins->run_hooks("datahandler_pm_insert", $this);
 

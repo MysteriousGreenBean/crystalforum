@@ -236,6 +236,7 @@ $l['js_validator_password_length'] = '<span class="text-danger">Your password mu
 $l['js_validator_bad_password_security'] = '<span class="text-danger">The password you entered is similar to either your username or email address. Please enter a stronger password.</span>';
 $l['js_validator_not_empty'] = '<span class="text-danger">You must select or enter a value for this field.</span>';
 $l['js_validator_username_length'] = '<span class="text-danger">Usernames must be between {1} and {2} characters long.</span>';
+$l['js_validator_no_character_name'] = "You need to enter a character name.";
 $l['security_question'] = 'Security Question';
 $l['question_note'] = 'Please answer the question provided. This process is used to prevent automated processes.';
 $l['error_question_wrong'] = '<span class="text-danger">The answer you provided for the security question is wrong. Please try again.</span>';
@@ -260,3 +261,4 @@ Thank you,
 {2} Staff';
 $l['member_stats'] = 'View Activity';
 $l['user_totals'] = 'Totals';
+$l['error_not_logged_in'] = 'You are not logged in on this forum. Only logged in users can add characters to their profile.';

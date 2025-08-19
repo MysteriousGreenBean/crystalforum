@@ -50,14 +50,12 @@ function defaultavatarfix_deactivate()
 
 }
 
-function defaultavatarfix()
+function defaultavatarfix_onGlobalStart()
 {
 	 global $mybb;
-	 
-	 if(!$mybb->user['avatar'] && !empty($mybb->settings['useravatar']))
-	 {
-		$mybb->user['avatar'] = $mybb->settings['useravatar'];
-	 }
+     require_once MYBB_ROOT.'/inc/functions.php';
+
+     $mybb->user = fix_default_avatars($mybb->user);
 }
-$plugins->add_hook("global_start", "defaultavatarfix");
+$plugins->add_hook("global_start", "defaultavatarfix_onGlobalStart");
 ?>

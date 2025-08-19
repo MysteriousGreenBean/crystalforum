@@ -274,6 +274,15 @@ if($mybb->input['action'] == "copy")
 	$form_container->output_row($lang->description, "", $form->generate_text_area('description', $copy_data['description'], array('id' => 'description')), 'description');
 	$form_container->output_row($lang->parent_forum." <em>*</em>", $lang->parent_forum_desc, $form->generate_forum_select('pid', $copy_data['pid'], array('id' => 'pid', 'main_option' => $lang->none)), 'pid');
 
+	$allowedAccountTypes = array(
+		'All' => "Wszystkie",
+		'Player' => "Gracze",
+		'Character' => "Postacie"
+	);
+
+	$form_container->output_row("Rodzaje kont"." <em>*</em>", "Określ kto może pisać w danym dziale. Dla kategorii to ustawienie jest ignorowane.", $form->generate_select_box('AllowedAccountType', $allowedAccountTypes, $forum_data['AllowedAccountType'], array('id' => 'AllowedAccountType')));
+
+
 	$form_container->end();
 
 	$buttons[] = $form->generate_submit_button($lang->copy_forum);
@@ -896,6 +905,7 @@ if($mybb->input['action'] == "add")
 				"defaultdatecut" => $mybb->get_input('defaultdatecut', MyBB::INPUT_INT),
 				"defaultsortby" => $db->escape_string($mybb->input['defaultsortby']),
 				"defaultsortorder" => $db->escape_string($mybb->input['defaultsortorder']),
+				"AllowedAccountType" => $db->escape_string($type) == 'f' ? $db->escape_string($mybb->input['AllowedAccountType']) : null
 			);
 
 			$plugins->run_hooks("admin_forum_management_add_start");
@@ -1044,6 +1054,16 @@ if($mybb->input['action'] == "add")
 	$form_container->output_row($lang->title." <em>*</em>", "", $form->generate_text_box('title', $forum_data['title'], array('id' => 'title')), 'title');
 	$form_container->output_row($lang->description, "", $form->generate_text_area('description', $forum_data['description'], array('id' => 'description')), 'description');
 	$form_container->output_row($lang->parent_forum." <em>*</em>", $lang->parent_forum_desc, $form->generate_forum_select('pid', $forum_data['pid'], array('id' => 'pid', 'main_option' => $lang->none)), 'pid');
+
+	$allowedAccountTypes = array(
+		'All' => "Wszystkie",
+		'Player' => "Gracze",
+		'Character' => "Postacie"
+	);
+
+	$form_container->output_row("Rodzaje kont"." <em>*</em>", "Określ kto może pisać w danym dziale. Dla kategorii to ustawienie jest ignorowane.", $form->generate_select_box('AllowedAccountType', $allowedAccountTypes, $forum_data['AllowedAccountType'], array('id' => 'AllowedAccountType')));
+
+
 	$form_container->output_row($lang->display_order, "", $form->generate_numeric_field('disporder', $forum_data['disporder'], array('id' => 'disporder', 'min' => 0)), 'disporder');
 	$form_container->end();
 
@@ -1435,7 +1455,9 @@ if($mybb->input['action'] == "edit")
 				"defaultdatecut" => $mybb->get_input('defaultdatecut', MyBB::INPUT_INT),
 				"defaultsortby" => $db->escape_string($mybb->input['defaultsortby']),
 				"defaultsortorder" => $db->escape_string($mybb->input['defaultsortorder']),
+				"AllowedAccountType" => $db->escape_string($type) == 'f' ? $mybb->input['AllowedAccountType'] : null
 			);
+
 			$db->update_query("forums", $update_array, "fid='{$fid}'");
 			if ($pid != $forum_data['pid']) {
 				// Update the parentlist of this forum.
@@ -1600,6 +1622,15 @@ if($mybb->input['action'] == "edit")
 	$form_container->output_row($lang->title." <em>*</em>", "", $form->generate_text_box('title', $forum_data['title'], array('id' => 'title')), 'title');
 	$form_container->output_row($lang->description, "", $form->generate_text_area('description', $forum_data['description'], array('id' => 'description')), 'description');
 	$form_container->output_row($lang->parent_forum." <em>*</em>", $lang->parent_forum_desc, $form->generate_forum_select('pid', $forum_data['pid'], array('id' => 'pid', 'main_option' => $lang->none)), 'pid');
+	
+	$allowedAccountTypes = array(
+		'All' => "Wszystkie",
+		'Player' => "Gracze",
+		'Character' => "Postacie"
+	);
+
+	$form_container->output_row("Rodzaje kont"." <em>*</em>", "Określ kto może pisać w danym dziale. Dla kategorii to ustawienie jest ignorowane.", $form->generate_select_box('AllowedAccountType', $allowedAccountTypes, $forum_data['AllowedAccountType'], array('id' => 'AllowedAccountType')));
+
 	$form_container->output_row($lang->display_order, "", $form->generate_numeric_field('disporder', $forum_data['disporder'], array('id' => 'disporder', 'min' => 0)), 'disporder');
 	$form_container->end();
 

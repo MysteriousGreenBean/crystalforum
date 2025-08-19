@@ -1,0 +1,13 @@
+<if $dropdownOptionsCount > 1 then>
+    <select name="changeuserbox_selectedUser" title="Wybierz konto użytkownika" id="changeuserbox_selectedUser">
+        {$dropdownOptions}
+    </select>
+    <else>
+        {$singleOptionText}
+    </else>
+</if>
+<if $NPCAllowed then>
+    <label for="use_NPC_override"  style="margin-left: 20px;">lub jako</label>
+    <input type="checkbox" name="use_NPC_override" value="1" id="use_NPC_override" {$NPCChosenByDefault}>
+    <input type="text" class="textbox2" name="NPC_name" id="NPC_name" placeholder="Nazwa NPC" style="margin-left: 5px;" value="{$NPCDefaultName}">
+</if>

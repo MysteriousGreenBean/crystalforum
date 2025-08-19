@@ -618,6 +618,30 @@ class DefaultForm
 		return $select;
 	}
 
+
+	/*
+	 * Generate a player selection box.
+	 *
+	 * @param string $name The name of the selection box.
+	 * @param string $id The id of the selection box.
+	 * @return string The built select box.
+	 */
+	function generate_player_select($id)
+	{
+		global $db;
+
+		$select = "<select name=\"{$id}\" id=\"{$id}\">";
+
+		$query = $db->simple_select("users", "*", "AccountType = 'Player'", array('order_by' => 'username', 'order_dir' => 'ASC'));
+		while($user = $db->fetch_array($query))
+		{
+			$select .= "<option value=\"{$user['uid']}\">".htmlspecialchars_uni($user['username'])."</option>";
+		}
+		$select .= "</select>";
+
+		return $select;
+	}
+
 	/**
 	 * Generate a prefix selection box.
 	 *

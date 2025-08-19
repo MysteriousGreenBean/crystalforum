@@ -32,6 +32,7 @@ require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/class_parser.php";
 require_once MYBB_ROOT."inc/functions_modcp.php";
+require_once MYBB_ROOT."inc/functions_accountswitcher.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -64,6 +65,80 @@ switch($mybb->input['action'])
 	case "emailuser":
 		add_breadcrumb($lang->nav_emailuser);
 		break;
+	case "do_add_character":
+	case "add_character":
+		add_breadcrumb($lang->add_character);
+		break;
+}
+
+if ($mybb->input['action'] == "do_add_character") {
+	$usergroup = 2;
+	// Set up user handler.
+	require_once MYBB_ROOT."inc/datahandlers/user.php";
+	$userhandler = new UserDataHandler("insert");
+
+	$coppauser = 0;
+	if(isset($mybb->cookies['coppauser']))
+	{
+		$coppauser = (int)$mybb->cookies['coppauser'];
+	}
+
+	$randomPassword = random_str(8);
+	$parentUid = $mybb->user['ParentUid'] == 0 ? $mybb->user['uid'] : $mybb->user['ParentUid'];
+	$characterName = $mybb->get_input('characterName');
+	// Set the data for the new user.
+	$user = array(
+		"username" => $characterName,
+		"usergroup" => $usergroup,
+		"password" => $randomPassword,
+		"password2" => $randomPassword,
+		"email" => $mybb->user['email'],
+		"email2" => $mybb->user['email'],
+		"timezone" => $mybb->user['timezoneoffset'],
+		"language" => $mybb->user['language'],
+		"regip" => $session->packedip,
+		"AccountType" => 'Character',
+		"ParentUid" => $parentUid,
+	);
+
+	$userhandler->set_data($user);
+
+	$errors = array();
+
+	if(!$userhandler->validate_user())
+	{
+		$errors = $userhandler->get_friendly_errors();
+	}
+
+	$regerrors = '';
+	if(!empty($errors)) {
+		$regerrors = inline_error($errors);
+		$mybb->input['action'] = "add_character";
+	}
+	else {
+		require_once MYBB_ROOT."inc/functions_accountswitcher.php";
+		$user_info = $userhandler->insert_user();
+
+		create_pm_folder_for_character($user_info['uid']);
+
+		$mybb->user['parent'] = $user_info;
+		login_as_account($mybb->user, $user_info['uid'], "index.php");
+	}
+}
+
+if ($mybb->input['action'] == "add_character") {
+	if ($mybb->user['uid'] == 0) {
+		error($lang->error_not_logged_in);
+	}
+
+	eval("\$add_character = \"".$templates->get("member_add_character")."\";");
+	output_page($add_character);
+}
+
+if ($mybb->input['action'] == 'change_character') {
+	require_once MYBB_ROOT."inc/functions_accountswitcher.php";
+
+	login_as_account($mybb->user, $mybb->get_input('uid', MyBB::INPUT_INT), $_SERVER['HTTP_REFERER']);
 }
 
 if(($mybb->input['action'] == "register" || $mybb->input['action'] == "do_register") && $mybb->usergroup['cancp'] != 1)
@@ -177,7 +252,9 @@ if($mybb->input['action'] == "do_register" && $mybb->request_method == "post")
 		"coppa_user" => $coppauser,
 		"regcheck1" => $mybb->get_input('regcheck1'),
 		"regcheck2" => $mybb->get_input('regcheck2'),
-		"registration" => true
+		"registration" => true,
+		"AccountType" => 'Player',
+		"ParentUid" => 0
 	);
 
 	// Do we have a saved COPPA DOB?
@@ -1518,7 +1595,7 @@ if($mybb->input['action'] == "do_lostpw" && $mybb->request_method == "post")
 		}
 	}
 
-	$query = $db->simple_select("users", "*", "email='".$db->escape_string($mybb->get_input('email'))."'");
+	$query = $db->simple_select("users", "*", "email='".$db->escape_string($mybb->get_input('email'))."' AND AccountType='Player'");
 	$numusers = $db->num_rows($query);
 	if($numusers < 1)
 	{
@@ -2294,7 +2371,7 @@ if($mybb->input['action'] == "profile")
 		}
 	}
 
-	$memregdate = my_date($mybb->settings['dateformat'], $memprofile['regdate']);
+	$memregdate = my_date($mybb->settings['dateformat'], $memprofile['parent']['regdate']);
 	$memlocaldate = gmdate($mybb->settings['dateformat'], TIME_NOW + ($memprofile['timezone'] * 3600));
 	$memlocaltime = gmdate($mybb->settings['timeformat'], TIME_NOW + ($memprofile['timezone'] * 3600));
 
@@ -2472,7 +2549,7 @@ if($mybb->input['action'] == "profile")
 
 			if($memprofile['timeonline'] > 0)
 			{
-				$timeonline = nice_time($memprofile['timeonline']);
+				$timeonline = nice_time($memprofile['parent']['timeonline']);
 			}
 
 			// Online?
@@ -2505,7 +2582,7 @@ if($mybb->input['action'] == "profile")
 		$bg_color = alt_trow();
 
 		$uid = (int) $memprofile['uid'];
-		$referral_count = $memprofile['referrals'];
+		$referral_count = $memprofile['parent']['referrals'];
 		if ($referral_count > 0) {
 			eval("\$memprofile['referrals'] = \"".$templates->get('member_referrals_link')."\";");
 		}
@@ -2518,11 +2595,11 @@ if($mybb->input['action'] == "profile")
 	if($memperms['usereputationsystem'] == 1 && $mybb->settings['enablereputation'] == 1)
 	{
 		$bg_color = alt_trow();
-		$reputation = get_reputation($memprofile['reputation']);
+		$reputation = get_reputation($memprofile['parent']['reputation']);
 
 		// If this user has permission to give reputations show the vote link
 		$vote_link = '';
-		if($mybb->usergroup['cangivereputations'] == 1 && $memprofile['uid'] != $mybb->user['uid'] && ($mybb->settings['posrep'] || $mybb->settings['neurep'] || $mybb->settings['negrep']))
+		if($mybb->usergroup['cangivereputations'] == 1 && $memprofile['parent']['uid'] != $mybb->user['parent']['uid'] && ($mybb->settings['posrep'] || $mybb->settings['neurep'] || $mybb->settings['negrep']))
 		{
 			eval("\$vote_link = \"".$templates->get("member_profile_reputation_vote")."\";");
 		}
@@ -2531,7 +2608,7 @@ if($mybb->input['action'] == "profile")
 	}
 
 	$warning_level = '';
-	if($mybb->settings['enablewarningsystem'] != 0 && $memperms['canreceivewarnings'] != 0 && ($mybb->usergroup['canwarnusers'] != 0 || ($mybb->user['uid'] == $memprofile['uid'] && $mybb->settings['canviewownwarning'] != 0)))
+	if($mybb->settings['enablewarningsystem'] != 0 && $memperms['canreceivewarnings'] != 0 && ($mybb->usergroup['canwarnusers'] != 0 || ($mybb->user['parent']['uid'] == $memprofile['parent']['uid'] && $mybb->settings['canviewownwarning'] != 0)))
 	{
 		$bg_color = alt_trow();
 
@@ -2652,6 +2729,12 @@ if($mybb->input['action'] == "profile")
 	$lang->tpd_percent_total = $lang->sprintf($lang->tpd_percent_total, my_number_format($tpd), $thread_percent);
 
 	$formattedname = format_name($memprofile['username'], $memprofile['usergroup'], $memprofile['displaygroup']);
+	$formattedparentname = format_name($memprofile['parent']['username'], $memprofile['parent']['usergroup'], $memprofile['parent']['displaygroup'], true);
+
+	require_once MYBB_ROOT."/inc/functions_accountswitcher.php";
+	$linkedCharacters = get_accounts_for_user_profile($memprofile, 'Character');
+	$linkedGM = get_accounts_for_user_profile($memprofile, 'GM');
+
 
 	$bannedbit = '';
 	if($memperms['isbannedgroup'] == 1 && $mybb->usergroup['canbanusers'] == 1)
@@ -2798,7 +2881,7 @@ if($mybb->input['action'] == "profile")
 
 	$add_remove_options = array();
 	$buddy_options = $ignore_options = $report_options = '';
-	if($mybb->user['uid'] != $memprofile['uid'] && $mybb->user['uid'] != 0)
+	if($mybb->user['parent']['uid'] != $memprofile['parent']['uid'] && $mybb->user['parent']['uid'] != 0)
 	{
 		$buddy_list = explode(',', $mybb->user['buddylist']);
 		$ignore_list = explode(',', $mybb->user['ignorelist']);
@@ -2809,7 +2892,7 @@ if($mybb->input['action'] == "profile")
 		}
 		else
 		{
-			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;add_username=".urlencode($memprofile['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_buddy_button', 'lang' => $lang->add_to_buddy_list);
+			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;add_username=".urlencode($memprofile['parent']['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_buddy_button', 'lang' => $lang->add_to_buddy_list);
 		}
 
 		if(!in_array($uid, $ignore_list))
@@ -2823,7 +2906,7 @@ if($mybb->input['action'] == "profile")
 		}
 		else
 		{
-			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;manage=ignored&amp;add_username=".urlencode($memprofile['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_ignore_button', 'lang' => $lang->add_to_ignore_list);
+			$add_remove_options = array('url' => "usercp.php?action=do_editlists&amp;manage=ignored&amp;add_username=".urlencode($memprofile['parent']['username'])."&amp;my_post_key={$mybb->post_code}", 'class' => 'add_ignore_button', 'lang' => $lang->add_to_ignore_list);
 		}
 
 		if(!in_array($uid, $buddy_list))
@@ -2834,19 +2917,19 @@ if($mybb->input['action'] == "profile")
 		if(isset($memperms['canbereported']) && $memperms['canbereported'] == 1)
 		{
 			$reportable = true;
-			$query = $db->simple_select("reportedcontent", "reporters", "reportstatus != '1' AND id = '{$memprofile['uid']}' AND type = 'profile'");
+			$query = $db->simple_select("reportedcontent", "reporters", "reportstatus != '1' AND id = '{$memprofile['parent']['uid']}' AND type = 'profile'");
 			if($db->num_rows($query))
 			{
 				$report = $db->fetch_array($query);
 				$report['reporters'] = my_unserialize($report['reporters']);
-				if(is_array($report['reporters']) && in_array($mybb->user['uid'], $report['reporters']))
+				if(is_array($report['reporters']) && in_array($mybb->user['parent']['uid'], $report['reporters']))
 				{
 					$reportable = false;
 				}
 			}
 			if($reportable)
 			{
-				$add_remove_options = array('url' => "javascript:Report.reportUser({$memprofile['uid']});", 'class' => 'report_user_button', 'lang' => $lang->report_user);
+				$add_remove_options = array('url' => "javascript:Report.reportUser({$memprofile['parent']['uid']});", 'class' => 'report_user_button', 'lang' => $lang->report_user);
 				eval("\$report_options = \"".$templates->get("member_profile_addremove")."\";"); // Report User
 			}
 		}

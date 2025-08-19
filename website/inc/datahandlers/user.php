@@ -1206,7 +1206,9 @@ class UserDataHandler extends DataHandler
 			"suspendposting" => 0,
 			"suspensiontime" => 0,
 			"coppauser" => (int)$user['coppa_user'],
-			"usernotes" => ''
+			"usernotes" => '',
+			"AccountType" => $user['AccountType'],
+			"ParentUid" => $user['ParentUid']
 		);
 
 		if($user['options']['dstcorrection'] == 1)
@@ -1418,6 +1420,10 @@ class UserDataHandler extends DataHandler
 			$this->user_update_data['awaydate'] = $db->escape_string($user['away']['date']);
 			$this->user_update_data['returndate'] = $db->escape_string($user['away']['returndate']);
 			$this->user_update_data['awayreason'] = $db->escape_string($user['away']['awayreason']);
+		}
+		if(isset($user['pmfolders']))
+		{
+			$this->user_update_data['pmfolders'] = $db->escape_string($user['pmfolders']);
 		}
 		if(isset($user['notepad']))
 		{
