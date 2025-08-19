@@ -117,7 +117,7 @@ jobs:
 
       - name: Refresh cache
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?refreshcache=true&fromconsole=true"
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?rebuild=cache&fromconsole=true"
 
   cleanup:
     needs: [refresh-cache]
