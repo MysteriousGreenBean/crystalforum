@@ -12,7 +12,6 @@ function Refresh-Cache {
 }
 
 function Refresh-Stylesheets {
-
     Get-ChildItem -Path "stylesheets" -Directory | ForEach-Object {
         $subfolder = $_.FullName
         $propertiesPath = Join-Path $subfolder "_properties.json"
@@ -113,7 +112,7 @@ function Database-Update {
 }
 
 function Database-Snapshot {
-    docker-compose run liquibase snapshot --snapshot-format=JSON --output-file=database_before.json --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root
+    docker-compose run liquibase snapshot --snapshot-format=JSON --output-file=/liquibase/resources/database_before.json --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root
     $masterStatus = docker exec mybb_mariadb mariadb -uroot -proot -e "SHOW MASTER STATUS;"
     $masterStatusArray = $masterStatus -split "`n" | Select-Object -Skip 1 | ForEach-Object {
         $columns = $_ -split "`t"

@@ -5,4 +5,86 @@
         UPDATE mybb_settings SET `value`='1' WHERE name='developermode';
     </sql>
   </changeSet>
+  <changeSet author="Patryk Konieczny" id="dev-2">
+    <sql>
+      INSERT INTO mybb_forums (`name`,`description`,`linkto`,`type`,`pid`,`parentlist`,`disporder`,`active`,`open`,`allowhtml`,`allowmycode`,`allowsmilies`,`allowimgcode`,`allowvideocode`,`allowpicons`,`allowtratings`,`usepostcounts`,`usethreadcounts`,`requireprefix`,`password`,`showinjump`,`style`,`overridestyle`,`rulestype`,`rulestitle`,`rules`,`defaultdatecut`,`defaultsortby`,`defaultsortorder`,`AllowedAccountType`) VALUES ('Forum dla wszystkich','','','f',6,'',5,1,1,0,1,1,1,1,1,1,1,1,0,'',1,0,0,0,'','',0,'','','All');
+      UPDATE mybb_forums SET `parentlist`='6,11' WHERE fid='11';
+      INSERT INTO mybb_forums (`name`,`description`,`linkto`,`type`,`pid`,`parentlist`,`disporder`,`active`,`open`,`allowhtml`,`allowmycode`,`allowsmilies`,`allowimgcode`,`allowvideocode`,`allowpicons`,`allowtratings`,`usepostcounts`,`usethreadcounts`,`requireprefix`,`password`,`showinjump`,`style`,`overridestyle`,`rulestype`,`rulestitle`,`rules`,`defaultdatecut`,`defaultsortby`,`defaultsortorder`,`AllowedAccountType`) VALUES ('Forum dla postaci','','','f',1,'',11,1,1,0,1,1,1,1,1,1,1,1,0,'',1,0,0,0,'','',0,'','','Character');
+      UPDATE mybb_forums SET `parentlist`='1,12' WHERE fid='12';
+      INSERT INTO mybb_forums (`name`,`description`,`linkto`,`type`,`pid`,`parentlist`,`disporder`,`active`,`open`,`allowhtml`,`allowmycode`,`allowsmilies`,`allowimgcode`,`allowvideocode`,`allowpicons`,`allowtratings`,`usepostcounts`,`usethreadcounts`,`requireprefix`,`password`,`showinjump`,`style`,`overridestyle`,`rulestype`,`rulestitle`,`rules`,`defaultdatecut`,`defaultsortby`,`defaultsortorder`,`AllowedAccountType`) VALUES ('Forum dla Graczy','','','f',1,'',15,1,1,0,1,1,1,1,1,1,1,1,0,'',1,0,0,0,'','',0,'','','Player');
+      UPDATE mybb_forums SET `parentlist`='1,13' WHERE fid='13';
+      UPDATE mybb_forums SET `threads`=1, `posts`=1 WHERE fid='12';
+      UPDATE mybb_forums SET `lastpost`=1755630953, `lastposter`='Ojciec Mateusz', `lastposteruid`=6, `lastposttid`=8, `lastpostsubject`='Wątek postaci' WHERE fid='12';
+      UPDATE mybb_forums SET `posts`=2 WHERE fid='12';
+      UPDATE mybb_forums SET `lastpost`=1755630986, `lastposter`='Mroczny Ojciec Mateusz', `lastposteruid`=1, `lastposttid`=8, `lastpostsubject`='Wątek postaci' WHERE fid='12';
+      UPDATE mybb_forums SET `threads`=1, `posts`=1 WHERE fid='13';
+      UPDATE mybb_forums SET `lastpost`=1755631030, `lastposter`='User', `lastposteruid`=3, `lastposttid`=9, `lastpostsubject`='Wątek gracza' WHERE fid='13';
+      UPDATE mybb_forums SET `threads`=1, `posts`=1 WHERE fid='11';
+      UPDATE mybb_forums SET `lastpost`=1755631059, `lastposter`='[MG] Elvis', `lastposteruid`=5, `lastposttid`=10, `lastpostsubject`='Wątek Mistrza Gry' WHERE fid='11';
+      UPDATE mybb_forums SET `posts`=2 WHERE fid='11';
+      UPDATE mybb_forums SET `lastpost`=1755631106, `lastposter`='Administrator', `lastposteruid`=1, `lastposttid`=10, `lastpostsubject`='Wątek Mistrza Gry' WHERE fid='11';
+      UPDATE mybb_forums SET `posts`=3 WHERE fid='11';
+      UPDATE mybb_forums SET `lastpost`=1755631112, `lastposter`='User', `lastposteruid`=3, `lastposttid`=10, `lastpostsubject`='Wątek Mistrza Gry' WHERE fid='11';
+      UPDATE mybb_forums SET `posts`=4 WHERE fid='11';
+      UPDATE mybb_forums SET `lastpost`=1755631138, `lastposter`='ENPEC', `lastposteruid`=1, `lastposttid`=10, `lastpostsubject`='Wątek Mistrza Gry' WHERE fid='11';
+      INSERT INTO mybb_threads (`fid`,`subject`,`prefix`,`icon`,`uid`,`username`,`dateline`,`lastpost`,`lastposter`,`lastposteruid`,`views`,`replies`,`visible`,`notes`) VALUES ('12','Wątek postaci',0,0,'6','Ojciec Mateusz',1755630953,1755630953,'','6',0,0,1,'');
+      INSERT INTO mybb_posts (`tid`,`fid`,`subject`,`icon`,`uid`,`username`,`dateline`,`message`,`ipaddress`,`includesig`,`smilieoff`,`visible`,`ParentUid`,`NPCName`) VALUES (8,'12','Wątek postaci',0,'6','Ojciec Mateusz',1755630953,'Ojciec Mateusz to moja ulubiona postać',X'ac1c0001',1,0,1,'1','');
+      UPDATE mybb_threads SET `firstpost`=25 WHERE tid='8';
+      UPDATE mybb_threads SET `lastpost`=1755630953, `lastposter`='Ojciec Mateusz', `lastposteruid`=6 WHERE tid='8';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('8', '1', '1755630953');
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('8', '1', '1755630953');
+      UPDATE mybb_threads SET views=views+1 WHERE tid='8';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('8', '1', '1755630986');
+      DELETE FROM mybb_threadsubscriptions WHERE tid='8' AND uid='4';
+      INSERT INTO mybb_posts (`tid`,`replyto`,`fid`,`subject`,`icon`,`uid`,`username`,`dateline`,`message`,`ipaddress`,`includesig`,`smilieoff`,`visible`,`ParentUid`,`NPCName`) VALUES (8,25,12,'RE: Wątek postaci',0,4,'Mroczny Ojciec Mateusz',1755630986,'W szachy zawsze gram czarnymi',X'ac1c0001',1,0,1,'1','Mroczny Ojciec Mateusz');
+      UPDATE mybb_threads SET `lastpost`=1755630986, `lastposter`='Mroczny Ojciec Mateusz', `lastposteruid`=1 WHERE tid='8';
+      UPDATE mybb_threads SET `replies`=1 WHERE tid='8';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('8', '1', '1755630987');
+      UPDATE mybb_threads SET views=views+1 WHERE tid='8';
+      INSERT INTO mybb_threads (`fid`,`subject`,`prefix`,`icon`,`uid`,`username`,`dateline`,`lastpost`,`lastposter`,`lastposteruid`,`views`,`replies`,`visible`,`notes`) VALUES ('13','Wątek gracza',0,0,'3','User',1755631030,1755631030,'','3',0,0,1,'');
+      INSERT INTO mybb_posts (`tid`,`fid`,`subject`,`icon`,`uid`,`username`,`dateline`,`message`,`ipaddress`,`includesig`,`smilieoff`,`visible`,`ParentUid`,`NPCName`) VALUES (9,'13','Wątek gracza',0,'3','User',1755631030,'Bede grau w gre',X'ac1c0001',0,0,1,'3','');
+      UPDATE mybb_threads SET `firstpost`=27 WHERE tid='9';
+      UPDATE mybb_threads SET `lastpost`=1755631030, `lastposter`='User', `lastposteruid`=3 WHERE tid='9';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('9', '3', '1755631030');
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('9', '3', '1755631030');
+      UPDATE mybb_threads SET views=views+1 WHERE tid='9';
+      INSERT INTO mybb_threads (`fid`,`subject`,`prefix`,`icon`,`uid`,`username`,`dateline`,`lastpost`,`lastposter`,`lastposteruid`,`views`,`replies`,`visible`,`notes`) VALUES ('11','Wątek Mistrza Gry',0,0,'5','[MG] Elvis',1755631059,1755631059,'','5',0,0,1,'');
+      INSERT INTO mybb_posts (`tid`,`fid`,`subject`,`icon`,`uid`,`username`,`dateline`,`message`,`ipaddress`,`includesig`,`smilieoff`,`visible`,`ParentUid`,`NPCName`) VALUES (10,'11','Wątek Mistrza Gry',0,'5','[MG] Elvis',1755631059,'Tu może pisać dosłownie każdy',X'ac1c0001',0,0,1,'3','');
+      UPDATE mybb_threads SET `firstpost`=28 WHERE tid='10';
+      UPDATE mybb_threads SET `lastpost`=1755631059, `lastposter`='[MG] Elvis', `lastposteruid`=5 WHERE tid='10';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '3', '1755631059');
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '3', '1755631060');
+      UPDATE mybb_threads SET views=views+1 WHERE tid='10';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '3', '1755631075');
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '1', '1755631106');
+      DELETE FROM mybb_threadsubscriptions WHERE tid='10' AND uid='1';
+      INSERT INTO mybb_posts (`tid`,`replyto`,`fid`,`subject`,`icon`,`uid`,`username`,`dateline`,`message`,`ipaddress`,`includesig`,`smilieoff`,`visible`,`ParentUid`,`NPCName`) VALUES (10,28,11,'RE: Wątek Mistrza Gry',0,1,'Administrator',1755631106,'Jako administrator piszę w tym wątku',X'ac1c0001',1,0,1,'1','');
+      UPDATE mybb_threads SET `lastpost`=1755631106, `lastposter`='Administrator', `lastposteruid`=1 WHERE tid='10';
+      UPDATE mybb_threads SET `replies`=1 WHERE tid='10';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '1', '1755631107');
+      UPDATE mybb_threads SET views=views+1 WHERE tid='10';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '3', '1755631112');
+      DELETE FROM mybb_threadsubscriptions WHERE tid='10' AND uid='3';
+      INSERT INTO mybb_posts (`tid`,`replyto`,`fid`,`subject`,`icon`,`uid`,`username`,`dateline`,`message`,`ipaddress`,`includesig`,`smilieoff`,`visible`,`ParentUid`,`NPCName`) VALUES (10,28,11,'RE: Wątek Mistrza Gry',0,3,'User',1755631112,'Jestem userem i piszę w tym wątku',X'ac1c0001',0,0,1,'3','');
+      UPDATE mybb_threads SET `lastpost`=1755631112, `lastposter`='User', `lastposteruid`=3 WHERE tid='10';
+      UPDATE mybb_threads SET `replies`=2 WHERE tid='10';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '3', '1755631112');
+      UPDATE mybb_threads SET views=views+1 WHERE tid='10';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '1', '1755631138');
+      DELETE FROM mybb_threadsubscriptions WHERE tid='10' AND uid='4';
+      INSERT INTO mybb_posts (`tid`,`replyto`,`fid`,`subject`,`icon`,`uid`,`username`,`dateline`,`message`,`ipaddress`,`includesig`,`smilieoff`,`visible`,`ParentUid`,`NPCName`) VALUES (10,28,11,'RE: Wątek Mistrza Gry',0,4,'ENPEC',1755631138,'Jestem ENPECEM i piszę w tym wątku',X'ac1c0001',1,0,1,'1','ENPEC');
+      UPDATE mybb_threads SET `lastpost`=1755631138, `lastposter`='ENPEC', `lastposteruid`=1 WHERE tid='10';
+      UPDATE mybb_threads SET `replies`=3 WHERE tid='10';
+      REPLACE INTO mybb_threadsread (tid, uid, dateline) VALUES('10', '1', '1755631139');
+      UPDATE mybb_threads SET views=views+1 WHERE tid='10';
+      UPDATE mybb_users SET `avatar`='./uploads/avatars/avatar_5.png?dateline=1755626759' WHERE username='NPC';
+      INSERT INTO `mybb_users` (`uid`, `username`, `password`, `salt`, `loginkey`, `email`, `postnum`, `threadnum`, `avatar`, `avatardimensions`, `avatartype`, `usergroup`, `additionalgroups`, `displaygroup`, `usertitle`, `regdate`, `lastactive`, `lastvisit`, `lastpost`, `website`, `icq`, `skype`, `google`, `birthday`, `birthdayprivacy`, `signature`, `allownotices`, `hideemail`, `subscriptionmethod`, `invisible`, `receivepms`, `receivefrombuddy`, `pmnotice`, `pmnotify`, `buddyrequestspm`, `buddyrequestsauto`, `threadmode`, `showimages`, `showvideos`, `showsigs`, `showavatars`, `showquickreply`, `showredirect`, `ppp`, `tpp`, `daysprune`, `dateformat`, `timeformat`, `timezone`, `dst`, `dstcorrection`, `buddylist`, `ignorelist`, `style`, `away`, `awaydate`, `returndate`, `awayreason`, `pmfolders`, `notepad`, `referrer`, `referrals`, `reputation`, `regip`, `lastip`, `language`, `timeonline`, `showcodebuttons`, `totalpms`, `unreadpms`, `warningpoints`, `moderateposts`, `moderationtime`, `suspendposting`, `suspensiontime`, `suspendsignature`, `suspendsigtime`, `coppauser`, `loginattempts`, `loginlockoutexpiry`, `usernotes`, `sourceeditor`, `AccountType`, `ParentUid`) VALUES
+      (NULL, '[MG] Elvis', '8159ed6fc9bfe7649465575983ad1cbd', 'wPx1LHgn', 'jltrl0qk18VrtN762ZxAAFQpNJbMlIEaVQVME2d6tNYThSsnA2', 'user@gmail.com', 0, 0, './uploads/avatars/avatar_4.png?dateline=1755626759', '', '', 8, '', 0, '', 1755628382, 0, 0, 0, '', '0', '', '', '', 'all', '', 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, '', 1, 1, 1, 1, 1, 1, 0, 0, 0, '', '', '0', 0, 0, '', '', 0, 0, 0, '0', '', '0**$%%$1**$%%$2**$%%$3**$%%$4**', '', 0, 0, 0, '', '', '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 'GM', 3),
+      (NULL, 'Ojciec Mateusz', '0db0b66f1d3ac19b3d999529861bf54d', 'nQiYr26l', 'T4E47Kx9pylnODA75SvivxRqhCOsYpaj9PqOlzuVc9LIxG8hrt', 'root@gmail.com', 0, 0, './uploads/avatars/avatar_2.png?dateline=1755626759', '', '', 2, '', 0, '', 1755628594, 1755628706, 1755628706, 0, '', '0', '', '', '', 'all', '', 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, '', 1, 1, 1, 1, 1, 1, 0, 0, 0, '', '', '0', 0, 0, '', '', 0, 0, 0, '0', '', '0**$%%$1**$%%$2**$%%$3**$%%$4**', '', 0, 0, 0, 0xac1c0001, 0xac1c0001, '', 112, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 'Character', 1),
+      (NULL, 'Kapibara', '96cf517ffefb5a2d95f70895f95b5a0f', '0MrFXprK', 'hziJnIt4UoT10vJeGopYM0bQCvjONk22BX04bKwDtZRt3sJk6T', 'user@gmail.com', 0, 0, './uploads/avatars/avatar_7.png?dateline=1755626759', '', '', 2, '', 0, '', 1755628744, 1755628814, 1755628744, 0, '', '0', '', '', '', 'all', '', 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, '', 1, 1, 1, 1, 1, 1, 0, 0, 0, '', '', '0', 0, 0, '', '', 0, 0, 0, '0', '', '0**$%%$1**$%%$2**$%%$3**$%%$4**', '', 0, 0, 0, 0xac1c0001, 0xac1c0001, '', 70, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 'Character', 3),
+      (NULL, 'Genowefa', '6837786ede1c143342006cb54a469660', '02b5mhxi', 'ZgSNrXZHDP4nW6swpfjYKCgZw2al0DSG6FI7KQbJi3v7FinN7u', 'user@gmail.com', 0, 0, './uploads/avatars/avatar_8.png?dateline=1755626759', '', '', 2, '', 0, '', 1755628814, 1755628814, 1755628814, 0, '', '0', '', '', '', 'all', '', 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, '', 1, 1, 1, 1, 1, 1, 0, 0, 0, '', '', '0', 0, 0, '', '', 0, 0, 0, '0', '', '0**$%%$1**$%%$2**$%%$3**$%%$4**', '', 0, 0, 0, 0xac1c0001, 0xac1c0001, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 'Character', 3);
+      UPDATE mybb_users SET `pmfolders` = '0**$%%$-6**$%%$1**$%%$2**$%%$3**$%%$4**' WHERE uid = 1;
+      UPDATE mybb_users SET `pmfolders` = '0**$%%$-5**$%%$-7**$%%$-8**$%%$1**$%%$2**$%%$3**$%%$4**' WHERE uid = 3;
+    </sql>
+  </changeSet>
 </databaseChangeLog>

@@ -61,7 +61,6 @@ services:
       LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
     networks:
       - mybb_network
-    command: ["sh", "-c", "liquibase update --changelog-file \"/changelog/db.changelog.xml\" --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root"]
 
 networks:
   mybb_network:
