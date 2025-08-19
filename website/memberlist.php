@@ -379,6 +379,7 @@ else
 		$usertitles_cache[$usertitle['posts']] = $usertitle;
 	}
 	$users = '';
+	$NPC = get_NPC();
 	$query = $db->query("
 		SELECT u.*, f.*,
 		IF(
@@ -415,10 +416,11 @@ else
 		) AS linkedAccounts
 		FROM ".TABLE_PREFIX."users u
 		LEFT JOIN ".TABLE_PREFIX."userfields f ON (f.ufid=u.uid)
-		WHERE {$search_query} AND u.uid != 0
+		WHERE {$search_query} AND u.uid != {$NPC['uid']}
 		ORDER BY {$sort_field} {$sort_order}
 		LIMIT {$start}, {$per_page}
 	");
+
 	while($user = $db->fetch_array($query))
 	{
 		$user = $plugins->run_hooks("memberlist_user", $user);
