@@ -6121,7 +6121,9 @@ function update_last_post($tid)
 		$lastpost['dateline'] = $firstpost['dateline'];
 	}
 
-	if ($lastpost['NPCName']) 
+	$isByNPC = get_NPC()['uid'] == $lastpost['uid'];
+
+	if ($isByNPC) 
 	{
 		$lastpost['username'] = $db->escape_string($lastpost['NPCName']);
 	}
@@ -6134,7 +6136,7 @@ function update_last_post($tid)
 	$update_array = array(
 		'lastpost' => (int)$lastpost['dateline'],
 		'lastposter' => $lastpost['username'],
-		'lastposteruid' => (int)$lastpost['ParentUid']
+		'lastposteruid' => $isByNPC ? (int)$lastpost['ParentUid'] : (int)$lastpost['uid']
 	);
 	$db->update_query("threads", $update_array, "tid='{$tid}'");
 }

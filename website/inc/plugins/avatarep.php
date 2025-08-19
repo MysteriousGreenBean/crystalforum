@@ -1367,6 +1367,23 @@ function avatarep_format_names(&$content)
             $uids = array_keys($cache->cache['users']);
             $result = $db->simple_select('users', 'uid, username, usergroup, displaygroup', 'uid IN (' . implode(',', $uids) . ')');
             while ($user = $db->fetch_array($result)) {
+				// Handling registered users
+				$username = format_name($user['username'], $user['usergroup'], $user['displaygroup']);
+				$format = "#{$user['username']}{$user['uid']}#";
+				$replaced = false;
+				$old_username = str_replace('{username}', $format, $cache->cache['usergroups'][$user['usergroup']]['namestyle']);
+				if ($old_username != '')
+				{
+					$content = str_replace($old_username, $format, $content);
+	
+					$replaced = true;
+				}
+		
+				if ($replaced) {
+					$content = str_replace($format, $username, $content);
+					continue;
+				}
+
                 $uid = $user['uid'];
                 $real_username = $user['username'];
                 $usergroup = $user['usergroup'];

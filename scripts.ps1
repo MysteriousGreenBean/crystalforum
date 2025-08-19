@@ -107,7 +107,9 @@ function View-Logs {
 }
 
 function Database-Update {
-    docker-compose run --rm liquibase update --changelog-file "/changelog/db.changelog.xml" --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root
+    docker-compose run liquibase sh -c '
+    liquibase update --changelog-file "/changelog/db.changelog.xml" --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root &&
+    liquibase update --changelog-file "/changelog/db.changelog.dev.xml" --url=jdbc:mariadb://172.28.1.2:3306/crystalforum_ --username root --password root'
 }
 
 function Database-Snapshot {
