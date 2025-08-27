@@ -1131,10 +1131,12 @@ class UserDataHandler extends DataHandler
 			}
 		}
 
-		// If user is being created from ACP, there is no last visit or last active
+		// If user is being created from ACP, there is no last visit or last active or account type
 		if(defined('IN_ADMINCP'))
 		{
 			$user['lastvisit'] = $user['lastactive'] = 0;
+			$user['AccountType'] = "Player";
+			$user['ParentUid'] = 0;
 		}
 
 		$this->user_insert_data = array(

@@ -3428,16 +3428,7 @@ if($mybb->input['action'] == "editlists")
 if($mybb->input['action'] == "drafts")
 {
 	$plugins->run_hooks("usercp_drafts_start");
-	$character_uids = '';
-	if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
-		$uids = array();
-		foreach ($mybb->user['characters'] as $character) {
-			if (isset($character['uid'])) {
-				$uids[] = "'".(int)$character['uid']."'";
-			}
-		}
-		$character_uids = implode(',', $uids);
-	}
+	$character_uids = get_all_accounts_as_string($mybb->user);
 
 	$query = $db->simple_select("posts", "COUNT(pid) AS draftcount", "visible='-2' AND (uid='{$mybb->user['uid']}' OR uid IN ($character_uids))");
 	$draftcount = $db->fetch_field($query, 'draftcount');

@@ -188,6 +188,16 @@ function get_all_accounts(array $user){
     return array_values($accounts);
 }
 
+/**
+ * Get list of all accounts for a user as comma delimited string
+ * @param user User data containing characters
+ * @return string Comma delimited list of all accounts for the user.
+ */
+function get_all_accounts_as_string(array $user){
+    $character_uids = array_column(get_all_accounts($user), 'uid');
+    return implode(',', array_unique($character_uids));
+}
+
 /*
     Checks if provided uid belongs to the current user.
     @param uid User ID to check
