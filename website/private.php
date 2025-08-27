@@ -51,8 +51,7 @@ $mybb->input['fid'] = $mybb->get_input('fid', MyBB::INPUT_INT);
 
 $folder_id = $folder_name = $folderjump_folder = $folderoplist_folder = $foldersearch_folder ='';
 
-$character_uids = array_column(get_all_accounts($mybb->user), 'uid');
-$character_uid_string = implode(',', array_unique($character_uids));
+$character_uid_string = get_all_accounts_as_string($mybb->user);
 
 $foldernames = array();
 $foldersexploded = explode("$%%$", $mybb->user['pmfolders']);
@@ -2324,19 +2323,6 @@ if(!$mybb->input['action'])
 			$pm = "pm.";
 		}
 	}
-
-	$character_uids = array();
-	if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
-		foreach ($mybb->user['characters'] as $character) {
-			if (isset($character['uid'])) {
-				$character_uids[] = (int)$character['uid'];
-			}
-		}
-	}
-	if (!empty($mybb->user['parent']['uid'])) {
-		$character_uids[] = (int)$mybb->user['parent']['uid'];
-	}
-	$character_uid_string = implode(',', array_unique($character_uids));
 
 	$query = $db->query("
 		SELECT pm.*, fu.username AS fromusername, tu.username as tousername

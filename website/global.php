@@ -964,24 +964,13 @@ if(isset($mybb->user['pmnotice']) && $mybb->user['pmnotice'] == 2 && $mybb->user
 		$parser = new postParser;
 	}
 
-	$character_uids = array();
-	if (!empty($mybb->user['characters']) && is_array($mybb->user['characters'])) {
-		foreach ($mybb->user['characters'] as $character) {
-			if (isset($character['uid'])) {
-				$character_uids[] = (int)$character['uid'];
-			}
-		}
-	}
-	if (!empty($mybb->user['parent']['uid'])) {
-		$character_uids[] = (int)$mybb->user['parent']['uid'];
-	}
-	$character_uid_string = implode(',', array_unique($character_uids));
+	$character_uid_string = get_all_accounts_as_string($mybb->user);
 
 	$query = $db->query("
 		SELECT pm.subject, pm.pmid, fu.username AS fromusername, fu.uid AS fromuid
 		FROM ".TABLE_PREFIX."privatemessages pm
 		LEFT JOIN ".TABLE_PREFIX."users fu on (fu.uid=pm.fromid)
-		WHERE pm.folder = '1' AND (pm.uid IN(".$character_uid_string.") OR pm.uid = '{$mybb->user['uid']}') AND pm.status = '0'
+		WHERE pm.folder = '1' AND pm.uid IN(".$character_uid_string.") AND pm.status = '0'
 		ORDER BY pm.dateline DESC
 		LIMIT 1
 	");
