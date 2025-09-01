@@ -680,6 +680,5 @@ $fpermfields = array(
 	'mod_edit_posts',
 	'canpostpolls',
 	'canvotepolls',
-	'cansearch',
-	'canAssignAnyUser'
+	'cansearch'
 );
