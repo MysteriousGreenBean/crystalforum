@@ -55,5 +55,8 @@
       "cache/themes/theme2/responsivity.css",
       "cache/themes/theme2/showthread.css"
     ]
+  },
+  "index.php": {
+    "global": ["cache/themes/theme2/chatbox.css"]
   }
 }

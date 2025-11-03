@@ -25,14 +25,16 @@ lang.click_mark_read = "{$lang->click_mark_read}";
 <body>
 {$header}
 	
-	
+	<!-- Info Box - about forum, announcements, current sessions -->
 	<div class="thead">Ogłoszenie<div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
 	<div class="forums announcements">hehe</div><br/><br/>
 	
+	<!-- Forums -->
 	<div class ="container">
 		<div class="background">
 		<div class="forum">{$forums}
 			
+			<!-- Forum legend and user activity -->
 			<div class="legend">
 				<div class="forum_stats"> Tu będzie obrazek i statystyki
 					<div class="groups_descriptions">tutaj będą opisy grup</div>
@@ -54,6 +56,32 @@ lang.click_mark_read = "{$lang->click_mark_read}";
 			<div style="color: var(--amber);">8 - Inni - Amber</div>
 			
 			{$boardstats}</div>
+			
+			<!-- Chatbox and social/announcements channels from Discord -->
+			<div class="social_box">
+				<div class="thead">Społeczność<div class="expcolimage"><a href="linkdodiscorda"><i class="expander cp cp-discord smalltext"></i></a></div></div>
+				<div class="forums">
+					<div class="chatbox_box">
+						<div class="chatbox_slider">
+							<div class="tab tab1 active">Chatbox</div>
+							<div class="tab">Ogłoszenia</div>
+							<div class="tab">Poszukiwania</div>
+							<div class="tab">Nieobecności</div>
+							<div class="tab">Ankiety</div>
+						</div>
+						<div class="chatbox">
+							<div class="messages">Tu będzie chatbox</div>
+							<div class="type_message">
+								<input type="text" placeholder="Tu wpisz wiadomość" class="message_input">
+									<button class="send_message">Wyślij</button>
+									<button class="open_emotes">Emotki</button>
+							</div>
+						</div>
+					</div>
+					<div class="cb_info">Więcej kanałów dyskusyjnych i offtopowych znajduje się na naszym Discordzie. <br /></div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 

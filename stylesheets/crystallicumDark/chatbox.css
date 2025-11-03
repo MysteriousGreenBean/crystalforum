@@ -1,0 +1,73 @@
+/* ChatBox */
+.social_box .forums {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.chatbox_box {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	box-shadow: var(--main-shadow);
+	background-color: var(--box-background);
+	background-image: var(--post-background);
+	border-radius: 10px;
+	height: 350px;
+}
+
+.chatbox_slider {
+	font-family: var(--thead-font);
+	font-size: 1.2rem;
+	box-shadow: var(--right-shadow);
+    width: 20%;
+}
+
+.chatbox_slider .tab {
+	padding: 10px;
+}
+
+.chatbox_slider .tab1 {
+	border-top-left-radius: 10px;
+}
+
+.chatbox_slider .active {
+	background: var(--button-bg);
+}
+
+.chatbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    margin-left: -10px;
+}
+
+.chatbox .type_message {
+    width: 100%;
+    background-color: var(--box-background);
+    border-bottom-right-radius: 10px;
+}
+
+.chatbox .type_message button {
+    margin-right: 3px;
+}
+
+.chatbox .type_message .message_input {
+    background-color: var(--pagination-bg);
+    border: var(--main-border);
+    box-shadow: var(--main-shadow);
+    border-radius: 10px;
+    width: 80%;
+    margin: 10px;
+    padding: 5px;
+}
+
+input[type="text"]:focus {
+  color: var(--main-font-color);
+  border: 1px solid var(--box-background);
+}
+
+.cb_info {
+	padding-top: 7px;
+    text-align: center;
+}

@@ -38,7 +38,7 @@
 }
 
 .mycode_hr {
-	background: radial-gradient(circle, #1f4132, #1c3e2f, #193a2c, #173729, #143426) !important;
+	background: var(--button-bg);
 	padding: 10px;
 	margin-top: 10px;
 	margin-bottom: 12px;
