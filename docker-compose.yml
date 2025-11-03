@@ -61,7 +61,6 @@ services:
       LIQUIBASE_DEFAULTS_FILE: /liquibase/resources/liquibase.properties
     networks:
       - mybb_network
-    command: ["sh", "-c", "liquibase update"]
 
 networks:
   mybb_network:

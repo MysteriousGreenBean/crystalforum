@@ -2,7 +2,8 @@
 	<!-- Dropdown for Game Masters -->
 	<if $mybb->user['usergroup'] == 8 || $mybb->user['is_GM'] then>
 		<div class="nav-item">
-			<a class="desktop_member" title="Narrator">Narrator</a><a class="mobile_member" title="Narrator"><i class="cp cp-book"></i></a>
+			<a class="desktop_member" title="Narrator">Narrator</a><a class="mobile_member" title="Narrator"><i
+					class="cp cp-book"></i></a>
 			<div class="dd_menu">
 				<div class="items">
 					<a href="">Link 1</a>
@@ -13,9 +14,11 @@
 	</if>
 
 	<!-- Dropdown for Moderators and Administrators -->
-	<if $mybb->user['usergroup'] == 3 || $mybb->user['usergroup'] == 4 || $mybb->user['usergroup'] == 6 || $mybb->user['is_Mod'] then>
+	<if $mybb->user['usergroup'] == 3 || $mybb->user['usergroup'] == 4 || $mybb->user['usergroup'] == 6 ||
+		$mybb->user['is_Mod'] then>
 		<div class="nav-item">
-			<a class="desktop_member" title="Moderacja">Moderacja</a><a class="mobile_member" title="Moderacja"><i class="cp cp-star"></i></a>
+			<a class="desktop_member" title="Moderacja">Moderacja</a><a class="mobile_member" title="Moderacja"><i
+					class="cp cp-star"></i></a>
 			<div class="dd_menu">
 				<div class="items">
 					{$admincplink}
@@ -27,40 +30,46 @@
 
 </div>
 
-	<a class="inbox" href="{$mybb->settings['bburl']}/private.php" id="pm_notification" title="Prywatne Wiadomości"> 
-		<if $mybb->user['pms_unread'] > 0 then><div class="unread_frame"><i class="cp cp-bell unread"></i> {$mybb->user['pms_unread']}</div>
-			<else><i class="cp cp-bell-o"></i></else>
-		</if>
-	</a>	 
+<a class="inbox" href="{$mybb->settings['bburl']}/private.php" id="pm_notification" title="Prywatne Wiadomości">
+	<if $mybb->user['pms_unread'] > 0 then><div class="unread_frame"><i class="cp cp-bell unread"></i>
+			{$mybb->user['pms_unread']}</div>
+		<else><i class="cp cp-bell-o"></i></else>
+	</if>
+</a>
 
-	<a href="usercp.php" class="desktop_member" title="Ustawienia Konta">{$mybb->user['username']}</a><a href="usercp.php" class="mobile_member" title="Ustawienia Konta"><i class="cp cp-user"></i></a>
+<a href="usercp.php" class="desktop_member" title="Ustawienia Konta">{$mybb->user['username']}</a><a href="usercp.php"
+	class="mobile_member" title="Ustawienia Konta"><i class="cp cp-user"></i></a>
 
-	<div class="av_bcg desktop_member">
-		<a href="{$mybb->settings['bburl']}/member.php?action=profile&uid={$mybb->user['uid']}">
-			<img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
-		</a>
-		<div class="av_menu">
-			<div class="items">
-				<!-- Extra account avatars will be here, with links to switch thems -->
-				<a href="" title="Dodaj konto"><i class="cp cp-add"></i></a>
-				<a href="{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}" title="Wyloguj się"><i class="cp cp-power"></i></a> 
-			</div>
+<div class="av_bcg desktop_member">
+	<a href="{$mybb->settings['bburl']}/member.php?action=profile&uid={$mybb->user['uid']}">
+		<img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
+	</a>
+	<div class="av_menu">
+		<div class="items">
+			{$navigation_characters}
+			<a href="{$mybb->settings['bburl']}/member.php?action=add_character" title="{$lang->add_character}"><i
+					class="cp cp-add"></i></a>
+			<a href="{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}"
+				title="Wyloguj się"><i class="cp cp-power"></i></a>
 		</div>
 	</div>
+</div>
 
-	
-	<div class="av_bcg mobile_member">
-		<a>
-			<img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
-		</a>
-		<div class="av_menu">
-			<div class="items">
-				<!-- Extra account avatars will be here, with links to switch thems -->
-				<a href="" title="Dodaj konto"><i class="cp cp-add"></i></a>
-				<a href="{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}" title="Wyloguj się"><i class="cp cp-power"></i></a> 
-			</div>
+
+<div class="av_bcg mobile_member">
+	<a>
+		<img src="{$mybb->user['avatar']}" id="avatarheader" title="Konto">
+	</a>
+	<div class="av_menu">
+		<div class="items">
+			{$navigation_characters}
+			<a href="{$mybb->settings['bburl']}/member.php?action=add_character" title="{$lang->add_character}"><i
+					class="cp cp-add"></i></a>
+			<a href="{$mybb->settings['bburl']}/member.php?action=logout&amp;logoutkey={$mybb->user['logoutkey']}"
+				title="Wyloguj się"><i class="cp cp-power"></i></a>
 		</div>
 	</div>
+</div>
 
 
 <script>

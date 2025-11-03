@@ -238,52 +238,49 @@ function build_postbit($post, $post_type=0)
 	$user = get_user($post['uid']); // Assuming user data is not already loaded
 
 	$awaybit = '';
-if ($post['away'] == 1 && $mybb->settings['allowaway'] == 1) {
-    $lang->away_note = $lang->sprintf($lang->away_note, $post['username']);
-    $awaydate = my_date($mybb->settings['dateformat'], $post['awaydate']);
-    
-    if (!empty($post['awayreason'])) {
-        $reason = $parser->parse_badwords($post['awayreason']);
-        $awayreason = htmlspecialchars_uni($reason);
-    } else {
-        $awayreason = $lang->away_no_reason;
-    }
+	if ($post['away'] == 1 && $mybb->settings['allowaway'] == 1) {
+		$lang->away_note = $lang->sprintf($lang->away_note, $post['username']);
+		$awaydate = my_date($mybb->settings['dateformat'], $post['awaydate']);
+		
+		if (!empty($post['awayreason'])) {
+			$reason = $parser->parse_badwords($post['awayreason']);
+			$awayreason = htmlspecialchars_uni($reason);
+		} else {
+			$awayreason = $lang->away_no_reason;
+		}
 
-    if ($post['returndate'] == '') {
-        $returndate = $lang->unknown;
-    } else {
-        $returnhome = explode("-", $post['returndate']);
+		if ($post['returndate'] == '') {
+			$returndate = $lang->unknown;
+		} else {
+			$returnhome = explode("-", $post['returndate']);
 
-        // Handle return date correctly
-        if ($returnhome[2] >= 2038) {
-            require_once MYBB_ROOT."inc/functions_time.php";
-            $returnmkdate = adodb_mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
-            $returndate = my_date($mybb->settings['dateformat'], $returnmkdate, "", 1, true);
-        } else {
-            $returnmkdate = mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
-            $returndate = my_date($mybb->settings['dateformat'], $returnmkdate);
-        }
+			// Handle return date correctly
+			if ($returnhome[2] >= 2038) {
+				require_once MYBB_ROOT."inc/functions_time.php";
+				$returnmkdate = adodb_mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
+				$returndate = my_date($mybb->settings['dateformat'], $returnmkdate, "", 1, true);
+			} else {
+				$returnmkdate = mktime(0, 0, 0, $returnhome[1], $returnhome[0], $returnhome[2]);
+				$returndate = my_date($mybb->settings['dateformat'], $returnmkdate);
+			}
 
-        // If away time has expired
-        if ($returnmkdate < TIME_NOW) {
-            $db->update_query('users', array('away' => '0', 'awaydate' => '0', 'returndate' => '', 'awayreason' => ''), 'uid=\''.(int)$post['uid'].'\'');
-            $post['away'] = 0;
-        }
-    }
+			// If away time has expired
+			if ($returnmkdate < TIME_NOW) {
+				$db->update_query('users', array('away' => '0', 'awaydate' => '0', 'returndate' => '', 'awayreason' => ''), 'uid=\''.(int)$post['uid'].'\'');
+				$post['away'] = 0;
+			}
+		}
 
-    // Check if still away after updates
-    if ($post['away'] == 1) {
-        // You may need a new template bit for postbit away message
-        eval("\$awaybit = \"".$templates->get("postbit_away")."\";");
+		// Check if still away after updates
+		if ($post['away'] == 1) {
+			// You may need a new template bit for postbit away message
+			eval("\$awaybit = \"".$templates->get("postbit_away")."\";");
 
-    }
-}
+		}
+	}
 
-// Add awaybit to the post array
-$post['awaybit'] = $awaybit;
-
-
-
+	// Add awaybit to the post array
+	$post['awaybit'] = $awaybit;
 
 	// Work out the usergroup/title stuff
 	$post['groupimage'] = '';
@@ -303,10 +300,23 @@ $post['awaybit'] = $awaybit;
 	if($post['userusername'])
 	{
 		// This post was made by a registered user
-		$post['username'] = $post['userusername'];
-		$post['profilelink_plain'] = get_profile_link($post['uid']);
-		$post['username_formatted'] = format_name($post['username'], $post['usergroup'], $post['displaygroup']);
-		$post['profilelink'] = build_profile_link($post['username_formatted'], $post['uid']);
+		if ($post['uid'] == get_NPC()['uid'])
+		{
+			$posterUser = get_user($post['ParentUid']);
+			$post['profilelink_plain'] = get_profile_link($post['ParentUid']);
+
+			$userName = "[NPC] {$post['NPCName']} ({$posterUser['username']})";
+			$post['username_formatted'] = format_name($userName, $post['usergroup'], $post['displaygroup']);
+			$post['profilelink'] = build_profile_link($post['username_formatted'], $posterUser['uid']);
+		}
+		else {
+			$post['username'] = $post['userusername'];
+			$post['profilelink_plain'] = get_profile_link($post['uid']);
+			$post['username_formatted'] = format_name($post['username'], $post['usergroup'], $post['displaygroup']);
+			$post['profilelink'] = build_profile_link($post['username_formatted'], $post['uid']);
+		}
+
+
 
 		if(trim($post['usertitle']) != "")
 		{
@@ -441,7 +451,7 @@ $post['awaybit'] = $awaybit;
 		}
 
 		// Showing the warning level? (only show if not announcement)
-		if($post_type != 3 && $mybb->settings['enablewarningsystem'] != 0 && $usergroup['canreceivewarnings'] != 0 && ($mybb->usergroup['canwarnusers'] != 0 || ($mybb->user['uid'] == $post['uid'] && $mybb->settings['canviewownwarning'] != 0)))
+		if($post_type != 3 && $mybb->settings['enablewarningsystem'] != 0 && $usergroup['canreceivewarnings'] != 0 && ($mybb->usergroup['canwarnusers'] != 0 || (($mybb->user['parent']['uid'] == $post['ParentUid'] || $mybb->user['parent']['uid'] == $post['uid']) && $mybb->settings['canviewownwarning'] != 0)))
 		{
 			if($mybb->settings['maxwarningpoints'] < 1)
 			{
@@ -648,7 +658,7 @@ $post['awaybit'] = $awaybit;
 		}
 
 		$time = TIME_NOW;
-		if((is_moderator($fid, "caneditposts") || ($forumpermissions['caneditposts'] == 1 && $mybb->user['uid'] == $post['uid'] && $thread['closed'] != 1 && ($mybb->usergroup['edittimelimit'] == 0 || $mybb->usergroup['edittimelimit'] != 0 && $post['dateline'] > ($time-($mybb->usergroup['edittimelimit']*60))))) && $mybb->user['uid'] != 0)
+		if((is_moderator($fid, "caneditposts") || ($forumpermissions['caneditposts'] == 1 && ($mybb->user['parent']['uid'] == $post['ParentUid'] || $mybb->user['parent']['uid'] == $post['uid']) && $thread['closed'] != 1 && ($mybb->usergroup['edittimelimit'] == 0 || $mybb->usergroup['edittimelimit'] != 0 && $post['dateline'] > ($time-($mybb->usergroup['edittimelimit']*60))))) && $mybb->user['uid'] != 0)
 		{
 			eval("\$post['input_editreason'] = \"".$templates->get("postbit_editreason")."\";");
 			eval("\$post['button_edit'] = \"".$templates->get("postbit_edit")."\";");
@@ -656,7 +666,7 @@ $post['awaybit'] = $awaybit;
 
 		// Quick Delete button
 		$can_delete_thread = $can_delete_post = 0;
-		if($mybb->user['uid'] == $post['uid'] && $thread['closed'] == 0)
+		if(($mybb->user['parent']['uid'] == $post['ParentUid'] || $mybb->user['parent']['uid'] == $post['uid']) && $thread['closed'] == 0)
 		{
 			if($forumpermissions['candeletethreads'] == 1 && $postcounter == 1)
 			{

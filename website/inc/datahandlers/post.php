@@ -1011,7 +1011,7 @@ class PostDataHandler extends DataHandler
 			}
 
 			// Are posts from this user being moderated? Change visibility
-			if($mybb->user['uid'] == $post['uid'] && $mybb->user['moderateposts'] == 1)
+			if(($mybb->user['parent']['uid'] == $post['ParentUid'] || $mybb->user['parent']['uid'] == $post['uid']) && $mybb->user['moderateposts'] == 1)
 			{
 				$visible = 0;
 			}
@@ -1027,7 +1027,7 @@ class PostDataHandler extends DataHandler
 
 		if($post['pid'] > 0)
 		{
-			$query = $db->simple_select("posts", "tid", "pid='{$post['pid']}' AND uid='{$post['uid']}' AND visible='-2'");
+			$query = $db->simple_select("posts", "tid", "pid='{$post['pid']}' AND visible='-2'");
 			$draft_check = $db->fetch_field($query, "tid");
 		}
 		else
@@ -1131,7 +1131,9 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary($post['ipaddress']),
 				"includesig" => $post['options']['signature'],
 				"smilieoff" => $post['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $post['ParentUid'],
+				"NPCName" => $post['NPCName']
 			);
 
 			$plugins->run_hooks("datahandler_post_insert_post", $this);
@@ -1155,7 +1157,9 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary($post['ipaddress']),
 				"includesig" => $post['options']['signature'],
 				"smilieoff" => $post['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $post['ParentUid'],
+				"NPCName" => $post['NPCName']
 			);
 
 			$plugins->run_hooks("datahandler_post_insert_post", $this);
@@ -1530,7 +1534,7 @@ class PostDataHandler extends DataHandler
 				"username" => $db->escape_string($thread['username']),
 				"dateline" => (int)$thread['dateline'],
 				"lastpost" => (int)$thread['dateline'],
-				"lastposter" => $db->escape_string($thread['username']),
+				"lastposter" => $thread['NPCName'] ?? $db->escape_string($thread['username']),
 				"visible" => $visible
 			);
 
@@ -1547,7 +1551,9 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary(my_inet_pton(get_ip())),
 				"includesig" => $thread['options']['signature'],
 				"smilieoff" => $thread['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $thread['ParentUid'],
+				"NPCName" => $thread['NPCName']
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1568,7 +1574,7 @@ class PostDataHandler extends DataHandler
 				"username" => $db->escape_string($thread['username']),
 				"dateline" => (int)$thread['dateline'],
 				"lastpost" => (int)$thread['dateline'],
-				"lastposter" => $db->escape_string($thread['username']),
+				"lastposter" => $thread['NPCName'] ?? $db->escape_string($thread['username']),
 				"lastposteruid" => $thread['uid'],
 				"views" => 0,
 				"replies" => 0,
@@ -1592,7 +1598,9 @@ class PostDataHandler extends DataHandler
 				"ipaddress" => $db->escape_binary(my_inet_pton(get_ip())),
 				"includesig" => $thread['options']['signature'],
 				"smilieoff" => $thread['options']['disablesmilies'],
-				"visible" => $visible
+				"visible" => $visible,
+				"ParentUid" => $thread['ParentUid'],
+				"NPCName" => $thread['NPCName']
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1950,6 +1958,26 @@ class PostDataHandler extends DataHandler
 		// Prepare array for post updating.
 
 		$this->pid = $post['pid'];
+
+		if(isset($post['uid']))
+		{
+			$this->post_update_data['uid'] = (int)$post['uid'];
+		}
+
+		if(isset($post['username']))
+		{
+			$this->post_update_data['username'] = $db->escape_string($post['username']);
+		}
+
+		if (isset($post['ParentUid']))
+		{
+			$this->post_update_data['ParentUid'] = (int)$post['ParentUid'];
+		}
+
+		if (isset($post['NPCName']))
+		{
+			$this->post_update_data['NPCName'] = $db->escape_string($post['NPCName']);
+		}
 
 		if(isset($post['subject']))
 		{

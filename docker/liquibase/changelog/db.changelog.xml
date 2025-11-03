@@ -3179,4 +3179,64 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
 INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Info Box Out Brązowy','','\\[infobox=outb\\](.*?)\\[/infobox\\]','&lt;div class=\"notif_out_brown\"&gt;$1&lt;/div&gt;',1,0);
 INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`parseorder`) VALUES ('Ramka double brown','','\\[ramka=doubleb\\](.*?)\\[/ramka\\]','&lt;div class=\"frame_double_b\"&gt;$1&lt;/div&gt;',1,0);</sql>
   </changeSet>
+  <changeSet author="liquibase (generated)" id="1747952670676-1">
+    <addColumn tableName="mybb_posts">
+      <column defaultValueNumeric="0" name="ParentUid" type="INT">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+  </changeSet>
+  <changeSet author="liquibase (generated)" id="1747952670676-2">
+    <addColumn tableName="mybb_posts">
+      <column defaultValue="" name="NPCName" type="TEXT">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670676-3">
+    <sql>
+          ALTER TABLE `mybb_forums` ADD COLUMN AllowedAccountType ENUM('All', 'Player', 'Character') NULL DEFAULT NULL;
+        </sql>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670676-4">
+    <sql>
+          ALTER TABLE `mybb_users` ADD COLUMN `AccountType` ENUM('Player', 'Character', 'GM') NOT NULL DEFAULT 'Player';
+        </sql>
+  </changeSet>
+  <changeSet author="liquibase (generated)" id="1747952670676-5">
+    <addColumn tableName="mybb_users">
+      <column defaultValueNumeric="0" name="ParentUid" type="INT">
+        <constraints nullable="false" />
+      </column>
+    </addColumn>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670676-6">
+    <sql>
+        INSERT INTO `mybb_users` (`uid`, `username`, `password`, `salt`, `loginkey`, `email`, `postnum`, `threadnum`, `avatar`, `avatardimensions`, `avatartype`, `usergroup`, `additionalgroups`, `displaygroup`, `usertitle`, `regdate`, `lastactive`, `lastvisit`, `lastpost`, `website`, `icq`, `skype`, `google`, `birthday`, `birthdayprivacy`, `signature`, `allownotices`, `hideemail`, `subscriptionmethod`, `invisible`, `receivepms`, `receivefrombuddy`, `pmnotice`, `pmnotify`, `buddyrequestspm`, `buddyrequestsauto`, `threadmode`, `showimages`, `showvideos`, `showsigs`, `showavatars`, `showquickreply`, `showredirect`, `ppp`, `tpp`, `daysprune`, `dateformat`, `timeformat`, `timezone`, `dst`, `dstcorrection`, `buddylist`, `ignorelist`, `style`, `away`, `awaydate`, `returndate`, `awayreason`, `pmfolders`, `notepad`, `referrer`, `referrals`, `reputation`, `regip`, `lastip`, `language`, `timeonline`, `showcodebuttons`, `totalpms`, `unreadpms`, `warningpoints`, `moderateposts`, `moderationtime`, `suspendposting`, `suspensiontime`, `suspendsignature`, `suspendsigtime`, `coppauser`, `loginattempts`, `loginlockoutexpiry`, `usernotes`, `sourceeditor`, `AccountType`, `ParentUid`) VALUES ('0', 'NPC', '', '', '', '', '0', '0', '', '', '', '2', '', '0', '', '0', '0', '0', '0', '', '', '', '', '', 'all', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '', '0', '0', '', '', '0', '0', '0', '', '', '', '', '0', '0', '0', '', '', '', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0', 'Character', '0');
+      </sql>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670676-7">
+    <sql>
+        UPDATE `mybb_forums` SET `AllowedAccountType` = 'All' WHERE `type` = 'f';
+      </sql>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670676-8">
+    <sql>
+          ALTER TABLE `mybb_usergroups` ADD `canAssignAnyUser` TINYINT NOT NULL DEFAULT '0' AFTER `canuseipsearch`;
+          UPDATE `mybb_usergroups` SET `canAssignAnyUser` = '1' WHERE `mybb_usergroups`.`gid` = 4;
+        </sql>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670676-9">
+    <sql>
+          ALTER TABLE mybb_privatemessages MODIFY COLUMN folder INT;
+    </sql>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670676-10">
+    <sql>
+      INSERT INTO `mybb_settinggroups` (`gid`, `name`, `title`, `description`, `disporder`, `isdefault`) VALUES (NULL, 'foruminternalsettings', 'Very Important Settings By Nobu™', 'Some forum related settings.', '30', '1');
+      INSERT INTO `mybb_settings` (`sid`, `name`, `title`, `description`, `optionscode`, `value`, `disporder`, `gid`, `isdefault`) VALUES (NULL, 'developermode', 'Run forum in developer mode', 'Developer mode omits templates in database, instead trying to read them straight from the file', 'yesno', '0', '1', '34', '1');
+      INSERT INTO `mybb_settinggroups` (`gid`, `name`, `title`, `description`, `disporder`, `isdefault`) VALUES (NULL, 'accountswitchersettings', 'Account switcher by Nobu™', 'Settings related to account switcher created by Nobu\'s sweat, blood and dark rituals.', '31', '1');
+      INSERT INTO `mybb_settings` (`sid`, `name`, `title`, `description`, `optionscode`, `value`, `disporder`, `gid`, `isdefault`) VALUES (NULL, 'gmgroup', 'GM Groups', 'Newly created GM accounts will be automatically assigned to this group,', 'groupselectsingle', '8', '1', '35', '1');
+    </sql>
+  </changeSet>
 </databaseChangeLog>

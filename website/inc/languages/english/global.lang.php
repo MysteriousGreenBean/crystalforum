@@ -589,3 +589,6 @@ $l['mod_tab'] = 'Mod';
 $l['ucpmenu'] = 'Menu';
 $l['lost_passwd'] = 'Lost password?';
 $l['reg_options'] = 'Additional Options';
+$l['add_character'] = 'Add character';
+$l['character_name'] = 'Character name';
+$l['error_invalid_character'] = 'You can\'t switch to character with uid "{1}".';

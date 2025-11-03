@@ -953,7 +953,8 @@ if($mybb->input['action'] == "edit")
 				"caneditprofiles" => $mybb->get_input('caneditprofiles', MyBB::INPUT_INT),
 				"canbanusers" => $mybb->get_input('canbanusers', MyBB::INPUT_INT),
 				"canviewwarnlogs" => $mybb->get_input('canviewwarnlogs', MyBB::INPUT_INT),
-				"canuseipsearch" => $mybb->get_input('canuseipsearch', MyBB::INPUT_INT)
+				"canuseipsearch" => $mybb->get_input('canuseipsearch', MyBB::INPUT_INT),
+				"canAssignAnyUser" => $mybb->get_input('canAssignAnyUser', MyBB::INPUT_INT)
 			);
 
 			// Only update the candisplaygroup setting if not a default user group
@@ -1038,7 +1039,8 @@ if($mybb->input['action'] == "edit")
 		"forums_posts" => $lang->forums_posts,
 		"users_permissions" => $lang->users_permissions,
 		"misc" => $lang->misc,
-		"modcp" => $lang->mod_cp
+		"modcp" => $lang->mod_cp,
+		"bbbcp" => "Własne"
 	);
 	$tabs = $plugins->run_hooks("admin_user_groups_edit_graph_tabs", $tabs);
 	$page->output_tab_control($tabs);
@@ -1268,6 +1270,20 @@ if($mybb->input['action'] == "edit")
 		$form->generate_check_box("canuseipsearch", 1, $lang->can_use_ipsearch, array("checked" => $mybb->input['canuseipsearch']))
 	);
 	$form_container->output_row($lang->user_options, "", "<div class=\"group_settings_bit\">".implode("</div><div class=\"group_settings_bit\">", $user_options)."</div>");
+
+	$form_container->end();
+	echo "</div>";
+
+	//
+	// BBB CP
+	//
+	echo "<div id=\"tab_bbbcp\">";
+	$form_container = new FormContainer($lang->mod_cp);
+
+	$forum_post_options = array(
+		$form->generate_check_box("canAssignAnyUser", 1, "Może przypisać dowolnego użytkownika do posta?", array("checked" => $mybb->input['canAssignAnyUser'])),
+	);
+	$form_container->output_row($lang->forum_post_options, "", "<div class=\"group_settings_bit\">".implode("</div><div class=\"group_settings_bit\">", $forum_post_options)."</div>");
 
 	$form_container->end();
 	echo "</div>";

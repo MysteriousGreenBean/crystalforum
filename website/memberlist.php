@@ -15,6 +15,7 @@ $templatelist = "memberlist,memberlist_search,memberlist_user,memberlist_user_gr
 $templatelist .= ",multipage,multipage_end,multipage_jump_page,multipage_nextpage,multipage_page,multipage_page_current,multipage_page_link_current,multipage_prevpage,multipage_start,memberlist_error,memberlist_orderarrow";
 
 require_once "./global.php";
+require_once MYBB_ROOT."/inc/functions_accountswitcher.php";
 
 // Load global language phrases
 $lang->load("memberlist");
@@ -378,14 +379,48 @@ else
 		$usertitles_cache[$usertitle['posts']] = $usertitle;
 	}
 	$users = '';
+	$NPC = get_NPC();
 	$query = $db->query("
-		SELECT u.*, f.*
+		SELECT u.*, f.*,
+		IF(
+			u.ParentUid = 0,
+			-- Case 1: user is a parent, get children
+			(
+				SELECT JSON_ARRAYAGG(
+					JSON_OBJECT(
+						'uid', child.uid,
+						'username', child.username,
+						'usergroup', child.usergroup,
+						'displaygroup', child.displaygroup,
+						'parentUid', child.ParentUid
+					)
+				)
+				FROM mybb_users child
+				WHERE child.ParentUid = u.uid
+			),
+			-- Case 2: user has a parent, get siblings + parent
+			(
+				SELECT JSON_ARRAYAGG(
+					JSON_OBJECT(
+						'uid', related.uid,
+						'username', related.username,
+						'usergroup', related.usergroup,
+						'displaygroup', related.displaygroup,
+						'parentUid', related.ParentUid
+					)
+				)
+				FROM mybb_users related
+				WHERE related.ParentUid = u.ParentUid
+				OR related.uid = u.ParentUid
+			)
+		) AS linkedAccounts
 		FROM ".TABLE_PREFIX."users u
 		LEFT JOIN ".TABLE_PREFIX."userfields f ON (f.ufid=u.uid)
-		WHERE {$search_query}
+		WHERE {$search_query} AND u.uid != {$NPC['uid']}
 		ORDER BY {$sort_field} {$sort_order}
 		LIMIT {$start}, {$per_page}
 	");
+
 	while($user = $db->fetch_array($query))
 	{
 		$user = $plugins->run_hooks("memberlist_user", $user);
@@ -532,6 +567,23 @@ else
 		$user['regdate'] = my_date('relative', $user['regdate']);
 		$user['postnum'] = my_number_format($user['postnum']);
 		$user['threadnum'] = my_number_format($user['threadnum']);
+		$user['linkedAccounts'] = get_accounts_for_memberlist(json_decode($user['linkedAccounts'], true));
+		
+		switch ($user['AccountType']){
+			case 'Player':
+				$user['AccountType'] = 'Gracz';
+				break;
+			case 'GM':
+				$user['AccountType'] = 'Mistrz Gry';
+				break;
+			case 'Character':
+				$user['AccountType'] = 'Postać';
+				break;
+			default:
+				$user['AccountType'] = 'Inny';
+				break;
+		}
+
 		eval("\$users .= \"".$templates->get("memberlist_user")."\";");
 	}
 

@@ -23,6 +23,8 @@ require_once "./global.php";
 require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."inc/class_parser.php";
+require_once MYBB_ROOT."controls/changeUserControl.php";
+require_once MYBB_ROOT."enums/AllowedAccountTypes.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -130,7 +132,7 @@ if($mybb->input['action'] == "deletepost" && $mybb->request_method == "post")
 		{
 			error_no_permission();
 		}
-		if($mybb->user['uid'] != $post['uid'])
+		if($mybb->user['parent']['uid'] != $post['ParentUid'] && $mybb->user['parent']['uid'] != $post['uid'])
 		{
 			error_no_permission();
 		}
@@ -164,7 +166,7 @@ else
 		{
 			error_no_permission();
 		}
-		if($mybb->user['uid'] != $post['uid'])
+		if($mybb->user['parent']['uid'] != $post['ParentUid'] && $mybb->user['parent']['uid'] != $post['uid'])
 		{
 			error_no_permission();
 		}
@@ -516,17 +518,25 @@ if($mybb->input['action'] == "do_editpost" && $mybb->request_method == "post")
 	$posthandler = new PostDataHandler("update");
 	$posthandler->action = "post";
 
+	$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+	if ($selectedAccount['uid'] === -1) {
+		error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+	}
+
 	// Set the post data that came from the input to the $post array.
 	$post = array(
 		"pid" => $mybb->input['pid'],
 		"prefix" => $mybb->get_input('threadprefix', MyBB::INPUT_INT),
 		"subject" => $mybb->get_input('subject'),
 		"icon" => $mybb->get_input('icon', MyBB::INPUT_INT),
-		"uid" => $post['uid'],
-		"username" => $post['username'],
+		"uid" => $selectedAccount['uid'] ?? $post['uid'],
+		"username" => $selectedAccount['username'] ?? $post['username'],
 		"edit_uid" => $mybb->user['uid'],
 		"message" => $mybb->get_input('message'),
 		"editreason" => $mybb->get_input('editreason'),
+		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+		"NPCName" => $selectedAccount['NPCName'] ?? ''
 	);
 
 	$postoptions = $mybb->get_input('postoptions', MyBB::INPUT_ARRAY);
@@ -613,8 +623,18 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 		$posticons = get_post_icons();
 	}
 
-	$mybb->user['username'] = htmlspecialchars_uni($mybb->user['username']);
-	eval("\$loginbox = \"".$templates->get("changeuserbox")."\";");
+	$loginbox = ChangeUserControl::prepareFor($mybb->user, $mybb->usergroup)
+		->withAllowedAccountTypes(AllowedAccountTypes::from($forum['AllowedAccountType']));
+
+	$NPC = get_NPC();
+	if ($post['uid'] == $NPC['uid']) {
+		$loginbox = $loginbox->withDefaultNPCSelection($post['NPCName']);
+	}
+	else 
+	{
+		$loginbox = $loginbox->withDefaultSelection($post['uid']);
+	}
+	$loginbox = $loginbox->render();
 
 	$deletebox = '';
 	
@@ -755,16 +775,25 @@ if(!$mybb->input['action'] || $mybb->input['action'] == "editpost")
 		$posthandler = new PostDataHandler("update");
 		$posthandler->action = "post";
 
+
+		$selectedAccount = ChangeUserControl::getUserAccountSelection($mybb->user);
+
+		if ($selectedAccount['uid'] === -1) {
+			error("Brak konta postaci. Utwórz konto postaci, aby móc wysyłać wiadomości na tym forum.");
+		}
+
 		// Set the post data that came from the input to the $post array.
 		$post = array(
 			"pid" => $mybb->input['pid'],
 			"prefix" => $mybb->get_input('threadprefix', MyBB::INPUT_INT),
 			"subject" => $mybb->get_input('subject'),
 			"icon" => $mybb->get_input('icon', MyBB::INPUT_INT),
-			"uid" => $post['uid'],
-			"username" => $post['username'],
+			"uid" => $selectedAccount['uid'] ?? $post['uid'],
+			"username" => $selectedAccount['username'] ?? $post['username'],
 			"edit_uid" => $mybb->user['uid'],
 			"message" => $mybb->get_input('message'),
+			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
+			"NPCName" => $selectedAccount['NPCName'] ?? ''
 		);
 
 		$postoptions = $mybb->get_input('postoptions', MyBB::INPUT_ARRAY);

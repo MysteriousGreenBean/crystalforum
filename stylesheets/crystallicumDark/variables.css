@@ -54,20 +54,20 @@
 	--right-shadow: 4px 0 4px -2px rgba(0, 0, 0, 0.3);
 	--text-shadow: 1px 1px rgba(0,0,0,0.498039);
 	/* Images */
-	--background-image: url(https://i.imgur.com/BgMgifV.png);
-	/*--background-image: url(https://i.imgur.com/E5rJoV2.jpeg);*/
-	/*--category-image: url(https://i.imgur.com/Hex8q0q.jpeg);
-	--category-image: url(https://i.imgur.com/4Ed0j5Y.png);*/
-	--category-image: url(https://i.imgur.com/JuMZlYh.png);
-	--thead-image: url(https://i.imgur.com/zH4d3zl.png);
-	--blocked-forum: url(https://i.imgur.com/hkkIvVC.png);
-	--new-posts: url(https://i.imgur.com/6cqUKnn.png);
-	--no-new-posts: url(https://i.imgur.com/sANoQaB.png);
-	--header-image: url(https://i.imgur.com/96810sm.png);
-	--post-background: url(https://i.imgur.com/4Ed0j5Y.png);
-	--nick-background: url(https://i.imgur.com/PUzHlyK.png);
-	--forum-stats: url(https://i.imgur.com/JuMZlYh.png);
-	--frame: url(https://i.imgur.com/ZuUaXTs.png);
+	--background-image: url("/images/emerald/theme/background-image.png");
+	/*--background-image: url("/images/emerald/theme images/background-image-2.jpeg");*/
+	/*--category-image: url("/images/emerald/theme/category-image-2.jpeg");
+	--category-image: url("/images/emerald/theme/category-image-3.jpeg");*/
+	--category-image: url("/images/emerald/theme/category-image.png");
+	--thead-image: url("/images/emerald/theme/thead-image.png");
+	--blocked-forum: url("/images/emerald/theme/forum-stats.png");
+	--new-posts: url("/images/emerald/theme/new-posts.png");
+	--no-new-posts: url("/images/emerald/theme/no-new-posts.png");
+	--header-image: url("/images/emerald/theme/header-image.png");
+	--post-background: url("/images/emerald/theme/post-background.png");
+	--nick-background: url("/images/emerald/theme/nick-background.png");
+	--forum-stats: url("/images/emerald/theme/forum-stats.png");
+	--frame: url("/images/emerald/theme/frame.png");
 	
 	/* Fonts */
 	--main-font: 'Open Sans';

@@ -1,0 +1,10 @@
+<form action="search.php" method="post" id="search_form">
+    <input type="hidden" name="action" value="results" />
+    <input type="hidden" name="uid" value="{$uid}" />
+    <input type="hidden" name="filtered" value="true" />
+    <input type="hidden" name="sid" value="{$sid}" />
+    <td align="left" valign="top">
+        Konta: {$filterDropdown}
+        <input type="submit" class="button" value="Filtruj" />
+    </td>
+</form>
