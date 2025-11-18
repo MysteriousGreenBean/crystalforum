@@ -380,7 +380,129 @@ var Post = {
 	},
 	fileInput: $(),
 	dropZone: $(),
-	form: $()
+	form: $(),
+	diceRowCount: 0,
+	maxDiceRows: 10,
+	addDiceRow: function (e) {
+		const removeButtonFunction = function(buttonName) {
+			const btn = document.getElementById(buttonName);
+			if (btn && btn.parentNode) {
+				btn.parentNode.removeChild(btn);
+			}
+		};
+		
+		const renderAddDiceButtonFunction = function() {
+			const buttonContainer = document.getElementById('addDiceBtnContainer');
+			if (Post.diceRowCount < Post.maxDiceRows && buttonContainer && !document.getElementById('addDiceBtn')) {
+				const addBtn = document.createElement('button');
+				addBtn.type = 'button';
+				addBtn.id = 'addDiceBtn';
+				addBtn.textContent = 'Dodaj rzut';
+				addBtn.onclick = Post.addDiceRow;
+				buttonContainer.appendChild(addBtn);
+			}
+		};
+
+		const renderRemoveDiceButtonFunction = function() {
+			const buttonContainer = document.getElementById('removeDiceBtnContainer');
+			if (Post.diceRowCount > 0 && buttonContainer && !document.getElementById('removeDiceBtn')) {
+				const remBtn = document.createElement('button');
+				remBtn.type = 'button';
+				remBtn.id = 'removeDiceBtn';
+				remBtn.textContent = 'Usuń ostatni rzut';
+				remBtn.onclick = function() {
+					const container = document.getElementById('diceRows');
+					if (container.lastChild) {
+						container.removeChild(container.lastChild);
+					}
+					Post.diceRowCount--;
+					renderAddDiceButtonFunction();
+
+					if (Post.diceRowCount === 0) {
+						removeButtonFunction('removeDiceBtn');
+					}
+				};
+				buttonContainer.appendChild(remBtn);
+			}
+		};
+
+		Post.diceRowCount++;
+
+		if (Post.diceRowCount > 0) {
+			renderRemoveDiceButtonFunction();
+		}
+
+		const container = document.getElementById('diceRows');
+
+		const row = document.createElement('div');
+		row.className = 'dice-row';
+		row.style.marginBottom = '6px';
+
+		const countId = 'dice_count_' + Post.diceRowCount;
+		const labelDiceCount = document.createElement('label');
+		labelDiceCount.textContent = 'Liczba kości:';
+		labelDiceCount.style.marginRight = '8px';
+		labelDiceCount.htmlFor = countId;
+		row.appendChild(labelDiceCount);
+
+		// Count select
+		const selectCount = document.createElement('input');
+		selectCount.name = countId;
+		selectCount.id = countId;
+		selectCount.type = 'number';
+		selectCount.min = '1';
+		selectCount.max = '100';
+		selectCount.value = '1';
+		selectCount.style.width = '50px';
+
+		const typeId = 'dice_type_' + Post.diceRowCount;
+		const labelDiceType = document.createElement('label');
+		labelDiceType.textContent = 'Typ kości:';
+		labelDiceType.style.marginRight = '8px';
+		labelDiceType.htmlFor = typeId;
+
+		// Type select
+		const selectType = document.createElement('select');
+		selectType.id = typeId;
+		selectType.name = typeId;
+		['d4','d6','d8','d10','d12','d20', 'Własna'].forEach(function(v){
+			const o = document.createElement('option');
+			o.value = v;
+			o.text = v;
+			selectType.appendChild(o);
+		});
+
+		selectType.onchange = function(e) {
+			if (e.target.value === 'Własna') {
+				const customInput = document.createElement('input');
+				customInput.type = 'number';
+				customInput.name = 'dice_custom_' + Post.diceRowCount;
+				customInput.min = '2';
+				customInput.max = '1000';
+				customInput.placeholder = 'Liczba ścian';
+				customInput.style.marginLeft = '8px';
+				row.insertBefore(customInput, e.target.nextSibling);
+			}
+			else {
+				const nextElem = e.target.nextSibling;
+				if (nextElem && nextElem.tagName.toLowerCase() === 'input') {
+					row.removeChild(nextElem);
+				}
+			}
+		};
+
+
+		row.appendChild(selectCount);
+		row.appendChild(document.createTextNode(' '));
+		row.appendChild(labelDiceType);
+		row.appendChild(selectType);
+		container.appendChild(row);
+
+		if (Post.diceRowCount >= Post.maxDiceRows) {
+			removeButtonFunction('addDiceBtn');
+			renderRemoveDiceButtonFunction();
+		}
+	}
 };
 
 Post.init();
