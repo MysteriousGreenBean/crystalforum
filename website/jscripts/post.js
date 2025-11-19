@@ -479,18 +479,33 @@ var Post = {
 
 		selectType.onchange = function(e) {
 			if (e.target.value == 0) {
+				const customId = 'dice_custom_' + Post.diceRowCount;
 				const customInput = document.createElement('input');
 				customInput.type = 'number';
-				customInput.name = 'dice_custom_' + Post.diceRowCount;
+				customInput.name = customId
+				customInput.id = customId;
+				customInput.value = '2';
 				customInput.min = '2';
 				customInput.max = '1000';
-				customInput.placeholder = 'Liczba ścian';
-				customInput.style.marginLeft = '8px';
-				customInput.style.width = '95px';
+				customInput.style.width = '50px';
 				row.insertBefore(customInput, e.target.nextSibling);
+
+				const customDiceLabel = document.createElement('label');
+				customDiceLabel.textContent = 'Liczba ścian:';
+				customDiceLabel.style.marginLeft = '8px';
+				customDiceLabel.style.marginRight = '8px';
+				customDiceLabel.htmlFor = customId;
+
+				row.insertBefore(customDiceLabel, e.target.nextSibling);
+
 			}
 			else {
-				const nextElem = e.target.nextSibling;
+				let nextElem = e.target.nextSibling;
+				if (nextElem && nextElem.tagName.toLowerCase() === 'label') {
+					row.removeChild(nextElem);
+				}
+				
+				nextElem = e.target.nextSibling;
 				if (nextElem && nextElem.tagName.toLowerCase() === 'input') {
 					row.removeChild(nextElem);
 				}
