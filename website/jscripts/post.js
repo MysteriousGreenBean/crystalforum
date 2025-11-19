@@ -421,6 +421,9 @@ var Post = {
 					if (Post.diceRowCount === 0) {
 						removeButtonFunction('removeDiceBtn');
 					}
+
+					const diceCountInput = document.getElementById('total_dice_rows');
+					diceCountInput.value = Post.diceRowCount;
 				};
 				buttonContainer.appendChild(remBtn);
 			}
@@ -454,6 +457,7 @@ var Post = {
 		selectCount.max = '100';
 		selectCount.value = '1';
 		selectCount.style.width = '50px';
+		selectCount.style.height = '25px';
 
 		const typeId = 'dice_type_' + Post.diceRowCount;
 		const labelDiceType = document.createElement('label');
@@ -465,15 +469,16 @@ var Post = {
 		const selectType = document.createElement('select');
 		selectType.id = typeId;
 		selectType.name = typeId;
-		['d4','d6','d8','d10','d12','d20', 'Własna'].forEach(function(v){
+
+		dice_definitions.forEach(function(v){
 			const o = document.createElement('option');
-			o.value = v;
-			o.text = v;
+			o.value = v.id;
+			o.text = v.name;
 			selectType.appendChild(o);
 		});
 
 		selectType.onchange = function(e) {
-			if (e.target.value === 'Własna') {
+			if (e.target.value == 0) {
 				const customInput = document.createElement('input');
 				customInput.type = 'number';
 				customInput.name = 'dice_custom_' + Post.diceRowCount;
@@ -481,6 +486,7 @@ var Post = {
 				customInput.max = '1000';
 				customInput.placeholder = 'Liczba ścian';
 				customInput.style.marginLeft = '8px';
+				customInput.style.width = '95px';
 				row.insertBefore(customInput, e.target.nextSibling);
 			}
 			else {
@@ -491,6 +497,8 @@ var Post = {
 			}
 		};
 
+		const diceCountInput = document.getElementById('total_dice_rows');
+		diceCountInput.value = Post.diceRowCount;
 
 		row.appendChild(selectCount);
 		row.appendChild(document.createTextNode(' '));
@@ -502,6 +510,12 @@ var Post = {
 			removeButtonFunction('addDiceBtn');
 			renderRemoveDiceButtonFunction();
 		}
+
+		selectType.onchange({
+			target: {
+				value: selectType.value
+			}
+		});
 	}
 };
 

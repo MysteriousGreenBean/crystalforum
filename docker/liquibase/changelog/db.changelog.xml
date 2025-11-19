@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <changeSet author="liquibase (generated)" id="1737906077484-1">
     <createTable tableName="mybb_adminlog">
@@ -3239,4 +3239,17 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
       INSERT INTO `mybb_settings` (`sid`, `name`, `title`, `description`, `optionscode`, `value`, `disporder`, `gid`, `isdefault`) VALUES (NULL, 'gmgroup', 'GM Groups', 'Newly created GM accounts will be automatically assigned to this group,', 'groupselectsingle', '8', '1', '35', '1');
     </sql>
   </changeSet>
+    <changeSet author="liquibase (generated)" id="1763580328315-1">
+        <createTable tableName="mybb_dicedefinitions">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Definition" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

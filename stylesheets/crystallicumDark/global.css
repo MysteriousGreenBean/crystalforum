@@ -184,12 +184,12 @@ input[type="checkbox"]{
 
 input[type="number"]{
 	appearance: none;
-	height: 15px;
+	height: 25px;
 	color: rgb(179, 179, 179);
 	background: var(--box-background);
     border: var(--main-border);
     box-shadow: var(--main-shadow);
-	width: 90px;
+	width: 95px;
 }
 
 input[type="checkbox"]:checked {

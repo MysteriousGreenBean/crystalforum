@@ -28,7 +28,7 @@ require_once MYBB_ROOT."inc/functions_upload.php";
 require_once MYBB_ROOT."inc/class_parser.php";
 require_once MYBB_ROOT."controls/changeUserControl.php";
 require_once MYBB_ROOT."enums/AllowedAccountTypes.php";
-
+require_once MYBB_ROOT."controls/diceOptionsControl.php";
 $parser = new postParser;
 
 // Load global language phrases
@@ -1384,6 +1384,9 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 	{
 		eval("\$disablesmilies = \"".$templates->get("newreply_disablesmilies")."\";");
 	}
+
+	$diceDefinitions = DiceOptionsControl::loadDefinitions();
+	$diceOptions = DiceOptionsControl::render();
 
 	$postoptions = '';
 	if(!empty($signature) || !empty($disablesmilies))
