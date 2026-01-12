@@ -26,8 +26,25 @@ lang.click_mark_read = "{$lang->click_mark_read}";
 {$header}
 	
 	
-	<div class="thead">Ogłoszenie<div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
-	<div class="forums announcements">hehe</div><br/><br/>
+	<div class="thead"><if $mybb->user['usergroup'] == 1 then>Radiant Cities RPG<else>Wiadomości ze świata</else></if><div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
+	<div class="forums announcements">
+		<div class="announcement_bg">
+			<if $mybb->user['usergroup'] == 1 then>
+				<div class="an_section guest_img"><img src="https://64.media.tumblr.com/d2a75f6b66b3f334f22df0382ef67558/40fb8323720ec1f9-9e/s1280x1920/d16914a97d8c023da9c8a1b0ba7c7e45840817d5.gif"></div>
+				<div class="an_section guest_announcement">Ogłoszenie dla gości - wstęp do forum</div>
+				<div class="an_section guest_announcement">Ogłoszenie dla gości - info o tym jak dołączyć do gry + linki</div>
+				<div class="an_section guest_img"><img src="https://64.media.tumblr.com/d2a75f6b66b3f334f22df0382ef67558/40fb8323720ec1f9-9e/s1280x1920/d16914a97d8c023da9c8a1b0ba7c7e45840817d5.gif"></div>
+			<else> 
+				<div class="an_section registered_img"><img src="https://64.media.tumblr.com/62872e1ada71cc78f206034f0970020f/f84cbcd38a12bf55-d2/s1280x1920/d3fd52cbb1bcd175a0f0fcf13d52235197fc96ee.gif"></div>
+				<div class="an_section registered_announcement">Hej, {$mybb->user['username']} <br>Ogłoszenie dla zarejestrowanych użytkowników - pora roku, rok, pogoda</div>
+				<div class="an_section registered_announcement">Newsy ze świata <br>Jakieś ważniejsze wydarzenia</div>
+				<div class="an_section registered_img"><img src="https://64.media.tumblr.com/62872e1ada71cc78f206034f0970020f/f84cbcd38a12bf55-d2/s1280x1920/d3fd52cbb1bcd175a0f0fcf13d52235197fc96ee.gif"></div>
+				<div class="an_section registered_img"><img src="https://64.media.tumblr.com/62872e1ada71cc78f206034f0970020f/f84cbcd38a12bf55-d2/s1280x1920/d3fd52cbb1bcd175a0f0fcf13d52235197fc96ee.gif"></div>
+				<div class="an_section registered_announcement">Ogłoszenia + Sesje z MG <br> Aktywna karta z linkami <br> ikonki z waznymi linkami</div>
+				</else>
+			</if>
+		</div>
+	</div><br/><br/>
 	
 	<div class ="container">
 		<div class="background">
