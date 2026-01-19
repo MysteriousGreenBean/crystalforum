@@ -71,6 +71,18 @@ class templates
 	}
 
 	/**
+	 * Evaluate a template.
+	 *
+	 * @param string $template The template to evaluate.
+	 * @return string The evaluated template.
+	 */
+	function eval($title)
+	{
+		eval("\$template = \"".$this->get($title)."\";");
+		return $template;
+	}
+
+	/**
 	 * Gets templates.
 	 *
 	 * @param string $title The title of the template to get.

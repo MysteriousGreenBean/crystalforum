@@ -1133,7 +1133,8 @@ class PostDataHandler extends DataHandler
 				"smilieoff" => $post['options']['disablesmilies'],
 				"visible" => $visible,
 				"ParentUid" => $post['ParentUid'],
-				"NPCName" => $post['NPCName']
+				"NPCName" => $post['NPCName'],
+				"DiceData" => $post['DiceData']
 			);
 
 			$plugins->run_hooks("datahandler_post_insert_post", $this);
@@ -1159,7 +1160,8 @@ class PostDataHandler extends DataHandler
 				"smilieoff" => $post['options']['disablesmilies'],
 				"visible" => $visible,
 				"ParentUid" => $post['ParentUid'],
-				"NPCName" => $post['NPCName']
+				"NPCName" => $post['NPCName'],
+				"DiceData" => $post['DiceData']
 			);
 
 			$plugins->run_hooks("datahandler_post_insert_post", $this);
@@ -1553,7 +1555,8 @@ class PostDataHandler extends DataHandler
 				"smilieoff" => $thread['options']['disablesmilies'],
 				"visible" => $visible,
 				"ParentUid" => $thread['ParentUid'],
-				"NPCName" => $thread['NPCName']
+				"NPCName" => $thread['NPCName'],
+				"DiceData" => $thread['DiceData']
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1600,7 +1603,8 @@ class PostDataHandler extends DataHandler
 				"smilieoff" => $thread['options']['disablesmilies'],
 				"visible" => $visible,
 				"ParentUid" => $thread['ParentUid'],
-				"NPCName" => $thread['NPCName']
+				"NPCName" => $thread['NPCName'],
+				"DiceData" => $thread['DiceData']
 			);
 			$plugins->run_hooks("datahandler_post_insert_thread_post", $this);
 
@@ -1977,6 +1981,11 @@ class PostDataHandler extends DataHandler
 		if (isset($post['NPCName']))
 		{
 			$this->post_update_data['NPCName'] = $db->escape_string($post['NPCName']);
+		}
+
+		if (isset($post['DiceData']))
+		{
+			$this->post_update_data['DiceData'] = $db->escape_string($post['DiceData']);
 		}
 
 		if(isset($post['subject']))

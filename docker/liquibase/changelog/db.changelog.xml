@@ -3250,6 +3250,16 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
             <column name="Definition" type="TEXT">
                 <constraints nullable="false"/>
             </column>
+            <column defaultValueNumeric="1" name="Active" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1763580328315-2">
+        <addColumn tableName="mybb_posts">
+            <column defaultValue="[]" name="DiceData" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

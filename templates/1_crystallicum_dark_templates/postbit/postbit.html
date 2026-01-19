@@ -2,6 +2,26 @@
   {$ignore_bit}
   <a name="pid{$post['pid']}" id="pid{$post['pid']}"></a>
   
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".dice-roll").forEach((el) => {
+      const value = el.getAttribute("data-value")?.trim() || "?";
+
+      el.textContent = "";
+
+      const face = document.createElement("div");
+      face.className = "dice-roll-face entering";
+      face.textContent = value;
+
+      el.appendChild(face);
+
+      face.addEventListener("animationend", () => {
+        face.classList.remove("entering");
+      }, { once: true });
+    });
+  });
+</script>
+
   <div class="post parent {$unapproved_shade}" style="{$post_visibility}" id="post_{$post['pid']}">
   <div class="character_nick"><center><strong><span>{$post['profilelink']}</span></strong></center></div>
   
@@ -23,11 +43,13 @@
 	<div class="post_body scaleimages" id="pid_{$post['pid']}">
 	  {$post['message']}
 	</div>
+
 	{$post['attachments']}
 	<div class="post_meta" id="post_meta_{$post['pid']}">
 	  {$post['iplogged']}
 	</div>
 	</div>
+	<div class="dice-roll" data-value="4<span></span>"></div>
 	{$post['signature']}
 	  <div class="user_stats">{$post['fid1']} Tu będzie mechanika2<br>Tu będzie mechanika2<br>Tu będzie mechanika3<br>Tu będzie mechanik44a<br>Tu będzie mechanika<br></div>
   </div>

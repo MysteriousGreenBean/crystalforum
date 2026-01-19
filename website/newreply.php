@@ -319,7 +319,6 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 	verify_post_check($mybb->get_input('my_post_key'));
 
 	$plugins->run_hooks("newreply_do_newreply_start");
-
 	// If this isn't a logged in user, then we need to do some special validation.
 	if($mybb->user['uid'] == 0)
 	{
@@ -416,7 +415,8 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 		"ipaddress" => $session->packedip,
 		"posthash" => $mybb->get_input('posthash'),
 		"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
-		"NPCName" => $selectedAccount['NPCName'] ?? ''
+		"NPCName" => $selectedAccount['NPCName'] ?? '',
+		"DiceData" => DiceOptionsControl::getDiceInputData($selectedAccount['uid'] ?? $uid)
 	);
 
 	if(isset($mybb->input['pid']))
@@ -1012,7 +1012,8 @@ if($mybb->input['action'] == "newreply" || $mybb->input['action'] == "editdraft"
 			"ipaddress" => $session->packedip,
 			"posthash" => $mybb->get_input('posthash'),
 			"ParentUid" => $selectedAccount['parent']['uid'] ?? $mybb->user['parent']['uid'],
-			"NPCName" => $selectedAccount['NPCName'] ?? ''
+			"NPCName" => $selectedAccount['NPCName'] ?? '',
+			"DiceData" => DiceOptionsControl::getDiceInputData($selectedAccount['uid'] ?? $uid)
 		);
 
 		if(isset($mybb->input['pid']))
