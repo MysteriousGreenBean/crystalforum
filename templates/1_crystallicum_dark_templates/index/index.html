@@ -78,20 +78,34 @@ lang.click_mark_read = "{$lang->click_mark_read}";
 	
 	<div class="thead"><if $mybb->user['usergroup'] == 1 then>Radiant Cities RPG<else>Wiadomości ze świata</else></if><div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
 	<div class="forums announcements">
-			<if $mybb->user['usergroup'] == 1 then>
-				<div class="an_section guest_img"><img src="https://64.media.tumblr.com/d2a75f6b66b3f334f22df0382ef67558/40fb8323720ec1f9-9e/s1280x1920/d16914a97d8c023da9c8a1b0ba7c7e45840817d5.gif"></div>
-				<div class="an_section guest_announcement">Ogłoszenie dla gości - wstęp do forum</div>
-				<div class="an_section guest_announcement">Ogłoszenie dla gości - info o tym jak dołączyć do gry + linki</div>
-				<div class="an_section guest_img"><img src="https://64.media.tumblr.com/d2a75f6b66b3f334f22df0382ef67558/40fb8323720ec1f9-9e/s1280x1920/d16914a97d8c023da9c8a1b0ba7c7e45840817d5.gif"></div>
-			<else> 
 				<div class="carousel-wrapper announcement_bg">
-					<div class="carousel">
-						<div class="carousel-item active">1</div>
-						<div class="carousel-item">2</div>
-						<div class="carousel-item">3</div>
-						<br/>
-						<button class="carousel-button prev-btn"><</button>
-						<button class="carousel-button next-btn">></button>
+					<div class="carousel carousel_bg">
+						<if $mybb->user['usergroup'] == 1 then>
+							<div class="carousel-item active">
+								<div class="announcement_item"><img src="\images\emerald\theme\announcement_img_01.jpeg"></div>
+								<div class="announcement_item"><h1>Czym jest Radiant Cities RPG?</h1>
+									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+								</div>
+								<div class="announcement_item">
+									<h1>Jak dołączyć do gry?</h1>
+									Lorem Ipsum is simply dummy text of the printing and typesetting industry.</br>
+									<button>Rejestracja</button> <button>Login</button>
+								</div>
+								<div class="announcement_item"><img src="\images\emerald\theme\announcement_img_01.jpeg"></div>
+								<div class="guest_list">
+									<i class="cp cp-map"></i>
+									<i class="cp cp-book"></i>
+									<i class="cp cp-gemstone"></i>
+									<i class="cp cp-discord"></i>
+									<i class="cp cp-tumblr"></i>
+								</div>
+							</div>
+						<else>
+							<div class="carousel-item active">1 - Ogłoszenie dla użytkowników</div>
+							<div class="carousel-item">2</div>
+							<div class="carousel-item">3</div>
+						</else>
+						</if>
 					</div>
 					<div class="carousel-indicators">
 						<span class="dot active"></span>
@@ -99,8 +113,6 @@ lang.click_mark_read = "{$lang->click_mark_read}";
 						<span class="dot"></span><span class="dot"></span>
 					</div>
 				</div>
-				</else>
-			</if>
 	</div><br/><br/>
 	
 	<div class ="container">
