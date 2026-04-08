@@ -2490,7 +2490,7 @@ div.jqi .jqisubstate .jqibuttons button {
 
 /* Signature */
 .post_content .signature {
-    background-image: url(https://i.imgur.com/eGpO5Co.png);
+    background-image: var(--signature-background);
     background-size: 100%;
     border-radius: 100px;
     max-width: 60%;

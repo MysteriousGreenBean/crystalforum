@@ -21,6 +21,56 @@ lang.click_mark_read = "{$lang->click_mark_read}";
     });
 	
   </script>
+
+  <!-- Announcement carousel -->
+  <script>
+	document.addEventListener("DOMContentLoaded", function () {
+	const wrappers = document.querySelectorAll(".carousel-wrapper");
+
+		wrappers.forEach(wrapper => {
+			const carousel = wrapper.querySelector(".carousel");
+			const items = wrapper.querySelectorAll(".carousel-item");
+			const indicatorsContainer = wrapper.querySelector(".carousel-indicators");
+			const nextBtn = wrapper.querySelector(".next-btn");
+			const prevBtn = wrapper.querySelector(".prev-btn");
+			let currentIndex = 0;
+
+			if (items.length === 0) return;
+
+			function showSlide(index) {
+			items.forEach(slide => slide.classList.remove("active"));
+			items[index].classList.add("active");
+			updateIndicators();
+			}
+
+			function updateIndicators() {
+			indicatorsContainer.innerHTML = "";
+			items.forEach((_, i) => {
+				const dot = document.createElement("span");
+				dot.classList.add("dot");
+				if (i === currentIndex) dot.classList.add("active");
+				dot.addEventListener("click", () => {
+				currentIndex = i;
+				showSlide(currentIndex);
+				});
+				indicatorsContainer.appendChild(dot);
+			});
+			}
+
+			nextBtn?.addEventListener("click", () => {
+			currentIndex = (currentIndex + 1) % items.length;
+			showSlide(currentIndex);
+			});
+
+			prevBtn?.addEventListener("click", () => {
+			currentIndex = (currentIndex - 1 + items.length) % items.length;
+			showSlide(currentIndex);
+			});
+
+			showSlide(currentIndex);
+		});
+	});
+  </script>
 </head>
 <body>
 {$header}
@@ -28,22 +78,29 @@ lang.click_mark_read = "{$lang->click_mark_read}";
 	
 	<div class="thead"><if $mybb->user['usergroup'] == 1 then>Radiant Cities RPG<else>Wiadomości ze świata</else></if><div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
 	<div class="forums announcements">
-		<div class="announcement_bg">
 			<if $mybb->user['usergroup'] == 1 then>
 				<div class="an_section guest_img"><img src="https://64.media.tumblr.com/d2a75f6b66b3f334f22df0382ef67558/40fb8323720ec1f9-9e/s1280x1920/d16914a97d8c023da9c8a1b0ba7c7e45840817d5.gif"></div>
 				<div class="an_section guest_announcement">Ogłoszenie dla gości - wstęp do forum</div>
 				<div class="an_section guest_announcement">Ogłoszenie dla gości - info o tym jak dołączyć do gry + linki</div>
 				<div class="an_section guest_img"><img src="https://64.media.tumblr.com/d2a75f6b66b3f334f22df0382ef67558/40fb8323720ec1f9-9e/s1280x1920/d16914a97d8c023da9c8a1b0ba7c7e45840817d5.gif"></div>
 			<else> 
-				<div class="an_section registered_img"><img src="https://64.media.tumblr.com/62872e1ada71cc78f206034f0970020f/f84cbcd38a12bf55-d2/s1280x1920/d3fd52cbb1bcd175a0f0fcf13d52235197fc96ee.gif"></div>
-				<div class="an_section registered_announcement">Hej, {$mybb->user['username']} <br>Ogłoszenie dla zarejestrowanych użytkowników - pora roku, rok, pogoda</div>
-				<div class="an_section registered_announcement">Newsy ze świata <br>Jakieś ważniejsze wydarzenia</div>
-				<div class="an_section registered_img"><img src="https://64.media.tumblr.com/62872e1ada71cc78f206034f0970020f/f84cbcd38a12bf55-d2/s1280x1920/d3fd52cbb1bcd175a0f0fcf13d52235197fc96ee.gif"></div>
-				<div class="an_section registered_img"><img src="https://64.media.tumblr.com/62872e1ada71cc78f206034f0970020f/f84cbcd38a12bf55-d2/s1280x1920/d3fd52cbb1bcd175a0f0fcf13d52235197fc96ee.gif"></div>
-				<div class="an_section registered_announcement">Ogłoszenia + Sesje z MG <br> Aktywna karta z linkami <br> ikonki z waznymi linkami</div>
+				<div class="carousel-wrapper announcement_bg">
+					<div class="carousel">
+						<div class="carousel-item active">1</div>
+						<div class="carousel-item">2</div>
+						<div class="carousel-item">3</div>
+						<br/>
+						<button class="carousel-button prev-btn"><</button>
+						<button class="carousel-button next-btn">></button>
+					</div>
+					<div class="carousel-indicators">
+						<span class="dot active"></span>
+						<span class="dot"></span>
+						<span class="dot"></span><span class="dot"></span>
+					</div>
+				</div>
 				</else>
 			</if>
-		</div>
 	</div><br/><br/>
 	
 	<div class ="container">
