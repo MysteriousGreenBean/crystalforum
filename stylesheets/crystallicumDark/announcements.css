@@ -165,7 +165,8 @@
 	padding-bottom: 20px;
   }
   
-  .carousel-item.active {
+  .carousel-item.active,
+  .carousel-item-g.active {
 	opacity: 1;
 	pointer-events: auto;
 	z-index: 1;
