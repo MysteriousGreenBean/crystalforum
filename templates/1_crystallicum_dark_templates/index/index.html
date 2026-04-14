@@ -21,13 +21,166 @@ lang.click_mark_read = "{$lang->click_mark_read}";
     });
 	
   </script>
+
+  <!-- Announcement carousel -->
+  <script>
+	document.addEventListener("DOMContentLoaded", function () {
+	const wrappers = document.querySelectorAll(".carousel-wrapper");
+
+		wrappers.forEach(wrapper => {
+			const carousel = wrapper.querySelector(".carousel");
+			const items = wrapper.querySelectorAll(".carousel-item");
+			const indicatorsContainer = wrapper.querySelector(".carousel-indicators");
+			const nextBtn = wrapper.querySelector(".next-btn");
+			const prevBtn = wrapper.querySelector(".prev-btn");
+			let currentIndex = 0;
+
+			if (items.length === 0) return;
+
+			function showSlide(index) {
+			items.forEach(slide => slide.classList.remove("active"));
+			items[index].classList.add("active");
+			updateIndicators();
+			}
+
+			function updateIndicators() {
+			indicatorsContainer.innerHTML = "";
+			items.forEach((_, i) => {
+				const dot = document.createElement("span");
+				dot.classList.add("dot");
+				if (i === currentIndex) dot.classList.add("active");
+				dot.addEventListener("click", () => {
+				currentIndex = i;
+				showSlide(currentIndex);
+				});
+				indicatorsContainer.appendChild(dot);
+			});
+			}
+
+			nextBtn?.addEventListener("click", () => {
+			currentIndex = (currentIndex + 1) % items.length;
+			showSlide(currentIndex);
+			});
+
+			prevBtn?.addEventListener("click", () => {
+			currentIndex = (currentIndex - 1 + items.length) % items.length;
+			showSlide(currentIndex);
+			});
+
+			showSlide(currentIndex);
+		});
+	});
+  </script>
 </head>
 <body>
 {$header}
 	
 	
-	<div class="thead">Ogłoszenie<div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
-	<div class="forums announcements">hehe</div><br/><br/>
+	<div class="thead"><if $mybb->user['usergroup'] == 1 then>Radiant Cities RPG<else>Tablica ogłoszeń</else></if><div class="expcolimage"><i id="announcement" class="expander cp cp-minus smalltext" /></i></div></div>
+	<div class="forums announcements">
+			<if $mybb->user['usergroup'] == 1 then>
+				<div class="carousel-wrapper announcement_bg">
+					<div class="carousel carousel_bg">
+							<div class="carousel-item-g active">
+								<div class="announcement_item">
+									<img src="\images\emerald\theme\announcement_img_01.jpeg"><br><br>
+									<h1>Czym jest Radiant Cities RPG?</h1>
+									<p>Radiant Cities RPG to fabularna gra tekstowa, rozgrywana przez forum internetowe. Świat przedstawiony utrzymany jest w konwencji fantasy z elementami horroru, planowany styl rozgrywki opiera się natomiast przede wszystkim na przeplatających się wzajemnie przygodach niedużych grup graczy, z narracją mistrzów gry. Gra przeznaczona jest dla dorosłych.</p>
+									<p>Osoby biorące udział w zabawie będą miały okazję wcielić się w wymyślone przez siebie postacie, które z tego lub innego powodu, związały swoje losy z pełnym tajemnic, magii i nieposkromionych ambicji Uniwersytetem Lyskim - kolebką wzrastających na znaczeniu środowisk akademickich kontynentu. To właśnie z ramienia tej znamienitej instytucji, bohaterowie graczy wyruszą w swoje pierwsze podróże po bezdrożach Aesterionu, gdzie czekają na nich codzienne znoje i wielkie przygody, żywe legendy i gotowe do odkrycia ruiny starożytnych imperiów, zawiłości politycznych zagrywek, historie własnych marzeń i obsesji, majestatyczne smoki błyszczące w słońcu setkami kryształowych łusek, pradawne istoty udzielające Swych błogosławieństw i adepci Sztuki kształtujący rzeczywistość przy pomocy magicznego rezonansu... Ach, i prace dyplomowe do napisania, oczywiście. Czym byłby uniwersytet bez widma pracy wiszącego nad nieszczęsnymi studentami?</p>
+								</div>
+								<div class="announcement_item">
+									<h1>Jak dołączyć do gry?</h1>
+									<p>Nic prostszego. Wystarczy, że zarejestrujesz się na forum klikając w przycisk poniżej. Do rozpoczęcia gry wymagane jest przeczytanie Regulaminu oraz Wprowadzenia do gry (linki do ważnych tematów w ikonach poniżej) oraz stworzenie Karty Postaci swojego bohatera (postaci, którą dany gracz będzie odgrywał). Pomoc przy tworzeniu Karty znajduje się w temacie ze Wzorem. W razie pytań czy pomysłów, zapraszamy do kontaktu z administracją przy pomocy dowolnego kanału. Polecamy również dołączyć do naszego serwera na Discordzie, który ułatwi komunikację z administracją, mistrzami gry i pozostałymi graczami.</p>
+									<p>Doświadczenie w zakresie gier fabularnych nie jest wymagane - od graczy oczekujemy jedynie otwartości na współpracę przy wspólnym tworzeniu wyjątkowych historii, podczas których wszyscy uczestnicy będą dobrze się bawić.</p>
+									<center><p><a href="/member.php?action=register" aria-label="Rejestracja"><button>Rejestracja</button></a></p>
+									<div class="guest_list">
+										<a href="/showthread.php?tid=3" title="Spis treści forum" aria-label="Spis treści forum"><i class="cp cp-map"></i></a>
+										<a href="/showthread.php?tid=8" title="Regulamin forum" aria-label="Regulamin forum"><i class="cp cp-book"></i></a>
+										<a href="/showthread.php?tid=11" title="Wprowadzenie do gry" aria-label="Wprowadzenie do gry"><i class="cp cp-diamond"></i></a>
+										<a href="/showthread.php?tid=10" title="Tworzenie postaci" aria-label="Tworzenie postaci"><i class="cp cp-gemstone"></i></a>
+										<a href="" title="Serwer Discord" aria-label="Serwer Discord"><i class="cp cp-discord"></i></a>
+										<a href="" title="Tumblr z wizerunkami" aria-label="Tumblr z wizerunkami"><i class="cp cp-tumblr"></i></a>
+									</div></center>
+									<img src="\images\emerald\theme\announcement_img_02.jpg">
+								</div>
+							</div>
+					</div>
+				</div>
+			<else>
+				<div class="carousel-wrapper announcement_bg">
+					<div class="carousel carousel_bg">
+						<div class="carousel-item active"><br>
+							<h1>{$mybb->user['username']}, witaj w Wolnym Mieście!</h1>
+							<div class="user_wrapper">
+								<div class="announcement_item">
+									<img src="\images\emerald\theme\announcement_img_01.jpeg"><br><br>
+									<h2>Polecie, 99 rok nowej ery</h2>
+										<h3>Wiadomości z Lys</h3>
+									<div class="news">
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+									</div>
+								</div>
+								<div class="announcement_item">
+									<h3>Nowinki ze świata</h3>
+									<div class="news2">
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+									</div>
+									<br><img src="\images\emerald\theme\announcement_img_02.jpg">
+								</div>
+							</div>
+							<div class="guest_list">
+								<a href="/showthread.php?tid=3" title="Spis treści forum" aria-label="Spis treści forum"><i class="cp cp-map"></i></a>
+								<a href="/misc.php?action=help" title="FAQ" aria-label="FAQ"><i class="cp cp-certificate"></i></a>
+								<a href="/" title="Ogłoszenia" aria-label="Ogłoszenia"><i class="cp cp-book"></i></a>
+								<a href="" title="Serwer Discord" aria-label="Serwer Discord"><i class="cp cp-discord"></i></a>
+								<a href="" title="Tumblr z wizerunkami" aria-label="Tumblr z wizerunkami"><i class="cp cp-tumblr"></i></a>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<br>
+							<h1>{$mybb->user['username']}, witaj w Wolnym Mieście!</h1>
+							<div class="user_wrapper">
+								<div class="announcement_item news3_img">
+									<h3>Ogłoszenia techniczne</h3>
+									<div class="news3">
+										<ul>
+											<li><a href=""><b>2026/06/30</b> - Otwarcie forum!</li></a>
+											<li><a href=""><b>2026/07/01</b> - Kolejne ogłoszenie!</li></a>
+										</ul>
+									</div>
+									<br><img src="\images\emerald\theme\announcement_img_01.jpeg">
+								</div>
+								<div class="announcement_item news3_img">
+									<img src="\images\emerald\theme\announcement_img_02.jpg"><br><br>
+									<h3>Aktywne sesje z MG</h3>
+									<div class="news3">
+										<ul>
+											<li><a href=""><b>[MG Bean]</b> - Jakiś tam tytuł sesji</li></a>
+											<li><a href=""><b>[MG Bean]</b> - Kolejny tytuł sesji czy coś</li></a>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="space"></div>
+							<div class="guest_list">
+								<a href="/showthread.php?tid=3" title="Spis treści forum" aria-label="Spis treści forum"><i class="cp cp-map"></i></a>
+								<a href="/misc.php?action=help" title="FAQ" aria-label="FAQ"><i class="cp cp-certificate"></i></a>
+								<a href="/" title="Ogłoszenia" aria-label="Ogłoszenia"><i class="cp cp-book"></i></a>
+								<a href="" title="Serwer Discord" aria-label="Serwer Discord"><i class="cp cp-discord"></i></a>
+								<a href="" title="Tumblr z wizerunkami" aria-label="Tumblr z wizerunkami"><i class="cp cp-tumblr"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="carousel-indicators">
+						<span class="dot active"></span>
+						<span class="dot"></span>
+					</div>
+				</div>
+			</else>
+			</if>
+	</div><br/><br/>
 	
 	<div class ="container">
 		<div class="background">

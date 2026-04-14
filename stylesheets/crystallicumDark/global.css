@@ -126,22 +126,6 @@ body {
 	100% { background-position: 100% 50%; }
 }
 
-.announcements {
-	/*display: block;  Initially hidden */
-	max-height: 500px; /* Adjust this to the maximum height of your content */
-      opacity: 1;
-      visibility: visible;
-      transition: max-height 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.announcements.hide {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      visibility: hidden;
-      transition: max-height 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
-}
-
 .thead.hide {
 	-webkit-filter: sepia(50%); /* Safari 6.0 - 9.0 */
 	filter: sepia(50%);
@@ -2506,7 +2490,7 @@ div.jqi .jqisubstate .jqibuttons button {
 
 /* Signature */
 .post_content .signature {
-    background-image: url(https://i.imgur.com/eGpO5Co.png);
+    background-image: var(--signature-background);
     background-size: 100%;
     border-radius: 100px;
     max-width: 60%;

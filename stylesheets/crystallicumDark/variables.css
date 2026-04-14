@@ -50,6 +50,7 @@
 	--trow-border: #222;
 	--main-shadow: rgba(0,0,0,0.498039) 0 0 3px, rgba(0,0,0,0.498039) 0 0 5px inset;
 	--text-shadow: 1px 1px rgba(0,0,0,0.498039);
+	
 	/* Images */
 	--background-image: url("/images/emerald/theme/background-image.png");
 	/*--background-image: url("/images/emerald/theme images/background-image-2.jpeg");*/
@@ -57,7 +58,7 @@
 	--category-image: url("/images/emerald/theme/category-image-3.jpeg");*/
 	--category-image: url("/images/emerald/theme/category-image.png");
 	--thead-image: url("/images/emerald/theme/thead-image.png");
-	--blocked-forum: url("/images/emerald/theme/forum-stats.png");
+	--blocked-forum: url("/images/emerald/theme/blocked-forum.png");
 	--new-posts: url("/images/emerald/theme/new-posts.png");
 	--no-new-posts: url("/images/emerald/theme/no-new-posts.png");
 	--header-image: url("/images/emerald/theme/header-image.png");
@@ -65,6 +66,8 @@
 	--nick-background: url("/images/emerald/theme/nick-background.png");
 	--forum-stats: url("/images/emerald/theme/forum-stats.png");
 	--frame: url("/images/emerald/theme/frame.png");
+	--signature-background: url("/images/emerald/theme/signature_bg.png");
+	--announcement-img-01: url("/images/emerald/theme/announcement_img_01.png");
 	
 	/* Fonts */
 	--main-font: 'Open Sans';
