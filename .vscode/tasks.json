@@ -4,7 +4,7 @@
         {
             "label": "Start containers",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -16,12 +16,15 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "windows": {
+                "command": "powershell"
             }
         },
         {
             "label": "Stop containers",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -29,12 +32,15 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "stop"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         },
         {
             "label": "Restart containers",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -42,12 +48,16 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "restart"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
+
         },
         {
             "label": "Purge containers",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -55,12 +65,15 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "purge"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         },
         {
             "label": "View Logs",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -68,12 +81,15 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "logs"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         },
         {
             "label": "Database Update",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -81,12 +97,15 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "database-update"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         },
         {
             "label": "Database Snapshot",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -94,12 +113,15 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "database-snapshot"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         },
         {
             "label": "Database Dump Changes",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -107,12 +129,15 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "database-dumpChanges"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         },
         {
             "label": "Refresh cache",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -120,12 +145,15 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "refresh-cache"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         },
         {
             "label": "Refresh stylesheets",
             "type": "shell",
-            "command": "powershell",
+            "command": "pwsh",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy",
@@ -133,7 +161,10 @@
                 "-File",
                 "${workspaceFolder}/scripts.ps1",
                 "refresh-stylesheets"
-            ]
+            ],
+            "windows": {
+                "command": "powershell"
+            }
         }
     ]
 }
