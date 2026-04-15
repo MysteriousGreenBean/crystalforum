@@ -184,29 +184,34 @@ lang.click_mark_read = "{$lang->click_mark_read}";
 	
 	<div class ="container">
 		<div class="background">
-		<div class="forum">{$forums}
-			
-			<div class="legend">
-				<div class="forum_stats"> Tu będzie obrazek i statystyki
-					<div class="groups_descriptions">tutaj będą opisy grup</div>
+			<div class="forum">{$forums}
+				
+				<div class="legend">
+					<div class="forum_stats"> 
+						<div class="stat_image"> o o</div>
+						<div class="groups_descriptions">
+							<div class="group_list">
+								<h1>Legenda grup</h1>
+								<i><a href="" style="color: var(--opal);">Opal</a></i>
+								<i><a href="" style="color: var(--citrine);">Citrine</a></i>
+								<i><a href="" style="color: var(--aventurine);">Aventurine</a></i>
+								<i><a href="" style="color: var(--sapphire);">Sapphire</a></i>
+								<i><a href="" style="color: var(--amethyst);">Amethyst</a></i>
+								<i><a href="" style="color: var(--rose-quartz);">Rose Quartz</a></i>
+								<i><a href="" style="color: var(--ruby);">Ruby</a></i>
+								<i><a href="" style="color: var(--amber);">Inni</a></i>
+								<i><a href="" style="color: var(--npc);">NPC</a></i>
+							</div>
+							<div class="whos_online">
+								<h1>Aktywność</h1>
+								<p>Nasi użytkownicy napisali {$stats['numposts']} postów w {$stats['numthreads']} wątkach.</p>
+								<p>Na forum zarejestrowanych jest {$stats['numusers']} użytkowników, a naszym ostatnim zarejestrowanym użytkownikiem jest <a href="member.php?action=profile&uid={$stats['lastuserid']}">{$stats['lastusername']}</a>.</p>
+								<p>{$boardstats}</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-
-			<!-- TEST KOLORÓW GRUP -->
-			<div style="color: var(--registered);">Zarejestrowani</div>
-			<div style="color: var(--not-active);">Nieaktywni</div>
-			<div style="color: var(--banned);">Zbanowani</div>
-			<div style="color: var(--npc);">NPC</div>
-			<div style="color: var(--opal);">1 - Opal</div>
-			<div style="color: var(--citrine);">2 - Citrine</div>
-			<div style="color: var(--aventurine);">3 - Aventurine</div>
-			<div style="color: var(--sapphire);">4 - Sapphire</div>
-			<div style="color: var(--amethyst);">5 - Amethyst</div>
-			<div style="color: var(--rose-quartz);">6 - Rose quartz</div>
-			<div style="color: var(--ruby);">7 - Ruby</div>
-			<div style="color: var(--amber);">8 - Inni - Amber</div>
-			
-			{$boardstats}</div>
 		</div>
 	</div>
 
