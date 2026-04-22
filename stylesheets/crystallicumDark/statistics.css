@@ -1,0 +1,82 @@
+.legend {
+	border-top: solid 10px var(--box-background);
+	border-bottom: solid 10px var(--box-background);
+	border-right: solid 1px var(--box-background);
+	border-left: solid 1px var(--box-background);
+	background: var(--box-background);
+	border-radius: 10px;
+}
+
+.forum_stats {
+	background-image: var(--forum-stats);
+	background-repeat: no-repeat;
+	color: var(--main-font-color);
+	text-align: center;
+	font-family: var(--main-font);
+	font-size: 13px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 10px;
+	box-shadow: var(--main-shadow);
+
+	display: flex;
+}
+
+.stat_image {
+	background-image: var(--announcement-img-01);
+	background-repeat: no-repeat;
+	object-fit: cover;
+	border-radius: 10px;
+	border: 2px solid var(--main-nt-color);
+	box-shadow: var(--main-shadow);
+	height: auto;
+	width: 40%;
+	padding: 10px;
+	margin: 10px;
+}
+
+.groups_descriptions {
+	width: 60%;
+	padding: 10px;
+	padding-left: 0;
+}
+
+.groups_descriptions h1 {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	text-shadow: var(--shadow-text);
+	font-family: var(--thead-font);
+	font-size: 1.5rem;
+	background-image: var(--button-bg);
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	font-weight: 400;
+	display: flex;
+	justify-content: center;
+	text-transform: uppercase;
+}
+
+.group_list,
+.whos_online {
+	background-image: var(--signature-background);
+	object-fit: cover;
+	border-radius: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	box-shadow: var(--main-shadow);
+}
+
+.group_list i {
+	font-style: normal;
+	font-family: var(--header-font);
+	font-size: 1.5rem;
+	padding: 10px;
+}
+
+.whos_online p {
+	text-align: justify;
+	padding: 10px;
+	font-family: var(--header-font);
+	font-size: 1.1rem;
+}
