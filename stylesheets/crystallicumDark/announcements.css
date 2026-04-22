@@ -179,7 +179,8 @@
 	text-align: justify;
   }
 
-  .announcement_item p, li {
+  .announcement_item p,
+  .announcement_item li {
 	font-family: var(--header-font);
 	font-size: 1rem;
 	text-shadow: var(--text-shadow);
