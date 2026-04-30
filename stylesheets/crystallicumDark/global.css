@@ -135,28 +135,6 @@ body {
 	text-shadow: var(--main-shadow);
 }
 
-.legend {
-	border-top: solid 10px var(--box-background);
-	border-bottom: solid 10px var(--box-background);
-	border-right: solid 1px var(--box-background);
-	border-left: solid 1px var(--box-background);
-	background: var(--box-background);
-	border-radius: 10px;
-}
-
-.forum_stats {
-	background-image: var(--forum-stats);
-	background-repeat: no-repeat;
-	color: var(--main-font-color);
-	text-align: center;
-	font-family: var(--main-font);
-	font-size: 13px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-radius: 10px;
-	box-shadow: var(--main-shadow);
-}
-
 input[type="checkbox"]{
 	appearance: none;
 	width: 15px;

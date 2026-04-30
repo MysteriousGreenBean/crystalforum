@@ -9,7 +9,8 @@
       "cache/themes/theme2/avatarep.css",
       "cache/themes/theme2/mycode.css",
       "cache/themes/theme2/variables.css",
-      "cache/themes/theme2/announcements.css"
+      "cache/themes/theme2/announcements.css",
+      "cache/themes/theme2/statistics.css"
     ]
   },
   "modcp.php": {
