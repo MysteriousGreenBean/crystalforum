@@ -92,10 +92,11 @@ if($mybb->settings['showwol'] != 0 && $mybb->usergroup['canviewonline'] != 0)
 
 	$query = $db->query("
 		SELECT
-			s.sid, s.ip, s.uid, s.time, s.location, s.location1, u.username, u.invisible, u.usergroup, u.displaygroup
+			s.sid, s.ip, s.uid, s.time, s.location, s.location1, u.username, u.invisible, u.usergroup, u.displaygroup, u.AccountType, pu.uid as puid, pu.username as pusername, pu.invisible as pinvinsible, pu.usergroup as pusergroup, pu.displaygroup as pdisplaygroup
 		FROM
 			".TABLE_PREFIX."sessions s
 			LEFT JOIN ".TABLE_PREFIX."users u ON (s.uid=u.uid)
+			LEFT JOIN ".TABLE_PREFIX."users pu ON (u.ParentUid = pu.uid)
 		WHERE (s.uid != 0 OR SUBSTR(s.sid,4,1) = '=') AND s.time > $timesearch
 		ORDER BY {$order_by}, {$order_by2}
 	");
@@ -115,6 +116,15 @@ if($mybb->settings['showwol'] != 0 && $mybb->usergroup['canviewonline'] != 0)
 			// The user is registered.
 			if(empty($doneusers[$user['uid']]) || $doneusers[$user['uid']] < $user['time'])
 			{
+				if ($user['AccountType'] != "Player") {
+					$user['AccountType'] = "Player";
+					$user['uid'] = $user['puid'];
+					$user['username'] = $user['pusername'];
+					$user['invisible'] = $user['pinvinsible'];
+					$user['usergroup'] = $user['pusergroup'];
+					$user['displaygroup'] = $user['pdisplaygroup'];
+				}
+
 				// If the user is logged in anonymously, update the count for that.
 				if($user['invisible'] == 1)
 				{

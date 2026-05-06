@@ -21,6 +21,15 @@ function rebuild_stats()
 	$query = $db->simple_select("users", "COUNT(uid) AS users");
 	$stats['numusers'] = $db->fetch_field($query, 'users');
 
+	$query = $db->simple_select("users", "COUNT(uid) as players", "AccountType='player'");
+	$stats['numplayers'] = $db->fetch_field($query, 'players');
+
+	$query = $db->simple_select("users", "COUNT(uid) as gms", "AccountType='GM'");
+	$stats['numgms'] = $db->fetch_field($query, 'gms');
+
+	$query = $db->simple_select("users", "COUNT(uid) as characters", "AccountType='Character'");
+	$stats['numcharacters'] = $db->fetch_field($query, 'characters');
+
 	update_stats($stats, true);
 }
 

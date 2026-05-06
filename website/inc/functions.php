@@ -2825,6 +2825,8 @@ function update_stats($changes=array(), $force=false)
 		add_shutdown('update_stats', array(array(), true));
 	}
 
+	$usersFromLast48Hours = $changes['usersFromLast48Hours'] ?? "";
+
 	if(empty($stats_changes) || $stats_changes['inserted'])
 	{
 		$stats_changes = array(
@@ -2835,6 +2837,10 @@ function update_stats($changes=array(), $force=false)
 			'numunapprovedposts' => '+0',
 			'numdeletedposts' => '+0',
 			'numdeletedthreads' => '+0',
+			'numplayers' => '+0',
+			'numgms' => '+0',
+			'numcharacters' => '+0',
+			'usersFromLast48Hours' => $changes['usersFromLast48Hours'],
 			'inserted' => false // Reset after changes are inserted into cache
 		);
 		$stats = $stats_changes;
@@ -2856,7 +2862,7 @@ function update_stats($changes=array(), $force=false)
 	}
 
 	$new_stats = array();
-	$counters = array('numthreads', 'numunapprovedthreads', 'numposts', 'numunapprovedposts', 'numusers', 'numdeletedposts', 'numdeletedthreads');
+	$counters = array('numthreads', 'numunapprovedthreads', 'numposts', 'numunapprovedposts', 'numusers', 'numdeletedposts', 'numdeletedthreads', 'numplayers', 'numgms', 'numcharacters');
 	foreach($counters as $counter)
 	{
 		if(array_key_exists($counter, $changes))
@@ -2907,7 +2913,7 @@ function update_stats($changes=array(), $force=false)
 	// Fetch latest user if the user count is changing
 	if(array_key_exists('numusers', $changes))
 	{
-		$query = $db->simple_select("users", "uid, username", "", array('order_by' => 'regdate', 'order_dir' => 'DESC', 'limit' => 1));
+		$query = $db->simple_select("users", "uid, username", "AccountType='Player'", array('order_by' => 'regdate', 'order_dir' => 'DESC', 'limit' => 1));
 		$lastmember = $db->fetch_array($query);
 		$new_stats['lastuid'] = $lastmember['uid'];
 		$new_stats['lastusername'] = $lastmember['username'] = htmlspecialchars_uni($lastmember['username']);
@@ -2933,6 +2939,11 @@ function update_stats($changes=array(), $force=false)
 		"numposts" => (int)$stats['numposts']
 	);
 	$db->replace_query("stats", $todays_stats, "dateline");
+
+	if ($usersFromLast48Hours !== "")
+	{
+		$stats['usersFromLast48Hours'] = $usersFromLast48Hours;
+	}
 
 	$cache->update("stats", $stats, "dateline");
 	$stats_changes['inserted'] = true;
