@@ -336,6 +336,12 @@ else
 	$search_url = htmlspecialchars_uni("memberlist.php?sort={$mybb->input['sort']}&order={$mybb->input['order']}&perpage={$mybb->input['perpage']}{$search_url}");
 
 	$plugins->run_hooks('memberlist_intermediate');
+	
+	$userGroupId =$mybb->get_input('usergroupid', MyBB::INPUT_INT);
+	if ($userGroupId > 0) 
+	{
+		$search_query .= " AND (u.usergroup={$userGroupId} OR (u.additionalgroups LIKE '%{$userGroupId},%' OR u.additionalgroups LIKE '%,{$userGroupId}%' OR u.additionalgroups='{$userGroupId}'))";
+	}
 
 	$query = $db->simple_select("users u", "COUNT(*) AS users", "{$search_query}");
 	$num_users = $db->fetch_field($query, "users");
