@@ -2818,14 +2818,12 @@ function update_stats($changes=array(), $force=false)
 {
 	global $cache, $db;
 	static $stats_changes;
-
 	if(empty($stats_changes))
 	{
 		// Update stats after all changes are done
 		add_shutdown('update_stats', array(array(), true));
 	}
 
-	$usersFromLast48Hours = $changes['usersFromLast48Hours'] ?? "";
 
 	if(empty($stats_changes) || $stats_changes['inserted'])
 	{
@@ -2929,7 +2927,7 @@ function update_stats($changes=array(), $force=false)
 		{
 			$stats = $new_stats;
 		}
-	}
+}
 
 	// Update stats row for today in the database
 	$todays_stats = array(
@@ -2940,13 +2938,39 @@ function update_stats($changes=array(), $force=false)
 	);
 	$db->replace_query("stats", $todays_stats, "dateline");
 
-	if ($usersFromLast48Hours !== "")
-	{
-		$stats['usersFromLast48Hours'] = $usersFromLast48Hours;
-	}
-
 	$cache->update("stats", $stats, "dateline");
 	$stats_changes['inserted'] = true;
+}
+
+/**
+ * Updates the cached list users from the last 48 hours.
+ * 
+ * @param array $addedUsers An array of users to add to the list.
+ * @param bool $overwrite Whether to overwrite the existing list or merge with it.
+ * @return array The updated list of users from the last 48 hours.
+ */
+function update_users_from_last_48_hours($addedUsers=array(), $overwrite=false)
+{
+	global $cache;
+
+	if ($overwrite) {
+		$cache->update("usersFromLast48Hours", $addedUsers);
+		return $addedUsers;
+	}
+	else {
+		$currentUsersFromLast48Hours = $cache->read("usersFromLast48Hours");
+	
+		foreach ($addedUsers as $addedUser) {
+			if (!in_array($addedUser['uid'], array_column($currentUsersFromLast48Hours, 'uid'))) {
+				$currentUsersFromLast48Hours[] = $addedUser;
+			}
+		}
+		usort($currentUsersFromLast48Hours, function($a, $b) {
+			return strcmp($a['username'], $b['username']);
+		});
+		$cache->update("usersFromLast48Hours", $currentUsersFromLast48Hours);
+		return $currentUsersFromLast48Hours;
+	}
 }
 
 /**

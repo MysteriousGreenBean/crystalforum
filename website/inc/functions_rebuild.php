@@ -11,10 +11,11 @@
 /**
  * Completely recount the board statistics (useful if they become out of sync)
  */
+require_once MYBB_ROOT."inc/functions.php";
+
 function rebuild_stats()
 {
 	global $db;
-
 	$query = $db->simple_select("forums", "SUM(threads) AS numthreads, SUM(posts) AS numposts, SUM(unapprovedthreads) AS numunapprovedthreads, SUM(unapprovedposts) AS numunapprovedposts, SUM(deletedthreads) AS numdeletedthreads, SUM(deletedposts) AS numdeletedposts");
 	$stats = $db->fetch_array($query);
 
@@ -30,7 +31,40 @@ function rebuild_stats()
 	$query = $db->simple_select("users", "COUNT(uid) as characters", "AccountType='Character'");
 	$stats['numcharacters'] = $db->fetch_field($query, 'characters');
 
+	$query = $db->query("
+		SELECT
+			u.uid, u.username, u.usergroup, u.displaygroup, u.AccountType, pu.uid AS puid, pu.username AS pusername, pu.usergroup AS pusergroup, pu.displaygroup AS pdisplaygroup
+		FROM
+			".TABLE_PREFIX."users u
+			LEFT JOIN ".TABLE_PREFIX."users pu ON (u.ParentUid = pu.uid)
+		WHERE u.lastvisit > UNIX_TIMESTAMP() - 172800 OR u.regdate > UNIX_TIMESTAMP() - 172800
+		ORDER BY username ASC
+	");
+	$usersFromLast48Hours = array();
+	while($user = $db->fetch_array($query))
+	{
+		if ($user['AccountType'] == "Player") {
+			if (!in_array($user['uid'], array_column($usersFromLast48Hours, 'uid'))) {
+				$usersFromLast48Hours[] = array(
+					'uid' => $user['uid'],
+					'username' => htmlspecialchars_uni($user['username']),
+					'usergroup' => $user['usergroup'],
+					'displaygroup' => $user['displaygroup'],
+				);
+			}
+		} else {
+			if (!in_array($user['puid'], array_column($usersFromLast48Hours, 'uid'))) {
+				$usersFromLast48Hours[] = array(
+					'uid' => $user['puid'],
+					'username' => htmlspecialchars_uni($user['pusername']),
+					'usergroup' => $user['pusergroup'],
+					'displaygroup' => $user['pdisplaygroup'],
+				);
+			}
+		}
+	}
 	update_stats($stats, true);
+	update_users_from_last_48_hours($usersFromLast48Hours, true);
 }
 
 /**

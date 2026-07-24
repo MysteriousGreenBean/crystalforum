@@ -340,7 +340,7 @@ body {
 	margin-left: 15px;
 	display: block;
 	margin-top: 20px;
-	
+	margin-bottom: 15px;
 	font-family: Source Sans Pro;
 	font-size: 25px;
 }
@@ -348,7 +348,7 @@ body {
 .wo_desc {
 	color: #787878;
 	display: inline-block;
-	margin: 15px 15px 40px;
+	margin: 15px 15px 0px;
 	
 	font-size: 15px;
 }
