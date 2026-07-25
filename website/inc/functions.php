@@ -2966,10 +2966,44 @@ function update_users_from_last_48_hours($addedUsers=array(), $overwrite=false)
 			}
 		}
 		usort($currentUsersFromLast48Hours, function($a, $b) {
-			return strcmp($a['username'], $b['username']);
+			return strcasecmp($a['username'], $b['username']);
 		});
 		$cache->update("usersFromLast48Hours", $currentUsersFromLast48Hours);
 		return $currentUsersFromLast48Hours;
+	}
+}
+
+/**
+ * Updates the cached list of characters and GM that wrote posts in last 7 days..
+ * 
+ * @param array $addedUsers An array of users to add to the list.
+ * @param bool $overwrite Whether to overwrite the existing list or merge with it.
+ * @return array The updated list of users from the last 48 hours.
+ */
+function update_characters_and_gms_from_last_7_days($addedUsers=array(), $overwrite=false)
+{
+	global $cache;
+
+	if ($overwrite) {
+		usort($addedUsers, function($a, $b) {
+			return strcasecmp(ltrim($a['username'], "[MG] "), ltrim($b['username'], "[MG] "));
+		});
+		$cache->update("charactersAndGMsFromLast7Days", $addedUsers);
+		return $addedUsers;
+	}
+	else {
+		$currentCharactersAndGMsFromLast7Days = $cache->read("charactersAndGMsFromLast7Days");
+	
+		foreach ($addedUsers as $addedUser) {
+			if (!in_array($addedUser['uid'], array_column($currentCharactersAndGMsFromLast7Days, 'uid'))) {
+				$currentCharactersAndGMsFromLast7Days[] = $addedUser;
+			}
+		}
+		usort($currentCharactersAndGMsFromLast7Days, function($a, $b) {
+			return strcasecmp(ltrim($a['username'], "[MG] "), ltrim($b['username'], "[MG] "));
+		});
+		$cache->update("charactersAndGMsFromLast7Days", $currentCharactersAndGMsFromLast7Days);
+		return $currentCharactersAndGMsFromLast7Days;
 	}
 }
 

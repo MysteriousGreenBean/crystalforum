@@ -64,7 +64,31 @@ function rebuild_stats()
 		}
 	}
 	update_stats($stats, true);
+
+	$query = $db->query("
+		SELECT
+			u.uid, u.username, u.usergroup, u.displaygroup, u.AccountType
+		FROM
+			".TABLE_PREFIX."users u
+		WHERE u.lastpost > UNIX_TIMESTAMP() - 604800 AND u.AccountType IN ('Character', 'GM')
+		ORDER BY username ASC
+	");
+
+	$charactersAndGMsFromLast7Days = array();
+	while($user = $db->fetch_array($query))
+	{
+		if (!in_array($user['uid'], array_column($charactersAndGMsFromLast7Days, 'uid'))) {
+			$charactersAndGMsFromLast7Days[] = array(
+				'uid' => $user['uid'],
+				'username' => htmlspecialchars_uni($user['username']),
+				'usergroup' => $user['usergroup'],
+				'displaygroup' => $user['displaygroup'],
+			);
+		}
+	}
+
 	update_users_from_last_48_hours($usersFromLast48Hours, true);
+	update_characters_and_gms_from_last_7_days($charactersAndGMsFromLast7Days, true);
 }
 
 /**

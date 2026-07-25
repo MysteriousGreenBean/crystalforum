@@ -418,6 +418,14 @@ if($mybb->settings['showindexstats'] != 0)
 		$stats['usersFromLast48Hours'] .= format_name(htmlspecialchars_uni($user['username']), $user['usergroup'], $user['displaygroup']).", ";
 	}
 	$stats['usersFromLast48Hours'] = rtrim($stats['usersFromLast48Hours'], ", ");
+
+	$stats['charactersAndGMsFromLast7Days'] = "";
+	$charactersAndGMsFromLast7Days = $cache->read("charactersAndGMsFromLast7Days");
+	foreach($charactersAndGMsFromLast7Days as $user)
+	{
+		$stats['charactersAndGMsFromLast7Days'] .= format_name(htmlspecialchars_uni($user['username']), $user['usergroup'], $user['displaygroup']).", ";
+	}
+	$stats['charactersAndGMsFromLast7Days'] = rtrim($stats['charactersAndGMsFromLast7Days'], ", ");
 	eval('$forumstats = "'.$templates->get('index_stats').'";');
 }
 
