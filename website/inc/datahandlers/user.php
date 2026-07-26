@@ -1254,7 +1254,16 @@ class UserDataHandler extends DataHandler
 		}
 
 		// Update forum stats
-		update_stats(array('numusers' => '+1'));
+		if ($user['AccountType'] == "Player") {
+			update_stats(array('numusers' => '+1', 'numplayers' => '+1'));
+		} else if ($user['AccountType'] == "GM") {
+			update_stats(array('numusers' => '+1', 'numgms' => '+1'));
+		} else if ($user['AccountType'] == "Character") {
+			update_stats(array('numusers' => '+1', 'numcharacters' => '+1'));
+		} else {
+			update_stats(array('numusers' => '+1'));
+		}
+
 
 		if((int)$user['usergroup'] == 5)
 		{
@@ -1575,6 +1584,14 @@ class UserDataHandler extends DataHandler
 		$this->delete_content();
 
 		// Delete the user
+		$query = $db->simple_select('users', 'COUNT(uid) as removedPlayers', "uid IN({$this->delete_uids}) AND AccountType='Player'");
+		$removedPlayers = $db->fetch_field($query, 'removedPlayers');
+		$query = $db->simple_select('users', 'COUNT(uid) as removedGMs', "uid IN({$this->delete_uids}) AND AccountType='GM'");
+		$removedGMs = $db->fetch_field($query, 'removedGMs');
+		$query = $db->simple_select('users', 'COUNT(uid) as removedCharacters', "uid IN({$this->delete_uids}) AND AccountType='Character'");
+		$removedCharacters = $db->fetch_field($query, 'removedCharacters');
+
+
 		$query = $db->delete_query('users', "uid IN({$this->delete_uids})");
 		$this->deleted_users = $db->affected_rows($query);
 
@@ -1620,7 +1637,7 @@ class UserDataHandler extends DataHandler
 		$db->update_query('threads', array('lastposteruid' => 0), "lastposteruid IN({$this->delete_uids})");
 
 		// Update forum stats
-		update_stats(array('numusers' => '-'.$this->deleted_users));
+		update_stats(array('numusers' => '-'.$this->deleted_users, 'numplayers' => '-'.$removedPlayers, 'numgms' => '-'.$removedGMs, 'numcharacters' => '-'.$removedCharacters));
 
 		$this->return_values = array(
 			"deleted_users" => $this->deleted_users

@@ -154,7 +154,8 @@ if(isset($mybb->input['theme']) && verify_post_check($mybb->get_input('my_post_k
 		'uid'	=> $mybb->user['uid'],
 		'style'	=> $mybb->get_input('theme', MyBB::INPUT_INT),
 		'usergroup'	=> $mybb->user['usergroup'],
-		'additionalgroups'	=> $mybb->user['additionalgroups']
+		'additionalgroups'	=> $mybb->user['additionalgroups'],
+		'AccountType' => $mybb->user['AccountType'],
 	);
 
 

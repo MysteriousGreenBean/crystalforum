@@ -8,6 +8,8 @@ $settings['showthemeselect'] = "0";
 require_once "./global.php";
 require_once MYBB_ROOT."admin/inc/functions_themes.php";
 require_once MYBB_ROOT."inc/functions.php";
+require_once MYBB_ROOT."inc/functions_rebuild.php";
+require_once MYBB_ROOT."inc/functions_task.php";
 global $isForDev;
 $isForDev = isset($_GET['dev']) && $_GET['dev'] == "true";
 
@@ -257,6 +259,14 @@ function deleteDirectory($dir) {
     return rmdir($dir);
 }
 
+function runAllTasks() {
+    global $db;
+
+    $query = $db->simple_select("tasks", "tid");
+    while ($task = $db->fetch_array($query)) {
+        run_task($task['tid']);
+    }
+}
 
 if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
     if (isset($_GET['themeid']) && isset($_GET['cachefile'])) {
@@ -321,6 +331,10 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "cache") {
     echo "Updated user groups cache".$endline;
     rebuild_settings();
     echo "Rebuilt settings cache".$endline;
+    rebuild_stats();
+    echo "Rebuilt stats cache".$endline;
+    runAllTasks();
+    echo "Ran all tasks in administrative panel".$endline;
 }
 
 $settings = $settingsBackup;
