@@ -46,6 +46,42 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Carousel - small
+document.addEventListener("DOMContentLoaded", function () {
+  const wrappers = document.querySelectorAll(".carousel-wrapper.small");
+
+  wrappers.forEach(wrapper => {
+    const carousel = wrapper.querySelector(".carousel");
+    const images = wrapper.querySelectorAll(".carousel-image");
+    const items = wrapper.querySelectorAll(".carousel-item");
+    const indicatorsContainer = wrapper.querySelector(".carousel-indicators");
+    const nextBtn = wrapper.querySelector(".next-btn");
+    const prevBtn = wrapper.querySelector(".prev-btn");
+    let currentIndex = 0;
+
+    if (images.length === 0) return;
+
+    function showSlide(index) {
+      images.forEach(slide => slide.classList.remove("active"));
+      images[index].classList.add("active");
+      items.forEach(item => item.classList.remove("active"));
+      items[index].classList.add("active");
+    }
+
+    nextBtn?.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showSlide(currentIndex);
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showSlide(currentIndex);
+    });
+
+    showSlide(currentIndex);
+  });
+});
+
 
 // Content list
 document.addEventListener("click", function (e) {

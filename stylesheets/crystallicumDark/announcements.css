@@ -119,7 +119,7 @@
 
 /* CAROUSEL */
 /* Outer wrapper to ensure full width */
-.carousel-wrapper {
+.announcements .carousel-wrapper {
 	width: 100%;
 	height: 42rem;
 	overflow: hidden;
