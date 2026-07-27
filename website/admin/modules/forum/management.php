@@ -905,7 +905,7 @@ if($mybb->input['action'] == "add")
 				"defaultdatecut" => $mybb->get_input('defaultdatecut', MyBB::INPUT_INT),
 				"defaultsortby" => $db->escape_string($mybb->input['defaultsortby']),
 				"defaultsortorder" => $db->escape_string($mybb->input['defaultsortorder']),
-				"AllowedAccountType" => $db->escape_string($type) == 'f' ? $db->escape_string($mybb->input['AllowedAccountType']) : null
+				"AllowedAccountType" => $db->escape_string($type) === 'f' ? $db->escape_string($mybb->input['AllowedAccountType']) : 'All'
 			);
 
 			$plugins->run_hooks("admin_forum_management_add_start");
