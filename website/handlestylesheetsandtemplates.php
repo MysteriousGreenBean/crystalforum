@@ -318,7 +318,11 @@ if (isset($_GET['plugins']) && $_GET['plugins'] == "activate") {
             require_once MYBB_ROOT."inc/plugins/$file";
 
             $codename = str_replace(".php", "", $file);
-            if (!in_array($codename, $active_plugins) && $file != "hello.php") {
+            if ($file == "index.html" || $file == "hello.php") {
+                continue;
+            }
+            
+            if (!in_array($codename, $active_plugins)) {
                 echo "Activating plugin: $codename".$endline;
                 $installed_func = "{$codename}_is_installed";
                 $installed = true;
