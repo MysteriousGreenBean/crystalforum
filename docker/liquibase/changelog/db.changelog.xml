@@ -3244,4 +3244,10 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
       INSERT INTO `mybb_tasks` (`tid`, `title`, `description`, `file`, `minute`, `hour`, `day`, `month`, `weekday`, `nextrun`, `lastrun`, `enabled`, `logging`, `locked`) VALUES (NULL, 'Daily Rebuild Stats', 'Rebuilds user related statistic show at the bottom of index.php (playeres/characters count, who is online etc.)', 'rebuildStats', '0', '0', '*', '*', '*', '1784937600', '1784831294', '1', '1', '1784923433');
     </sql>
   </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670678-1">
+    <sql>
+      ALTER TABLE `mybb_forums` MODIFY COLUMN `defaultmessage_thread` TEXT DEFAULT '';
+      ALTER TABLE `mybb_forums` MODIFY COLUMN `defaultmessage_post` TEXT DEFAULT '';
+    </sql>
+  </changeSet>
 </databaseChangeLog>
