@@ -3239,6 +3239,17 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
       INSERT INTO `mybb_settings` (`sid`, `name`, `title`, `description`, `optionscode`, `value`, `disporder`, `gid`, `isdefault`) VALUES (NULL, 'gmgroup', 'GM Groups', 'Newly created GM accounts will be automatically assigned to this group,', 'groupselectsingle', '8', '1', '35', '1');
     </sql>
   </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670677-1">
+    <sql>
+      INSERT INTO `mybb_tasks` (`tid`, `title`, `description`, `file`, `minute`, `hour`, `day`, `month`, `weekday`, `nextrun`, `lastrun`, `enabled`, `logging`, `locked`) VALUES (NULL, 'Daily Rebuild Stats', 'Rebuilds user related statistic show at the bottom of index.php (playeres/characters count, who is online etc.)', 'rebuildStats', '0', '0', '*', '*', '*', '1784937600', '1784831294', '1', '1', '1784923433');
+    </sql>
+  </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670678-1">
+    <sql>
+      ALTER TABLE `mybb_forums` MODIFY COLUMN `defaultmessage_thread` TEXT DEFAULT '';
+      ALTER TABLE `mybb_forums` MODIFY COLUMN `defaultmessage_post` TEXT DEFAULT '';
+    </sql>
+  </changeSet>
     <changeSet author="liquibase (generated)" id="1763580328315-1">
         <createTable tableName="mybb_dicedefinitions">
             <column autoIncrement="true" name="ID" type="INT">

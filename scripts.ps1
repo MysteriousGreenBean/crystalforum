@@ -7,7 +7,7 @@ function Start-Containers {
 }
 
 function Refresh-Cache {
-    $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=cache&fromconsole=true' -UseBasicParsing
+    $response = Invoke-WebRequest -Uri 'http://localhost:80/handlestylesheetsandtemplates.php?rebuild=cache&fromconsole=true' -UseBasicParsing
     Write-Host $response.Content
 }
 
@@ -74,9 +74,9 @@ function Refresh-Stylesheets {
         (Get-Content -Path $devPath -Raw) -replace 'cache/themes/theme\d+', "stylesheets/$($_.Directory.Name)" | Set-Content -Path $devPath
     }
 
-    $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=stylesheets&force=true&dev=true&fromconsole=true' -UseBasicParsing
+    $response = Invoke-WebRequest -Uri 'http://localhost:80/handlestylesheetsandtemplates.php?rebuild=stylesheets&force=true&dev=true&fromconsole=true' -UseBasicParsing
     Write-Host $response.Content
-    $response = Invoke-WebRequest -Uri 'http://localhost/handlestylesheetsandtemplates.php?rebuild=templates&force=true&dev=true&fromconsole=true' -UseBasicParsing | Out-Null
+    $response = Invoke-WebRequest -Uri 'http://localhost:80/handlestylesheetsandtemplates.php?rebuild=templates&force=true&dev=true&fromconsole=true' -UseBasicParsing | Out-Null
     Write-Host $response.Content
     Refresh-Cache
 }

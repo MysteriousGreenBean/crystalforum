@@ -16,6 +16,7 @@ $templatelist .= ",index_birthdays_birthday,index_birthdays,index_logoutlink,ind
 $templatelist .= ",forumbit_moderators_group,forumbit_moderators_user,forumbit_depth2_forum_lastpost_hidden,forumbit_subforums,forumbit_depth2_forum_unapproved_posts,forumbit_depth2_forum_unapproved_threads";
 
 require_once './global.php';
+require_once MYBB_ROOT.'inc/functions.php';
 require_once MYBB_ROOT.'inc/functions_forumlist.php';
 require_once MYBB_ROOT.'inc/class_parser.php';
 $parser = new postParser;
@@ -92,10 +93,11 @@ if($mybb->settings['showwol'] != 0 && $mybb->usergroup['canviewonline'] != 0)
 
 	$query = $db->query("
 		SELECT
-			s.sid, s.ip, s.uid, s.time, s.location, s.location1, u.username, u.invisible, u.usergroup, u.displaygroup
+			s.sid, s.ip, s.uid, s.time, s.location, s.location1, u.username, u.invisible, u.usergroup, u.displaygroup, u.AccountType, pu.uid as puid, pu.username as pusername, pu.invisible as pinvinsible, pu.usergroup as pusergroup, pu.displaygroup as pdisplaygroup
 		FROM
 			".TABLE_PREFIX."sessions s
 			LEFT JOIN ".TABLE_PREFIX."users u ON (s.uid=u.uid)
+			LEFT JOIN ".TABLE_PREFIX."users pu ON (u.ParentUid = pu.uid)
 		WHERE (s.uid != 0 OR SUBSTR(s.sid,4,1) = '=') AND s.time > $timesearch
 		ORDER BY {$order_by}, {$order_by2}
 	");
@@ -115,6 +117,15 @@ if($mybb->settings['showwol'] != 0 && $mybb->usergroup['canviewonline'] != 0)
 			// The user is registered.
 			if(empty($doneusers[$user['uid']]) || $doneusers[$user['uid']] < $user['time'])
 			{
+				if ($user['AccountType'] != "Player") {
+					$user['AccountType'] = "Player";
+					$user['uid'] = $user['puid'];
+					$user['username'] = $user['pusername'];
+					$user['invisible'] = $user['pinvinsible'];
+					$user['usergroup'] = $user['pusergroup'];
+					$user['displaygroup'] = $user['pdisplaygroup'];
+				}
+
 				// If the user is logged in anonymously, update the count for that.
 				if($user['invisible'] == 1)
 				{
@@ -376,6 +387,45 @@ if($mybb->settings['showindexstats'] != 0)
 	// Then format that language string.
 	$lang->stats_mostonline = $lang->sprintf($lang->stats_mostonline, my_number_format($recordcount), $recorddate, $recordtime);
 
+	$stats['usersFromLast48Hours'] = "";
+	$usersFromLast48Hours = $cache->read("usersFromLast48Hours");
+
+	if ($mybb->user['AccountType'] == "Player") {
+		if (!in_array($mybb->user['uid'], array_column($usersFromLast48Hours, 'uid'))) {
+			$usersFromLast48Hours = update_users_from_last_48_hours([
+				array(
+				'uid' => $mybb->user['uid'],
+				'username' => htmlspecialchars_uni($mybb->user['username']),
+				'usergroup' => $mybb->user['usergroup'],
+				'displaygroup' => $mybb->user['displaygroup'],
+				)
+			], false);
+		}
+	} else {
+		if (!in_array($mybb->user['puid'], array_column($usersFromLast48Hours, 'uid'))) {
+			$usersFromLast48Hours = update_users_from_last_48_hours([
+				array(
+				'uid' => $mybb->user['puid'],
+				'username' => htmlspecialchars_uni($mybb->user['pusername']),
+				'usergroup' => $mybb->user['pusergroup'],
+				'displaygroup' => $mybb->user['pdisplaygroup'],
+				)
+			], false);
+		}
+	}
+	foreach($usersFromLast48Hours as $user)
+	{
+		$stats['usersFromLast48Hours'] .= format_name(htmlspecialchars_uni($user['username']), $user['usergroup'], $user['displaygroup']).", ";
+	}
+	$stats['usersFromLast48Hours'] = rtrim($stats['usersFromLast48Hours'], ", ");
+
+	$stats['charactersAndGMsFromLast7Days'] = "";
+	$charactersAndGMsFromLast7Days = $cache->read("charactersAndGMsFromLast7Days");
+	foreach($charactersAndGMsFromLast7Days as $user)
+	{
+		$stats['charactersAndGMsFromLast7Days'] .= format_name(htmlspecialchars_uni($user['username']), $user['usergroup'], $user['displaygroup']).", ";
+	}
+	$stats['charactersAndGMsFromLast7Days'] = rtrim($stats['charactersAndGMsFromLast7Days'], ", ");
 	eval('$forumstats = "'.$templates->get('index_stats').'";');
 }
 

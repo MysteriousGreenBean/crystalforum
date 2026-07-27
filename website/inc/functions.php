@@ -2818,12 +2818,12 @@ function update_stats($changes=array(), $force=false)
 {
 	global $cache, $db;
 	static $stats_changes;
-
 	if(empty($stats_changes))
 	{
 		// Update stats after all changes are done
 		add_shutdown('update_stats', array(array(), true));
 	}
+
 
 	if(empty($stats_changes) || $stats_changes['inserted'])
 	{
@@ -2835,6 +2835,10 @@ function update_stats($changes=array(), $force=false)
 			'numunapprovedposts' => '+0',
 			'numdeletedposts' => '+0',
 			'numdeletedthreads' => '+0',
+			'numplayers' => '+0',
+			'numgms' => '+0',
+			'numcharacters' => '+0',
+			'usersFromLast48Hours' => $changes['usersFromLast48Hours'],
 			'inserted' => false // Reset after changes are inserted into cache
 		);
 		$stats = $stats_changes;
@@ -2856,7 +2860,7 @@ function update_stats($changes=array(), $force=false)
 	}
 
 	$new_stats = array();
-	$counters = array('numthreads', 'numunapprovedthreads', 'numposts', 'numunapprovedposts', 'numusers', 'numdeletedposts', 'numdeletedthreads');
+	$counters = array('numthreads', 'numunapprovedthreads', 'numposts', 'numunapprovedposts', 'numusers', 'numdeletedposts', 'numdeletedthreads', 'numplayers', 'numgms', 'numcharacters');
 	foreach($counters as $counter)
 	{
 		if(array_key_exists($counter, $changes))
@@ -2907,7 +2911,7 @@ function update_stats($changes=array(), $force=false)
 	// Fetch latest user if the user count is changing
 	if(array_key_exists('numusers', $changes))
 	{
-		$query = $db->simple_select("users", "uid, username", "", array('order_by' => 'regdate', 'order_dir' => 'DESC', 'limit' => 1));
+		$query = $db->simple_select("users", "uid, username", "AccountType='Player'", array('order_by' => 'regdate', 'order_dir' => 'DESC', 'limit' => 1));
 		$lastmember = $db->fetch_array($query);
 		$new_stats['lastuid'] = $lastmember['uid'];
 		$new_stats['lastusername'] = $lastmember['username'] = htmlspecialchars_uni($lastmember['username']);
@@ -2923,7 +2927,7 @@ function update_stats($changes=array(), $force=false)
 		{
 			$stats = $new_stats;
 		}
-	}
+}
 
 	// Update stats row for today in the database
 	$todays_stats = array(
@@ -2936,6 +2940,71 @@ function update_stats($changes=array(), $force=false)
 
 	$cache->update("stats", $stats, "dateline");
 	$stats_changes['inserted'] = true;
+}
+
+/**
+ * Updates the cached list users from the last 48 hours.
+ * 
+ * @param array $addedUsers An array of users to add to the list.
+ * @param bool $overwrite Whether to overwrite the existing list or merge with it.
+ * @return array The updated list of users from the last 48 hours.
+ */
+function update_users_from_last_48_hours($addedUsers=array(), $overwrite=false)
+{
+	global $cache;
+
+	if ($overwrite) {
+		$cache->update("usersFromLast48Hours", $addedUsers);
+		return $addedUsers;
+	}
+	else {
+		$currentUsersFromLast48Hours = $cache->read("usersFromLast48Hours");
+	
+		foreach ($addedUsers as $addedUser) {
+			if (!in_array($addedUser['uid'], array_column($currentUsersFromLast48Hours, 'uid'))) {
+				$currentUsersFromLast48Hours[] = $addedUser;
+			}
+		}
+		usort($currentUsersFromLast48Hours, function($a, $b) {
+			return strcasecmp($a['username'], $b['username']);
+		});
+		$cache->update("usersFromLast48Hours", $currentUsersFromLast48Hours);
+		return $currentUsersFromLast48Hours;
+	}
+}
+
+/**
+ * Updates the cached list of characters and GM that wrote posts in last 7 days..
+ * 
+ * @param array $addedUsers An array of users to add to the list.
+ * @param bool $overwrite Whether to overwrite the existing list or merge with it.
+ * @return array The updated list of users from the last 48 hours.
+ */
+function update_characters_and_gms_from_last_7_days($addedUsers=array(), $overwrite=false)
+{
+	global $cache;
+
+	if ($overwrite) {
+		usort($addedUsers, function($a, $b) {
+			return strcasecmp(ltrim($a['username'], "[MG] "), ltrim($b['username'], "[MG] "));
+		});
+		$cache->update("charactersAndGMsFromLast7Days", $addedUsers);
+		return $addedUsers;
+	}
+	else {
+		$currentCharactersAndGMsFromLast7Days = $cache->read("charactersAndGMsFromLast7Days");
+	
+		foreach ($addedUsers as $addedUser) {
+			if (!in_array($addedUser['uid'], array_column($currentCharactersAndGMsFromLast7Days, 'uid'))) {
+				$currentCharactersAndGMsFromLast7Days[] = $addedUser;
+			}
+		}
+		usort($currentCharactersAndGMsFromLast7Days, function($a, $b) {
+			return strcasecmp(ltrim($a['username'], "[MG] "), ltrim($b['username'], "[MG] "));
+		});
+		$cache->update("charactersAndGMsFromLast7Days", $currentCharactersAndGMsFromLast7Days);
+		return $currentCharactersAndGMsFromLast7Days;
+	}
 }
 
 /**

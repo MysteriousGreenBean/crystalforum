@@ -8,6 +8,8 @@ $settings['showthemeselect'] = "0";
 require_once "./global.php";
 require_once MYBB_ROOT."admin/inc/functions_themes.php";
 require_once MYBB_ROOT."inc/functions.php";
+require_once MYBB_ROOT."inc/functions_rebuild.php";
+require_once MYBB_ROOT."inc/functions_task.php";
 global $isForDev;
 $isForDev = isset($_GET['dev']) && $_GET['dev'] == "true";
 
@@ -257,6 +259,14 @@ function deleteDirectory($dir) {
     return rmdir($dir);
 }
 
+function runAllTasks() {
+    global $db;
+
+    $query = $db->simple_select("tasks", "tid");
+    while ($task = $db->fetch_array($query)) {
+        run_task($task['tid']);
+    }
+}
 
 if (isset($_GET['rebuild']) && $_GET['rebuild'] == "stylesheets") {
     if (isset($_GET['themeid']) && isset($_GET['cachefile'])) {
@@ -295,6 +305,53 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "templates") {
     }
 }
 
+if (isset($_GET['plugins']) && $_GET['plugins'] == "activate") {
+    global $lang;
+    $originalLanguage = $lang->language;
+    $lang->set_language("english", "admin");
+
+    $plugins_cache = $cache->read("plugins");
+	$active_plugins = isset($plugins_cache['active']) ? $plugins_cache['active'] : array();
+    echo "Activating all plugins in the plugins directory...".$endline;
+    foreach (scandir(__DIR__."/inc/plugins") as $file) {
+        if ($file !== "." && $file !== "..") {
+            require_once MYBB_ROOT."inc/plugins/$file";
+
+            $codename = str_replace(".php", "", $file);
+            if (!in_array($codename, $active_plugins) && $file != "hello.php") {
+                echo "Activating plugin: $codename".$endline;
+                $installed_func = "{$codename}_is_installed";
+                $installed = true;
+                if (function_exists($installed_func) && $installed_func() != true)
+                {
+                    $installed = false;
+                }
+                // If not installed and there is a custom installation function
+                if($installed == false && function_exists("{$codename}_install"))
+                {
+                    call_user_func("{$codename}_install");
+                    $message = $lang->success_plugin_installed;
+                    $install_uninstall = true;
+                }
+
+                if(function_exists("{$codename}_activate"))
+                {
+                    call_user_func("{$codename}_activate");
+                }
+
+                $active_plugins[$codename] = $codename;
+                $executed[] = 'activate';
+
+                $plugins_cache['active'] = $active_plugins;
+                $cache->update("plugins", $plugins_cache);
+
+            } else {
+                echo "Plugin already active: $codename".$endline;
+            }
+        }
+    }
+}
+
 if (isset($_GET['cleanup']) && $_GET['cleanup'] == "true") {
     deleteDirectory(__DIR__."/templates");
     echo "Deleted templates directory".$endline;
@@ -321,6 +378,10 @@ if (isset($_GET['rebuild']) && $_GET['rebuild'] == "cache") {
     echo "Updated user groups cache".$endline;
     rebuild_settings();
     echo "Rebuilt settings cache".$endline;
+    rebuild_stats();
+    echo "Rebuilt stats cache".$endline;
+    runAllTasks();
+    echo "Ran all tasks in administrative panel".$endline;
 }
 
 $settings = $settingsBackup;

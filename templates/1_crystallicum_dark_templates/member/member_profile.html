@@ -127,7 +127,7 @@
 			</div>
 
 			<!-- Profile for Game Masters -->
-			<elseif $memprofile['usergroup']=="8" then>
+			<elseif $memprofile['AccountType']=="GM" then>
 				<div class="tabs">
 					<div class="tab-buttons">
 						<button class="tab-button active" data-tab="tab1">Karta Mistrza Gry</button>
@@ -190,8 +190,8 @@
 						<div class="profile_frame">
 							<!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
 							<div class="profile_details">
-								<div class="player_avatar_container player_avatar"><img
-										src="https://i.imgur.com/uiHysm9.png"></div>
+								<div class="player_avatar_container player_avatar"><a href="{$mybb->settings['bburl']}/member.php?action=profile&uid={$memprofile['parent']['uid']}"><img src="{$memprofile['parent']['avatar']}"></a>
+								</div>
 								<fieldset class="profile_field">
 									<legend>Zwrot</legend>XYZ
 								</fieldset>
@@ -206,13 +206,43 @@
 								</fieldset>
 							</div>
 						</div><br />
-						<div class="profile_details">{$report_options}</div></br>
+						<div class="profile_header">Informacje o koncie <a href="{$mybb->settings['bburl']}/member.php?action=profile&uid={$memprofile['parent']['uid']}">{$formattedparentname}</a></div>
+						<div class="profile_frame">
+							<div class="profile_details">
+								<fieldset class="profile_field">
+									<legend>{$lang->joined}</legend>{$memregdate}
+								</fieldset>
+								<fieldset class="profile_field">
+									<legend>{$lang->lastvisit}</legend>{$memlastvisitdate}
+								</fieldset>
+								<fieldset class="profile_field">
+									<legend>{$lang->total_posts}</legend><a href="search.php?action=finduser&amp;uid={$uid}"
+										title="{$lang->ppd_percent_total}">{$memprofile['parent']['postnum']}</a>
+								</fieldset>
+								<fieldset class="profile_field">
+									<legend>{$lang->total_threads}</legend><a
+										href="search.php?action=finduserthreads&amp;uid={$uid}"
+										title="{$lang->tpd_percent_total}">{$memprofile['parent']['threadnum']}</a>
+								</fieldset>
+								<fieldset class="profile_field">
+									<legend>{$lang->timeonline}</legend>{$timeonline}</br>
+								</fieldset>
+								{$referrals}<br />
+								<fieldset class="profile_field">
+									<legend>{$lang->reputation}</legend> <a href="reputation.php?uid={$memprofile['uid']}"
+										title="{$lang->reputation_details}">{$reputation}</a>
+								</fieldset>
+								{$warning_level}
+								{$myawards} <!-- this might be needed for awards later -->
+							</div>
+						</div><br />
+						<div class="profile_details">{$buddy_options}{$ignore_options}{$report_options}</div></br>
 					</div>
 				</div>
 		</div>
 
 		<!-- Profile for Players -->
-		<elseif $memprofile['usergroup']=="18" then>
+		<elseif $memprofile['AccountType']=="Player" then>
 			<div class="tabs">
 				<div class="tab-buttons">
 					<button class="tab-button active" data-tab="tab1">Gracz</button>
@@ -227,7 +257,7 @@
 						<!-- info filled on main player account (including avatar) and shown on each character profile if possible with the account switcher plugin -->
 						<div class="profile_details">
 							<fieldset class="profile_field">
-								<legend>Zwrot</legend>XYZ
+								<legend>Zwrot player</legend>XYZ
 							</fieldset>
 							<fieldset class="profile_field">
 								<legend>Discord</legend>eloziomek

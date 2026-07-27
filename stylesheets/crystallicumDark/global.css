@@ -126,22 +126,6 @@ body {
 	100% { background-position: 100% 50%; }
 }
 
-.announcements {
-	/*display: block;  Initially hidden */
-	max-height: 500px; /* Adjust this to the maximum height of your content */
-      opacity: 1;
-      visibility: visible;
-      transition: max-height 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.announcements.hide {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      visibility: hidden;
-      transition: max-height 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
-}
-
 .thead.hide {
 	-webkit-filter: sepia(50%); /* Safari 6.0 - 9.0 */
 	filter: sepia(50%);
@@ -149,28 +133,6 @@ body {
 
 .username {
 	text-shadow: var(--main-shadow);
-}
-
-.legend {
-	border-top: solid 10px var(--box-background);
-	border-bottom: solid 10px var(--box-background);
-	border-right: solid 1px var(--box-background);
-	border-left: solid 1px var(--box-background);
-	background: var(--box-background);
-	border-radius: 10px;
-}
-
-.forum_stats {
-	background-image: var(--forum-stats);
-	background-repeat: no-repeat;
-	color: var(--main-font-color);
-	text-align: center;
-	font-family: var(--main-font);
-	font-size: 13px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-radius: 10px;
-	box-shadow: var(--main-shadow);
 }
 
 input[type="checkbox"]{
@@ -388,7 +350,7 @@ body {
 	margin-left: 15px;
 	display: block;
 	margin-top: 20px;
-	
+	margin-bottom: 15px;
 	font-family: Source Sans Pro;
 	font-size: 25px;
 }
@@ -396,7 +358,7 @@ body {
 .wo_desc {
 	color: #787878;
 	display: inline-block;
-	margin: 15px 15px 40px;
+	margin: 15px 15px 0px;
 	
 	font-size: 15px;
 }
@@ -2516,7 +2478,7 @@ div.jqi .jqisubstate .jqibuttons button {
 
 /* Signature */
 .post_content .signature {
-    background-image: url(https://i.imgur.com/eGpO5Co.png);
+    background-image: var(--signature-background);
     background-size: 100%;
     border-radius: 100px;
     max-width: 60%;

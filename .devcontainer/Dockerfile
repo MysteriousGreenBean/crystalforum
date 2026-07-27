@@ -10,6 +10,10 @@ RUN apt-get update && \
     apt-get install -y powershell && \
     apt-get clean
 
+# Install Node.js and npm
+RUN apt-get update && \
+    apt-get install -y nodejs npm && \
+    apt-get clean
     
 # Optional: set PowerShell as default shell
 ENV SHELL=/usr/bin/pwsh

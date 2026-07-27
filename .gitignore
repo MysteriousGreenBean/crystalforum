@@ -7,3 +7,4 @@ docker/liquibase/database_snapshot.json
 stylesheets/**/_stylesheets.dev.json
 website/uploads/*
 website/inc/settings.php
+website/admin/backups/*

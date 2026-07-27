@@ -25,6 +25,7 @@ require_once "./global.php";
 require_once MYBB_ROOT."inc/functions_post.php";
 require_once MYBB_ROOT."inc/functions_user.php";
 require_once MYBB_ROOT."inc/functions_upload.php";
+require_once MYBB_ROOT."inc/functions.php";
 require_once MYBB_ROOT."inc/class_parser.php";
 require_once MYBB_ROOT."controls/changeUserControl.php";
 require_once MYBB_ROOT."enums/AllowedAccountTypes.php";
@@ -535,6 +536,9 @@ if($mybb->input['action'] == "do_newreply" && $mybb->request_method == "post")
 		$postinfo = $posthandler->insert_post();
 		$pid = $postinfo['pid'];
 		$visible = $postinfo['visible'];
+
+		$updated[] = $selectedAccount;
+		update_characters_and_gms_from_last_7_days($updated, false);
 
 		if(isset($postinfo['closed']))
 		{
