@@ -3250,6 +3250,11 @@ INSERT INTO mybb_mycode (`title`,`description`,`regex`,`replacement`,`active`,`p
       ALTER TABLE `mybb_forums` MODIFY COLUMN `defaultmessage_post` TEXT DEFAULT '';
     </sql>
   </changeSet>
+  <changeSet author="Patryk Konieczny" id="1747952670679-1">
+    <sql>
+      UPDATE `mybb_forums` SET AllowedAccountType = 'All' WHERE AllowedAccountType IS NULL;
+    </sql>
+  </changeSet>
     <changeSet author="liquibase (generated)" id="1763580328315-1">
         <createTable tableName="mybb_dicedefinitions">
             <column autoIncrement="true" name="ID" type="INT">
