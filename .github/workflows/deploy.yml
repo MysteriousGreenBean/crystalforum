@@ -80,7 +80,7 @@ jobs:
 
       - name: Activate plugins
         run: |
-          curl -X GET "https://${{ secrets.siteDomain }}/handleplugins.php?activate=all&fromconsole=true"
+          curl -X GET "https://${{ secrets.siteDomain }}/handlestylesheetsandtemplates.php?plugins=activate&fromconsole=true"
 
   update-database:
     needs: [update-files, activate-plugins]
