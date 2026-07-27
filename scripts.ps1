@@ -1,9 +1,15 @@
 function Start-Containers {
     docker-compose up -d
     Wait-For-Containers
+    Activate-Plugins
     Database-Update
     Database-Snapshot
     Refresh-Stylesheets
+}
+
+function Activate-Plugins {
+    $response = Invoke-WebRequest -Uri 'http://localhost:80/handlestylesheetsandtemplates.php?plugins=activate&fromconsole=true' -UseBasicParsing
+    Write-Host $response.Content
 }
 
 function Refresh-Cache {
@@ -93,8 +99,8 @@ function Stop-Containers {
 }
 
 function Restart-Containers {
-    docker-compose down
-    docker-compose up -d
+    Stop-Containers
+    Start-Containers
 }
 
 function Purge-Containers {
