@@ -1455,7 +1455,7 @@ if($mybb->input['action'] == "edit")
 				"defaultdatecut" => $mybb->get_input('defaultdatecut', MyBB::INPUT_INT),
 				"defaultsortby" => $db->escape_string($mybb->input['defaultsortby']),
 				"defaultsortorder" => $db->escape_string($mybb->input['defaultsortorder']),
-				"AllowedAccountType" => $db->escape_string($type) == 'f' ? $mybb->input['AllowedAccountType'] : null
+				"AllowedAccountType" => $db->escape_string($type) == 'f' ? $mybb->input['AllowedAccountType'] : 'All'
 			);
 
 			$db->update_query("forums", $update_array, "fid='{$fid}'");
