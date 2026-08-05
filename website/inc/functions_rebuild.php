@@ -28,7 +28,7 @@ function rebuild_stats()
 	$query = $db->simple_select("users", "COUNT(uid) as gms", "AccountType='GM'");
 	$stats['numgms'] = $db->fetch_field($query, 'gms');
 
-	$query = $db->simple_select("users", "COUNT(uid) as characters", "AccountType='Character'");
+	$query = $db->simple_select("users", "COUNT(uid) as characters", "AccountType='Character' AND ParentUid != 0");
 	$stats['numcharacters'] = $db->fetch_field($query, 'characters');
 
 	$query = $db->query("
